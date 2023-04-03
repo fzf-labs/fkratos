@@ -1,10 +1,9 @@
 package main
 
 import (
+	"fkratos/app/user/internal/conf"
 	"flag"
 	"os"
-
-	"fkratos/user/internal/conf"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/config"
