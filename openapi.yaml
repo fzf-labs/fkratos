@@ -1,0 +1,99 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Demo API
+    version: 0.0.1
+paths:
+    /demo/v1/create:
+        put:
+            tags:
+                - Demo
+            operationId: Demo_UpdateDemo
+            requestBody:
+                content:
+                    application/json: {}
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.demo.v1.UpdateDemoReply'
+        post:
+            tags:
+                - Demo
+            operationId: Demo_CreateDemo
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.demo.v1.CreateDemoRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.demo.v1.CreateDemoReply'
+    /demo/v1/delete:
+        delete:
+            tags:
+                - Demo
+            operationId: Demo_DeleteDemo
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.demo.v1.DeleteDemoReply'
+    /demo/v1/info:
+        get:
+            tags:
+                - Demo
+            operationId: Demo_GetDemo
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.demo.v1.GetDemoReply'
+    /demo/v1/list:
+        get:
+            tags:
+                - Demo
+            operationId: Demo_ListDemo
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.demo.v1.ListDemoReply'
+components:
+    schemas:
+        api.demo.v1.CreateDemoReply:
+            type: object
+            properties: {}
+        api.demo.v1.CreateDemoRequest:
+            type: object
+            properties: {}
+        api.demo.v1.DeleteDemoReply:
+            type: object
+            properties: {}
+        api.demo.v1.GetDemoReply:
+            type: object
+            properties: {}
+        api.demo.v1.ListDemoReply:
+            type: object
+            properties: {}
+        api.demo.v1.UpdateDemoReply:
+            type: object
+            properties: {}
+tags:
+    - name: Demo

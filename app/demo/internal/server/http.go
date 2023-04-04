@@ -1,9 +1,11 @@
 package server
 
 import (
-	v1 "fkratos/api/helloworld/v1"
-	"fkratos/user/internal/conf"
-	"fkratos/user/internal/service"
+	v1 "fkratos/api/demo/v1"
+	"fkratos/app/demo/internal/conf"
+	"fkratos/app/demo/internal/service"
+	"github.com/go-kratos/kratos/v2/middleware/logging"
+	"github.com/go-kratos/kratos/v2/middleware/tracing"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
@@ -11,10 +13,12 @@ import (
 )
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Server, greeter *service.GreeterService, logger log.Logger) *http.Server {
+func NewHTTPServer(c *conf.Server, logger log.Logger, demoService *service.DemoService) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
+			tracing.Server(),
+			logging.Server(logger),
 		),
 	}
 	if c.Http.Network != "" {
@@ -27,6 +31,6 @@ func NewHTTPServer(c *conf.Server, greeter *service.GreeterService, logger log.L
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
 	srv := http.NewServer(opts...)
-	v1.RegisterGreeterHTTPServer(srv, greeter)
+	v1.RegisterDemoHTTPServer(srv, demoService)
 	return srv
 }

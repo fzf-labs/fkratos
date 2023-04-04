@@ -1,16 +1,14 @@
 package data
 
 import (
-	"fkratos/app/user/internal/conf"
+	"fkratos/app/demo/internal/conf"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
 )
 
 // ProviderSet is data providers.
-var ProviderSet = wire.NewSet(
-	NewData,
-)
+var ProviderSet = wire.NewSet(NewData, NewDemoRepo)
 
 // Data .
 type Data struct {

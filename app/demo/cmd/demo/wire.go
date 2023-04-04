@@ -6,11 +6,11 @@
 package main
 
 import (
-	"fkratos/user/internal/biz"
-	"fkratos/user/internal/conf"
-	"fkratos/user/internal/data"
-	"fkratos/user/internal/server"
-	"fkratos/user/internal/service"
+	"fkratos/demo/internal/biz"
+	"fkratos/demo/internal/conf"
+	"fkratos/demo/internal/data"
+	"fkratos/demo/internal/server"
+	"fkratos/demo/internal/service"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"

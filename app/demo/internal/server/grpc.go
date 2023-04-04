@@ -1,9 +1,9 @@
 package server
 
 import (
-	v1 "fkratos/api/user/v1"
-	"fkratos/app/user/internal/conf"
-	"fkratos/app/user/internal/service"
+	v1 "fkratos/api/demo/v1"
+	"fkratos/app/demo/internal/conf"
+	"fkratos/app/demo/internal/service"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 
@@ -13,7 +13,7 @@ import (
 )
 
 // NewGRPCServer new a gRPC server.
-func NewGRPCServer(c *conf.Server, logger log.Logger, userService *service.UserService) *grpc.Server {
+func NewGRPCServer(c *conf.Server, logger log.Logger, demoService *service.DemoService) *grpc.Server {
 	var opts = []grpc.ServerOption{
 		grpc.Middleware(
 			recovery.Recovery(),
@@ -31,6 +31,6 @@ func NewGRPCServer(c *conf.Server, logger log.Logger, userService *service.UserS
 		opts = append(opts, grpc.Timeout(c.Grpc.Timeout.AsDuration()))
 	}
 	srv := grpc.NewServer(opts...)
-	v1.RegisterUserServer(srv, userService)
+	v1.RegisterDemoServer(srv, demoService)
 	return srv
 }
