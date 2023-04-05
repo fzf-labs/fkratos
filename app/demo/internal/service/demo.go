@@ -2,16 +2,26 @@ package service
 
 import (
 	"context"
+	"fkratos/app/demo/internal/biz"
+	"github.com/go-kratos/kratos/v2/log"
 
 	pb "fkratos/api/demo/v1"
 )
 
 type DemoService struct {
 	pb.UnimplementedDemoServer
+
+	log *log.Helper
+
+	demoUseCase *biz.DemoUseCase
 }
 
-func NewDemoService() *DemoService {
-	return &DemoService{}
+func NewDemoService(logger log.Logger, demoUseCase *biz.DemoUseCase) *DemoService {
+	l := log.NewHelper(log.With(logger, "module", "user/service/demo-service"))
+	return &DemoService{
+		log:         l,
+		demoUseCase: demoUseCase,
+	}
 }
 
 func (s *DemoService) CreateDemo(ctx context.Context, req *pb.CreateDemoRequest) (*pb.CreateDemoReply, error) {

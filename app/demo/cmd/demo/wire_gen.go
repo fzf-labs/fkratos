@@ -7,14 +7,17 @@
 package main
 
 import (
-	"fkratos/demo/internal/biz"
-	"fkratos/demo/internal/conf"
-	"fkratos/demo/internal/data"
-	"fkratos/demo/internal/server"
-	"fkratos/demo/internal/service"
-
+	"fkratos/app/demo/internal/biz"
+	"fkratos/app/demo/internal/conf"
+	"fkratos/app/demo/internal/data"
+	"fkratos/app/demo/internal/server"
+	"fkratos/app/demo/internal/service"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
+)
+
+import (
+	_ "go.uber.org/automaxprocs"
 )
 
 // Injectors from wire.go:
@@ -25,11 +28,11 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*
 	if err != nil {
 		return nil, nil, err
 	}
-	greeterRepo := data.NewGreeterRepo(dataData, logger)
-	greeterUsecase := biz.NewGreeterUsecase(greeterRepo, logger)
-	greeterService := service.NewGreeterService(greeterUsecase)
-	grpcServer := server.NewGRPCServer(confServer, greeterService, logger)
-	httpServer := server.NewHTTPServer(confServer, greeterService, logger)
+	demoRepo := data.NewDemoRepo(dataData, logger)
+	demoUseCase := biz.NewDemoUseCase(demoRepo, logger)
+	demoService := service.NewDemoService(logger, demoUseCase)
+	grpcServer := server.NewGRPCServer(confServer, logger, demoService)
+	httpServer := server.NewHTTPServer(confServer, logger, demoService)
 	app := newApp(logger, grpcServer, httpServer)
 	return app, func() {
 		cleanup()

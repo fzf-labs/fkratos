@@ -58,30 +58,8 @@ api:
 service:
 	@kratos proto server ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
 
-
-# generate OpenAPI v3 doc
-openapi:
-	@cd ../../../ && \
-	buf generate --path api/admin/service/v1 --template api/admin/service/v1/buf.openapi.gen.yaml
-
-# run tests
-test:
-	@go test ./...
-
-# run coverage tests
-cover:
-	@go test -v ./... -coverprofile=coverage.out
-
-# run static analysis
-vet:
-	@go vet
-
-# run lint
-lint:
-	@golangci-lint run
-
 # build service app
-app: api wire conf ent build
+app: conf api gorm wire
 
 # show help
 help:
