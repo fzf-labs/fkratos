@@ -2,21 +2,9 @@ GOHOSTOS:=$(shell go env GOHOSTOS)
 GOPATH:=$(shell go env GOPATH)
 VERSION=$(shell git describe --tags --always)
 
-ifeq ($(GOHOSTOS), windows)
-	#the `find.exe` is different from `find` in bash/shell.
-	#to see https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/find.
-	#changed to use git-bash.exe to run find cli or other cli friendly, caused of every developer has a Git.
-	#Git_Bash= $(subst cmd\,bin\bash.exe,$(dir $(shell where git)))
-	Git_Bash=$(subst \,/,$(subst cmd\,bin\bash.exe,$(dir $(shell where git))))
-	INTERNAL_PROTO_FILES=$(shell $(Git_Bash) -c "find internal -name *.proto")
-	API_PROTO_FILES=$(shell $(Git_Bash) -c "find api -name *.proto")
-else
-	INTERNAL_PROTO_FILES=$(shell find internal -name *.proto)
-	API_PROTO_FILES=$(shell find api -name *.proto)
-endif
 
 .PHONY: init
-# init env
+# 初始化环境
 init:
 	@go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
@@ -31,58 +19,38 @@ init:
 	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	@go install github.com/go-kratos/kratos/cmd/kratos/v2@latest
 
-# download dependencies of module
+.PHONY: dep
+# 下载模块依赖
 dep:
 	@go mod download
+	@go mod tidy
 
-# create vendor
-vendor:
-	@go mod vendor
+.PHONY: fmt
+# 格式化代码
+fmt:
+	@gofmt -s -w .
 
-.PHONY: config
-# generate internal proto
-config:
-	protoc --proto_path=./internal \
-	       --proto_path=./third_party \
- 	       --go_out=paths=source_relative:./internal \
-	       $(INTERNAL_PROTO_FILES)
+.PHONY: vet
+# 代码检查 vet
+vet:
+	@go vet ./...
 
-.PHONY: api
-# generate api proto
-api:
-	@echo ${API_PROTO_FILES}
-	protoc --proto_path=./api \
-	       --proto_path=./third_party \
- 	       --go_out=paths=source_relative:./api \
- 	       --go-http_out=paths=source_relative:./api \
- 	       --go-grpc_out=paths=source_relative:./api \
-	       --openapi_out=fq_schema_naming=true,default_response=false:. \
- 	       --validate_out=paths=source_relative,lang=go:./api \
-	       $(API_PROTO_FILES)
+.PHONY: ci-lint
+# 代码检查 golangci-lint
+ci-lint:
+	@golangci-lint run ./...
 
-.PHONY: build
-# build
-build:
-	mkdir -p bin/ && go build -ldflags "-X main.Version=$(VERSION)" -o ./bin/ ./...
+# git 记录清除
+git-clean:
+	#清除开始
+	@git checkout --orphan latest_branch
+	@git add -A
+	@git commit -am "clean"
+	@git branch -D ${gitBranch}
+	@git branch -m ${gitBranch}
+	@git push -f origin ${gitBranch}
+	#清除结束
 
-.PHONY: generate
-# generate
-generate:
-	go mod tidy
-	go get github.com/google/wire/cmd/wire@latest
-	go generate ./...
-
-.PHONY: service
-# service
-service:
-	kratos proto server api/demo/v1/demo.proto -t app/demo/internal/service
-
-.PHONY: all
-# generate all
-all:
-	make api;
-	make config;
-	make generate;
 
 # show help
 help:
