@@ -21,48 +21,57 @@ APP_RELATIVE_PATH=$(shell a=`basename $$PWD` && cd .. && b=`basename $$PWD` && e
 APP_NAME=$(shell echo $(APP_RELATIVE_PATH) | rev |cut -d '/' -f 1 | rev)
 APP_DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "fkratos/" $$0 ":0.1.0"}')
 
-.PHONY:  conf wire api openapi run test cover vet lint app
 
-# 生成配置文件
+.PHONY:  dep vendor build clean docker conf ent wire api openapi run test cover vet lint app
+
+
+
+# build golang application
+build:
+ifeq ("$(wildcard ./bin/)","")
+	mkdir bin
+endif
+	@go build -ldflags "-X main.Service.Version=$(APP_VERSION)" -o ./bin/ ./...
+
+# clean build files
+clean:
+	@go clean
+	$(if $(IS_WINDOWS), del "coverage.out", rm -f "coverage.out")
+
+# build docker image
+docker:
+	@docker build -t $(APP_DOCKER_IMAGE) . \
+				  -f ../../../.docker/Dockerfile \
+				  --build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH) GRPC_PORT=9000 REST_PORT=8000
+
+# generate config define code
 conf:
 	protoc --proto_path=./internal/conf/ \
 	       --proto_path=../../third_party \
 	       --go_out=paths=source_relative:./internal/conf/ \
 	       ./internal/conf/conf.proto
 
-# 生成 GORM 数据库代码
+# generate gorm code
 gorm:
 	@go run ../../cmd/gormgen/main.go -f configs/config.yaml -s ${APP_NAME}
 
-# 生成 wire 依赖注入代码
+# generate wire code
 wire:
 	@go run -mod=mod github.com/google/wire/cmd/wire ./cmd/${APP_NAME}
 
-# 新增 protobuf 文件 make proto PROTO_NAME=demo
-proto:
-	@cd ../../ && kratos proto add api/${APP_NAME}/v1/${PROTO_NAME}.proto
-
-# protobuf 生成 Go 代码
+# generate protobuf api go code
 api:
-	@cd ../../ && files=`find api/${APP_NAME} -name *.proto` && \
-	protoc --proto_path=./api \
-	       --proto_path=./third_party \
- 	       --go_out=paths=source_relative:./api \
- 	       --go-http_out=paths=source_relative:./api \
- 	       --go-grpc_out=paths=source_relative:./api \
-	       --openapi_out=fq_schema_naming=true,default_response=false:./api/${APP_NAME} \
- 	       --validate_out=paths=source_relative,lang=go:./api \
-	       $$files
-
-# 通过 proto 文件，生成对应的 Service 实现代码 make service PROTO_NAME=demo
-service:
-	@kratos proto server ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
-
+	@cd ../../../ && \
+	buf generate
 
 # generate OpenAPI v3 doc
 openapi:
 	@cd ../../../ && \
 	buf generate --path api/admin/service/v1 --template api/admin/service/v1/buf.openapi.gen.yaml
+
+# run application
+run:
+	@go run ./cmd/server -conf ./configs
 
 # run tests
 test:

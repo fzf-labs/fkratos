@@ -2,16 +2,25 @@ package service
 
 import (
 	"context"
+	"fkratos/app/user/internal/biz"
+	"github.com/go-kratos/kratos/v2/log"
 
 	pb "fkratos/api/user/v1"
 )
 
 type UserService struct {
 	pb.UnimplementedUserServer
+	log *log.Helper
+
+	userUseCase *biz.UserUseCase
 }
 
-func NewUserService() *UserService {
-	return &UserService{}
+func NewUserService(logger log.Logger, userUseCase *biz.UserUseCase) *UserService {
+	l := log.NewHelper(log.With(logger, "module", "user/service/user-service"))
+	return &UserService{
+		log:         l,
+		userUseCase: userUseCase,
+	}
 }
 
 func (s *UserService) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserReply, error) {

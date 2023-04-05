@@ -6,12 +6,11 @@
 package main
 
 import (
-	"fkratos/user/internal/biz"
-	"fkratos/user/internal/conf"
-	"fkratos/user/internal/data"
-	"fkratos/user/internal/server"
-	"fkratos/user/internal/service"
-
+	"fkratos/app/user/internal/biz"
+	"fkratos/app/user/internal/conf"
+	"fkratos/app/user/internal/data"
+	"fkratos/app/user/internal/server"
+	"fkratos/app/user/internal/service"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
@@ -19,5 +18,5 @@ import (
 
 // wireApp init kratos application.
 func wireApp(*conf.Server, *conf.Data, log.Logger) (*kratos.App, func(), error) {
-	panic(wire.Build(server.ProviderSet, data.ProviderSet, biz.ProviderSet, service.ProviderSet, newApp))
+	panic(wire.Build(server.ProviderSet, service.ProviderSet, biz.ProviderSet, data.ProviderSet, newApp))
 }
