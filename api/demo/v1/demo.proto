@@ -9,39 +9,44 @@ option java_multiple_files = true;
 option java_package = "api.demo.v1";
 
 service Demo {
-	rpc CreateDemo (CreateDemoRequest) returns (CreateDemoReply){
-		option (google.api.http) = {
-			post: "/demo/v1/create"
-			body: "*"
-		};
-	};
-	rpc UpdateDemo (UpdateDemoRequest) returns (UpdateDemoReply){
-		option (google.api.http) = {
-			put: "/demo/v1/create"
-			body: "demo"
-		};
-	};
-	rpc DeleteDemo (DeleteDemoRequest) returns (DeleteDemoReply){
-		option (google.api.http) = {
-			delete: "/demo/v1/delete"
-		};
-	};
-	rpc GetDemo (GetDemoRequest) returns (GetDemoReply){
-		option (google.api.http) = {
-			get: "/demo/v1/info"
-		};
-	};
-	rpc ListDemo (ListDemoRequest) returns (ListDemoReply){
-		option (google.api.http) = {
-			get: "/demo/v1/list"
-		};
-	};
+  rpc CreateDemo (CreateDemoRequest) returns (CreateDemoReply){
+    option (google.api.http) = {
+      post: "/demo/v1/create"
+      body: "*"
+    };
+  };
+  rpc UpdateDemo (UpdateDemoRequest) returns (UpdateDemoReply){
+    option (google.api.http) = {
+      put: "/demo/v1/create"
+      body: "demo"
+    };
+  };
+  rpc DeleteDemo (DeleteDemoRequest) returns (DeleteDemoReply){
+    option (google.api.http) = {
+      delete: "/demo/v1/delete"
+    };
+  };
+  rpc GetDemo (GetDemoRequest) returns (GetDemoReply){
+    option (google.api.http) = {
+      get: "/demo/v1/info"
+    };
+  };
+  rpc ListDemo (ListDemoRequest) returns (ListDemoReply){
+    option (google.api.http) = {
+      get: "/demo/v1/list"
+    };
+  };
 }
 
+message DemoInfo{
+
+}
 message CreateDemoRequest {}
 message CreateDemoReply {}
 
-message UpdateDemoRequest {}
+message UpdateDemoRequest {
+  DemoInfo demo = 1;
+}
 message UpdateDemoReply {}
 
 message DeleteDemoRequest {}

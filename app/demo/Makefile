@@ -1,1 +1,1 @@
-include ../../../app.mk
+include ../../app.mk
