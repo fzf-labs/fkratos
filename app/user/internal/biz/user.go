@@ -7,11 +7,11 @@ import (
 )
 
 type UserRepo interface {
-	CreateUser(ctx context.Context, req *v1.CreateUserRequest) (*v1.CreateUserReply, error)
-	UpdateUser(ctx context.Context, req *v1.UpdateUserRequest) (*v1.UpdateUserReply, error)
-	DeleteUser(ctx context.Context, req *v1.DeleteUserRequest) (*v1.DeleteUserReply, error)
-	GetUser(ctx context.Context, req *v1.GetUserRequest) (*v1.GetUserReply, error)
-	ListUser(ctx context.Context, req *v1.ListUserRequest) (*v1.ListUserReply, error)
+	CreateUser(ctx context.Context, req *v1.CreateUserReq) (*v1.CreateUserReply, error)
+	UpdateUser(ctx context.Context, req *v1.UpdateUserReq) (*v1.UpdateUserReply, error)
+	DeleteUser(ctx context.Context, req *v1.DeleteUserReq) (*v1.DeleteUserReply, error)
+	GetUser(ctx context.Context, req *v1.GetUserReq) (*v1.GetUserReply, error)
+	ListUser(ctx context.Context, req *v1.ListUserReq) (*v1.ListUserReply, error)
 }
 
 func NewUserUseCase(repo UserRepo, logger log.Logger) *UserUseCase {
@@ -27,26 +27,26 @@ type UserUseCase struct {
 	log  *log.Helper
 }
 
-func (u *UserUseCase) CreateUser(ctx context.Context, req *v1.CreateUserRequest) (*v1.CreateUserReply, error) {
+func (u *UserUseCase) CreateUser(ctx context.Context, req *v1.CreateUserReq) (*v1.CreateUserReply, error) {
 	return u.repo.CreateUser(ctx, req)
 }
 
-func (u *UserUseCase) UpdateUser(ctx context.Context, req *v1.UpdateUserRequest) (*v1.UpdateUserReply, error) {
+func (u *UserUseCase) UpdateUser(ctx context.Context, req *v1.UpdateUserReq) (*v1.UpdateUserReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserUseCase) DeleteUser(ctx context.Context, req *v1.DeleteUserRequest) (*v1.DeleteUserReply, error) {
+func (u *UserUseCase) DeleteUser(ctx context.Context, req *v1.DeleteUserReq) (*v1.DeleteUserReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserUseCase) GetUser(ctx context.Context, req *v1.GetUserRequest) (*v1.GetUserReply, error) {
+func (u *UserUseCase) GetUser(ctx context.Context, req *v1.GetUserReq) (*v1.GetUserReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserUseCase) ListUser(ctx context.Context, req *v1.ListUserRequest) (*v1.ListUserReply, error) {
+func (u *UserUseCase) ListUser(ctx context.Context, req *v1.ListUserReq) (*v1.ListUserReply, error) {
 	//TODO implement me
 	panic("implement me")
 }

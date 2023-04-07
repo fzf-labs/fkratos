@@ -30,11 +30,16 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DemoClient interface {
-	CreateDemo(ctx context.Context, in *CreateDemoRequest, opts ...grpc.CallOption) (*CreateDemoReply, error)
-	UpdateDemo(ctx context.Context, in *UpdateDemoRequest, opts ...grpc.CallOption) (*UpdateDemoReply, error)
-	DeleteDemo(ctx context.Context, in *DeleteDemoRequest, opts ...grpc.CallOption) (*DeleteDemoReply, error)
-	GetDemo(ctx context.Context, in *GetDemoRequest, opts ...grpc.CallOption) (*GetDemoReply, error)
-	ListDemo(ctx context.Context, in *ListDemoRequest, opts ...grpc.CallOption) (*ListDemoReply, error)
+	// 创建示例
+	CreateDemo(ctx context.Context, in *CreateDemoReq, opts ...grpc.CallOption) (*CreateDemoReply, error)
+	// 更新示例
+	UpdateDemo(ctx context.Context, in *UpdateDemoReq, opts ...grpc.CallOption) (*UpdateDemoReply, error)
+	// 删除示例
+	DeleteDemo(ctx context.Context, in *DeleteDemoReq, opts ...grpc.CallOption) (*DeleteDemoReply, error)
+	// 获取单个示例
+	GetDemo(ctx context.Context, in *GetDemoReq, opts ...grpc.CallOption) (*GetDemoReply, error)
+	// 获取示例列表
+	ListDemo(ctx context.Context, in *ListDemoReq, opts ...grpc.CallOption) (*ListDemoReply, error)
 }
 
 type demoClient struct {
@@ -45,7 +50,7 @@ func NewDemoClient(cc grpc.ClientConnInterface) DemoClient {
 	return &demoClient{cc}
 }
 
-func (c *demoClient) CreateDemo(ctx context.Context, in *CreateDemoRequest, opts ...grpc.CallOption) (*CreateDemoReply, error) {
+func (c *demoClient) CreateDemo(ctx context.Context, in *CreateDemoReq, opts ...grpc.CallOption) (*CreateDemoReply, error) {
 	out := new(CreateDemoReply)
 	err := c.cc.Invoke(ctx, Demo_CreateDemo_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -54,7 +59,7 @@ func (c *demoClient) CreateDemo(ctx context.Context, in *CreateDemoRequest, opts
 	return out, nil
 }
 
-func (c *demoClient) UpdateDemo(ctx context.Context, in *UpdateDemoRequest, opts ...grpc.CallOption) (*UpdateDemoReply, error) {
+func (c *demoClient) UpdateDemo(ctx context.Context, in *UpdateDemoReq, opts ...grpc.CallOption) (*UpdateDemoReply, error) {
 	out := new(UpdateDemoReply)
 	err := c.cc.Invoke(ctx, Demo_UpdateDemo_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -63,7 +68,7 @@ func (c *demoClient) UpdateDemo(ctx context.Context, in *UpdateDemoRequest, opts
 	return out, nil
 }
 
-func (c *demoClient) DeleteDemo(ctx context.Context, in *DeleteDemoRequest, opts ...grpc.CallOption) (*DeleteDemoReply, error) {
+func (c *demoClient) DeleteDemo(ctx context.Context, in *DeleteDemoReq, opts ...grpc.CallOption) (*DeleteDemoReply, error) {
 	out := new(DeleteDemoReply)
 	err := c.cc.Invoke(ctx, Demo_DeleteDemo_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -72,7 +77,7 @@ func (c *demoClient) DeleteDemo(ctx context.Context, in *DeleteDemoRequest, opts
 	return out, nil
 }
 
-func (c *demoClient) GetDemo(ctx context.Context, in *GetDemoRequest, opts ...grpc.CallOption) (*GetDemoReply, error) {
+func (c *demoClient) GetDemo(ctx context.Context, in *GetDemoReq, opts ...grpc.CallOption) (*GetDemoReply, error) {
 	out := new(GetDemoReply)
 	err := c.cc.Invoke(ctx, Demo_GetDemo_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -81,7 +86,7 @@ func (c *demoClient) GetDemo(ctx context.Context, in *GetDemoRequest, opts ...gr
 	return out, nil
 }
 
-func (c *demoClient) ListDemo(ctx context.Context, in *ListDemoRequest, opts ...grpc.CallOption) (*ListDemoReply, error) {
+func (c *demoClient) ListDemo(ctx context.Context, in *ListDemoReq, opts ...grpc.CallOption) (*ListDemoReply, error) {
 	out := new(ListDemoReply)
 	err := c.cc.Invoke(ctx, Demo_ListDemo_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -94,11 +99,16 @@ func (c *demoClient) ListDemo(ctx context.Context, in *ListDemoRequest, opts ...
 // All implementations must embed UnimplementedDemoServer
 // for forward compatibility
 type DemoServer interface {
-	CreateDemo(context.Context, *CreateDemoRequest) (*CreateDemoReply, error)
-	UpdateDemo(context.Context, *UpdateDemoRequest) (*UpdateDemoReply, error)
-	DeleteDemo(context.Context, *DeleteDemoRequest) (*DeleteDemoReply, error)
-	GetDemo(context.Context, *GetDemoRequest) (*GetDemoReply, error)
-	ListDemo(context.Context, *ListDemoRequest) (*ListDemoReply, error)
+	// 创建示例
+	CreateDemo(context.Context, *CreateDemoReq) (*CreateDemoReply, error)
+	// 更新示例
+	UpdateDemo(context.Context, *UpdateDemoReq) (*UpdateDemoReply, error)
+	// 删除示例
+	DeleteDemo(context.Context, *DeleteDemoReq) (*DeleteDemoReply, error)
+	// 获取单个示例
+	GetDemo(context.Context, *GetDemoReq) (*GetDemoReply, error)
+	// 获取示例列表
+	ListDemo(context.Context, *ListDemoReq) (*ListDemoReply, error)
 	mustEmbedUnimplementedDemoServer()
 }
 
@@ -106,19 +116,19 @@ type DemoServer interface {
 type UnimplementedDemoServer struct {
 }
 
-func (UnimplementedDemoServer) CreateDemo(context.Context, *CreateDemoRequest) (*CreateDemoReply, error) {
+func (UnimplementedDemoServer) CreateDemo(context.Context, *CreateDemoReq) (*CreateDemoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDemo not implemented")
 }
-func (UnimplementedDemoServer) UpdateDemo(context.Context, *UpdateDemoRequest) (*UpdateDemoReply, error) {
+func (UnimplementedDemoServer) UpdateDemo(context.Context, *UpdateDemoReq) (*UpdateDemoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDemo not implemented")
 }
-func (UnimplementedDemoServer) DeleteDemo(context.Context, *DeleteDemoRequest) (*DeleteDemoReply, error) {
+func (UnimplementedDemoServer) DeleteDemo(context.Context, *DeleteDemoReq) (*DeleteDemoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDemo not implemented")
 }
-func (UnimplementedDemoServer) GetDemo(context.Context, *GetDemoRequest) (*GetDemoReply, error) {
+func (UnimplementedDemoServer) GetDemo(context.Context, *GetDemoReq) (*GetDemoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDemo not implemented")
 }
-func (UnimplementedDemoServer) ListDemo(context.Context, *ListDemoRequest) (*ListDemoReply, error) {
+func (UnimplementedDemoServer) ListDemo(context.Context, *ListDemoReq) (*ListDemoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListDemo not implemented")
 }
 func (UnimplementedDemoServer) mustEmbedUnimplementedDemoServer() {}
@@ -135,7 +145,7 @@ func RegisterDemoServer(s grpc.ServiceRegistrar, srv DemoServer) {
 }
 
 func _Demo_CreateDemo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateDemoRequest)
+	in := new(CreateDemoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -147,13 +157,13 @@ func _Demo_CreateDemo_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: Demo_CreateDemo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DemoServer).CreateDemo(ctx, req.(*CreateDemoRequest))
+		return srv.(DemoServer).CreateDemo(ctx, req.(*CreateDemoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Demo_UpdateDemo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateDemoRequest)
+	in := new(UpdateDemoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -165,13 +175,13 @@ func _Demo_UpdateDemo_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: Demo_UpdateDemo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DemoServer).UpdateDemo(ctx, req.(*UpdateDemoRequest))
+		return srv.(DemoServer).UpdateDemo(ctx, req.(*UpdateDemoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Demo_DeleteDemo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteDemoRequest)
+	in := new(DeleteDemoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -183,13 +193,13 @@ func _Demo_DeleteDemo_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: Demo_DeleteDemo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DemoServer).DeleteDemo(ctx, req.(*DeleteDemoRequest))
+		return srv.(DemoServer).DeleteDemo(ctx, req.(*DeleteDemoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Demo_GetDemo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDemoRequest)
+	in := new(GetDemoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -201,13 +211,13 @@ func _Demo_GetDemo_Handler(srv interface{}, ctx context.Context, dec func(interf
 		FullMethod: Demo_GetDemo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DemoServer).GetDemo(ctx, req.(*GetDemoRequest))
+		return srv.(DemoServer).GetDemo(ctx, req.(*GetDemoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Demo_ListDemo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListDemoRequest)
+	in := new(ListDemoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -219,7 +229,7 @@ func _Demo_ListDemo_Handler(srv interface{}, ctx context.Context, dec func(inter
 		FullMethod: Demo_ListDemo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DemoServer).ListDemo(ctx, req.(*ListDemoRequest))
+		return srv.(DemoServer).ListDemo(ctx, req.(*ListDemoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

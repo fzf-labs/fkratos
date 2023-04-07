@@ -20,27 +20,27 @@ type DemoRepo struct {
 	log  *log.Helper
 }
 
-func (d *DemoRepo) CreateDemo(ctx context.Context, req *v1.CreateDemoRequest) (*v1.CreateDemoReply, error) {
+func (d *DemoRepo) CreateDemo(ctx context.Context, req *v1.CreateDemoReq) (*v1.CreateDemoReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (d *DemoRepo) UpdateDemo(ctx context.Context, req *v1.UpdateDemoRequest) (*v1.UpdateDemoReply, error) {
+func (d *DemoRepo) UpdateDemo(ctx context.Context, req *v1.UpdateDemoReq) (*v1.UpdateDemoReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (d *DemoRepo) DeleteDemo(ctx context.Context, req *v1.DeleteDemoRequest) (*v1.DeleteDemoReply, error) {
+func (d *DemoRepo) DeleteDemo(ctx context.Context, req *v1.DeleteDemoReq) (*v1.DeleteDemoReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (d *DemoRepo) GetDemo(ctx context.Context, req *v1.GetDemoRequest) (*v1.GetDemoReply, error) {
+func (d *DemoRepo) GetDemo(ctx context.Context, req *v1.GetDemoReq) (*v1.GetDemoReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (d *DemoRepo) ListDemo(ctx context.Context, req *v1.ListDemoRequest) (*v1.ListDemoReply, error) {
+func (d *DemoRepo) ListDemo(ctx context.Context, req *v1.ListDemoReq) (*v1.ListDemoReply, error) {
 	//TODO implement me
 	panic("implement me")
 }

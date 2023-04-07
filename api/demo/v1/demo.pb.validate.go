@@ -134,22 +134,22 @@ var _ interface {
 	ErrorName() string
 } = DemoInfoValidationError{}
 
-// Validate checks the field values on CreateDemoRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *CreateDemoRequest) Validate() error {
+// Validate checks the field values on CreateDemoReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CreateDemoReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on CreateDemoRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// CreateDemoRequestMultiError, or nil if none found.
-func (m *CreateDemoRequest) ValidateAll() error {
+// ValidateAll checks the field values on CreateDemoReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CreateDemoReqMultiError, or
+// nil if none found.
+func (m *CreateDemoReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *CreateDemoRequest) validate(all bool) error {
+func (m *CreateDemoReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -157,19 +157,19 @@ func (m *CreateDemoRequest) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return CreateDemoRequestMultiError(errors)
+		return CreateDemoReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// CreateDemoRequestMultiError is an error wrapping multiple validation errors
-// returned by CreateDemoRequest.ValidateAll() if the designated constraints
+// CreateDemoReqMultiError is an error wrapping multiple validation errors
+// returned by CreateDemoReq.ValidateAll() if the designated constraints
 // aren't met.
-type CreateDemoRequestMultiError []error
+type CreateDemoReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m CreateDemoRequestMultiError) Error() string {
+func (m CreateDemoReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -178,11 +178,11 @@ func (m CreateDemoRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m CreateDemoRequestMultiError) AllErrors() []error { return m }
+func (m CreateDemoReqMultiError) AllErrors() []error { return m }
 
-// CreateDemoRequestValidationError is the validation error returned by
-// CreateDemoRequest.Validate if the designated constraints aren't met.
-type CreateDemoRequestValidationError struct {
+// CreateDemoReqValidationError is the validation error returned by
+// CreateDemoReq.Validate if the designated constraints aren't met.
+type CreateDemoReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -190,24 +190,22 @@ type CreateDemoRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e CreateDemoRequestValidationError) Field() string { return e.field }
+func (e CreateDemoReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e CreateDemoRequestValidationError) Reason() string { return e.reason }
+func (e CreateDemoReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e CreateDemoRequestValidationError) Cause() error { return e.cause }
+func (e CreateDemoReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e CreateDemoRequestValidationError) Key() bool { return e.key }
+func (e CreateDemoReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e CreateDemoRequestValidationError) ErrorName() string {
-	return "CreateDemoRequestValidationError"
-}
+func (e CreateDemoReqValidationError) ErrorName() string { return "CreateDemoReqValidationError" }
 
 // Error satisfies the builtin error interface
-func (e CreateDemoRequestValidationError) Error() string {
+func (e CreateDemoReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -219,14 +217,14 @@ func (e CreateDemoRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sCreateDemoRequest.%s: %s%s",
+		"invalid %sCreateDemoReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = CreateDemoRequestValidationError{}
+var _ error = CreateDemoReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -234,7 +232,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = CreateDemoRequestValidationError{}
+} = CreateDemoReqValidationError{}
 
 // Validate checks the field values on CreateDemoReply with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -336,22 +334,22 @@ var _ interface {
 	ErrorName() string
 } = CreateDemoReplyValidationError{}
 
-// Validate checks the field values on UpdateDemoRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *UpdateDemoRequest) Validate() error {
+// Validate checks the field values on UpdateDemoReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UpdateDemoReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on UpdateDemoRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// UpdateDemoRequestMultiError, or nil if none found.
-func (m *UpdateDemoRequest) ValidateAll() error {
+// ValidateAll checks the field values on UpdateDemoReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UpdateDemoReqMultiError, or
+// nil if none found.
+func (m *UpdateDemoReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *UpdateDemoRequest) validate(all bool) error {
+func (m *UpdateDemoReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -362,7 +360,7 @@ func (m *UpdateDemoRequest) validate(all bool) error {
 		switch v := interface{}(m.GetDemo()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, UpdateDemoRequestValidationError{
+				errors = append(errors, UpdateDemoReqValidationError{
 					field:  "Demo",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -370,7 +368,7 @@ func (m *UpdateDemoRequest) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, UpdateDemoRequestValidationError{
+				errors = append(errors, UpdateDemoReqValidationError{
 					field:  "Demo",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -379,7 +377,7 @@ func (m *UpdateDemoRequest) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetDemo()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return UpdateDemoRequestValidationError{
+			return UpdateDemoReqValidationError{
 				field:  "Demo",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -388,19 +386,19 @@ func (m *UpdateDemoRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return UpdateDemoRequestMultiError(errors)
+		return UpdateDemoReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// UpdateDemoRequestMultiError is an error wrapping multiple validation errors
-// returned by UpdateDemoRequest.ValidateAll() if the designated constraints
+// UpdateDemoReqMultiError is an error wrapping multiple validation errors
+// returned by UpdateDemoReq.ValidateAll() if the designated constraints
 // aren't met.
-type UpdateDemoRequestMultiError []error
+type UpdateDemoReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m UpdateDemoRequestMultiError) Error() string {
+func (m UpdateDemoReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -409,11 +407,11 @@ func (m UpdateDemoRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m UpdateDemoRequestMultiError) AllErrors() []error { return m }
+func (m UpdateDemoReqMultiError) AllErrors() []error { return m }
 
-// UpdateDemoRequestValidationError is the validation error returned by
-// UpdateDemoRequest.Validate if the designated constraints aren't met.
-type UpdateDemoRequestValidationError struct {
+// UpdateDemoReqValidationError is the validation error returned by
+// UpdateDemoReq.Validate if the designated constraints aren't met.
+type UpdateDemoReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -421,24 +419,22 @@ type UpdateDemoRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e UpdateDemoRequestValidationError) Field() string { return e.field }
+func (e UpdateDemoReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e UpdateDemoRequestValidationError) Reason() string { return e.reason }
+func (e UpdateDemoReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e UpdateDemoRequestValidationError) Cause() error { return e.cause }
+func (e UpdateDemoReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e UpdateDemoRequestValidationError) Key() bool { return e.key }
+func (e UpdateDemoReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e UpdateDemoRequestValidationError) ErrorName() string {
-	return "UpdateDemoRequestValidationError"
-}
+func (e UpdateDemoReqValidationError) ErrorName() string { return "UpdateDemoReqValidationError" }
 
 // Error satisfies the builtin error interface
-func (e UpdateDemoRequestValidationError) Error() string {
+func (e UpdateDemoReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -450,14 +446,14 @@ func (e UpdateDemoRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sUpdateDemoRequest.%s: %s%s",
+		"invalid %sUpdateDemoReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = UpdateDemoRequestValidationError{}
+var _ error = UpdateDemoReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -465,7 +461,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = UpdateDemoRequestValidationError{}
+} = UpdateDemoReqValidationError{}
 
 // Validate checks the field values on UpdateDemoReply with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -567,22 +563,22 @@ var _ interface {
 	ErrorName() string
 } = UpdateDemoReplyValidationError{}
 
-// Validate checks the field values on DeleteDemoRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *DeleteDemoRequest) Validate() error {
+// Validate checks the field values on DeleteDemoReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *DeleteDemoReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on DeleteDemoRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// DeleteDemoRequestMultiError, or nil if none found.
-func (m *DeleteDemoRequest) ValidateAll() error {
+// ValidateAll checks the field values on DeleteDemoReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in DeleteDemoReqMultiError, or
+// nil if none found.
+func (m *DeleteDemoReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *DeleteDemoRequest) validate(all bool) error {
+func (m *DeleteDemoReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -590,19 +586,19 @@ func (m *DeleteDemoRequest) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return DeleteDemoRequestMultiError(errors)
+		return DeleteDemoReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// DeleteDemoRequestMultiError is an error wrapping multiple validation errors
-// returned by DeleteDemoRequest.ValidateAll() if the designated constraints
+// DeleteDemoReqMultiError is an error wrapping multiple validation errors
+// returned by DeleteDemoReq.ValidateAll() if the designated constraints
 // aren't met.
-type DeleteDemoRequestMultiError []error
+type DeleteDemoReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m DeleteDemoRequestMultiError) Error() string {
+func (m DeleteDemoReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -611,11 +607,11 @@ func (m DeleteDemoRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m DeleteDemoRequestMultiError) AllErrors() []error { return m }
+func (m DeleteDemoReqMultiError) AllErrors() []error { return m }
 
-// DeleteDemoRequestValidationError is the validation error returned by
-// DeleteDemoRequest.Validate if the designated constraints aren't met.
-type DeleteDemoRequestValidationError struct {
+// DeleteDemoReqValidationError is the validation error returned by
+// DeleteDemoReq.Validate if the designated constraints aren't met.
+type DeleteDemoReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -623,24 +619,22 @@ type DeleteDemoRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e DeleteDemoRequestValidationError) Field() string { return e.field }
+func (e DeleteDemoReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e DeleteDemoRequestValidationError) Reason() string { return e.reason }
+func (e DeleteDemoReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e DeleteDemoRequestValidationError) Cause() error { return e.cause }
+func (e DeleteDemoReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e DeleteDemoRequestValidationError) Key() bool { return e.key }
+func (e DeleteDemoReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e DeleteDemoRequestValidationError) ErrorName() string {
-	return "DeleteDemoRequestValidationError"
-}
+func (e DeleteDemoReqValidationError) ErrorName() string { return "DeleteDemoReqValidationError" }
 
 // Error satisfies the builtin error interface
-func (e DeleteDemoRequestValidationError) Error() string {
+func (e DeleteDemoReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -652,14 +646,14 @@ func (e DeleteDemoRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sDeleteDemoRequest.%s: %s%s",
+		"invalid %sDeleteDemoReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = DeleteDemoRequestValidationError{}
+var _ error = DeleteDemoReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -667,7 +661,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = DeleteDemoRequestValidationError{}
+} = DeleteDemoReqValidationError{}
 
 // Validate checks the field values on DeleteDemoReply with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -769,22 +763,22 @@ var _ interface {
 	ErrorName() string
 } = DeleteDemoReplyValidationError{}
 
-// Validate checks the field values on GetDemoRequest with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
+// Validate checks the field values on GetDemoReq with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
-func (m *GetDemoRequest) Validate() error {
+func (m *GetDemoReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GetDemoRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in GetDemoRequestMultiError,
-// or nil if none found.
-func (m *GetDemoRequest) ValidateAll() error {
+// ValidateAll checks the field values on GetDemoReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GetDemoReqMultiError, or
+// nil if none found.
+func (m *GetDemoReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GetDemoRequest) validate(all bool) error {
+func (m *GetDemoReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -792,19 +786,18 @@ func (m *GetDemoRequest) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return GetDemoRequestMultiError(errors)
+		return GetDemoReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// GetDemoRequestMultiError is an error wrapping multiple validation errors
-// returned by GetDemoRequest.ValidateAll() if the designated constraints
-// aren't met.
-type GetDemoRequestMultiError []error
+// GetDemoReqMultiError is an error wrapping multiple validation errors
+// returned by GetDemoReq.ValidateAll() if the designated constraints aren't met.
+type GetDemoReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetDemoRequestMultiError) Error() string {
+func (m GetDemoReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -813,11 +806,11 @@ func (m GetDemoRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetDemoRequestMultiError) AllErrors() []error { return m }
+func (m GetDemoReqMultiError) AllErrors() []error { return m }
 
-// GetDemoRequestValidationError is the validation error returned by
-// GetDemoRequest.Validate if the designated constraints aren't met.
-type GetDemoRequestValidationError struct {
+// GetDemoReqValidationError is the validation error returned by
+// GetDemoReq.Validate if the designated constraints aren't met.
+type GetDemoReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -825,22 +818,22 @@ type GetDemoRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetDemoRequestValidationError) Field() string { return e.field }
+func (e GetDemoReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetDemoRequestValidationError) Reason() string { return e.reason }
+func (e GetDemoReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetDemoRequestValidationError) Cause() error { return e.cause }
+func (e GetDemoReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetDemoRequestValidationError) Key() bool { return e.key }
+func (e GetDemoReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetDemoRequestValidationError) ErrorName() string { return "GetDemoRequestValidationError" }
+func (e GetDemoReqValidationError) ErrorName() string { return "GetDemoReqValidationError" }
 
 // Error satisfies the builtin error interface
-func (e GetDemoRequestValidationError) Error() string {
+func (e GetDemoReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -852,14 +845,14 @@ func (e GetDemoRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetDemoRequest.%s: %s%s",
+		"invalid %sGetDemoReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetDemoRequestValidationError{}
+var _ error = GetDemoReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -867,7 +860,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetDemoRequestValidationError{}
+} = GetDemoReqValidationError{}
 
 // Validate checks the field values on GetDemoReply with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
@@ -968,22 +961,22 @@ var _ interface {
 	ErrorName() string
 } = GetDemoReplyValidationError{}
 
-// Validate checks the field values on ListDemoRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *ListDemoRequest) Validate() error {
+// Validate checks the field values on ListDemoReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ListDemoReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ListDemoRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// ListDemoRequestMultiError, or nil if none found.
-func (m *ListDemoRequest) ValidateAll() error {
+// ValidateAll checks the field values on ListDemoReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in ListDemoReqMultiError, or
+// nil if none found.
+func (m *ListDemoReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ListDemoRequest) validate(all bool) error {
+func (m *ListDemoReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -991,19 +984,18 @@ func (m *ListDemoRequest) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return ListDemoRequestMultiError(errors)
+		return ListDemoReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// ListDemoRequestMultiError is an error wrapping multiple validation errors
-// returned by ListDemoRequest.ValidateAll() if the designated constraints
-// aren't met.
-type ListDemoRequestMultiError []error
+// ListDemoReqMultiError is an error wrapping multiple validation errors
+// returned by ListDemoReq.ValidateAll() if the designated constraints aren't met.
+type ListDemoReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ListDemoRequestMultiError) Error() string {
+func (m ListDemoReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1012,11 +1004,11 @@ func (m ListDemoRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ListDemoRequestMultiError) AllErrors() []error { return m }
+func (m ListDemoReqMultiError) AllErrors() []error { return m }
 
-// ListDemoRequestValidationError is the validation error returned by
-// ListDemoRequest.Validate if the designated constraints aren't met.
-type ListDemoRequestValidationError struct {
+// ListDemoReqValidationError is the validation error returned by
+// ListDemoReq.Validate if the designated constraints aren't met.
+type ListDemoReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1024,22 +1016,22 @@ type ListDemoRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e ListDemoRequestValidationError) Field() string { return e.field }
+func (e ListDemoReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ListDemoRequestValidationError) Reason() string { return e.reason }
+func (e ListDemoReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ListDemoRequestValidationError) Cause() error { return e.cause }
+func (e ListDemoReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ListDemoRequestValidationError) Key() bool { return e.key }
+func (e ListDemoReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ListDemoRequestValidationError) ErrorName() string { return "ListDemoRequestValidationError" }
+func (e ListDemoReqValidationError) ErrorName() string { return "ListDemoReqValidationError" }
 
 // Error satisfies the builtin error interface
-func (e ListDemoRequestValidationError) Error() string {
+func (e ListDemoReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1051,14 +1043,14 @@ func (e ListDemoRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sListDemoRequest.%s: %s%s",
+		"invalid %sListDemoReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ListDemoRequestValidationError{}
+var _ error = ListDemoReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -1066,7 +1058,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ListDemoRequestValidationError{}
+} = ListDemoReqValidationError{}
 
 // Validate checks the field values on ListDemoReply with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

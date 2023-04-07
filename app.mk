@@ -58,8 +58,8 @@ api:
 service:
 	@kratos proto server ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
 
-# build service app
-app: conf api gorm wire
+# 多个命令同时执行
+app: conf api  wire gorm
 
 # show help
 help:

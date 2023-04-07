@@ -6,25 +6,40 @@ option go_package = "fkratos/api/user/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.user.v1";
 
+// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
+// 后缀定义:请求req,响应reply
+
+
+// 用户服务
 service User {
-	rpc CreateUser (CreateUserRequest) returns (CreateUserReply);
-	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply);
-	rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply);
-	rpc GetUser (GetUserRequest) returns (GetUserReply);
-	rpc ListUser (ListUserRequest) returns (ListUserReply);
+	//创建用户
+	rpc CreateUser (CreateUserReq) returns (CreateUserReply);
+	//更新用户
+	rpc UpdateUser (UpdateUserReq) returns (UpdateUserReply);
+	//删除用户
+	rpc DeleteUser (DeleteUserReq) returns (DeleteUserReply);
+	//获取单个用户
+	rpc GetUser (GetUserReq) returns (GetUserReply);
+	//获取用户列表
+	rpc ListUser (ListUserReq) returns (ListUserReply);
 }
-
-message CreateUserRequest {}
+//请求-创建用户
+message CreateUserReq {}
+//响应-创建用户
 message CreateUserReply {}
-
-message UpdateUserRequest {}
+//请求-更新用户
+message UpdateUserReq {}
+//响应-更新用户
 message UpdateUserReply {}
-
-message DeleteUserRequest {}
+//请求-删除用户
+message DeleteUserReq {}
+//响应-删除用户
 message DeleteUserReply {}
-
-message GetUserRequest {}
+//请求-获取单个用户
+message GetUserReq {}
+//响应-获取单个用户
 message GetUserReply {}
-
-message ListUserRequest {}
+//请求-获取用户列表
+message ListUserReq {}
+//响应-获取用户列表
 message ListUserReply {}

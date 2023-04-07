@@ -8,52 +8,68 @@ option go_package = "fkratos/api/demo/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.demo.v1";
 
+// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
+// 后缀定义:请求req,响应reply
+
+
+// 示例服务
 service Demo {
-  rpc CreateDemo (CreateDemoRequest) returns (CreateDemoReply){
+  //创建示例
+  rpc CreateDemo (CreateDemoReq) returns (CreateDemoReply){
     option (google.api.http) = {
       post: "/demo/v1/create"
       body: "*"
     };
   };
-  rpc UpdateDemo (UpdateDemoRequest) returns (UpdateDemoReply){
+  //更新示例
+  rpc UpdateDemo (UpdateDemoReq) returns (UpdateDemoReply){
     option (google.api.http) = {
       put: "/demo/v1/create"
       body: "demo"
     };
   };
-  rpc DeleteDemo (DeleteDemoRequest) returns (DeleteDemoReply){
+  //删除示例
+  rpc DeleteDemo (DeleteDemoReq) returns (DeleteDemoReply){
     option (google.api.http) = {
       delete: "/demo/v1/delete"
     };
   };
-  rpc GetDemo (GetDemoRequest) returns (GetDemoReply){
+  //获取单个示例
+  rpc GetDemo (GetDemoReq) returns (GetDemoReply){
     option (google.api.http) = {
       get: "/demo/v1/info"
     };
   };
-  rpc ListDemo (ListDemoRequest) returns (ListDemoReply){
+  //获取示例列表
+  rpc ListDemo (ListDemoReq) returns (ListDemoReply){
     option (google.api.http) = {
       get: "/demo/v1/list"
     };
   };
 }
-
+// 示例
 message DemoInfo{
 
 }
-message CreateDemoRequest {}
+//请求-创建示例
+message CreateDemoReq {}
+//响应-创建示例
 message CreateDemoReply {}
-
-message UpdateDemoRequest {
+//请求-更新示例
+message UpdateDemoReq {
   DemoInfo demo = 1;
 }
+//响应-更新示例
 message UpdateDemoReply {}
-
-message DeleteDemoRequest {}
+//请求-删除示例
+message DeleteDemoReq {}
+//响应-删除示例
 message DeleteDemoReply {}
-
-message GetDemoRequest {}
+//请求-获取单个示例
+message GetDemoReq {}
+//响应-获取单个示例
 message GetDemoReply {}
-
-message ListDemoRequest {}
+//请求-获取示例列表
+message ListDemoReq {}
+//响应-获取示例列表
 message ListDemoReply {}

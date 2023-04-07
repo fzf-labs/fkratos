@@ -7,11 +7,11 @@ import (
 )
 
 type DemoRepo interface {
-	CreateDemo(ctx context.Context, req *v1.CreateDemoRequest) (*v1.CreateDemoReply, error)
-	UpdateDemo(ctx context.Context, req *v1.UpdateDemoRequest) (*v1.UpdateDemoReply, error)
-	DeleteDemo(ctx context.Context, req *v1.DeleteDemoRequest) (*v1.DeleteDemoReply, error)
-	GetDemo(ctx context.Context, req *v1.GetDemoRequest) (*v1.GetDemoReply, error)
-	ListDemo(ctx context.Context, req *v1.ListDemoRequest) (*v1.ListDemoReply, error)
+	CreateDemo(ctx context.Context, req *v1.CreateDemoReq) (*v1.CreateDemoReply, error)
+	UpdateDemo(ctx context.Context, req *v1.UpdateDemoReq) (*v1.UpdateDemoReply, error)
+	DeleteDemo(ctx context.Context, req *v1.DeleteDemoReq) (*v1.DeleteDemoReply, error)
+	GetDemo(ctx context.Context, req *v1.GetDemoReq) (*v1.GetDemoReply, error)
+	ListDemo(ctx context.Context, req *v1.ListDemoReq) (*v1.ListDemoReply, error)
 }
 type DemoUseCase struct {
 	repo DemoRepo
@@ -26,22 +26,22 @@ func NewDemoUseCase(repo DemoRepo, logger log.Logger) *DemoUseCase {
 	}
 }
 
-func (d *DemoUseCase) CreateDemo(ctx context.Context, req *v1.CreateDemoRequest) (*v1.CreateDemoReply, error) {
+func (d *DemoUseCase) CreateDemo(ctx context.Context, req *v1.CreateDemoReq) (*v1.CreateDemoReply, error) {
 	return nil, nil
 }
 
-func (d *DemoUseCase) UpdateDemo(ctx context.Context, req *v1.UpdateDemoRequest) (*v1.UpdateDemoReply, error) {
+func (d *DemoUseCase) UpdateDemo(ctx context.Context, req *v1.UpdateDemoReq) (*v1.UpdateDemoReply, error) {
 	return nil, nil
 }
 
-func (d *DemoUseCase) DeleteDemo(ctx context.Context, req *v1.DeleteDemoRequest) (*v1.DeleteDemoReply, error) {
+func (d *DemoUseCase) DeleteDemo(ctx context.Context, req *v1.DeleteDemoReq) (*v1.DeleteDemoReply, error) {
 	return nil, nil
 }
 
-func (d *DemoUseCase) GetDemo(ctx context.Context, req *v1.GetDemoRequest) (*v1.GetDemoReply, error) {
+func (d *DemoUseCase) GetDemo(ctx context.Context, req *v1.GetDemoReq) (*v1.GetDemoReply, error) {
 	return nil, nil
 }
 
-func (d *DemoUseCase) ListDemo(ctx context.Context, req *v1.ListDemoRequest) (*v1.ListDemoReply, error) {
+func (d *DemoUseCase) ListDemo(ctx context.Context, req *v1.ListDemoReq) (*v1.ListDemoReply, error) {
 	return nil, nil
 }

@@ -22,27 +22,27 @@ type UserRepo struct {
 	log  *log.Helper
 }
 
-func (u *UserRepo) CreateUser(ctx context.Context, req *v1.CreateUserRequest) (*v1.CreateUserReply, error) {
+func (u *UserRepo) CreateUser(ctx context.Context, req *v1.CreateUserReq) (*v1.CreateUserReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserRepo) UpdateUser(ctx context.Context, req *v1.UpdateUserRequest) (*v1.UpdateUserReply, error) {
+func (u *UserRepo) UpdateUser(ctx context.Context, req *v1.UpdateUserReq) (*v1.UpdateUserReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserRepo) DeleteUser(ctx context.Context, req *v1.DeleteUserRequest) (*v1.DeleteUserReply, error) {
+func (u *UserRepo) DeleteUser(ctx context.Context, req *v1.DeleteUserReq) (*v1.DeleteUserReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserRepo) GetUser(ctx context.Context, req *v1.GetUserRequest) (*v1.GetUserReply, error) {
+func (u *UserRepo) GetUser(ctx context.Context, req *v1.GetUserReq) (*v1.GetUserReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserRepo) ListUser(ctx context.Context, req *v1.ListUserRequest) (*v1.ListUserReply, error) {
+func (u *UserRepo) ListUser(ctx context.Context, req *v1.ListUserReq) (*v1.ListUserReply, error) {
 	//TODO implement me
 	panic("implement me")
 }

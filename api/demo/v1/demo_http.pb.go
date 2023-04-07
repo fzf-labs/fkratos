@@ -26,11 +26,16 @@ const OperationDemoListDemo = "/api.demo.v1.Demo/ListDemo"
 const OperationDemoUpdateDemo = "/api.demo.v1.Demo/UpdateDemo"
 
 type DemoHTTPServer interface {
-	CreateDemo(context.Context, *CreateDemoRequest) (*CreateDemoReply, error)
-	DeleteDemo(context.Context, *DeleteDemoRequest) (*DeleteDemoReply, error)
-	GetDemo(context.Context, *GetDemoRequest) (*GetDemoReply, error)
-	ListDemo(context.Context, *ListDemoRequest) (*ListDemoReply, error)
-	UpdateDemo(context.Context, *UpdateDemoRequest) (*UpdateDemoReply, error)
+	// CreateDemo创建示例
+	CreateDemo(context.Context, *CreateDemoReq) (*CreateDemoReply, error)
+	// DeleteDemo删除示例
+	DeleteDemo(context.Context, *DeleteDemoReq) (*DeleteDemoReply, error)
+	// GetDemo获取单个示例
+	GetDemo(context.Context, *GetDemoReq) (*GetDemoReply, error)
+	// ListDemo获取示例列表
+	ListDemo(context.Context, *ListDemoReq) (*ListDemoReply, error)
+	// UpdateDemo更新示例
+	UpdateDemo(context.Context, *UpdateDemoReq) (*UpdateDemoReply, error)
 }
 
 func RegisterDemoHTTPServer(s *http.Server, srv DemoHTTPServer) {
@@ -44,13 +49,13 @@ func RegisterDemoHTTPServer(s *http.Server, srv DemoHTTPServer) {
 
 func _Demo_CreateDemo0_HTTP_Handler(srv DemoHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in CreateDemoRequest
+		var in CreateDemoReq
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, OperationDemoCreateDemo)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.CreateDemo(ctx, req.(*CreateDemoRequest))
+			return srv.CreateDemo(ctx, req.(*CreateDemoReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -63,7 +68,7 @@ func _Demo_CreateDemo0_HTTP_Handler(srv DemoHTTPServer) func(ctx http.Context) e
 
 func _Demo_UpdateDemo0_HTTP_Handler(srv DemoHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in UpdateDemoRequest
+		var in UpdateDemoReq
 		if err := ctx.Bind(&in.Demo); err != nil {
 			return err
 		}
@@ -72,7 +77,7 @@ func _Demo_UpdateDemo0_HTTP_Handler(srv DemoHTTPServer) func(ctx http.Context) e
 		}
 		http.SetOperation(ctx, OperationDemoUpdateDemo)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.UpdateDemo(ctx, req.(*UpdateDemoRequest))
+			return srv.UpdateDemo(ctx, req.(*UpdateDemoReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -85,13 +90,13 @@ func _Demo_UpdateDemo0_HTTP_Handler(srv DemoHTTPServer) func(ctx http.Context) e
 
 func _Demo_DeleteDemo0_HTTP_Handler(srv DemoHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in DeleteDemoRequest
+		var in DeleteDemoReq
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, OperationDemoDeleteDemo)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.DeleteDemo(ctx, req.(*DeleteDemoRequest))
+			return srv.DeleteDemo(ctx, req.(*DeleteDemoReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -104,13 +109,13 @@ func _Demo_DeleteDemo0_HTTP_Handler(srv DemoHTTPServer) func(ctx http.Context) e
 
 func _Demo_GetDemo0_HTTP_Handler(srv DemoHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in GetDemoRequest
+		var in GetDemoReq
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, OperationDemoGetDemo)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetDemo(ctx, req.(*GetDemoRequest))
+			return srv.GetDemo(ctx, req.(*GetDemoReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -123,13 +128,13 @@ func _Demo_GetDemo0_HTTP_Handler(srv DemoHTTPServer) func(ctx http.Context) erro
 
 func _Demo_ListDemo0_HTTP_Handler(srv DemoHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ListDemoRequest
+		var in ListDemoReq
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, OperationDemoListDemo)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.ListDemo(ctx, req.(*ListDemoRequest))
+			return srv.ListDemo(ctx, req.(*ListDemoReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -141,11 +146,11 @@ func _Demo_ListDemo0_HTTP_Handler(srv DemoHTTPServer) func(ctx http.Context) err
 }
 
 type DemoHTTPClient interface {
-	CreateDemo(ctx context.Context, req *CreateDemoRequest, opts ...http.CallOption) (rsp *CreateDemoReply, err error)
-	DeleteDemo(ctx context.Context, req *DeleteDemoRequest, opts ...http.CallOption) (rsp *DeleteDemoReply, err error)
-	GetDemo(ctx context.Context, req *GetDemoRequest, opts ...http.CallOption) (rsp *GetDemoReply, err error)
-	ListDemo(ctx context.Context, req *ListDemoRequest, opts ...http.CallOption) (rsp *ListDemoReply, err error)
-	UpdateDemo(ctx context.Context, req *UpdateDemoRequest, opts ...http.CallOption) (rsp *UpdateDemoReply, err error)
+	CreateDemo(ctx context.Context, req *CreateDemoReq, opts ...http.CallOption) (rsp *CreateDemoReply, err error)
+	DeleteDemo(ctx context.Context, req *DeleteDemoReq, opts ...http.CallOption) (rsp *DeleteDemoReply, err error)
+	GetDemo(ctx context.Context, req *GetDemoReq, opts ...http.CallOption) (rsp *GetDemoReply, err error)
+	ListDemo(ctx context.Context, req *ListDemoReq, opts ...http.CallOption) (rsp *ListDemoReply, err error)
+	UpdateDemo(ctx context.Context, req *UpdateDemoReq, opts ...http.CallOption) (rsp *UpdateDemoReply, err error)
 }
 
 type DemoHTTPClientImpl struct {
@@ -156,7 +161,7 @@ func NewDemoHTTPClient(client *http.Client) DemoHTTPClient {
 	return &DemoHTTPClientImpl{client}
 }
 
-func (c *DemoHTTPClientImpl) CreateDemo(ctx context.Context, in *CreateDemoRequest, opts ...http.CallOption) (*CreateDemoReply, error) {
+func (c *DemoHTTPClientImpl) CreateDemo(ctx context.Context, in *CreateDemoReq, opts ...http.CallOption) (*CreateDemoReply, error) {
 	var out CreateDemoReply
 	pattern := "/demo/v1/create"
 	path := binding.EncodeURL(pattern, in, false)
@@ -169,7 +174,7 @@ func (c *DemoHTTPClientImpl) CreateDemo(ctx context.Context, in *CreateDemoReque
 	return &out, err
 }
 
-func (c *DemoHTTPClientImpl) DeleteDemo(ctx context.Context, in *DeleteDemoRequest, opts ...http.CallOption) (*DeleteDemoReply, error) {
+func (c *DemoHTTPClientImpl) DeleteDemo(ctx context.Context, in *DeleteDemoReq, opts ...http.CallOption) (*DeleteDemoReply, error) {
 	var out DeleteDemoReply
 	pattern := "/demo/v1/delete"
 	path := binding.EncodeURL(pattern, in, true)
@@ -182,7 +187,7 @@ func (c *DemoHTTPClientImpl) DeleteDemo(ctx context.Context, in *DeleteDemoReque
 	return &out, err
 }
 
-func (c *DemoHTTPClientImpl) GetDemo(ctx context.Context, in *GetDemoRequest, opts ...http.CallOption) (*GetDemoReply, error) {
+func (c *DemoHTTPClientImpl) GetDemo(ctx context.Context, in *GetDemoReq, opts ...http.CallOption) (*GetDemoReply, error) {
 	var out GetDemoReply
 	pattern := "/demo/v1/info"
 	path := binding.EncodeURL(pattern, in, true)
@@ -195,7 +200,7 @@ func (c *DemoHTTPClientImpl) GetDemo(ctx context.Context, in *GetDemoRequest, op
 	return &out, err
 }
 
-func (c *DemoHTTPClientImpl) ListDemo(ctx context.Context, in *ListDemoRequest, opts ...http.CallOption) (*ListDemoReply, error) {
+func (c *DemoHTTPClientImpl) ListDemo(ctx context.Context, in *ListDemoReq, opts ...http.CallOption) (*ListDemoReply, error) {
 	var out ListDemoReply
 	pattern := "/demo/v1/list"
 	path := binding.EncodeURL(pattern, in, true)
@@ -208,7 +213,7 @@ func (c *DemoHTTPClientImpl) ListDemo(ctx context.Context, in *ListDemoRequest, 
 	return &out, err
 }
 
-func (c *DemoHTTPClientImpl) UpdateDemo(ctx context.Context, in *UpdateDemoRequest, opts ...http.CallOption) (*UpdateDemoReply, error) {
+func (c *DemoHTTPClientImpl) UpdateDemo(ctx context.Context, in *UpdateDemoReq, opts ...http.CallOption) (*UpdateDemoReply, error) {
 	var out UpdateDemoReply
 	pattern := "/demo/v1/create"
 	path := binding.EncodeURL(pattern, in, false)
