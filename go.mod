@@ -3,7 +3,7 @@ module fkratos
 go 1.20
 
 require (
-	github.com/fzf-labs/fpkg v1.1.5
+	github.com/fzf-labs/fpkg v1.1.6
 	github.com/go-kratos/kratos/v2 v2.6.1
 	github.com/google/wire v0.5.0
 	github.com/spf13/viper v1.15.0
