@@ -8,11 +8,9 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/spf13/viper v1.15.0
 	go.uber.org/automaxprocs v1.5.1
-	golang.org/x/text v0.7.0
 	google.golang.org/genproto v0.0.0-20221227171554-f9683d7f8bef
 	google.golang.org/grpc v1.52.3
 	google.golang.org/protobuf v1.28.2-0.20220831092852-f930b1dc76e8
-	gorm.io/driver/postgres v1.5.0
 	gorm.io/gen v0.3.21
 	gorm.io/gorm v1.24.7-0.20230306060331-85eaf9eeda11
 	gorm.io/plugin/dbresolver v1.4.1
@@ -52,10 +50,12 @@ require (
 	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
 	golang.org/x/tools v0.2.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/datatypes v1.1.1 // indirect
 	gorm.io/driver/mysql v1.4.7 // indirect
+	gorm.io/driver/postgres v1.5.0 // indirect
 	gorm.io/hints v1.1.1 // indirect
 )
