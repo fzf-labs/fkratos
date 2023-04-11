@@ -1,7 +1,7 @@
 package server
 
 import (
-	"fkratos/api/rpc/user/v1"
+	"fkratos/api/rpc_user/v1"
 	"fkratos/app/rpc_user/internal/conf"
 	"fkratos/app/rpc_user/internal/service"
 	"github.com/go-kratos/kratos/v2/middleware/logging"

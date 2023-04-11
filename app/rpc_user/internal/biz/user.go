@@ -2,7 +2,7 @@ package biz
 
 import (
 	"context"
-	"fkratos/api/rpc/user/v1"
+	"fkratos/api/rpc_user/v1"
 	"github.com/go-kratos/kratos/v2/log"
 )
 

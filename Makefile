@@ -25,6 +25,11 @@ dep:
 	@go mod download
 	@go mod tidy
 
+.PHONY: new
+# 新增加一个服务  make new APP_NAME=rpc_user
+new:
+	@kratos new app/${APP_NAME} --nomod
+
 .PHONY: fmt
 # 格式化代码
 fmt:

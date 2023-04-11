@@ -2,7 +2,7 @@ package data
 
 import (
 	"context"
-	"fkratos/api/rpc/user/v1"
+	"fkratos/api/rpc_user/v1"
 	"fkratos/app/rpc_user/internal/biz"
 	"github.com/go-kratos/kratos/v2/log"
 )
