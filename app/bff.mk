@@ -36,17 +36,16 @@ wire:
 
 # 新增 protobuf 文件 make proto PROTO_NAME=demo
 proto:
-	@cd ../../../ && kratos proto add api/${APP_NAME}/v1/${PROTO_NAME}.proto
+	@cd ../../ && kratos proto add api/${APP_NAME}/v1/${PROTO_NAME}.proto
 
 # protobuf 生成 Go 代码
 api:
-	@cd ../../../ && files=`find api/bff/${APP_NAME} -name *.proto` && \
+	@cd ../../ && files=`find api/${APP_NAME} -name *.proto` && \
 	protoc --proto_path=./api \
 	       --proto_path=./third_party \
  	       --go_out=paths=source_relative:./api \
  	       --go-http_out=paths=source_relative:./api \
- 	       --go-grpc_out=paths=source_relative:./api \
-	       --openapi_out=fq_schema_naming=true,default_response=false:./api/bff/${APP_NAME} \
+	       --openapi_out=fq_schema_naming=true,default_response=false:./api/${APP_NAME} \
  	       --validate_out=paths=source_relative,lang=go:./api \
 	       $$files
 
