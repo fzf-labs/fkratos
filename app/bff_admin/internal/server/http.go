@@ -2,8 +2,8 @@ package server
 
 import (
 	"fkratos/api/bff_admin/v1"
-	"fkratos/app/bff_admin/internal/conf"
 	"fkratos/app/bff_admin/internal/service"
+	"fkratos/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 
@@ -13,7 +13,7 @@ import (
 )
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Server, logger log.Logger, adminService *service.AdminService) *http.Server {
+func NewHTTPServer(c *conf.Bootstrap, logger log.Logger, adminService *service.AdminService) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			recovery.Recovery(),
@@ -21,14 +21,14 @@ func NewHTTPServer(c *conf.Server, logger log.Logger, adminService *service.Admi
 			logging.Server(logger),
 		),
 	}
-	if c.Http.Network != "" {
-		opts = append(opts, http.Network(c.Http.Network))
+	if c.Server.Http.Network != "" {
+		opts = append(opts, http.Network(c.Server.Http.Network))
 	}
-	if c.Http.Addr != "" {
-		opts = append(opts, http.Address(c.Http.Addr))
+	if c.Server.Http.Addr != "" {
+		opts = append(opts, http.Address(c.Server.Http.Addr))
 	}
-	if c.Http.Timeout != nil {
-		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
+	if c.Server.Http.Timeout != nil {
+		opts = append(opts, http.Timeout(c.Server.Http.Timeout.AsDuration()))
 	}
 	srv := http.NewServer(opts...)
 	v1.RegisterAdminHTTPServer(srv, adminService)

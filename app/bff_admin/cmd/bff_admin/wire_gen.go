@@ -7,9 +7,9 @@
 package main
 
 import (
-	"fkratos/app/bff_admin/internal/conf"
 	"fkratos/app/bff_admin/internal/server"
 	"fkratos/app/bff_admin/internal/service"
+	"fkratos/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 )
@@ -21,9 +21,9 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(confServer *conf.Server, data *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
+func wireApp(bootstrap *conf.Bootstrap, logger log.Logger) (*kratos.App, func(), error) {
 	adminService := service.NewAdminService()
-	httpServer := server.NewHTTPServer(confServer, logger, adminService)
+	httpServer := server.NewHTTPServer(bootstrap, logger, adminService)
 	app := newApp(logger, httpServer)
 	return app, func() {
 	}, nil

@@ -8,10 +8,10 @@ package main
 
 import (
 	"fkratos/app/rpc_user/internal/biz"
-	"fkratos/app/rpc_user/internal/conf"
 	"fkratos/app/rpc_user/internal/data"
 	"fkratos/app/rpc_user/internal/server"
 	"fkratos/app/rpc_user/internal/service"
+	"fkratos/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 )
@@ -23,15 +23,15 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(confServer *conf.Server, confData *conf.Data, logger log.Logger) (*kratos.App, func(), error) {
-	dataData, cleanup, err := data.NewData(confData, logger)
+func wireApp(bootstrap *conf.Bootstrap, logger log.Logger) (*kratos.App, func(), error) {
+	dataData, cleanup, err := data.NewData(bootstrap, logger)
 	if err != nil {
 		return nil, nil, err
 	}
 	userRepo := data.NewUserRepo(dataData, logger)
 	userUseCase := biz.NewUserUseCase(userRepo, logger)
 	userService := service.NewUserService(logger, userUseCase)
-	grpcServer := server.NewGRPCServer(confServer, logger, userService)
+	grpcServer := server.NewGRPCServer(bootstrap, logger, userService)
 	app := newApp(logger, grpcServer)
 	return app, func() {
 		cleanup()

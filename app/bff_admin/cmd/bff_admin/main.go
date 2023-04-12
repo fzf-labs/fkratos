@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fkratos/app/bff_admin/internal/conf"
+	"fkratos/bootstrap/conf"
 	"flag"
 	"os"
 
@@ -71,7 +71,7 @@ func main() {
 		panic(err)
 	}
 
-	app, cleanup, err := wireApp(bc.Server, bc.Data, logger)
+	app, cleanup, err := wireApp(&bc, logger)
 	if err != nil {
 		panic(err)
 	}
