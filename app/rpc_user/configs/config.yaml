@@ -10,6 +10,7 @@ data:
     driver: postgres
     source: host=localhost port=5432 user=postgres password=123456 dbname=fkratos_user sslmode=disable TimeZone=Asia/Shanghai
   redis:
-    addr: 127.0.0.1:6379
-    read_timeout: 0.2s
-    write_timeout: 0.2s
+    addr: host.docker.internal:6379
+    dial_timeout: 1s
+    read_timeout: 0.4s
+    write_timeout: 0.6s

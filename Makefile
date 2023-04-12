@@ -30,6 +30,15 @@ dep:
 new:
 	@kratos new app/${APP_NAME} --nomod
 
+# 生成配置文件
+conf:
+	@files=`find ./bootstrap/conf -name *.proto` && \
+	protoc --proto_path=./bootstrap/conf \
+	       --proto_path=./third_party \
+	       --go_out=paths=source_relative:./bootstrap/conf \
+	       --validate_out=paths=source_relative,lang=go:./bootstrap/conf \
+	       $$files
+
 .PHONY: fmt
 # 格式化代码
 fmt:

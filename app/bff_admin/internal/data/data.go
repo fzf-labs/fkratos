@@ -27,5 +27,6 @@ func NewData(c *conf.Data, logger log.Logger) (*Data, func(), error) {
 }
 
 func NewUserServiceClient(r registry.Discovery, c *conf.Bootstrap) userV1.UserClient {
-	return userV1.NewUserClient(nil)
+	//return userV1.NewUserClient(bootstrap.NewGrpcClient(context.Background(), r))
+	return nil
 }

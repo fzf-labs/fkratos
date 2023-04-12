@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package bootstrap.conf;
+
+option go_package = "fkratos/bootstrap/conf;conf";
+
+
+import "server.proto";
+
+// 引导信息
+message Bootstrap {
+  string serviceName = 1;
+  Server server = 2;
+}
