@@ -117,13 +117,11 @@ func NewLogrusLogger(cfg *conf.Logger) log.Logger {
 			DisableTimestamp: cfg.Logrus.DisableTimestamp,
 			TimestampFormat:  cfg.Logrus.TimestampFormat,
 		}
-		break
 	case "json":
 		loggerFormatter = &logrus.JSONFormatter{
 			DisableTimestamp: cfg.Logrus.DisableTimestamp,
 			TimestampFormat:  cfg.Logrus.TimestampFormat,
 		}
-		break
 	}
 
 	logger := logrus.New()

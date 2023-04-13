@@ -164,9 +164,7 @@ func NewPolarisRegistry(c *conf.Registry) *polarisKratos.Registry {
 	if consumer, err = polarisApi.NewConsumerAPI(); err != nil {
 		log.Fatalf("fail to create consumerAPI, err is %v", err)
 	}
-
-	var provider polarisApi.ProviderAPI
-	provider = polarisApi.NewProviderAPIByContext(consumer.SDKContext())
+	provider := polarisApi.NewProviderAPIByContext(consumer.SDKContext())
 
 	log.Infof("start to register instances, count %d", c.Polaris.InstanceCount)
 
