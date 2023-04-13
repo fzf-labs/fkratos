@@ -4,6 +4,12 @@ go 1.20
 
 require (
 	github.com/fzf-labs/fpkg v1.1.6
+	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20230410063538-3958f9d5c06e
+	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20230410063538-3958f9d5c06e
+	github.com/go-kratos/kratos/contrib/config/etcd/v2 v2.0.0-20230410063538-3958f9d5c06e
+	github.com/go-kratos/kratos/contrib/config/kubernetes/v2 v2.0.0-20230410063538-3958f9d5c06e
+	github.com/go-kratos/kratos/contrib/config/nacos/v2 v2.0.0-20230410063538-3958f9d5c06e
+	github.com/go-kratos/kratos/contrib/config/polaris/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/log/aliyun/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/log/logrus/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/log/zap/v2 v2.0.0-20230410063538-3958f9d5c06e
@@ -15,7 +21,7 @@ require (
 	github.com/go-kratos/kratos/v2 v2.6.1
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
-	github.com/hashicorp/consul/api v1.19.1
+	github.com/hashicorp/consul/api v1.20.0
 	github.com/nacos-group/nacos-sdk-go v1.1.4
 	github.com/polarismesh/polaris-go v1.4.1
 	github.com/sirupsen/logrus v1.8.1
@@ -27,8 +33,8 @@ require (
 	go.opentelemetry.io/otel/sdk v1.14.0
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/zap v1.23.0
-	google.golang.org/genproto v0.0.0-20221227171554-f9683d7f8bef
-	google.golang.org/grpc v1.52.3
+	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f
+	google.golang.org/grpc v1.53.0
 	google.golang.org/protobuf v1.30.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gorm.io/gen v0.3.21
@@ -40,6 +46,7 @@ require (
 require (
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1716 // indirect
 	github.com/aliyun/aliyun-log-go-sdk v0.1.43 // indirect
+	github.com/apolloconfig/agollo/v4 v4.3.0 // indirect
 	github.com/armon/go-metrics v0.4.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
@@ -58,7 +65,7 @@ require (
 	github.com/go-errors/errors v1.0.1 // indirect
 	github.com/go-kit/kit v0.10.0 // indirect
 	github.com/go-kratos/aegis v0.1.4 // indirect
-	github.com/go-logfmt/logfmt v0.5.0 // indirect
+	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect
@@ -110,9 +117,9 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/pierrec/lz4 v2.6.0+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/prometheus/client_golang v1.12.1 // indirect
+	github.com/prometheus/client_golang v1.12.2 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
-	github.com/prometheus/common v0.32.1 // indirect
+	github.com/prometheus/common v0.35.0 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/spf13/afero v1.9.3 // indirect
@@ -128,7 +135,7 @@ require (
 	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/mod v0.9.0 // indirect
 	golang.org/x/net v0.8.0 // indirect
-	golang.org/x/oauth2 v0.0.0-20221014153046-6fdb5e3db783 // indirect
+	golang.org/x/oauth2 v0.4.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.6.0 // indirect
 	golang.org/x/term v0.6.0 // indirect
