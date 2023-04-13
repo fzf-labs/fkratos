@@ -17,8 +17,4 @@ data:
 trace:
   endpoint: http://host.docker.internal:14268/api/traces
 registry:
-  type: "consul"
-  consul:
-    address: "localhost:8500"
-    scheme: "http"
-    health_check: false
+  type: "file"
