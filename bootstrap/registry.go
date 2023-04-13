@@ -43,6 +43,27 @@ const (
 	LoggerTypePolaris    RegistryType = "polaris"
 )
 
+// NewRegistry 创建一个注册客户端
+func NewRegistry(cfg *conf.Registry) registry.Registrar {
+	if cfg == nil {
+		return nil
+	}
+	switch RegistryType(cfg.Type) {
+	case RegistryTypeConsul:
+		return NewConsulRegistry(cfg)
+	case LoggerTypeEtcd:
+		return NewEtcdRegistry(cfg)
+	case LoggerTypeNacos:
+		return NewNacosRegistry(cfg)
+	case LoggerTypeKubernetes:
+		return NewKubernetesRegistry(cfg)
+	case LoggerTypePolaris:
+		return NewPolarisRegistry(cfg)
+	}
+
+	return nil
+}
+
 // NewDiscovery 创建一个发现客户端
 func NewDiscovery(cfg *conf.Registry) registry.Discovery {
 	if cfg == nil {

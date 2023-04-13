@@ -13,10 +13,11 @@ import (
 	"fkratos/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/google/wire"
 )
 
 // wireApp init kratos application.
-func wireApp(*conf.Bootstrap, log.Logger) (*kratos.App, func(), error) {
+func wireApp(*conf.Bootstrap, log.Logger, registry.Registrar) (*kratos.App, func(), error) {
 	panic(wire.Build(server.ProviderSet, service.ProviderSet, biz.ProviderSet, data.ProviderSet, newApp))
 }

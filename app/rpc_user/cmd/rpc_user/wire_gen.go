@@ -14,6 +14,7 @@ import (
 	"fkratos/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-kratos/kratos/v2/registry"
 )
 
 import (
@@ -23,7 +24,7 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(bootstrap *conf.Bootstrap, logger log.Logger) (*kratos.App, func(), error) {
+func wireApp(bootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar) (*kratos.App, func(), error) {
 	dataData, cleanup, err := data.NewData(bootstrap, logger)
 	if err != nil {
 		return nil, nil, err
@@ -32,7 +33,7 @@ func wireApp(bootstrap *conf.Bootstrap, logger log.Logger) (*kratos.App, func(),
 	userUseCase := biz.NewUserUseCase(userRepo, logger)
 	userService := service.NewUserService(logger, userUseCase)
 	grpcServer := server.NewGRPCServer(bootstrap, logger, userService)
-	app := newApp(logger, grpcServer)
+	app := newApp(logger, registrar, grpcServer)
 	return app, func() {
 		cleanup()
 	}, nil
