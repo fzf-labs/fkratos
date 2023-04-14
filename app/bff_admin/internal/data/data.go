@@ -3,8 +3,8 @@ package data
 import (
 	"context"
 	userV1 "fkratos/api/rpc_user/v1"
-	"fkratos/bootstrap"
-	"fkratos/bootstrap/conf"
+	"fkratos/internal/bootstrap"
+	"fkratos/internal/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/google/wire"

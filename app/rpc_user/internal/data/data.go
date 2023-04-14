@@ -1,7 +1,7 @@
 package data
 
 import (
-	"fkratos/bootstrap/conf"
+	"fkratos/internal/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
 )

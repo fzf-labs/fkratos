@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fkratos/bootstrap"
+	bootstrap2 "fkratos/internal/bootstrap"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	Service = bootstrap.NewService(
+	Service = bootstrap2.NewService(
 		"rpc.user",
 		"1.0.0",
 		"",
@@ -32,7 +32,7 @@ func newApp(logger log.Logger, registry registry.Registrar, gs *grpc.Server) *kr
 }
 
 func main() {
-	cfg, logger, registry := bootstrap.Bootstrap(Service)
+	cfg, logger, registry := bootstrap2.Bootstrap(Service)
 	app, cleanup, err := wireApp(cfg, logger, registry)
 	if err != nil {
 		panic(err)

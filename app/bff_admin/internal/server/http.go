@@ -3,7 +3,7 @@ package server
 import (
 	"fkratos/api/bff_admin/v1"
 	"fkratos/app/bff_admin/internal/service"
-	"fkratos/bootstrap/conf"
+	"fkratos/internal/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 

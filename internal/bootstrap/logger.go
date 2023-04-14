@@ -1,7 +1,7 @@
 package bootstrap
 
 import (
-	"fkratos/bootstrap/conf"
+	"fkratos/internal/bootstrap/conf"
 	"os"
 
 	"github.com/sirupsen/logrus"

@@ -10,7 +10,7 @@ import (
 	"fkratos/app/rpc_user/internal/data"
 	"fkratos/app/rpc_user/internal/server"
 	"fkratos/app/rpc_user/internal/service"
-	"fkratos/bootstrap/conf"
+	"fkratos/internal/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"

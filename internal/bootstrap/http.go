@@ -1,7 +1,7 @@
 package bootstrap
 
 import (
-	"fkratos/bootstrap/conf"
+	"fkratos/internal/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
