@@ -1,0 +1,20 @@
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 1s
+data:
+  database:
+    driver: postgres
+    source: host=localhost port=5432 user=postgres password=123456 dbname=fkratos_user sslmode=disable TimeZone=Asia/Shanghai
+  redis:
+    addr: host.docker.internal:6379
+    dial_timeout: 1s
+    read_timeout: 0.4s
+    write_timeout: 0.6s
+trace:
+  endpoint: http://host.docker.internal:14268/api/traces
+registry:
+  type: "file"

@@ -1,13 +1,12 @@
 syntax = "proto3";
 
-package api.admin.v1;
+package api.api.v1;
 
-option go_package = "fkratos/api/admin/v1;v1";
-
+option go_package = "fkratos/api/api/v1;v1";
 
 import "errors/errors.proto";
 
-enum AdminErrorReason {
+enum ApiErrorReason {
 	option (errors.default_code) = 500;
 
 	NOT_LOGGED_IN = 0 [(errors.code) = 401];// 401

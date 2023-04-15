@@ -21,27 +21,22 @@ APP_RELATIVE_PATH=$(shell a=`basename $$PWD` && cd .. && b=`basename $$PWD` && e
 APP_NAME=$(shell echo $(APP_RELATIVE_PATH) | rev |cut -d '/' -f 1 | rev)
 APP_DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "fkratos/" $$0 ":0.1.0"}')
 
-.PHONY:  conf wire api openapi run test cover vet lint app
-
-# 生成配置文件
-conf:
-	protoc --proto_path=./internal/conf/ \
-	       --proto_path=../../third_party \
-	       --go_out=paths=source_relative:./internal/conf/ \
-	       ./internal/conf/conf.proto
-
+.PHONY: gorm
 # 生成 GORM 数据库代码
 gorm:
 	@go run ../../cmd/gormgen/main.go -f configs/config.yaml -s ${APP_NAME}
 
+.PHONY: wire
 # 生成 wire 依赖注入代码
 wire:
 	@go run -mod=mod github.com/google/wire/cmd/wire ./cmd/${APP_NAME}
 
+.PHONY: proto
 # 新增 protobuf 文件 make proto PROTO_NAME=demo
 proto:
 	@cd ../../ && kratos proto add api/${APP_NAME}/v1/${PROTO_NAME}.proto
 
+.PHONY: api
 # protobuf 生成 Go 代码
 api:
 	@cd ../../ && files=`find api/${APP_NAME} -name *.proto` && \
@@ -54,10 +49,12 @@ api:
  	       --validate_out=paths=source_relative,lang=go:./api \
 	       $$files
 
+.PHONY: service
 # 通过 proto 文件，生成对应的 Service 实现代码 make service PROTO_NAME=demo
 service:
 	@kratos proto server ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
 
+.PHONY: app
 # 多个命令同时执行
 app: conf api  wire gorm
 
