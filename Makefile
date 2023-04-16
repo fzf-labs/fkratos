@@ -32,11 +32,11 @@ new:
 
 # 生成配置文件
 conf:
-	@files=`find ./bootstrap/conf -name *.proto` && \
-	protoc --proto_path=./bootstrap/conf \
+	@files=`find ./internal/bootstrap/conf -name *.proto` && \
+	protoc --proto_path=./internal/bootstrap/conf \
 	       --proto_path=./third_party \
-	       --go_out=paths=source_relative:./bootstrap/conf \
-	       --validate_out=paths=source_relative,lang=go:./bootstrap/conf \
+	       --go_out=paths=source_relative:./internal/bootstrap/conf \
+	       --validate_out=paths=source_relative,lang=go:./internal/bootstrap/conf \
 	       $$files
 
 .PHONY: fmt

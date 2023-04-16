@@ -23,7 +23,7 @@ func NewUserService(logger log.Logger, userUseCase *biz.UserUseCase) *UserServic
 }
 
 func (s *UserService) CreateUser(ctx context.Context, req *v1.CreateUserReq) (*v1.CreateUserReply, error) {
-	return &v1.CreateUserReply{}, nil
+	return s.userUseCase.CreateUser(ctx, req)
 }
 func (s *UserService) UpdateUser(ctx context.Context, req *v1.UpdateUserReq) (*v1.UpdateUserReply, error) {
 	return &v1.UpdateUserReply{}, nil

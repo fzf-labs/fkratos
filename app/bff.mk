@@ -54,6 +54,10 @@ api:
 service:
 	@kratos proto server ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
 
+# run
+run:
+	@kratos run
+
 # 多个命令同时执行
 app: conf api  wire
 

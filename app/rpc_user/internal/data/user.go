@@ -4,6 +4,8 @@ import (
 	"context"
 	"fkratos/api/rpc_user/v1"
 	"fkratos/app/rpc_user/internal/biz"
+	"fkratos/app/rpc_user/internal/data/gorm/userdao"
+	"fkratos/app/rpc_user/internal/data/gorm/usermodel"
 	"github.com/go-kratos/kratos/v2/log"
 )
 
@@ -23,8 +25,15 @@ type UserRepo struct {
 }
 
 func (u *UserRepo) CreateUser(ctx context.Context, req *v1.CreateUserReq) (*v1.CreateUserReply, error) {
-	//TODO implement me
-	panic("implement me")
+	reply := new(v1.CreateUserReply)
+	userDao := userdao.Use(u.data.db).User
+	err := userDao.WithContext(ctx).Omit(userDao.ID).Create(&usermodel.User{
+		Name: "fuzhifei",
+	})
+	if err != nil {
+		return nil, err
+	}
+	return reply, err
 }
 
 func (u *UserRepo) UpdateUser(ctx context.Context, req *v1.UpdateUserReq) (*v1.UpdateUserReply, error) {

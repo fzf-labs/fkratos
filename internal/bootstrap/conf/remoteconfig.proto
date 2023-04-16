@@ -28,7 +28,7 @@ message RemoteConfig {
 
   message Apollo {
     string endpoint = 1;
-    string app_id = 2;
+    string appId = 2;
     string cluster = 3;
     string namespace = 4;
     string secret = 5;

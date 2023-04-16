@@ -8,24 +8,26 @@ import "google/protobuf/duration.proto";
 
 // 数据
 message Data {
-  // 数据库
-  message Database {
-    string driver = 1;  // 驱动名：mysql、postgresql、mongodb、sqlite……
-    string source = 2;  // 数据源（DSN字符串）
-    bool migrate = 3; // 数据迁移开关
+  // 数据库 gorm
+  message Gorm {
+    string dataSourceName = 1;  // DSN
+    int32 maxIdleConn = 2;  // 闲置连接数
+    int32 maxOpenConn = 3; // 最大打开的连接数
+    google.protobuf.Duration connMaxLifeTime = 4; // 连接可以重复使用的最长时间
+    bool showLog = 5; // 慢日志开关
+    bool tracing = 6; // 链路追踪开关
   }
-
   // redis
   message Redis {
     string network = 1; // 网络
     string addr = 2;  // 服务端地址
     string password = 3;  // 密码
     int32 db = 4; // 数据库索引
-    google.protobuf.Duration dial_timeout = 5;  // 连接超时时间
-    google.protobuf.Duration read_timeout = 6;  // 读取超时时间
-    google.protobuf.Duration write_timeout = 7; // 写入超时时间
+    google.protobuf.Duration dialTimeout = 5;  // 连接超时时间
+    google.protobuf.Duration readTimeout = 6;  // 读取超时时间
+    google.protobuf.Duration writeTimeout = 7; // 写入超时时间
   }
 
-  Database database = 1;  // 数据库
+  Gorm gorm = 1;  // 数据库 gorm
   Redis redis = 2;  // Redis
 }

@@ -10,18 +10,18 @@ message Logger {
   message Zap {
     string filename = 1; //
     string level = 2; //
-    int32 max_size = 3; //
-    int32 max_age = 4; //
-    int32 max_backups = 5; //
+    int32 maxSize = 3; //
+    int32 maxAge = 4; //
+    int32 maxBackups = 5; //
   }
 
   // logrus
   message Logrus {
     string level = 1; // 日志等级
     string formatter = 2; // 输出格式：text, json.
-    string timestamp_format = 3; // 定义时间戳格式，例如："2006-01-02 15:04:05"
-    bool disable_colors = 4; // 不需要彩色日志
-    bool disable_timestamp = 5; // 不需要时间戳
+    string timestampFormat = 3; // 定义时间戳格式，例如："2006-01-02 15:04:05"
+    bool disableColors = 4; // 不需要彩色日志
+    bool disableTimestamp = 5; // 不需要时间戳
   }
 
   // Fluent
@@ -33,16 +33,16 @@ message Logger {
   message Aliyun {
     string endpoint = 1; // 公网接入地址
     string project = 2; //
-    string access_key = 3; // 访问密钥ID
-    string access_secret = 4; // 访问密钥
+    string accessKey = 3; // 访问密钥ID
+    string accessSecret = 4; // 访问密钥
   }
 
   // 腾讯
   message Tencent {
     string endpoint = 1; // 公网接入地址
-    string topic_id = 2; //
-    string access_key = 3; // 访问密钥ID
-    string access_secret = 4; // 访问密钥
+    string topicId = 2; //
+    string accessKey = 3; // 访问密钥ID
+    string accessSecret = 4; // 访问密钥
   }
 
   string type = 1;

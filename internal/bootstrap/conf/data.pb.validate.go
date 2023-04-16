@@ -57,11 +57,11 @@ func (m *Data) validate(all bool) error {
 	var errors []error
 
 	if all {
-		switch v := interface{}(m.GetDatabase()).(type) {
+		switch v := interface{}(m.GetGorm()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, DataValidationError{
-					field:  "Database",
+					field:  "Gorm",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -69,16 +69,16 @@ func (m *Data) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, DataValidationError{
-					field:  "Database",
+					field:  "Gorm",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetDatabase()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetGorm()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return DataValidationError{
-				field:  "Database",
+				field:  "Gorm",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -191,48 +191,80 @@ var _ interface {
 	ErrorName() string
 } = DataValidationError{}
 
-// Validate checks the field values on Data_Database with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
+// Validate checks the field values on Data_Gorm with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
-func (m *Data_Database) Validate() error {
+func (m *Data_Gorm) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on Data_Database with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in Data_DatabaseMultiError, or
-// nil if none found.
-func (m *Data_Database) ValidateAll() error {
+// ValidateAll checks the field values on Data_Gorm with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in Data_GormMultiError, or nil
+// if none found.
+func (m *Data_Gorm) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *Data_Database) validate(all bool) error {
+func (m *Data_Gorm) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	// no validation rules for Driver
+	// no validation rules for DataSourceName
 
-	// no validation rules for Source
+	// no validation rules for MaxIdleConn
 
-	// no validation rules for Migrate
+	// no validation rules for MaxOpenConn
+
+	if all {
+		switch v := interface{}(m.GetConnMaxLifeTime()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, Data_GormValidationError{
+					field:  "ConnMaxLifeTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, Data_GormValidationError{
+					field:  "ConnMaxLifeTime",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetConnMaxLifeTime()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return Data_GormValidationError{
+				field:  "ConnMaxLifeTime",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for ShowLog
+
+	// no validation rules for Tracing
 
 	if len(errors) > 0 {
-		return Data_DatabaseMultiError(errors)
+		return Data_GormMultiError(errors)
 	}
 
 	return nil
 }
 
-// Data_DatabaseMultiError is an error wrapping multiple validation errors
-// returned by Data_Database.ValidateAll() if the designated constraints
-// aren't met.
-type Data_DatabaseMultiError []error
+// Data_GormMultiError is an error wrapping multiple validation errors returned
+// by Data_Gorm.ValidateAll() if the designated constraints aren't met.
+type Data_GormMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m Data_DatabaseMultiError) Error() string {
+func (m Data_GormMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -241,11 +273,11 @@ func (m Data_DatabaseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m Data_DatabaseMultiError) AllErrors() []error { return m }
+func (m Data_GormMultiError) AllErrors() []error { return m }
 
-// Data_DatabaseValidationError is the validation error returned by
-// Data_Database.Validate if the designated constraints aren't met.
-type Data_DatabaseValidationError struct {
+// Data_GormValidationError is the validation error returned by
+// Data_Gorm.Validate if the designated constraints aren't met.
+type Data_GormValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -253,22 +285,22 @@ type Data_DatabaseValidationError struct {
 }
 
 // Field function returns field value.
-func (e Data_DatabaseValidationError) Field() string { return e.field }
+func (e Data_GormValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e Data_DatabaseValidationError) Reason() string { return e.reason }
+func (e Data_GormValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e Data_DatabaseValidationError) Cause() error { return e.cause }
+func (e Data_GormValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e Data_DatabaseValidationError) Key() bool { return e.key }
+func (e Data_GormValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e Data_DatabaseValidationError) ErrorName() string { return "Data_DatabaseValidationError" }
+func (e Data_GormValidationError) ErrorName() string { return "Data_GormValidationError" }
 
 // Error satisfies the builtin error interface
-func (e Data_DatabaseValidationError) Error() string {
+func (e Data_GormValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -280,14 +312,14 @@ func (e Data_DatabaseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sData_Database.%s: %s%s",
+		"invalid %sData_Gorm.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = Data_DatabaseValidationError{}
+var _ error = Data_GormValidationError{}
 
 var _ interface {
 	Field() string
@@ -295,7 +327,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = Data_DatabaseValidationError{}
+} = Data_GormValidationError{}
 
 // Validate checks the field values on Data_Redis with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
