@@ -16,5 +16,13 @@ data:
     write_timeout: 0.6s
 trace:
   endpoint: http://host.docker.internal:14268/api/traces
+
 registry:
-  type: "file"
+  type: "polaris"
+  polaris:
+    address: 127.0.0.1
+    port: 8091
+    instanceCount: 1
+    namespace: fkratos
+    service: bff_admin
+    token: nu/0WRA4EqSR1FagrjRj0fZwPXuGlMpX+zCuWu4uMqy8xr1vRjisSbA25aAC3mtU8MeeRsKhQiDAynUR09I=

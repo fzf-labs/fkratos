@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"fkratos/internal/bootstrap/conf"
+	"fmt"
 	"os"
 
 	"github.com/sirupsen/logrus"
@@ -30,7 +31,7 @@ const (
 // NewLoggerProvider 创建一个新的日志记录器提供者
 func NewLoggerProvider(cfg *conf.Logger, service *Service) log.Logger {
 	l := NewLogger(cfg)
-
+	fmt.Println("Bootstrap NewLoggerProvider Success")
 	return log.With(
 		l,
 		"service.id", service.Id,

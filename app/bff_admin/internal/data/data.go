@@ -26,6 +26,7 @@ type Data struct {
 func NewData(c *conf.Bootstrap, logger log.Logger, userClient userV1.UserClient) (*Data, func(), error) {
 	l := log.NewHelper(log.With(logger, "module", "data/bff-admin"))
 	d := &Data{
+		log:        l,
 		userClient: userClient,
 	}
 	cleanup := func() {

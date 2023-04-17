@@ -25,7 +25,7 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar) (*kratos.App, func(), error) {
+func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
 	db := bootstrap.NewGorm(confBootstrap, logger)
 	client := bootstrap.NewRedis(confBootstrap, logger)
 	rockscacheClient := bootstrap.NewRocksCache(client)

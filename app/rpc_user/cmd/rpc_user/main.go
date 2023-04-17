@@ -11,7 +11,7 @@ import (
 
 var (
 	Service = bootstrap.NewService(
-		"rpc.user",
+		"rpc_user",
 		"1.0.0",
 		"",
 	)
@@ -32,8 +32,8 @@ func newApp(logger log.Logger, registry registry.Registrar, gs *grpc.Server) *kr
 }
 
 func main() {
-	cfg, logger, r := bootstrap.Bootstrap(Service)
-	app, cleanup, err := wireApp(cfg, logger, r)
+	cfg, logger, reg, dis := bootstrap.Bootstrap(Service)
+	app, cleanup, err := wireApp(cfg, logger, reg, dis)
 	if err != nil {
 		panic(err)
 	}

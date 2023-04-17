@@ -7,7 +7,7 @@ import (
 )
 
 // Bootstrap 应用引导启动
-func Bootstrap(service *Service) (*conf.Bootstrap, log.Logger, registry.Registrar) {
+func Bootstrap(service *Service) (*conf.Bootstrap, log.Logger, registry.Registrar, registry.Discovery) {
 	// init command
 	Flags := NewCommand()
 
@@ -21,7 +21,7 @@ func Bootstrap(service *Service) (*conf.Bootstrap, log.Logger, registry.Registra
 	ll := NewLoggerProvider(cfg.Logger, service)
 
 	// init registrar
-	reg := NewRegistry(cfg.Registry)
+	reg, dis := NewRegistryAndDiscovery(cfg.Registry)
 
 	// init tracer
 	err := NewTracerProvider(cfg.Trace, service)
@@ -29,5 +29,5 @@ func Bootstrap(service *Service) (*conf.Bootstrap, log.Logger, registry.Registra
 		panic(err)
 	}
 
-	return cfg, ll, reg
+	return cfg, ll, reg, dis
 }

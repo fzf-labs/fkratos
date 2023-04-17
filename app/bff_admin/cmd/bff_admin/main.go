@@ -12,7 +12,7 @@ import (
 
 var (
 	Service = bootstrap.NewService(
-		"bff.admin",
+		"bff_admin",
 		"1.0.0",
 		"",
 	)
@@ -33,8 +33,8 @@ func newApp(logger log.Logger, registry registry.Registrar, hs *http.Server) *kr
 }
 
 func main() {
-	cfg, logger, r := bootstrap.Bootstrap(Service)
-	app, cleanup, err := wireApp(cfg, logger, r)
+	cfg, logger, reg, dis := bootstrap.Bootstrap(Service)
+	app, cleanup, err := wireApp(cfg, logger, reg, dis)
 	if err != nil {
 		panic(err)
 	}

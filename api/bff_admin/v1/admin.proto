@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package api.Admin.v1;
+package api.admin.v1;
 
 option go_package = "fkratos/api/admin/v1;v1";
 

@@ -17,7 +17,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/api.Admin.v1.CreateAdminReq'
+                            $ref: '#/components/schemas/api.admin.v1.CreateAdminReq'
                 required: true
             responses:
                 "200":
@@ -25,7 +25,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.Admin.v1.CreateAdminReply'
+                                $ref: '#/components/schemas/api.admin.v1.CreateAdminReply'
     /admin/v1/deleteAdmin:
         delete:
             tags:
@@ -38,7 +38,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.Admin.v1.DeleteAdminReply'
+                                $ref: '#/components/schemas/api.admin.v1.DeleteAdminReply'
     /admin/v1/getAdmin:
         get:
             tags:
@@ -51,7 +51,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.Admin.v1.GetAdminReply'
+                                $ref: '#/components/schemas/api.admin.v1.GetAdminReply'
     /admin/v1/listAdmin:
         get:
             tags:
@@ -64,7 +64,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.Admin.v1.ListAdminReply'
+                                $ref: '#/components/schemas/api.admin.v1.ListAdminReply'
     /admin/v1/updateAdmin:
         put:
             tags:
@@ -75,7 +75,7 @@ paths:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/api.Admin.v1.AdminInfo'
+                            $ref: '#/components/schemas/api.admin.v1.AdminInfo'
                 required: true
             responses:
                 "200":
@@ -83,33 +83,33 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.Admin.v1.UpdateAdminReply'
+                                $ref: '#/components/schemas/api.admin.v1.UpdateAdminReply'
 components:
     schemas:
-        api.Admin.v1.AdminInfo:
+        api.admin.v1.AdminInfo:
             type: object
             properties: {}
-        api.Admin.v1.CreateAdminReply:
+        api.admin.v1.CreateAdminReply:
             type: object
             properties: {}
             description: 响应-创建用户
-        api.Admin.v1.CreateAdminReq:
+        api.admin.v1.CreateAdminReq:
             type: object
             properties: {}
             description: 请求-创建用户
-        api.Admin.v1.DeleteAdminReply:
+        api.admin.v1.DeleteAdminReply:
             type: object
             properties: {}
             description: 响应-删除用户
-        api.Admin.v1.GetAdminReply:
+        api.admin.v1.GetAdminReply:
             type: object
             properties: {}
             description: 响应-获取单个用户
-        api.Admin.v1.ListAdminReply:
+        api.admin.v1.ListAdminReply:
             type: object
             properties: {}
             description: 响应-获取用户列表
-        api.Admin.v1.UpdateAdminReply:
+        api.admin.v1.UpdateAdminReply:
             type: object
             properties: {}
             description: 响应-更新用户

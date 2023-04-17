@@ -26,6 +26,7 @@ func NewCommand() *Command {
 		BeDaemon("-d")
 	}
 	flag.Parse()
+	fmt.Println("Bootstrap NewCommand Success")
 	return f
 }
 

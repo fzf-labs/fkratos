@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"fkratos/internal/bootstrap/conf"
+	"fmt"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
 	"path/filepath"
@@ -43,46 +44,30 @@ const (
 	LoggerTypePolaris    RegistryType = "polaris"
 )
 
-// NewRegistry 创建一个注册客户端
-func NewRegistry(cfg *conf.Registry) registry.Registrar {
+// NewRegistryAndDiscovery 创建一个注册和发现客户端
+func NewRegistryAndDiscovery(cfg *conf.Registry) (registry.Registrar, registry.Discovery) {
 	if cfg == nil {
-		return nil
+		return nil, nil
 	}
 	switch RegistryType(cfg.Type) {
 	case RegistryTypeConsul:
-		return NewConsulRegistry(cfg)
+		res := NewConsulRegistry(cfg)
+		return res, res
 	case LoggerTypeEtcd:
-		return NewEtcdRegistry(cfg)
+		res := NewEtcdRegistry(cfg)
+		return res, res
 	case LoggerTypeNacos:
-		return NewNacosRegistry(cfg)
+		res := NewNacosRegistry(cfg)
+		return res, res
 	case LoggerTypeKubernetes:
-		return NewKubernetesRegistry(cfg)
+		res := NewKubernetesRegistry(cfg)
+		return res, res
 	case LoggerTypePolaris:
-		return NewPolarisRegistry(cfg)
+		res := NewPolarisRegistry(cfg)
+		return res, res
 	}
-
-	return nil
-}
-
-// NewDiscovery 创建一个发现客户端
-func NewDiscovery(cfg *conf.Registry) registry.Discovery {
-	if cfg == nil {
-		return nil
-	}
-	switch RegistryType(cfg.Type) {
-	case RegistryTypeConsul:
-		return NewConsulRegistry(cfg)
-	case LoggerTypeEtcd:
-		return NewEtcdRegistry(cfg)
-	case LoggerTypeNacos:
-		return NewNacosRegistry(cfg)
-	case LoggerTypeKubernetes:
-		return NewKubernetesRegistry(cfg)
-	case LoggerTypePolaris:
-		return NewPolarisRegistry(cfg)
-	}
-
-	return nil
+	fmt.Println("Bootstrap NewRegistry Success")
+	return nil, nil
 }
 
 // NewConsulRegistry 创建一个注册发现客户端 - Consul
@@ -179,15 +164,12 @@ func NewKubernetesRegistry(_ *conf.Registry) *k8sRegistry.Registry {
 // NewPolarisRegistry 创建一个注册发现客户端 - Polaris
 func NewPolarisRegistry(c *conf.Registry) *polarisKratos.Registry {
 	var err error
-
 	var consumer polarisApi.ConsumerAPI
-	if consumer, err = polarisApi.NewConsumerAPI(); err != nil {
+	if consumer, err = polarisApi.NewConsumerAPIByAddress(fmt.Sprintf("%s:%d", c.Polaris.Address, c.Polaris.Port)); err != nil {
 		log.Fatalf("fail to create consumerAPI, err is %v", err)
 	}
 	provider := polarisApi.NewProviderAPIByContext(consumer.SDKContext())
-
 	log.Infof("start to register instances, count %d", c.Polaris.InstanceCount)
-
 	var resp *polarisModel.InstanceRegisterResponse
 	for i := 0; i < (int)(c.Polaris.InstanceCount); i++ {
 		registerRequest := &polarisApi.InstanceRegisterRequest{}
@@ -197,14 +179,14 @@ func NewPolarisRegistry(c *conf.Registry) *polarisKratos.Registry {
 		registerRequest.Port = (int)(c.Polaris.Port) + i
 		registerRequest.ServiceToken = c.Polaris.Token
 		registerRequest.SetHealthy(true)
+		registerRequest.SetTTL(10)
 		if resp, err = provider.RegisterInstance(registerRequest); err != nil {
 			log.Fatalf("fail to register instance %d, err is %v", i, err)
 		} else {
 			log.Infof("register instance %d response: instanceId %s", i, resp.InstanceID)
 		}
 	}
-
-	reg := polarisKratos.NewRegistry(provider, consumer)
+	reg := polarisKratos.NewRegistry(provider, consumer, polarisKratos.WithNamespace(c.Polaris.Namespace), polarisKratos.WithTTL(10))
 
 	return reg
 }
