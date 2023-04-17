@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
+	"github.com/polarismesh/polaris-go/api"
+	"github.com/polarismesh/polaris-go/pkg/config"
 	"path/filepath"
 
 	// etcd
@@ -30,8 +32,6 @@ import (
 
 	// polaris
 	polarisKratos "github.com/go-kratos/kratos/contrib/registry/polaris/v2"
-	polarisApi "github.com/polarismesh/polaris-go/api"
-	polarisModel "github.com/polarismesh/polaris-go/pkg/model"
 )
 
 type RegistryType string
@@ -163,30 +163,22 @@ func NewKubernetesRegistry(_ *conf.Registry) *k8sRegistry.Registry {
 
 // NewPolarisRegistry 创建一个注册发现客户端 - Polaris
 func NewPolarisRegistry(c *conf.Registry) *polarisKratos.Registry {
-	var err error
-	var consumer polarisApi.ConsumerAPI
-	if consumer, err = polarisApi.NewConsumerAPIByAddress(fmt.Sprintf("%s:%d", c.Polaris.Address, c.Polaris.Port)); err != nil {
-		log.Fatalf("fail to create consumerAPI, err is %v", err)
+	address := fmt.Sprintf("%s:%d", c.Polaris.Address, c.Polaris.Port)
+	configuration := config.NewDefaultConfiguration([]string{address})
+	provider, err := api.NewProviderAPIByConfig(configuration)
+	if err != nil {
+		panic(err)
 	}
-	provider := polarisApi.NewProviderAPIByContext(consumer.SDKContext())
-	log.Infof("start to register instances, count %d", c.Polaris.InstanceCount)
-	var resp *polarisModel.InstanceRegisterResponse
-	for i := 0; i < (int)(c.Polaris.InstanceCount); i++ {
-		registerRequest := &polarisApi.InstanceRegisterRequest{}
-		registerRequest.Service = c.Polaris.Service
-		registerRequest.Namespace = c.Polaris.Namespace
-		registerRequest.Host = c.Polaris.Address
-		registerRequest.Port = (int)(c.Polaris.Port) + i
-		registerRequest.ServiceToken = c.Polaris.Token
-		registerRequest.SetHealthy(true)
-		registerRequest.SetTTL(10)
-		if resp, err = provider.RegisterInstance(registerRequest); err != nil {
-			log.Fatalf("fail to register instance %d, err is %v", i, err)
-		} else {
-			log.Infof("register instance %d response: instanceId %s", i, resp.InstanceID)
-		}
+	consumer, err := api.NewConsumerAPIByConfig(configuration)
+	if err != nil {
+		panic(err)
 	}
-	reg := polarisKratos.NewRegistry(provider, consumer, polarisKratos.WithNamespace(c.Polaris.Namespace), polarisKratos.WithTTL(10))
-
+	reg := polarisKratos.NewRegistry(
+		provider,
+		consumer,
+		polarisKratos.WithNamespace(c.Polaris.Namespace),
+		polarisKratos.WithServiceToken(c.Polaris.Token),
+		polarisKratos.WithTTL(10),
+	)
 	return reg
 }

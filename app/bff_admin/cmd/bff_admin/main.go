@@ -2,6 +2,7 @@ package main
 
 import (
 	"fkratos/internal/bootstrap"
+	"fkratos/internal/service"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
@@ -12,7 +13,7 @@ import (
 
 var (
 	Service = bootstrap.NewService(
-		"bff_admin",
+		service.BffAdmin,
 		"1.0.0",
 		"",
 	)

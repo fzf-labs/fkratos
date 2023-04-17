@@ -5,6 +5,7 @@ import (
 	userV1 "fkratos/api/rpc_user/v1"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
+	"fkratos/internal/service"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/google/wire"
@@ -36,5 +37,5 @@ func NewData(c *conf.Bootstrap, logger log.Logger, userClient userV1.UserClient)
 }
 
 func NewUserServiceClient(r registry.Discovery, c *conf.Bootstrap) userV1.UserClient {
-	return userV1.NewUserClient(bootstrap.NewGrpcClient(context.Background(), r, c.GetServiceName(), c.Server.Grpc.GetTimeout()))
+	return userV1.NewUserClient(bootstrap.NewGrpcClient(context.Background(), r, service.RpcUser, c.Server.Grpc.GetTimeout()))
 }

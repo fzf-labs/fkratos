@@ -2,6 +2,7 @@ package main
 
 import (
 	"fkratos/internal/bootstrap"
+	"fkratos/internal/service"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
@@ -12,7 +13,7 @@ import (
 
 var (
 	Service = bootstrap.NewService(
-		"bff.admin",
+		service.BffApi,
 		"1.0.0",
 		"",
 	)
@@ -33,8 +34,8 @@ func newApp(logger log.Logger, registry registry.Registrar, hs *http.Server) *kr
 }
 
 func main() {
-	cfg, logger, r := bootstrap.Bootstrap(Service)
-	app, cleanup, err := wireApp(cfg, logger, r)
+	cfg, logger, req, dis := bootstrap.Bootstrap(Service)
+	app, cleanup, err := wireApp(cfg, logger, req, dis)
 	if err != nil {
 		panic(err)
 	}
