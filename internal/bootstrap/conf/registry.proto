@@ -20,12 +20,6 @@ message Registry {
     repeated string endpoints = 1;
   }
 
-  // ZooKeeper
-  message ZooKeeper {
-    repeated string endpoints = 1;
-    google.protobuf.Duration timeout = 2;
-  }
-
   // Nacos
   message Nacos {
     string address = 1; // 服务端地址
@@ -40,43 +34,27 @@ message Registry {
     bool notLoadCacheAtStart = 10; // 在启动时不读取本地缓存数据，true: 不读取，false: 读取
     bool updateCacheWhenEmpty = 11; // 当服务列表为空时是否更新本地缓存，true: 更新,false: 不更新
   }
+  // Polaris
+  message Polaris {
+    string address = 1; // 服务端地址
+    int32 port = 2; // 服务端端口
+    int32 instanceCount = 3; //实例计数
+    string namespace = 4; //命名空间
+    string service = 5;//服务名
+    string token = 6;
+  }
 
   // Kubernetes
   message Kubernetes {
 
   }
 
-  // Eureka
-  message Eureka {
-    repeated string endpoints = 1;
-    google.protobuf.Duration heartbeatInterval = 2;
-    google.protobuf.Duration refreshInterval = 3;
-    string path = 4;
-  }
-
-  // Polaris
-  message Polaris {
-    string address = 1; // 服务端地址
-    int32 port = 2; // 服务端端口
-    int32 instanceCount = 3;
-    string namespace = 4;
-    string service = 5;
-    string token = 6;
-  }
-
-  // Servicecomb
-  message Servicecomb {
-    repeated string endpoints = 1;
-  }
 
   string type = 1;
-
   Consul consul = 2;  // Consul
   Etcd etcd = 3;  // Etcd
-  ZooKeeper zookeeper = 4;  // ZooKeeper
-  Nacos nacos = 5;  // Nacos
+  Nacos nacos = 4;  // Nacos
+  Polaris polaris = 5;  // Polaris
   Kubernetes kubernetes = 6;  // Kubernetes
-  Eureka eureka = 7;  // Eureka
-  Polaris polaris = 8;  // Polaris
-  Servicecomb servicecomb = 9;  // Servicecomb
+
 }

@@ -28,7 +28,8 @@ import (
 func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar) (*kratos.App, func(), error) {
 	db := bootstrap.NewGorm(confBootstrap, logger)
 	client := bootstrap.NewRedis(confBootstrap, logger)
-	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, client)
+	rockscacheClient := bootstrap.NewRocksCache(client)
+	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, client, rockscacheClient)
 	if err != nil {
 		return nil, nil, err
 	}

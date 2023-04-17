@@ -5,6 +5,7 @@ server:
   grpc:
     addr: 0.0.0.0:9000
     timeout: 1s
+
 data:
   gorm:
      dataSourceName: host=localhost port=5432 user=postgres password=123456 dbname=fkratos_user sslmode=disable TimeZone=Asia/Shanghai
@@ -20,7 +21,19 @@ data:
     dialTimeout: 1s
     readTimeout: 0.4s
     writeTimeout: 0.6s
+
 trace:
-  endpoint: ""
+  batcher: "jaeger"
+  endpoint: "http://0.0.0.0:14268/api/traces"
+  sampler: "1.0"
+  env: "dev"
+
 registry:
-  type: "file"
+  type: "polaris"
+  polaris:
+    address: 127.0.0.1
+    port: 8091
+    instanceCount: 1
+    namespace: default
+    service: rpc_user
+    token: nu/0WRA4EqSR1FagrjRj0fZwPXuGlMpX+zCuWu4uMqy8xr1vRjisSbA25aAC3mtU8MeeRsKhQiDAynUR09I=

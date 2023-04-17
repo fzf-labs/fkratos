@@ -69,7 +69,6 @@ func NewDiscovery(cfg *conf.Registry) registry.Discovery {
 	if cfg == nil {
 		return nil
 	}
-
 	switch RegistryType(cfg.Type) {
 	case RegistryTypeConsul:
 		return NewConsulRegistry(cfg)

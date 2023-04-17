@@ -4,8 +4,11 @@ import (
 	"context"
 	"fkratos/api/rpc_user/v1"
 	"fkratos/app/rpc_user/internal/biz"
+	"fkratos/app/rpc_user/internal/data/cache"
 	"fkratos/app/rpc_user/internal/data/gorm/userdao"
 	"fkratos/app/rpc_user/internal/data/gorm/usermodel"
+	"fmt"
+	"github.com/fzf-labs/fpkg/util/strutil"
 	"github.com/go-kratos/kratos/v2/log"
 )
 
@@ -30,6 +33,14 @@ func (u *UserRepo) CreateUser(ctx context.Context, req *v1.CreateUserReq) (*v1.C
 	err := userDao.WithContext(ctx).Omit(userDao.ID).Create(&usermodel.User{
 		Name: "fuzhifei",
 	})
+	if err != nil {
+		return nil, err
+	}
+	cacheKey := cache.UUID.BuildCacheKey("fuzhifei")
+	rocksCache, err := cacheKey.RocksCache(u.data.rocksCache, ctx, func() (string, error) {
+		return strutil.Random(6), nil
+	})
+	fmt.Println(rocksCache)
 	if err != nil {
 		return nil, err
 	}

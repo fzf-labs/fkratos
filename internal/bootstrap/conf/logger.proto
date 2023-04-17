@@ -24,11 +24,6 @@ message Logger {
     bool disableTimestamp = 5; // 不需要时间戳
   }
 
-  // Fluent
-  message Fluent {
-    string endpoint = 1; // 公网接入地址
-  }
-
   // 阿里云
   message Aliyun {
     string endpoint = 1; // 公网接入地址
@@ -48,7 +43,6 @@ message Logger {
   string type = 1;
   Zap zap = 2;
   Logrus logrus = 3;
-  Fluent fluent = 4;
-  Aliyun aliyun = 5;
-  Tencent tencent = 6;
+  Aliyun aliyun = 4;
+  Tencent tencent = 5;
 }

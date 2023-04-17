@@ -118,35 +118,6 @@ func (m *Registry) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetZookeeper()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RegistryValidationError{
-					field:  "Zookeeper",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, RegistryValidationError{
-					field:  "Zookeeper",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetZookeeper()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RegistryValidationError{
-				field:  "Zookeeper",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
 		switch v := interface{}(m.GetNacos()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
@@ -169,64 +140,6 @@ func (m *Registry) validate(all bool) error {
 		if err := v.Validate(); err != nil {
 			return RegistryValidationError{
 				field:  "Nacos",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetKubernetes()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RegistryValidationError{
-					field:  "Kubernetes",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, RegistryValidationError{
-					field:  "Kubernetes",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetKubernetes()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RegistryValidationError{
-				field:  "Kubernetes",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetEureka()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RegistryValidationError{
-					field:  "Eureka",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, RegistryValidationError{
-					field:  "Eureka",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetEureka()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RegistryValidationError{
-				field:  "Eureka",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -263,11 +176,11 @@ func (m *Registry) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetServicecomb()).(type) {
+		switch v := interface{}(m.GetKubernetes()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, RegistryValidationError{
-					field:  "Servicecomb",
+					field:  "Kubernetes",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -275,16 +188,16 @@ func (m *Registry) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, RegistryValidationError{
-					field:  "Servicecomb",
+					field:  "Kubernetes",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetServicecomb()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetKubernetes()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return RegistryValidationError{
-				field:  "Servicecomb",
+				field:  "Kubernetes",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -574,137 +487,6 @@ var _ interface {
 	ErrorName() string
 } = Registry_EtcdValidationError{}
 
-// Validate checks the field values on Registry_ZooKeeper with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *Registry_ZooKeeper) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on Registry_ZooKeeper with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// Registry_ZooKeeperMultiError, or nil if none found.
-func (m *Registry_ZooKeeper) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *Registry_ZooKeeper) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if all {
-		switch v := interface{}(m.GetTimeout()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, Registry_ZooKeeperValidationError{
-					field:  "Timeout",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, Registry_ZooKeeperValidationError{
-					field:  "Timeout",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetTimeout()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return Registry_ZooKeeperValidationError{
-				field:  "Timeout",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(errors) > 0 {
-		return Registry_ZooKeeperMultiError(errors)
-	}
-
-	return nil
-}
-
-// Registry_ZooKeeperMultiError is an error wrapping multiple validation errors
-// returned by Registry_ZooKeeper.ValidateAll() if the designated constraints
-// aren't met.
-type Registry_ZooKeeperMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m Registry_ZooKeeperMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m Registry_ZooKeeperMultiError) AllErrors() []error { return m }
-
-// Registry_ZooKeeperValidationError is the validation error returned by
-// Registry_ZooKeeper.Validate if the designated constraints aren't met.
-type Registry_ZooKeeperValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e Registry_ZooKeeperValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e Registry_ZooKeeperValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e Registry_ZooKeeperValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e Registry_ZooKeeperValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e Registry_ZooKeeperValidationError) ErrorName() string {
-	return "Registry_ZooKeeperValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e Registry_ZooKeeperValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sRegistry_ZooKeeper.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = Registry_ZooKeeperValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = Registry_ZooKeeperValidationError{}
-
 // Validate checks the field values on Registry_Nacos with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -881,268 +663,6 @@ var _ interface {
 	ErrorName() string
 } = Registry_NacosValidationError{}
 
-// Validate checks the field values on Registry_Kubernetes with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *Registry_Kubernetes) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on Registry_Kubernetes with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// Registry_KubernetesMultiError, or nil if none found.
-func (m *Registry_Kubernetes) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *Registry_Kubernetes) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if len(errors) > 0 {
-		return Registry_KubernetesMultiError(errors)
-	}
-
-	return nil
-}
-
-// Registry_KubernetesMultiError is an error wrapping multiple validation
-// errors returned by Registry_Kubernetes.ValidateAll() if the designated
-// constraints aren't met.
-type Registry_KubernetesMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m Registry_KubernetesMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m Registry_KubernetesMultiError) AllErrors() []error { return m }
-
-// Registry_KubernetesValidationError is the validation error returned by
-// Registry_Kubernetes.Validate if the designated constraints aren't met.
-type Registry_KubernetesValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e Registry_KubernetesValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e Registry_KubernetesValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e Registry_KubernetesValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e Registry_KubernetesValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e Registry_KubernetesValidationError) ErrorName() string {
-	return "Registry_KubernetesValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e Registry_KubernetesValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sRegistry_Kubernetes.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = Registry_KubernetesValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = Registry_KubernetesValidationError{}
-
-// Validate checks the field values on Registry_Eureka with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *Registry_Eureka) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on Registry_Eureka with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// Registry_EurekaMultiError, or nil if none found.
-func (m *Registry_Eureka) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *Registry_Eureka) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if all {
-		switch v := interface{}(m.GetHeartbeatInterval()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, Registry_EurekaValidationError{
-					field:  "HeartbeatInterval",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, Registry_EurekaValidationError{
-					field:  "HeartbeatInterval",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetHeartbeatInterval()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return Registry_EurekaValidationError{
-				field:  "HeartbeatInterval",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetRefreshInterval()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, Registry_EurekaValidationError{
-					field:  "RefreshInterval",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, Registry_EurekaValidationError{
-					field:  "RefreshInterval",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetRefreshInterval()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return Registry_EurekaValidationError{
-				field:  "RefreshInterval",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	// no validation rules for Path
-
-	if len(errors) > 0 {
-		return Registry_EurekaMultiError(errors)
-	}
-
-	return nil
-}
-
-// Registry_EurekaMultiError is an error wrapping multiple validation errors
-// returned by Registry_Eureka.ValidateAll() if the designated constraints
-// aren't met.
-type Registry_EurekaMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m Registry_EurekaMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m Registry_EurekaMultiError) AllErrors() []error { return m }
-
-// Registry_EurekaValidationError is the validation error returned by
-// Registry_Eureka.Validate if the designated constraints aren't met.
-type Registry_EurekaValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e Registry_EurekaValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e Registry_EurekaValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e Registry_EurekaValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e Registry_EurekaValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e Registry_EurekaValidationError) ErrorName() string { return "Registry_EurekaValidationError" }
-
-// Error satisfies the builtin error interface
-func (e Registry_EurekaValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sRegistry_Eureka.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = Registry_EurekaValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = Registry_EurekaValidationError{}
-
 // Validate checks the field values on Registry_Polaris with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -1255,22 +775,22 @@ var _ interface {
 	ErrorName() string
 } = Registry_PolarisValidationError{}
 
-// Validate checks the field values on Registry_Servicecomb with the rules
+// Validate checks the field values on Registry_Kubernetes with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *Registry_Servicecomb) Validate() error {
+func (m *Registry_Kubernetes) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on Registry_Servicecomb with the rules
+// ValidateAll checks the field values on Registry_Kubernetes with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// Registry_ServicecombMultiError, or nil if none found.
-func (m *Registry_Servicecomb) ValidateAll() error {
+// Registry_KubernetesMultiError, or nil if none found.
+func (m *Registry_Kubernetes) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *Registry_Servicecomb) validate(all bool) error {
+func (m *Registry_Kubernetes) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -1278,19 +798,19 @@ func (m *Registry_Servicecomb) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return Registry_ServicecombMultiError(errors)
+		return Registry_KubernetesMultiError(errors)
 	}
 
 	return nil
 }
 
-// Registry_ServicecombMultiError is an error wrapping multiple validation
-// errors returned by Registry_Servicecomb.ValidateAll() if the designated
+// Registry_KubernetesMultiError is an error wrapping multiple validation
+// errors returned by Registry_Kubernetes.ValidateAll() if the designated
 // constraints aren't met.
-type Registry_ServicecombMultiError []error
+type Registry_KubernetesMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m Registry_ServicecombMultiError) Error() string {
+func (m Registry_KubernetesMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -1299,11 +819,11 @@ func (m Registry_ServicecombMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m Registry_ServicecombMultiError) AllErrors() []error { return m }
+func (m Registry_KubernetesMultiError) AllErrors() []error { return m }
 
-// Registry_ServicecombValidationError is the validation error returned by
-// Registry_Servicecomb.Validate if the designated constraints aren't met.
-type Registry_ServicecombValidationError struct {
+// Registry_KubernetesValidationError is the validation error returned by
+// Registry_Kubernetes.Validate if the designated constraints aren't met.
+type Registry_KubernetesValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -1311,24 +831,24 @@ type Registry_ServicecombValidationError struct {
 }
 
 // Field function returns field value.
-func (e Registry_ServicecombValidationError) Field() string { return e.field }
+func (e Registry_KubernetesValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e Registry_ServicecombValidationError) Reason() string { return e.reason }
+func (e Registry_KubernetesValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e Registry_ServicecombValidationError) Cause() error { return e.cause }
+func (e Registry_KubernetesValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e Registry_ServicecombValidationError) Key() bool { return e.key }
+func (e Registry_KubernetesValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e Registry_ServicecombValidationError) ErrorName() string {
-	return "Registry_ServicecombValidationError"
+func (e Registry_KubernetesValidationError) ErrorName() string {
+	return "Registry_KubernetesValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e Registry_ServicecombValidationError) Error() string {
+func (e Registry_KubernetesValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -1340,14 +860,14 @@ func (e Registry_ServicecombValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRegistry_Servicecomb.%s: %s%s",
+		"invalid %sRegistry_Kubernetes.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = Registry_ServicecombValidationError{}
+var _ error = Registry_KubernetesValidationError{}
 
 var _ interface {
 	Field() string
@@ -1355,4 +875,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = Registry_ServicecombValidationError{}
+} = Registry_KubernetesValidationError{}

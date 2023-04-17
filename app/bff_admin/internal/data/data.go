@@ -13,19 +13,25 @@ import (
 // ProviderSet is data providers.
 var ProviderSet = wire.NewSet(
 	NewData,
+	NewUserServiceClient,
 )
 
 // Data .
 type Data struct {
-	// TODO wrapped database client
+	log        *log.Helper
+	userClient userV1.UserClient
 }
 
 // NewData .
-func NewData(c *conf.Bootstrap, logger log.Logger) (*Data, func(), error) {
-	cleanup := func() {
-		log.NewHelper(logger).Info("closing the data resources")
+func NewData(c *conf.Bootstrap, logger log.Logger, userClient userV1.UserClient) (*Data, func(), error) {
+	l := log.NewHelper(log.With(logger, "module", "data/bff-admin"))
+	d := &Data{
+		userClient: userClient,
 	}
-	return &Data{}, cleanup, nil
+	cleanup := func() {
+		l.Info("closing the data resources")
+	}
+	return d, cleanup, nil
 }
 
 func NewUserServiceClient(r registry.Discovery, c *conf.Bootstrap) userV1.UserClient {

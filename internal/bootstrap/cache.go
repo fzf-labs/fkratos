@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"fkratos/internal/bootstrap/conf"
 	"fmt"
+	"github.com/dtm-labs/rockscache"
 	"github.com/fzf-labs/fpkg/cache"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-redis/redis/v8"
@@ -24,4 +25,9 @@ func NewRedis(cfg *conf.Bootstrap, logger log.Logger) *redis.Client {
 		panic(fmt.Sprintf("NewRedis err: %s", err))
 	}
 	return r
+}
+
+// NewRocksCache 初始化RocksCache
+func NewRocksCache(rdb *redis.Client) *rockscache.Client {
+	return cache.NewRocksCache(rdb)
 }
