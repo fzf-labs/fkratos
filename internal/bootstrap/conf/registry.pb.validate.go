@@ -689,8 +689,6 @@ func (m *Registry_Polaris) validate(all bool) error {
 
 	// no validation rules for Port
 
-	// no validation rules for InstanceCount
-
 	// no validation rules for Namespace
 
 	// no validation rules for Service

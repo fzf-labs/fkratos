@@ -165,14 +165,11 @@ func NewKubernetesRegistry(_ *conf.Registry) *k8sRegistry.Registry {
 func NewPolarisRegistry(c *conf.Registry) *polarisKratos.Registry {
 	address := fmt.Sprintf("%s:%d", c.Polaris.Address, c.Polaris.Port)
 	configuration := config.NewDefaultConfiguration([]string{address})
-	provider, err := api.NewProviderAPIByConfig(configuration)
-	if err != nil {
-		panic(err)
-	}
 	consumer, err := api.NewConsumerAPIByConfig(configuration)
 	if err != nil {
 		panic(err)
 	}
+	provider := api.NewProviderAPIByContext(consumer.SDKContext())
 	reg := polarisKratos.NewRegistry(
 		provider,
 		consumer,

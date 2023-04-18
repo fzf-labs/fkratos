@@ -8,14 +8,14 @@ server:
 
 data:
   gorm:
-     dataSourceName: host=localhost port=5432 user=postgres password=123456 dbname=fkratos_user sslmode=disable TimeZone=Asia/Shanghai
+     dataSourceName: host=0.0.0.0 port=5432 user=postgres password=123456 dbname=fkratos_user sslmode=disable TimeZone=Asia/Shanghai
      maxIdleConn: 10
      maxOpenConn: 60
      connMaxLifeTime: 60s
      showLog: true
      tracing: true
   redis:
-    addr: 127.0.0.1:6379
+    addr: 0.0.0.0:6379
     password: "123456"
     db: 0
     dialTimeout: 1s
@@ -29,11 +29,13 @@ trace:
   env: "dev"
 
 registry:
-  type: "polaris"
+  type: "etcd"
+  etcd:
+    endpoints:
+     - 0.0.0.0:2379
   polaris:
     address: 127.0.0.1
     port: 8091
-    instanceCount: 1
     namespace: fkratos
-    service: rpc_user
+    service: rpc.user
     token: nu/0WRA4EqSR1FagrjRj0fZwPXuGlMpX+zCuWu4uMqy8xr1vRjisSbA25aAC3mtU8MeeRsKhQiDAynUR09I=
