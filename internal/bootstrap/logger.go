@@ -2,7 +2,6 @@ package bootstrap
 
 import (
 	"fkratos/internal/bootstrap/conf"
-	"fmt"
 	"os"
 
 	"github.com/sirupsen/logrus"
@@ -13,6 +12,7 @@ import (
 
 	aliyunLogger "github.com/go-kratos/kratos/contrib/log/aliyun/v2"
 	logrusLogger "github.com/go-kratos/kratos/contrib/log/logrus/v2"
+	tencentLogger "github.com/go-kratos/kratos/contrib/log/tencent/v2"
 	zapLogger "github.com/go-kratos/kratos/contrib/log/zap/v2"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -22,16 +22,16 @@ import (
 type LoggerType string
 
 const (
-	LoggerTypeStd    LoggerType = "std"
-	LoggerTypeLogrus LoggerType = "logrus"
-	LoggerTypeZap    LoggerType = "zap"
-	LoggerTypeAliyun LoggerType = "aliyun"
+	LoggerTypeStd     LoggerType = "std"
+	LoggerTypeLogrus  LoggerType = "logrus"
+	LoggerTypeZap     LoggerType = "zap"
+	LoggerTypeAliyun  LoggerType = "aliyun"
+	LoggerTypeTencent LoggerType = "tencent"
 )
 
 // NewLoggerProvider 创建一个新的日志记录器提供者
 func NewLoggerProvider(cfg *conf.Logger, service *Service) log.Logger {
 	l := NewLogger(cfg)
-	fmt.Println("Bootstrap NewLoggerProvider Success")
 	return log.With(
 		l,
 		"service.id", service.Id,
@@ -61,6 +61,8 @@ func NewLogger(cfg *conf.Logger) log.Logger {
 		return NewLogrusLogger(cfg)
 	case LoggerTypeAliyun:
 		return NewAliyunLogger(cfg)
+	case LoggerTypeTencent:
+		return NewTencentLogger(cfg)
 	}
 }
 
@@ -141,5 +143,20 @@ func NewAliyunLogger(cfg *conf.Logger) log.Logger {
 		aliyunLogger.WithAccessKey(cfg.Aliyun.AccessKey),
 		aliyunLogger.WithAccessSecret(cfg.Aliyun.AccessSecret),
 	)
+	return wrapped
+}
+
+// NewTencentLogger 创建一个新的日志记录器 - Tencent
+func NewTencentLogger(cfg *conf.Logger) log.Logger {
+	wrapped, err := tencentLogger.NewLogger(
+		tencentLogger.WithTopicID(cfg.Tencent.TopicId),
+		tencentLogger.WithEndpoint(cfg.Tencent.Endpoint),
+		tencentLogger.WithAccessKey(cfg.Tencent.AccessKey),
+		tencentLogger.WithAccessSecret(cfg.Tencent.AccessSecret),
+	)
+	if err != nil {
+		panic(err)
+		return nil
+	}
 	return wrapped
 }

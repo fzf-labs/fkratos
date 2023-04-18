@@ -3,7 +3,6 @@ package bootstrap
 import (
 	"errors"
 	"fkratos/internal/bootstrap/conf"
-	"fmt"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/sdk/resource"
@@ -72,6 +71,5 @@ func NewTracerProvider(cfg *conf.Tracer, serviceInfo *Service) error {
 		return errors.New("create tracer provider failed")
 	}
 	otel.SetTracerProvider(tp)
-	fmt.Println("Bootstrap NewTracerProvider Success")
 	return nil
 }

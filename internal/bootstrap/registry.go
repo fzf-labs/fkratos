@@ -66,7 +66,6 @@ func NewRegistryAndDiscovery(cfg *conf.Registry) (registry.Registrar, registry.D
 		res := NewPolarisRegistry(cfg)
 		return res, res
 	}
-	fmt.Println("Bootstrap NewRegistry Success")
 	return nil, nil
 }
 
