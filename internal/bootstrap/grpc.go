@@ -24,7 +24,7 @@ func NewGrpcClient(ctx context.Context, r registry.Discovery, serviceName string
 		timeout = timeoutDuration.AsDuration()
 	}
 
-	endpoint := "polaris://" + serviceName
+	endpoint := "discovery:///" + serviceName
 
 	conn, err := kGrpc.DialInsecure(
 		ctx,
