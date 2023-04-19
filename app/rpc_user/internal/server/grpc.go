@@ -13,9 +13,9 @@ import (
 // NewGRPCServer new a gRPC server.
 func NewGRPCServer(c *conf.Bootstrap, logger log.Logger, userService *service.UserService) *grpc.Server {
 	//创建grpc服务
-	grpcServer := bootstrap.NewGrpcServer(c, logging.Server(logger))
+	srv := bootstrap.NewGrpcServer(c, logging.Server(logger))
 
 	//注册服务
-	v1.RegisterUserServer(grpcServer, userService)
-	return grpcServer
+	v1.RegisterUserServer(srv, userService)
+	return srv
 }
