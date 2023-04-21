@@ -15,7 +15,6 @@ init:
 	@go install github.com/envoyproxy/protoc-gen-validate@latest
 	@go install github.com/bufbuild/buf/cmd/buf@latest
 	@go install github.com/google/gnostic@latest
-	@go install entgo.io/ent/cmd/ent@latest
 	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	@go install github.com/go-kratos/kratos/cmd/kratos/v2@latest
 

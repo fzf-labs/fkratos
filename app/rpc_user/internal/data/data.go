@@ -29,7 +29,7 @@ type Data struct {
 
 // NewData .
 func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redis *redis.Client, rocksCache *rockscache.Client) (*Data, func(), error) {
-	l := log.NewHelper(log.With(logger, "module", "data/comment-service"))
+	l := log.NewHelper(log.With(logger, "module", "rpc_user/data"))
 	d := &Data{
 		logger:     l,
 		db:         db,
