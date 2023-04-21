@@ -3,8 +3,10 @@ package bootstrap
 import (
 	"fkratos/internal/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2/middleware"
+	"github.com/go-kratos/kratos/v2/middleware/metadata"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
+	"github.com/go-kratos/kratos/v2/middleware/validate"
 	kHttp "github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/gorilla/handlers"
 )
@@ -19,8 +21,12 @@ func NewHttpServer(cfg *conf.Bootstrap, m ...middleware.Middleware) *kHttp.Serve
 		)),
 	}
 	var ms []middleware.Middleware
-	ms = append(ms, recovery.Recovery())
-	ms = append(ms, tracing.Server())
+	ms = append(ms,
+		recovery.Recovery(),
+		tracing.Server(),
+		metadata.Server(),
+		validate.Validator(),
+	)
 	ms = append(ms, m...)
 	opts = append(opts, kHttp.Middleware(ms...))
 	if cfg.Server.Http.Network != "" {

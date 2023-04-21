@@ -5,8 +5,10 @@ import (
 	"fkratos/internal/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware"
+	"github.com/go-kratos/kratos/v2/middleware/metadata"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
+	"github.com/go-kratos/kratos/v2/middleware/validate"
 	"github.com/go-kratos/kratos/v2/registry"
 	kGrpc "github.com/go-kratos/kratos/v2/transport/grpc"
 	"google.golang.org/grpc"
@@ -48,8 +50,12 @@ func NewGrpcServer(cfg *conf.Bootstrap, m ...middleware.Middleware) *kGrpc.Serve
 	var opts []kGrpc.ServerOption
 
 	var ms []middleware.Middleware
-	ms = append(ms, recovery.Recovery())
-	ms = append(ms, tracing.Server())
+	ms = append(ms,
+		recovery.Recovery(),
+		tracing.Server(),
+		metadata.Server(),
+		validate.Validator(),
+	)
 	ms = append(ms, m...)
 	opts = append(opts, kGrpc.Middleware(ms...))
 
