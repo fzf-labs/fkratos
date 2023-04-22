@@ -21,7 +21,7 @@ trace:
   env: "dev"
 
 registry:
-  type: "polaris"
+  type: "etcd"
   etcd:
     endpoints:
       - 0.0.0.0:2379
