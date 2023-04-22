@@ -1,10 +1,10 @@
 server:
   http:
     addr: 0.0.0.0:8802
-    timeout: 3s
+    timeout: 5s
   grpc:
     addr: 0.0.0.0:9902
-    timeout: 3s
+    timeout: 1s
 data:
   database:
     driver: postgres
@@ -21,7 +21,7 @@ trace:
   env: "dev"
 
 registry:
-  type: "etcd"
+  type: "polaris"
   etcd:
     endpoints:
       - 0.0.0.0:2379
@@ -29,5 +29,16 @@ registry:
     address: 127.0.0.1
     port: 8091
     namespace: fkratos
-    service: bff.admin
-    token: nu/0WRA4EqSR1FagrjRj0fZwPXuGlMpX+zCuWu4uMqy8xr1vRjisSbA25aAC3mtU8MeeRsKhQiDAynUR09I=
+    token: Nb+iiDm+z58f+P9wvqle5aysh7QkAtz6ELUp4oW80hlC6/zrFgFftvU056G6B9WE0D2hfY2/rrd/8KtyC9U=
+  nacos:
+    address: 0.0.0.0
+    port: 8848
+    namespaceId: "public"
+    logLevel: "info"
+    cacheDir: ./
+    logDir: ./
+    updateThreadNum: 1
+    timeout: 5s
+    beatInterval: 1s
+    notLoadCacheAtStart: false
+    updateCacheWhenEmpty: true

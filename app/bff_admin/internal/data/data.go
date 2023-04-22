@@ -36,6 +36,6 @@ func NewData(c *conf.Bootstrap, logger log.Logger, userClient userV1.UserClient)
 	return d, cleanup, nil
 }
 
-func NewUserServiceClient(r registry.Discovery, c *conf.Bootstrap) userV1.UserClient {
-	return userV1.NewUserClient(bootstrap.NewGrpcClient(context.Background(), r, service.RpcUser, c.Server.Grpc.GetTimeout()))
+func NewUserServiceClient(c *conf.Bootstrap, r registry.Discovery) userV1.UserClient {
+	return userV1.NewUserClient(bootstrap.NewGrpcClient(context.Background(), r, c.Registry.Type, service.RpcUser, c.Server.Grpc.GetTimeout()))
 }

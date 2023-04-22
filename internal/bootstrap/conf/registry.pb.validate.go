@@ -691,8 +691,6 @@ func (m *Registry_Polaris) validate(all bool) error {
 
 	// no validation rules for Namespace
 
-	// no validation rules for Service
-
 	// no validation rules for Token
 
 	if len(errors) > 0 {

@@ -26,7 +26,7 @@ require (
 	github.com/gorilla/handlers v1.5.1
 	github.com/hashicorp/consul/api v1.20.0
 	github.com/nacos-group/nacos-sdk-go v1.1.4
-	github.com/polarismesh/polaris-go v1.4.1
+	github.com/polarismesh/polaris-go v1.3.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/viper v1.15.0
 	go.etcd.io/etcd/client/v3 v3.5.6

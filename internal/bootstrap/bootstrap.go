@@ -22,7 +22,6 @@ func Bootstrap(service *Service) (*conf.Bootstrap, log.Logger, registry.Registra
 
 	// init registrar
 	reg, dis := NewRegistryAndDiscovery(cfg.Registry)
-
 	// init tracer
 	err := NewTracerProvider(cfg.Trace, service)
 	if err != nil {

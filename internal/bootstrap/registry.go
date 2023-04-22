@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
-	"github.com/polarismesh/polaris-go/api"
 	"github.com/polarismesh/polaris-go/pkg/config"
 	"path/filepath"
+	"time"
 
 	// etcd
 	etcdKratos "github.com/go-kratos/kratos/contrib/registry/etcd/v2"
@@ -44,7 +44,7 @@ const (
 	LoggerTypePolaris    RegistryType = "polaris"
 )
 
-// NewRegistryAndDiscovery 创建一个注册和发现客户端
+// NewRegistryAndDiscovery 创建一个服务发现客户端
 func NewRegistryAndDiscovery(cfg *conf.Registry) (registry.Registrar, registry.Discovery) {
 	if cfg == nil {
 		return nil, nil
@@ -67,6 +67,30 @@ func NewRegistryAndDiscovery(cfg *conf.Registry) (registry.Registrar, registry.D
 		return res, res
 	}
 	return nil, nil
+}
+
+func NewRegistry(cfg *conf.Registry) registry.Registrar {
+	if cfg == nil {
+		return nil
+	}
+	switch RegistryType(cfg.Type) {
+	case RegistryTypeConsul:
+		res := NewConsulRegistry(cfg)
+		return res
+	case LoggerTypeEtcd:
+		res := NewEtcdRegistry(cfg)
+		return res
+	case LoggerTypeNacos:
+		res := NewNacosRegistry(cfg)
+		return res
+	case LoggerTypeKubernetes:
+		res := NewKubernetesRegistry(cfg)
+		return res
+	case LoggerTypePolaris:
+		res := NewPolarisRegistry(cfg)
+		return res
+	}
+	return nil
 }
 
 // NewConsulRegistry 创建一个注册发现客户端 - Consul
@@ -164,17 +188,15 @@ func NewKubernetesRegistry(_ *conf.Registry) *k8sRegistry.Registry {
 func NewPolarisRegistry(c *conf.Registry) *polarisKratos.Registry {
 	address := fmt.Sprintf("%s:%d", c.Polaris.Address, c.Polaris.Port)
 	configuration := config.NewDefaultConfiguration([]string{address})
-	consumer, err := api.NewConsumerAPIByConfig(configuration)
-	if err != nil {
-		panic(err)
-	}
-	provider := api.NewProviderAPIByContext(consumer.SDKContext())
-	reg := polarisKratos.NewRegistry(
-		provider,
-		consumer,
+	reg := polarisKratos.NewRegistryWithConfig(
+		configuration,
 		polarisKratos.WithNamespace(c.Polaris.Namespace),
 		polarisKratos.WithServiceToken(c.Polaris.Token),
+		polarisKratos.WithTimeout(time.Second),
 		polarisKratos.WithTTL(10),
+		polarisKratos.WithHeartbeat(true),
+		polarisKratos.WithHealthy(true),
+		polarisKratos.WithRetryCount(3),
 	)
 	return reg
 }

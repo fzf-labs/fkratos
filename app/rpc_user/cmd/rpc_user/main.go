@@ -25,10 +25,10 @@ func newApp(logger log.Logger, registry registry.Registrar, gs *grpc.Server) *kr
 		kratos.Version(Service.Version),
 		kratos.Metadata(Service.Metadata),
 		kratos.Logger(logger),
+		kratos.Registrar(registry),
 		kratos.Server(
 			gs,
 		),
-		kratos.Registrar(registry),
 	)
 }
 
