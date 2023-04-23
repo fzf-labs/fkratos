@@ -25,15 +25,16 @@ func NewGrpcClient(ctx context.Context, r registry.Discovery, discovery string, 
 	if timeoutDuration != nil {
 		timeout = timeoutDuration.AsDuration()
 	}
-	var endpoint string
+	endpoint := "discovery:///"
 	switch discovery {
 	case "nacos":
-		endpoint = "discovery:///" + serviceName + ".grpc"
+		serviceName += ".grpc"
 	case "polaris":
-		endpoint = "discovery:///" + serviceName + "grpc"
+		serviceName += "grpc"
 	default:
-		endpoint = "discovery:///" + serviceName
+
 	}
+	endpoint += serviceName
 	conn, err := kGrpc.DialInsecure(
 		ctx,
 		kGrpc.WithEndpoint(endpoint),
@@ -47,7 +48,6 @@ func NewGrpcClient(ctx context.Context, r registry.Discovery, discovery string, 
 	if err != nil {
 		log.Fatalf("dial grpc client [%s] failed: %s", serviceName, err.Error())
 	}
-
 	return conn
 }
 

@@ -12,7 +12,7 @@ import (
 
 // NewHTTPServer new an HTTP server.
 func NewHTTPServer(c *conf.Bootstrap, logger log.Logger, apiService *service.ApiService) *http.Server {
-	httpServer := bootstrap.NewHttpServer(c, logging.Server(logger))
-	v1.RegisterApiHTTPServer(httpServer, apiService)
-	return httpServer
+	srv := bootstrap.NewHttpServer(c, logging.Server(logger))
+	v1.RegisterApiHTTPServer(srv, apiService)
+	return srv
 }
