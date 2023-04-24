@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"fkratos/internal/bootstrap/conf"
+
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/metadata"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
@@ -26,6 +27,7 @@ func NewHttpServer(cfg *conf.Bootstrap, m ...middleware.Middleware) *kHttp.Serve
 		tracing.Server(),
 		metadata.Server(),
 		validate.Validator(),
+		Metrics(),
 	)
 	ms = append(ms, m...)
 	opts = append(opts, kHttp.Middleware(ms...))

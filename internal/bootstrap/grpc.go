@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"context"
 	"fkratos/internal/bootstrap/conf"
+
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/metadata"
@@ -61,6 +62,7 @@ func NewGrpcServer(cfg *conf.Bootstrap, m ...middleware.Middleware) *kGrpc.Serve
 		tracing.Server(),
 		metadata.Server(),
 		validate.Validator(),
+		Metrics(),
 	)
 	ms = append(ms, m...)
 	opts = append(opts, kGrpc.Middleware(ms...))
