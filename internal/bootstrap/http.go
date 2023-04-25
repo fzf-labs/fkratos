@@ -10,6 +10,7 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/validate"
 	kHttp "github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/gorilla/handlers"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 // NewHttpServer 创建Http服务端
@@ -40,5 +41,7 @@ func NewHttpServer(cfg *conf.Bootstrap, m ...middleware.Middleware) *kHttp.Serve
 	if cfg.Server.Http.Timeout != nil {
 		opts = append(opts, kHttp.Timeout(cfg.Server.Http.Timeout.AsDuration()))
 	}
-	return kHttp.NewServer(opts...)
+	srv := kHttp.NewServer(opts...)
+	srv.Handle("/metrics", promhttp.Handler())
+	return srv
 }
