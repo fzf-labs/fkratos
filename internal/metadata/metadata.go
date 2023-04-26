@@ -2,6 +2,7 @@ package metadata
 
 import (
 	"context"
+
 	"github.com/go-kratos/kratos/v2/metadata"
 )
 

@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package api.user.v1;
+
+option go_package = "fkratos/api/sys/v1;v1";
+
+// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
+// 后缀定义:请求req,响应reply
+
+
+// 管理员
+service admin {
+	//管理员信息
+	rpc SysAdminInfo (SysAdminInfoReq) returns (SysAdminInfoReply);
+	//管理员更新
+	rpc SysAdminInfoUpdate (SysAdminInfoUpdateReq) returns (SysAdminInfoUpdateReply);
+
+	rpc SysAdminGenerateAvatar (SysAdminGenerateAvatarReq) returns (SysAdminGenerateAvatarReply);
+}
+
+//请求-管理员信息
+message SysAdminInfoReq {
+
+}
+//响应-管理员信息
+message SysAdminInfoReply {
+
+}
+
+//请求-管理员更新
+message SysAdminInfoUpdateReq {
+
+}
+//响应-管理员更新
+message SysAdminInfoUpdateReply {
+
+}
+
+//请求-管理员更新
+message SysAdminGenerateAvatarReq {
+
+}
+//响应-管理员更新
+message SysAdminGenerateAvatarReply {
+
+}

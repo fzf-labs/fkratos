@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"errors"
 	"fkratos/internal/bootstrap/conf"
+
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/sdk/resource"

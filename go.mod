@@ -26,6 +26,7 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
 	github.com/hashicorp/consul/api v1.20.0
+	github.com/hibiken/asynq v0.23.0
 	github.com/nacos-group/nacos-sdk-go v1.1.4
 	github.com/polarismesh/polaris-go v1.3.0
 	github.com/prometheus/client_golang v1.14.0
@@ -124,6 +125,7 @@ require (
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.41.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
+	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/spf13/afero v1.9.3 // indirect
 	github.com/spf13/cast v1.5.0 // indirect

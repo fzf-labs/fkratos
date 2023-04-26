@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"fkratos/internal/bootstrap/conf"
 	"fmt"
+
 	"github.com/fzf-labs/fpkg/db"
 	"github.com/go-kratos/kratos/v2/log"
 	"gorm.io/gorm"

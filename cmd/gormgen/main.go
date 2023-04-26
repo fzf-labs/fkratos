@@ -3,10 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"path/filepath"
+
 	"github.com/fzf-labs/fpkg/conv"
 	"github.com/fzf-labs/fpkg/db/gen"
 	"github.com/spf13/viper"
-	"path/filepath"
 )
 
 var configFile = flag.String("f", "config.yaml", "the config file")

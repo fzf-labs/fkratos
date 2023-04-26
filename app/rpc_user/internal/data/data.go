@@ -3,6 +3,7 @@ package data
 import (
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
+
 	"github.com/dtm-labs/rockscache"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-redis/redis/v8"

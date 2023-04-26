@@ -6,6 +6,7 @@ import (
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
 	"fkratos/internal/service"
+
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/google/wire"
