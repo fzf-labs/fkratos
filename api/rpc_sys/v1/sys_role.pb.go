@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 )
 
 const (
@@ -19,21 +20,470 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type SysRoleListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysRoleListReq) Reset() {
+	*x = SysRoleListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysRoleListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysRoleListReq) ProtoMessage() {}
+
+func (x *SysRoleListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysRoleListReq.ProtoReflect.Descriptor instead.
+func (*SysRoleListReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{0}
+}
+
+type SysRoleListResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysRoleListResp) Reset() {
+	*x = SysRoleListResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysRoleListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysRoleListResp) ProtoMessage() {}
+
+func (x *SysRoleListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysRoleListResp.ProtoReflect.Descriptor instead.
+func (*SysRoleListResp) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{1}
+}
+
+type SysRoleInfoReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysRoleInfoReq) Reset() {
+	*x = SysRoleInfoReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysRoleInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysRoleInfoReq) ProtoMessage() {}
+
+func (x *SysRoleInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysRoleInfoReq.ProtoReflect.Descriptor instead.
+func (*SysRoleInfoReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{2}
+}
+
+type SysRoleInfoResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysRoleInfoResp) Reset() {
+	*x = SysRoleInfoResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysRoleInfoResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysRoleInfoResp) ProtoMessage() {}
+
+func (x *SysRoleInfoResp) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysRoleInfoResp.ProtoReflect.Descriptor instead.
+func (*SysRoleInfoResp) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{3}
+}
+
+type SysRoleStoreReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysRoleStoreReq) Reset() {
+	*x = SysRoleStoreReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysRoleStoreReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysRoleStoreReq) ProtoMessage() {}
+
+func (x *SysRoleStoreReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysRoleStoreReq.ProtoReflect.Descriptor instead.
+func (*SysRoleStoreReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{4}
+}
+
+type SysRoleStoreResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysRoleStoreResp) Reset() {
+	*x = SysRoleStoreResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysRoleStoreResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysRoleStoreResp) ProtoMessage() {}
+
+func (x *SysRoleStoreResp) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysRoleStoreResp.ProtoReflect.Descriptor instead.
+func (*SysRoleStoreResp) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{5}
+}
+
+type SysRoleDelReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysRoleDelReq) Reset() {
+	*x = SysRoleDelReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysRoleDelReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysRoleDelReq) ProtoMessage() {}
+
+func (x *SysRoleDelReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysRoleDelReq.ProtoReflect.Descriptor instead.
+func (*SysRoleDelReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{6}
+}
+
+type SysRoleDelResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysRoleDelResp) Reset() {
+	*x = SysRoleDelResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysRoleDelResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysRoleDelResp) ProtoMessage() {}
+
+func (x *SysRoleDelResp) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysRoleDelResp.ProtoReflect.Descriptor instead.
+func (*SysRoleDelResp) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{7}
+}
+
+type SysRoleStatusReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysRoleStatusReq) Reset() {
+	*x = SysRoleStatusReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysRoleStatusReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysRoleStatusReq) ProtoMessage() {}
+
+func (x *SysRoleStatusReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysRoleStatusReq.ProtoReflect.Descriptor instead.
+func (*SysRoleStatusReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{8}
+}
+
+type SysRoleStatusResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysRoleStatusResp) Reset() {
+	*x = SysRoleStatusResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysRoleStatusResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysRoleStatusResp) ProtoMessage() {}
+
+func (x *SysRoleStatusResp) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_role_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysRoleStatusResp.ProtoReflect.Descriptor instead.
+func (*SysRoleStatusResp) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{9}
+}
+
 var File_rpc_sys_v1_sys_role_proto protoreflect.FileDescriptor
 
 var file_rpc_sys_v1_sys_role_proto_rawDesc = []byte{
 	0x0a, 0x19, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x73, 0x79, 0x73,
 	0x5f, 0x72, 0x6f, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0b, 0x61, 0x70, 0x69,
-	0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x32, 0x06, 0x0a, 0x04, 0x52, 0x6f, 0x6c, 0x65,
-	0x42, 0x17, 0x5a, 0x15, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f,
-	0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x22, 0x10, 0x0a, 0x0e, 0x53, 0x79, 0x73, 0x52,
+	0x6f, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x11, 0x0a, 0x0f, 0x53, 0x79,
+	0x73, 0x52, 0x6f, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x22, 0x10, 0x0a,
+	0x0e, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x22,
+	0x11, 0x0a, 0x0f, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65,
+	0x73, 0x70, 0x22, 0x11, 0x0a, 0x0f, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x53, 0x74, 0x6f,
+	0x72, 0x65, 0x52, 0x65, 0x71, 0x22, 0x12, 0x0a, 0x10, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65,
+	0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x22, 0x0f, 0x0a, 0x0d, 0x53, 0x79, 0x73,
+	0x52, 0x6f, 0x6c, 0x65, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x22, 0x10, 0x0a, 0x0e, 0x53, 0x79,
+	0x73, 0x52, 0x6f, 0x6c, 0x65, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x22, 0x12, 0x0a, 0x10,
+	0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71,
+	0x22, 0x13, 0x0a, 0x11, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x53, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x52, 0x65, 0x73, 0x70, 0x32, 0xfe, 0x02, 0x0a, 0x04, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x48,
+	0x0a, 0x0b, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1b, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x52,
+	0x6f, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x1c, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65,
+	0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x12, 0x48, 0x0a, 0x0b, 0x53, 0x79, 0x73, 0x52,
+	0x6f, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x1b, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73,
+	0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x49, 0x6e, 0x66,
+	0x6f, 0x52, 0x65, 0x71, 0x1a, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e,
+	0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65,
+	0x73, 0x70, 0x12, 0x4b, 0x0a, 0x0c, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x53, 0x74, 0x6f,
+	0x72, 0x65, 0x12, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31,
+	0x2e, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71,
+	0x1a, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53,
+	0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x12,
+	0x45, 0x0a, 0x0a, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x44, 0x65, 0x6c, 0x12, 0x1a, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x52,
+	0x6f, 0x6c, 0x65, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x1a, 0x1b, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x44,
+	0x65, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x12, 0x4e, 0x0a, 0x0d, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c,
+	0x65, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73,
+	0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x53, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x1a, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65,
+	0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x52, 0x6f, 0x6c, 0x65, 0x53, 0x74, 0x61, 0x74,
+	0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x42, 0x17, 0x5a, 0x15, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f,
+	0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
-var file_rpc_sys_v1_sys_role_proto_goTypes = []interface{}{}
+var (
+	file_rpc_sys_v1_sys_role_proto_rawDescOnce sync.Once
+	file_rpc_sys_v1_sys_role_proto_rawDescData = file_rpc_sys_v1_sys_role_proto_rawDesc
+)
+
+func file_rpc_sys_v1_sys_role_proto_rawDescGZIP() []byte {
+	file_rpc_sys_v1_sys_role_proto_rawDescOnce.Do(func() {
+		file_rpc_sys_v1_sys_role_proto_rawDescData = protoimpl.X.CompressGZIP(file_rpc_sys_v1_sys_role_proto_rawDescData)
+	})
+	return file_rpc_sys_v1_sys_role_proto_rawDescData
+}
+
+var file_rpc_sys_v1_sys_role_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_rpc_sys_v1_sys_role_proto_goTypes = []interface{}{
+	(*SysRoleListReq)(nil),    // 0: api.user.v1.SysRoleListReq
+	(*SysRoleListResp)(nil),   // 1: api.user.v1.SysRoleListResp
+	(*SysRoleInfoReq)(nil),    // 2: api.user.v1.SysRoleInfoReq
+	(*SysRoleInfoResp)(nil),   // 3: api.user.v1.SysRoleInfoResp
+	(*SysRoleStoreReq)(nil),   // 4: api.user.v1.SysRoleStoreReq
+	(*SysRoleStoreResp)(nil),  // 5: api.user.v1.SysRoleStoreResp
+	(*SysRoleDelReq)(nil),     // 6: api.user.v1.SysRoleDelReq
+	(*SysRoleDelResp)(nil),    // 7: api.user.v1.SysRoleDelResp
+	(*SysRoleStatusReq)(nil),  // 8: api.user.v1.SysRoleStatusReq
+	(*SysRoleStatusResp)(nil), // 9: api.user.v1.SysRoleStatusResp
+}
 var file_rpc_sys_v1_sys_role_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
+	0, // 0: api.user.v1.Role.SysRoleList:input_type -> api.user.v1.SysRoleListReq
+	2, // 1: api.user.v1.Role.SysRoleInfo:input_type -> api.user.v1.SysRoleInfoReq
+	4, // 2: api.user.v1.Role.SysRoleStore:input_type -> api.user.v1.SysRoleStoreReq
+	6, // 3: api.user.v1.Role.SysRoleDel:input_type -> api.user.v1.SysRoleDelReq
+	8, // 4: api.user.v1.Role.SysRoleStatus:input_type -> api.user.v1.SysRoleStatusReq
+	1, // 5: api.user.v1.Role.SysRoleList:output_type -> api.user.v1.SysRoleListResp
+	3, // 6: api.user.v1.Role.SysRoleInfo:output_type -> api.user.v1.SysRoleInfoResp
+	5, // 7: api.user.v1.Role.SysRoleStore:output_type -> api.user.v1.SysRoleStoreResp
+	7, // 8: api.user.v1.Role.SysRoleDel:output_type -> api.user.v1.SysRoleDelResp
+	9, // 9: api.user.v1.Role.SysRoleStatus:output_type -> api.user.v1.SysRoleStatusResp
+	5, // [5:10] is the sub-list for method output_type
+	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -44,18 +494,141 @@ func file_rpc_sys_v1_sys_role_proto_init() {
 	if File_rpc_sys_v1_sys_role_proto != nil {
 		return
 	}
+	if !protoimpl.UnsafeEnabled {
+		file_rpc_sys_v1_sys_role_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysRoleListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_role_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysRoleListResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_role_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysRoleInfoReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_role_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysRoleInfoResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_role_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysRoleStoreReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_role_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysRoleStoreResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_role_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysRoleDelReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_role_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysRoleDelResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_role_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysRoleStatusReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_role_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysRoleStatusResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_sys_v1_sys_role_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   0,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_rpc_sys_v1_sys_role_proto_goTypes,
 		DependencyIndexes: file_rpc_sys_v1_sys_role_proto_depIdxs,
+		MessageInfos:      file_rpc_sys_v1_sys_role_proto_msgTypes,
 	}.Build()
 	File_rpc_sys_v1_sys_role_proto = out.File
 	file_rpc_sys_v1_sys_role_proto_rawDesc = nil

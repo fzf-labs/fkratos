@@ -10,5 +10,24 @@ option go_package = "fkratos/api/sys/v1;v1";
 
 // 日志
 service Log {
+  //日志列表
+  rpc SysLogList (SysLogListReq) returns (SysLogListResp);
+  //单条日志
+  rpc SysLogInfo (SysLogInfoReq) returns (SysLogInfoResp);
 
 }
+//请求-日志列表
+message SysLogListReq {
+}
+//响应-日志列表
+message SysLogListResp {
+}
+
+
+//请求-单条日志
+message SysLogInfoReq {
+}
+//响应-单条日志
+message SysLogInfoResp {
+}
+

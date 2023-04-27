@@ -34,3 +34,805 @@ var (
 	_ = anypb.Any{}
 	_ = sort.Sort
 )
+
+// Validate checks the field values on SysDeptListReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysDeptListReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysDeptListReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysDeptListReqMultiError,
+// or nil if none found.
+func (m *SysDeptListReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysDeptListReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysDeptListReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysDeptListReqMultiError is an error wrapping multiple validation errors
+// returned by SysDeptListReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysDeptListReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysDeptListReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysDeptListReqMultiError) AllErrors() []error { return m }
+
+// SysDeptListReqValidationError is the validation error returned by
+// SysDeptListReq.Validate if the designated constraints aren't met.
+type SysDeptListReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysDeptListReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysDeptListReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysDeptListReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysDeptListReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysDeptListReqValidationError) ErrorName() string { return "SysDeptListReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysDeptListReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysDeptListReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysDeptListReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysDeptListReqValidationError{}
+
+// Validate checks the field values on SysDeptListReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysDeptListReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysDeptListReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysDeptListReplyMultiError, or nil if none found.
+func (m *SysDeptListReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysDeptListReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysDeptListReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysDeptListReplyMultiError is an error wrapping multiple validation errors
+// returned by SysDeptListReply.ValidateAll() if the designated constraints
+// aren't met.
+type SysDeptListReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysDeptListReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysDeptListReplyMultiError) AllErrors() []error { return m }
+
+// SysDeptListReplyValidationError is the validation error returned by
+// SysDeptListReply.Validate if the designated constraints aren't met.
+type SysDeptListReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysDeptListReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysDeptListReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysDeptListReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysDeptListReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysDeptListReplyValidationError) ErrorName() string { return "SysDeptListReplyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysDeptListReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysDeptListReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysDeptListReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysDeptListReplyValidationError{}
+
+// Validate checks the field values on SysDeptInfoReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysDeptInfoReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysDeptInfoReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysDeptInfoReqMultiError,
+// or nil if none found.
+func (m *SysDeptInfoReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysDeptInfoReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysDeptInfoReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysDeptInfoReqMultiError is an error wrapping multiple validation errors
+// returned by SysDeptInfoReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysDeptInfoReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysDeptInfoReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysDeptInfoReqMultiError) AllErrors() []error { return m }
+
+// SysDeptInfoReqValidationError is the validation error returned by
+// SysDeptInfoReq.Validate if the designated constraints aren't met.
+type SysDeptInfoReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysDeptInfoReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysDeptInfoReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysDeptInfoReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysDeptInfoReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysDeptInfoReqValidationError) ErrorName() string { return "SysDeptInfoReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysDeptInfoReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysDeptInfoReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysDeptInfoReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysDeptInfoReqValidationError{}
+
+// Validate checks the field values on SysDeptInfoReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysDeptInfoReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysDeptInfoReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysDeptInfoReplyMultiError, or nil if none found.
+func (m *SysDeptInfoReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysDeptInfoReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysDeptInfoReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysDeptInfoReplyMultiError is an error wrapping multiple validation errors
+// returned by SysDeptInfoReply.ValidateAll() if the designated constraints
+// aren't met.
+type SysDeptInfoReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysDeptInfoReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysDeptInfoReplyMultiError) AllErrors() []error { return m }
+
+// SysDeptInfoReplyValidationError is the validation error returned by
+// SysDeptInfoReply.Validate if the designated constraints aren't met.
+type SysDeptInfoReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysDeptInfoReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysDeptInfoReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysDeptInfoReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysDeptInfoReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysDeptInfoReplyValidationError) ErrorName() string { return "SysDeptInfoReplyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysDeptInfoReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysDeptInfoReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysDeptInfoReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysDeptInfoReplyValidationError{}
+
+// Validate checks the field values on SysDeptStoreReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysDeptStoreReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysDeptStoreReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysDeptStoreReqMultiError, or nil if none found.
+func (m *SysDeptStoreReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysDeptStoreReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysDeptStoreReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysDeptStoreReqMultiError is an error wrapping multiple validation errors
+// returned by SysDeptStoreReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysDeptStoreReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysDeptStoreReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysDeptStoreReqMultiError) AllErrors() []error { return m }
+
+// SysDeptStoreReqValidationError is the validation error returned by
+// SysDeptStoreReq.Validate if the designated constraints aren't met.
+type SysDeptStoreReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysDeptStoreReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysDeptStoreReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysDeptStoreReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysDeptStoreReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysDeptStoreReqValidationError) ErrorName() string { return "SysDeptStoreReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysDeptStoreReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysDeptStoreReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysDeptStoreReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysDeptStoreReqValidationError{}
+
+// Validate checks the field values on SysDeptStoreReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysDeptStoreReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysDeptStoreReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysDeptStoreReplyMultiError, or nil if none found.
+func (m *SysDeptStoreReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysDeptStoreReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysDeptStoreReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysDeptStoreReplyMultiError is an error wrapping multiple validation errors
+// returned by SysDeptStoreReply.ValidateAll() if the designated constraints
+// aren't met.
+type SysDeptStoreReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysDeptStoreReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysDeptStoreReplyMultiError) AllErrors() []error { return m }
+
+// SysDeptStoreReplyValidationError is the validation error returned by
+// SysDeptStoreReply.Validate if the designated constraints aren't met.
+type SysDeptStoreReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysDeptStoreReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysDeptStoreReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysDeptStoreReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysDeptStoreReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysDeptStoreReplyValidationError) ErrorName() string {
+	return "SysDeptStoreReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SysDeptStoreReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysDeptStoreReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysDeptStoreReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysDeptStoreReplyValidationError{}
+
+// Validate checks the field values on SysDeptDelReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysDeptDelReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysDeptDelReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysDeptDelReqMultiError, or
+// nil if none found.
+func (m *SysDeptDelReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysDeptDelReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysDeptDelReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysDeptDelReqMultiError is an error wrapping multiple validation errors
+// returned by SysDeptDelReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysDeptDelReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysDeptDelReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysDeptDelReqMultiError) AllErrors() []error { return m }
+
+// SysDeptDelReqValidationError is the validation error returned by
+// SysDeptDelReq.Validate if the designated constraints aren't met.
+type SysDeptDelReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysDeptDelReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysDeptDelReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysDeptDelReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysDeptDelReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysDeptDelReqValidationError) ErrorName() string { return "SysDeptDelReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysDeptDelReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysDeptDelReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysDeptDelReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysDeptDelReqValidationError{}
+
+// Validate checks the field values on SysDeptDelReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysDeptDelReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysDeptDelReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysDeptDelReplyMultiError, or nil if none found.
+func (m *SysDeptDelReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysDeptDelReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysDeptDelReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysDeptDelReplyMultiError is an error wrapping multiple validation errors
+// returned by SysDeptDelReply.ValidateAll() if the designated constraints
+// aren't met.
+type SysDeptDelReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysDeptDelReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysDeptDelReplyMultiError) AllErrors() []error { return m }
+
+// SysDeptDelReplyValidationError is the validation error returned by
+// SysDeptDelReply.Validate if the designated constraints aren't met.
+type SysDeptDelReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysDeptDelReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysDeptDelReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysDeptDelReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysDeptDelReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysDeptDelReplyValidationError) ErrorName() string { return "SysDeptDelReplyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysDeptDelReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysDeptDelReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysDeptDelReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysDeptDelReplyValidationError{}

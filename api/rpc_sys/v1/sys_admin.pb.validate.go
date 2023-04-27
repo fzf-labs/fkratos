@@ -645,3 +645,813 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SysAdminGenerateAvatarReplyValidationError{}
+
+// Validate checks the field values on SysManageListReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysManageListReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysManageListReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysManageListReqMultiError, or nil if none found.
+func (m *SysManageListReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysManageListReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysManageListReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysManageListReqMultiError is an error wrapping multiple validation errors
+// returned by SysManageListReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysManageListReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysManageListReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysManageListReqMultiError) AllErrors() []error { return m }
+
+// SysManageListReqValidationError is the validation error returned by
+// SysManageListReq.Validate if the designated constraints aren't met.
+type SysManageListReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysManageListReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysManageListReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysManageListReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysManageListReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysManageListReqValidationError) ErrorName() string { return "SysManageListReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysManageListReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysManageListReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysManageListReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysManageListReqValidationError{}
+
+// Validate checks the field values on SysManageListReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SysManageListReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysManageListReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysManageListReplyMultiError, or nil if none found.
+func (m *SysManageListReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysManageListReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysManageListReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysManageListReplyMultiError is an error wrapping multiple validation errors
+// returned by SysManageListReply.ValidateAll() if the designated constraints
+// aren't met.
+type SysManageListReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysManageListReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysManageListReplyMultiError) AllErrors() []error { return m }
+
+// SysManageListReplyValidationError is the validation error returned by
+// SysManageListReply.Validate if the designated constraints aren't met.
+type SysManageListReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysManageListReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysManageListReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysManageListReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysManageListReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysManageListReplyValidationError) ErrorName() string {
+	return "SysManageListReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SysManageListReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysManageListReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysManageListReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysManageListReplyValidationError{}
+
+// Validate checks the field values on SysManageInfoReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysManageInfoReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysManageInfoReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysManageInfoReqMultiError, or nil if none found.
+func (m *SysManageInfoReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysManageInfoReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysManageInfoReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysManageInfoReqMultiError is an error wrapping multiple validation errors
+// returned by SysManageInfoReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysManageInfoReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysManageInfoReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysManageInfoReqMultiError) AllErrors() []error { return m }
+
+// SysManageInfoReqValidationError is the validation error returned by
+// SysManageInfoReq.Validate if the designated constraints aren't met.
+type SysManageInfoReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysManageInfoReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysManageInfoReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysManageInfoReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysManageInfoReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysManageInfoReqValidationError) ErrorName() string { return "SysManageInfoReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysManageInfoReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysManageInfoReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysManageInfoReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysManageInfoReqValidationError{}
+
+// Validate checks the field values on SysManageInfoReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SysManageInfoReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysManageInfoReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysManageInfoReplyMultiError, or nil if none found.
+func (m *SysManageInfoReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysManageInfoReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysManageInfoReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysManageInfoReplyMultiError is an error wrapping multiple validation errors
+// returned by SysManageInfoReply.ValidateAll() if the designated constraints
+// aren't met.
+type SysManageInfoReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysManageInfoReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysManageInfoReplyMultiError) AllErrors() []error { return m }
+
+// SysManageInfoReplyValidationError is the validation error returned by
+// SysManageInfoReply.Validate if the designated constraints aren't met.
+type SysManageInfoReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysManageInfoReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysManageInfoReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysManageInfoReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysManageInfoReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysManageInfoReplyValidationError) ErrorName() string {
+	return "SysManageInfoReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SysManageInfoReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysManageInfoReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysManageInfoReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysManageInfoReplyValidationError{}
+
+// Validate checks the field values on SysManageStoreReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysManageStoreReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysManageStoreReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysManageStoreReqMultiError, or nil if none found.
+func (m *SysManageStoreReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysManageStoreReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysManageStoreReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysManageStoreReqMultiError is an error wrapping multiple validation errors
+// returned by SysManageStoreReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysManageStoreReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysManageStoreReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysManageStoreReqMultiError) AllErrors() []error { return m }
+
+// SysManageStoreReqValidationError is the validation error returned by
+// SysManageStoreReq.Validate if the designated constraints aren't met.
+type SysManageStoreReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysManageStoreReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysManageStoreReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysManageStoreReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysManageStoreReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysManageStoreReqValidationError) ErrorName() string {
+	return "SysManageStoreReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SysManageStoreReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysManageStoreReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysManageStoreReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysManageStoreReqValidationError{}
+
+// Validate checks the field values on SysManageStoreReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SysManageStoreReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysManageStoreReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysManageStoreReplyMultiError, or nil if none found.
+func (m *SysManageStoreReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysManageStoreReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysManageStoreReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysManageStoreReplyMultiError is an error wrapping multiple validation
+// errors returned by SysManageStoreReply.ValidateAll() if the designated
+// constraints aren't met.
+type SysManageStoreReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysManageStoreReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysManageStoreReplyMultiError) AllErrors() []error { return m }
+
+// SysManageStoreReplyValidationError is the validation error returned by
+// SysManageStoreReply.Validate if the designated constraints aren't met.
+type SysManageStoreReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysManageStoreReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysManageStoreReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysManageStoreReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysManageStoreReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysManageStoreReplyValidationError) ErrorName() string {
+	return "SysManageStoreReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SysManageStoreReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysManageStoreReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysManageStoreReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysManageStoreReplyValidationError{}
+
+// Validate checks the field values on SysManageDelReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysManageDelReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysManageDelReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysManageDelReqMultiError, or nil if none found.
+func (m *SysManageDelReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysManageDelReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysManageDelReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysManageDelReqMultiError is an error wrapping multiple validation errors
+// returned by SysManageDelReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysManageDelReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysManageDelReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysManageDelReqMultiError) AllErrors() []error { return m }
+
+// SysManageDelReqValidationError is the validation error returned by
+// SysManageDelReq.Validate if the designated constraints aren't met.
+type SysManageDelReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysManageDelReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysManageDelReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysManageDelReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysManageDelReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysManageDelReqValidationError) ErrorName() string { return "SysManageDelReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysManageDelReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysManageDelReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysManageDelReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysManageDelReqValidationError{}
+
+// Validate checks the field values on SysManageDelReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysManageDelReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysManageDelReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysManageDelReplyMultiError, or nil if none found.
+func (m *SysManageDelReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysManageDelReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysManageDelReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysManageDelReplyMultiError is an error wrapping multiple validation errors
+// returned by SysManageDelReply.ValidateAll() if the designated constraints
+// aren't met.
+type SysManageDelReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysManageDelReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysManageDelReplyMultiError) AllErrors() []error { return m }
+
+// SysManageDelReplyValidationError is the validation error returned by
+// SysManageDelReply.Validate if the designated constraints aren't met.
+type SysManageDelReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysManageDelReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysManageDelReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysManageDelReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysManageDelReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysManageDelReplyValidationError) ErrorName() string {
+	return "SysManageDelReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SysManageDelReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysManageDelReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysManageDelReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysManageDelReplyValidationError{}

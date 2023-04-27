@@ -10,5 +10,31 @@ option go_package = "fkratos/api/sys/v1;v1";
 
 // 权限服务
 service Permission {
-
+  //权限列表
+  rpc SysPermissionList (SysPermissionListReq) returns (SysPermissionListResp);
+  //单个权限
+  rpc SysPermissionInfo (SysPermissionInfoReq) returns (SysPermissionInfoResp);
+  //保存权限
+  rpc SysPermissionStore (SysPermissionStoreReq) returns (SysPermissionStoreResp);
+  //删除权限
+  rpc SysPermissionDel (SysPermissionDelReq) returns (SysPermissionDelResp);
+  //修改权限状态
+  rpc SysPermissionStatus (SysPermissionStatusReq) returns (SysPermissionStatusResp);
 }
+
+message SysPermissionListReq{}
+message SysPermissionListResp{}
+
+message SysPermissionInfoReq{}
+message SysPermissionInfoResp{}
+
+
+message SysPermissionStoreReq{}
+message SysPermissionStoreResp{}
+
+
+message SysPermissionDelReq{}
+message SysPermissionDelResp{}
+
+message SysPermissionStatusReq{}
+message SysPermissionStatusResp{}

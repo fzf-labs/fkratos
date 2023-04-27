@@ -176,7 +176,7 @@ func (*SysAdminInfoUpdateReply) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_admin_proto_rawDescGZIP(), []int{3}
 }
 
-// 请求-管理员更新
+// 请求-生成头像
 type SysAdminGenerateAvatarReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -215,7 +215,7 @@ func (*SysAdminGenerateAvatarReq) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_admin_proto_rawDescGZIP(), []int{4}
 }
 
-// 响应-管理员更新
+// 响应-生成头像
 type SysAdminGenerateAvatarReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -254,6 +254,318 @@ func (*SysAdminGenerateAvatarReply) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_admin_proto_rawDescGZIP(), []int{5}
 }
 
+// 请求-管理员列表
+type SysManageListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysManageListReq) Reset() {
+	*x = SysManageListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysManageListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysManageListReq) ProtoMessage() {}
+
+func (x *SysManageListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysManageListReq.ProtoReflect.Descriptor instead.
+func (*SysManageListReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_admin_proto_rawDescGZIP(), []int{6}
+}
+
+// 响应-管理员列表
+type SysManageListReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysManageListReply) Reset() {
+	*x = SysManageListReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysManageListReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysManageListReply) ProtoMessage() {}
+
+func (x *SysManageListReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysManageListReply.ProtoReflect.Descriptor instead.
+func (*SysManageListReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_admin_proto_rawDescGZIP(), []int{7}
+}
+
+// 请求-管理员信息
+type SysManageInfoReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysManageInfoReq) Reset() {
+	*x = SysManageInfoReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysManageInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysManageInfoReq) ProtoMessage() {}
+
+func (x *SysManageInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysManageInfoReq.ProtoReflect.Descriptor instead.
+func (*SysManageInfoReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_admin_proto_rawDescGZIP(), []int{8}
+}
+
+// 响应-管理员信息
+type SysManageInfoReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysManageInfoReply) Reset() {
+	*x = SysManageInfoReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysManageInfoReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysManageInfoReply) ProtoMessage() {}
+
+func (x *SysManageInfoReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysManageInfoReply.ProtoReflect.Descriptor instead.
+func (*SysManageInfoReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_admin_proto_rawDescGZIP(), []int{9}
+}
+
+// 请求-管理员保存
+type SysManageStoreReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysManageStoreReq) Reset() {
+	*x = SysManageStoreReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysManageStoreReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysManageStoreReq) ProtoMessage() {}
+
+func (x *SysManageStoreReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysManageStoreReq.ProtoReflect.Descriptor instead.
+func (*SysManageStoreReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_admin_proto_rawDescGZIP(), []int{10}
+}
+
+// 响应-管理员保存
+type SysManageStoreReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysManageStoreReply) Reset() {
+	*x = SysManageStoreReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysManageStoreReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysManageStoreReply) ProtoMessage() {}
+
+func (x *SysManageStoreReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysManageStoreReply.ProtoReflect.Descriptor instead.
+func (*SysManageStoreReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_admin_proto_rawDescGZIP(), []int{11}
+}
+
+// 请求-管理员删除
+type SysManageDelReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysManageDelReq) Reset() {
+	*x = SysManageDelReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysManageDelReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysManageDelReq) ProtoMessage() {}
+
+func (x *SysManageDelReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysManageDelReq.ProtoReflect.Descriptor instead.
+func (*SysManageDelReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_admin_proto_rawDescGZIP(), []int{12}
+}
+
+// 响应-管理员删除
+type SysManageDelReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysManageDelReply) Reset() {
+	*x = SysManageDelReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysManageDelReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysManageDelReply) ProtoMessage() {}
+
+func (x *SysManageDelReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_admin_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysManageDelReply.ProtoReflect.Descriptor instead.
+func (*SysManageDelReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_admin_proto_rawDescGZIP(), []int{13}
+}
+
 var File_rpc_sys_v1_sys_admin_proto protoreflect.FileDescriptor
 
 var file_rpc_sys_v1_sys_admin_proto_rawDesc = []byte{
@@ -269,27 +581,58 @@ var file_rpc_sys_v1_sys_admin_proto_rawDesc = []byte{
 	0x6e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x41, 0x76, 0x61, 0x74, 0x61, 0x72, 0x52,
 	0x65, 0x71, 0x22, 0x1d, 0x0a, 0x1b, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x47, 0x65,
 	0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x41, 0x76, 0x61, 0x74, 0x61, 0x72, 0x52, 0x65, 0x70, 0x6c,
-	0x79, 0x32, 0xa1, 0x02, 0x0a, 0x05, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x12, 0x4c, 0x0a, 0x0c, 0x53,
-	0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x1c, 0x2e, 0x61, 0x70,
+	0x79, 0x22, 0x12, 0x0a, 0x10, 0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x4c, 0x69,
+	0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x14, 0x0a, 0x12, 0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61,
+	0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x12, 0x0a, 0x10, 0x53,
+	0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x22,
+	0x14, 0x0a, 0x12, 0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x13, 0x0a, 0x11, 0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61,
+	0x67, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x22, 0x15, 0x0a, 0x13, 0x53, 0x79,
+	0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c,
+	0x79, 0x22, 0x11, 0x0a, 0x0f, 0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x44, 0x65,
+	0x6c, 0x52, 0x65, 0x71, 0x22, 0x13, 0x0a, 0x11, 0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67,
+	0x65, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0xe5, 0x04, 0x0a, 0x05, 0x61, 0x64,
+	0x6d, 0x69, 0x6e, 0x12, 0x4c, 0x0a, 0x0c, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x49,
+	0x6e, 0x66, 0x6f, 0x12, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76,
+	0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65,
+	0x71, 0x1a, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e,
+	0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c,
+	0x79, 0x12, 0x5e, 0x0a, 0x12, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x49, 0x6e, 0x66,
+	0x6f, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x22, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73,
+	0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x49, 0x6e,
+	0x66, 0x6f, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x24, 0x2e, 0x61, 0x70,
 	0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d,
-	0x69, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x1a, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e,
-	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x5e, 0x0a, 0x12, 0x53, 0x79, 0x73,
-	0x41, 0x64, 0x6d, 0x69, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12,
-	0x22, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79,
-	0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x52, 0x65, 0x71, 0x1a, 0x24, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76,
-	0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x55, 0x70,
-	0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x6a, 0x0a, 0x16, 0x53, 0x79, 0x73,
-	0x41, 0x64, 0x6d, 0x69, 0x6e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x41, 0x76, 0x61,
-	0x74, 0x61, 0x72, 0x12, 0x26, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76,
-	0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61,
-	0x74, 0x65, 0x41, 0x76, 0x61, 0x74, 0x61, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x28, 0x2e, 0x61, 0x70,
+	0x69, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x70, 0x6c,
+	0x79, 0x12, 0x6a, 0x0a, 0x16, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x47, 0x65, 0x6e,
+	0x65, 0x72, 0x61, 0x74, 0x65, 0x41, 0x76, 0x61, 0x74, 0x61, 0x72, 0x12, 0x26, 0x2e, 0x61, 0x70,
 	0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d,
 	0x69, 0x6e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x41, 0x76, 0x61, 0x74, 0x61, 0x72,
-	0x52, 0x65, 0x70, 0x6c, 0x79, 0x42, 0x17, 0x5a, 0x15, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73,
-	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x52, 0x65, 0x71, 0x1a, 0x28, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76,
+	0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61,
+	0x74, 0x65, 0x41, 0x76, 0x61, 0x74, 0x61, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x4f, 0x0a,
+	0x0d, 0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1d,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73,
+	0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x1f, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x4d,
+	0x61, 0x6e, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x4f,
+	0x0a, 0x0d, 0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12,
+	0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79,
+	0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x1a, 0x1f,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73,
+	0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12,
+	0x52, 0x0a, 0x0e, 0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x53, 0x74, 0x6f, 0x72,
+	0x65, 0x12, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e,
+	0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65,
+	0x71, 0x1a, 0x20, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e,
+	0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65,
+	0x70, 0x6c, 0x79, 0x12, 0x4c, 0x0a, 0x0c, 0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65,
+	0x44, 0x65, 0x6c, 0x12, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76,
+	0x31, 0x2e, 0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x44, 0x65, 0x6c, 0x52, 0x65,
+	0x71, 0x1a, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e,
+	0x53, 0x79, 0x73, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c,
+	0x79, 0x42, 0x17, 0x5a, 0x15, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70, 0x69,
+	0x2f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -304,7 +647,7 @@ func file_rpc_sys_v1_sys_admin_proto_rawDescGZIP() []byte {
 	return file_rpc_sys_v1_sys_admin_proto_rawDescData
 }
 
-var file_rpc_sys_v1_sys_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_rpc_sys_v1_sys_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_rpc_sys_v1_sys_admin_proto_goTypes = []interface{}{
 	(*SysAdminInfoReq)(nil),             // 0: api.user.v1.SysAdminInfoReq
 	(*SysAdminInfoReply)(nil),           // 1: api.user.v1.SysAdminInfoReply
@@ -312,19 +655,35 @@ var file_rpc_sys_v1_sys_admin_proto_goTypes = []interface{}{
 	(*SysAdminInfoUpdateReply)(nil),     // 3: api.user.v1.SysAdminInfoUpdateReply
 	(*SysAdminGenerateAvatarReq)(nil),   // 4: api.user.v1.SysAdminGenerateAvatarReq
 	(*SysAdminGenerateAvatarReply)(nil), // 5: api.user.v1.SysAdminGenerateAvatarReply
+	(*SysManageListReq)(nil),            // 6: api.user.v1.SysManageListReq
+	(*SysManageListReply)(nil),          // 7: api.user.v1.SysManageListReply
+	(*SysManageInfoReq)(nil),            // 8: api.user.v1.SysManageInfoReq
+	(*SysManageInfoReply)(nil),          // 9: api.user.v1.SysManageInfoReply
+	(*SysManageStoreReq)(nil),           // 10: api.user.v1.SysManageStoreReq
+	(*SysManageStoreReply)(nil),         // 11: api.user.v1.SysManageStoreReply
+	(*SysManageDelReq)(nil),             // 12: api.user.v1.SysManageDelReq
+	(*SysManageDelReply)(nil),           // 13: api.user.v1.SysManageDelReply
 }
 var file_rpc_sys_v1_sys_admin_proto_depIdxs = []int32{
-	0, // 0: api.user.v1.admin.SysAdminInfo:input_type -> api.user.v1.SysAdminInfoReq
-	2, // 1: api.user.v1.admin.SysAdminInfoUpdate:input_type -> api.user.v1.SysAdminInfoUpdateReq
-	4, // 2: api.user.v1.admin.SysAdminGenerateAvatar:input_type -> api.user.v1.SysAdminGenerateAvatarReq
-	1, // 3: api.user.v1.admin.SysAdminInfo:output_type -> api.user.v1.SysAdminInfoReply
-	3, // 4: api.user.v1.admin.SysAdminInfoUpdate:output_type -> api.user.v1.SysAdminInfoUpdateReply
-	5, // 5: api.user.v1.admin.SysAdminGenerateAvatar:output_type -> api.user.v1.SysAdminGenerateAvatarReply
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: api.user.v1.admin.SysAdminInfo:input_type -> api.user.v1.SysAdminInfoReq
+	2,  // 1: api.user.v1.admin.SysAdminInfoUpdate:input_type -> api.user.v1.SysAdminInfoUpdateReq
+	4,  // 2: api.user.v1.admin.SysAdminGenerateAvatar:input_type -> api.user.v1.SysAdminGenerateAvatarReq
+	6,  // 3: api.user.v1.admin.SysManageList:input_type -> api.user.v1.SysManageListReq
+	8,  // 4: api.user.v1.admin.SysManageInfo:input_type -> api.user.v1.SysManageInfoReq
+	10, // 5: api.user.v1.admin.SysManageStore:input_type -> api.user.v1.SysManageStoreReq
+	12, // 6: api.user.v1.admin.SysManageDel:input_type -> api.user.v1.SysManageDelReq
+	1,  // 7: api.user.v1.admin.SysAdminInfo:output_type -> api.user.v1.SysAdminInfoReply
+	3,  // 8: api.user.v1.admin.SysAdminInfoUpdate:output_type -> api.user.v1.SysAdminInfoUpdateReply
+	5,  // 9: api.user.v1.admin.SysAdminGenerateAvatar:output_type -> api.user.v1.SysAdminGenerateAvatarReply
+	7,  // 10: api.user.v1.admin.SysManageList:output_type -> api.user.v1.SysManageListReply
+	9,  // 11: api.user.v1.admin.SysManageInfo:output_type -> api.user.v1.SysManageInfoReply
+	11, // 12: api.user.v1.admin.SysManageStore:output_type -> api.user.v1.SysManageStoreReply
+	13, // 13: api.user.v1.admin.SysManageDel:output_type -> api.user.v1.SysManageDelReply
+	7,  // [7:14] is the sub-list for method output_type
+	0,  // [0:7] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_rpc_sys_v1_sys_admin_proto_init() }
@@ -405,6 +764,102 @@ func file_rpc_sys_v1_sys_admin_proto_init() {
 				return nil
 			}
 		}
+		file_rpc_sys_v1_sys_admin_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysManageListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_admin_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysManageListReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_admin_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysManageInfoReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_admin_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysManageInfoReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_admin_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysManageStoreReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_admin_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysManageStoreReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_admin_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysManageDelReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_admin_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysManageDelReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -412,7 +867,7 @@ func file_rpc_sys_v1_sys_admin_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_sys_v1_sys_admin_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

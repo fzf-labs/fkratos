@@ -14,10 +14,11 @@ import (
 // ProviderSet is data providers.
 var ProviderSet = wire.NewSet(
 	NewData,
-	NewUserRepo,
 	bootstrap.NewGorm,
 	bootstrap.NewRedis,
 	bootstrap.NewRocksCache,
+
+	NewAuthRepo,
 )
 
 // Data .

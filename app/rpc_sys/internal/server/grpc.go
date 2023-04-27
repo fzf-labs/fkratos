@@ -12,11 +12,11 @@ import (
 )
 
 // NewGRPCServer new a gRPC server.
-func NewGRPCServer(c *conf.Bootstrap, logger log.Logger, userService *service.UserService) *grpc.Server {
+func NewGRPCServer(c *conf.Bootstrap, logger log.Logger, userService *service.AuthService) *grpc.Server {
 	//创建grpc服务
 	srv := bootstrap.NewGrpcServer(c, logging.Server(logger))
 
 	//注册服务
-	v1.RegisterUserServer(srv, userService)
+	v1.RegisterAuthServer(srv, userService)
 	return srv
 }

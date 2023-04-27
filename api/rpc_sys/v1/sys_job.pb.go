@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 )
 
 const (
@@ -19,20 +20,389 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 请求-岗位列表
+type SysJobListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysJobListReq) Reset() {
+	*x = SysJobListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysJobListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysJobListReq) ProtoMessage() {}
+
+func (x *SysJobListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysJobListReq.ProtoReflect.Descriptor instead.
+func (*SysJobListReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_job_proto_rawDescGZIP(), []int{0}
+}
+
+// 响应-岗位列表
+type SysJobListReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysJobListReply) Reset() {
+	*x = SysJobListReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysJobListReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysJobListReply) ProtoMessage() {}
+
+func (x *SysJobListReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysJobListReply.ProtoReflect.Descriptor instead.
+func (*SysJobListReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_job_proto_rawDescGZIP(), []int{1}
+}
+
+// 请求-岗位信息
+type SysJobInfoReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysJobInfoReq) Reset() {
+	*x = SysJobInfoReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysJobInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysJobInfoReq) ProtoMessage() {}
+
+func (x *SysJobInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysJobInfoReq.ProtoReflect.Descriptor instead.
+func (*SysJobInfoReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_job_proto_rawDescGZIP(), []int{2}
+}
+
+// 响应-岗位信息
+type SysJobInfoReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysJobInfoReply) Reset() {
+	*x = SysJobInfoReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysJobInfoReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysJobInfoReply) ProtoMessage() {}
+
+func (x *SysJobInfoReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysJobInfoReply.ProtoReflect.Descriptor instead.
+func (*SysJobInfoReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_job_proto_rawDescGZIP(), []int{3}
+}
+
+// 请求-岗位保存
+type SysJobStoreReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysJobStoreReq) Reset() {
+	*x = SysJobStoreReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysJobStoreReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysJobStoreReq) ProtoMessage() {}
+
+func (x *SysJobStoreReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysJobStoreReq.ProtoReflect.Descriptor instead.
+func (*SysJobStoreReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_job_proto_rawDescGZIP(), []int{4}
+}
+
+// 响应-岗位保存
+type SysJobStoreReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysJobStoreReply) Reset() {
+	*x = SysJobStoreReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysJobStoreReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysJobStoreReply) ProtoMessage() {}
+
+func (x *SysJobStoreReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysJobStoreReply.ProtoReflect.Descriptor instead.
+func (*SysJobStoreReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_job_proto_rawDescGZIP(), []int{5}
+}
+
+// 请求-岗位删除
+type SysJobDelReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysJobDelReq) Reset() {
+	*x = SysJobDelReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysJobDelReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysJobDelReq) ProtoMessage() {}
+
+func (x *SysJobDelReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysJobDelReq.ProtoReflect.Descriptor instead.
+func (*SysJobDelReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_job_proto_rawDescGZIP(), []int{6}
+}
+
+// 响应-岗位删除
+type SysJobDelReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysJobDelReply) Reset() {
+	*x = SysJobDelReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysJobDelReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysJobDelReply) ProtoMessage() {}
+
+func (x *SysJobDelReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_job_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysJobDelReply.ProtoReflect.Descriptor instead.
+func (*SysJobDelReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_job_proto_rawDescGZIP(), []int{7}
+}
+
 var File_rpc_sys_v1_sys_job_proto protoreflect.FileDescriptor
 
 var file_rpc_sys_v1_sys_job_proto_rawDesc = []byte{
 	0x0a, 0x18, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x73, 0x79, 0x73,
 	0x5f, 0x6a, 0x6f, 0x62, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0b, 0x61, 0x70, 0x69, 0x2e,
-	0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x32, 0x05, 0x0a, 0x03, 0x4a, 0x6f, 0x62, 0x42, 0x17,
-	0x5a, 0x15, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x79,
-	0x73, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x22, 0x0f, 0x0a, 0x0d, 0x53, 0x79, 0x73, 0x4a, 0x6f,
+	0x62, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x11, 0x0a, 0x0f, 0x53, 0x79, 0x73, 0x4a,
+	0x6f, 0x62, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x0f, 0x0a, 0x0d, 0x53,
+	0x79, 0x73, 0x4a, 0x6f, 0x62, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x22, 0x11, 0x0a, 0x0f,
+	0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22,
+	0x10, 0x0a, 0x0e, 0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65,
+	0x71, 0x22, 0x12, 0x0a, 0x10, 0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x53, 0x74, 0x6f, 0x72, 0x65,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x0e, 0x0a, 0x0c, 0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x44,
+	0x65, 0x6c, 0x52, 0x65, 0x71, 0x22, 0x10, 0x0a, 0x0e, 0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x44,
+	0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0xa5, 0x02, 0x0a, 0x03, 0x4a, 0x6f, 0x62, 0x12,
+	0x46, 0x0a, 0x0a, 0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1a, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x4a,
+	0x6f, 0x62, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x4c, 0x69,
+	0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x46, 0x0a, 0x0a, 0x53, 0x79, 0x73, 0x4a, 0x6f,
+	0x62, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x1a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72,
+	0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65,
+	0x71, 0x1a, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e,
+	0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12,
+	0x49, 0x0a, 0x0b, 0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x1b,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73,
+	0x4a, 0x6f, 0x62, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x1d, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62,
+	0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x43, 0x0a, 0x09, 0x53, 0x79,
+	0x73, 0x4a, 0x6f, 0x62, 0x44, 0x65, 0x6c, 0x12, 0x19, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73,
+	0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x44, 0x65, 0x6c, 0x52,
+	0x65, 0x71, 0x1a, 0x1b, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31,
+	0x2e, 0x53, 0x79, 0x73, 0x4a, 0x6f, 0x62, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x42,
+	0x17, 0x5a, 0x15, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73,
+	0x79, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
-var file_rpc_sys_v1_sys_job_proto_goTypes = []interface{}{}
+var (
+	file_rpc_sys_v1_sys_job_proto_rawDescOnce sync.Once
+	file_rpc_sys_v1_sys_job_proto_rawDescData = file_rpc_sys_v1_sys_job_proto_rawDesc
+)
+
+func file_rpc_sys_v1_sys_job_proto_rawDescGZIP() []byte {
+	file_rpc_sys_v1_sys_job_proto_rawDescOnce.Do(func() {
+		file_rpc_sys_v1_sys_job_proto_rawDescData = protoimpl.X.CompressGZIP(file_rpc_sys_v1_sys_job_proto_rawDescData)
+	})
+	return file_rpc_sys_v1_sys_job_proto_rawDescData
+}
+
+var file_rpc_sys_v1_sys_job_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_rpc_sys_v1_sys_job_proto_goTypes = []interface{}{
+	(*SysJobListReq)(nil),    // 0: api.user.v1.SysJobListReq
+	(*SysJobListReply)(nil),  // 1: api.user.v1.SysJobListReply
+	(*SysJobInfoReq)(nil),    // 2: api.user.v1.SysJobInfoReq
+	(*SysJobInfoReply)(nil),  // 3: api.user.v1.SysJobInfoReply
+	(*SysJobStoreReq)(nil),   // 4: api.user.v1.SysJobStoreReq
+	(*SysJobStoreReply)(nil), // 5: api.user.v1.SysJobStoreReply
+	(*SysJobDelReq)(nil),     // 6: api.user.v1.SysJobDelReq
+	(*SysJobDelReply)(nil),   // 7: api.user.v1.SysJobDelReply
+}
 var file_rpc_sys_v1_sys_job_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
+	0, // 0: api.user.v1.Job.SysJobList:input_type -> api.user.v1.SysJobListReq
+	2, // 1: api.user.v1.Job.SysJobInfo:input_type -> api.user.v1.SysJobInfoReq
+	4, // 2: api.user.v1.Job.SysJobStore:input_type -> api.user.v1.SysJobStoreReq
+	6, // 3: api.user.v1.Job.SysJobDel:input_type -> api.user.v1.SysJobDelReq
+	1, // 4: api.user.v1.Job.SysJobList:output_type -> api.user.v1.SysJobListReply
+	3, // 5: api.user.v1.Job.SysJobInfo:output_type -> api.user.v1.SysJobInfoReply
+	5, // 6: api.user.v1.Job.SysJobStore:output_type -> api.user.v1.SysJobStoreReply
+	7, // 7: api.user.v1.Job.SysJobDel:output_type -> api.user.v1.SysJobDelReply
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -43,18 +413,117 @@ func file_rpc_sys_v1_sys_job_proto_init() {
 	if File_rpc_sys_v1_sys_job_proto != nil {
 		return
 	}
+	if !protoimpl.UnsafeEnabled {
+		file_rpc_sys_v1_sys_job_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysJobListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_job_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysJobListReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_job_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysJobInfoReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_job_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysJobInfoReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_job_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysJobStoreReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_job_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysJobStoreReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_job_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysJobDelReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_job_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysJobDelReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_sys_v1_sys_job_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   0,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_rpc_sys_v1_sys_job_proto_goTypes,
 		DependencyIndexes: file_rpc_sys_v1_sys_job_proto_depIdxs,
+		MessageInfos:      file_rpc_sys_v1_sys_job_proto_msgTypes,
 	}.Build()
 	File_rpc_sys_v1_sys_job_proto = out.File
 	file_rpc_sys_v1_sys_job_proto_rawDesc = nil

@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 )
 
 const (
@@ -19,21 +20,480 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type SysPermissionListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysPermissionListReq) Reset() {
+	*x = SysPermissionListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysPermissionListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysPermissionListReq) ProtoMessage() {}
+
+func (x *SysPermissionListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysPermissionListReq.ProtoReflect.Descriptor instead.
+func (*SysPermissionListReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{0}
+}
+
+type SysPermissionListResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysPermissionListResp) Reset() {
+	*x = SysPermissionListResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysPermissionListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysPermissionListResp) ProtoMessage() {}
+
+func (x *SysPermissionListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysPermissionListResp.ProtoReflect.Descriptor instead.
+func (*SysPermissionListResp) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{1}
+}
+
+type SysPermissionInfoReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysPermissionInfoReq) Reset() {
+	*x = SysPermissionInfoReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysPermissionInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysPermissionInfoReq) ProtoMessage() {}
+
+func (x *SysPermissionInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysPermissionInfoReq.ProtoReflect.Descriptor instead.
+func (*SysPermissionInfoReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{2}
+}
+
+type SysPermissionInfoResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysPermissionInfoResp) Reset() {
+	*x = SysPermissionInfoResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysPermissionInfoResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysPermissionInfoResp) ProtoMessage() {}
+
+func (x *SysPermissionInfoResp) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysPermissionInfoResp.ProtoReflect.Descriptor instead.
+func (*SysPermissionInfoResp) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{3}
+}
+
+type SysPermissionStoreReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysPermissionStoreReq) Reset() {
+	*x = SysPermissionStoreReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysPermissionStoreReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysPermissionStoreReq) ProtoMessage() {}
+
+func (x *SysPermissionStoreReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysPermissionStoreReq.ProtoReflect.Descriptor instead.
+func (*SysPermissionStoreReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{4}
+}
+
+type SysPermissionStoreResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysPermissionStoreResp) Reset() {
+	*x = SysPermissionStoreResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysPermissionStoreResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysPermissionStoreResp) ProtoMessage() {}
+
+func (x *SysPermissionStoreResp) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysPermissionStoreResp.ProtoReflect.Descriptor instead.
+func (*SysPermissionStoreResp) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{5}
+}
+
+type SysPermissionDelReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysPermissionDelReq) Reset() {
+	*x = SysPermissionDelReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysPermissionDelReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysPermissionDelReq) ProtoMessage() {}
+
+func (x *SysPermissionDelReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysPermissionDelReq.ProtoReflect.Descriptor instead.
+func (*SysPermissionDelReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{6}
+}
+
+type SysPermissionDelResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysPermissionDelResp) Reset() {
+	*x = SysPermissionDelResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysPermissionDelResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysPermissionDelResp) ProtoMessage() {}
+
+func (x *SysPermissionDelResp) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysPermissionDelResp.ProtoReflect.Descriptor instead.
+func (*SysPermissionDelResp) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{7}
+}
+
+type SysPermissionStatusReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysPermissionStatusReq) Reset() {
+	*x = SysPermissionStatusReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysPermissionStatusReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysPermissionStatusReq) ProtoMessage() {}
+
+func (x *SysPermissionStatusReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysPermissionStatusReq.ProtoReflect.Descriptor instead.
+func (*SysPermissionStatusReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{8}
+}
+
+type SysPermissionStatusResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysPermissionStatusResp) Reset() {
+	*x = SysPermissionStatusResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysPermissionStatusResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysPermissionStatusResp) ProtoMessage() {}
+
+func (x *SysPermissionStatusResp) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_permission_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysPermissionStatusResp.ProtoReflect.Descriptor instead.
+func (*SysPermissionStatusResp) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{9}
+}
+
 var File_rpc_sys_v1_sys_permission_proto protoreflect.FileDescriptor
 
 var file_rpc_sys_v1_sys_permission_proto_rawDesc = []byte{
 	0x0a, 0x1f, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x73, 0x79, 0x73,
 	0x5f, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x12, 0x0b, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x32, 0x0c,
-	0x0a, 0x0a, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x42, 0x17, 0x5a, 0x15,
-	0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x79, 0x73, 0x2f,
-	0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x12, 0x0b, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x22, 0x16,
+	0x0a, 0x14, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x4c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x17, 0x0a, 0x15, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72,
+	0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x22,
+	0x16, 0x0a, 0x14, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x22, 0x17, 0x0a, 0x15, 0x53, 0x79, 0x73, 0x50, 0x65,
+	0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70,
+	0x22, 0x17, 0x0a, 0x15, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f,
+	0x6e, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x22, 0x18, 0x0a, 0x16, 0x53, 0x79, 0x73,
+	0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x22, 0x15, 0x0a, 0x13, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73,
+	0x73, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x22, 0x16, 0x0a, 0x14, 0x53, 0x79,
+	0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x6c, 0x52, 0x65,
+	0x73, 0x70, 0x22, 0x18, 0x0a, 0x16, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73,
+	0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x22, 0x19, 0x0a, 0x17,
+	0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x32, 0xde, 0x03, 0x0a, 0x0a, 0x50, 0x65, 0x72, 0x6d,
+	0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x5a, 0x0a, 0x11, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72,
+	0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x21, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72,
+	0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x22,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73,
+	0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65,
+	0x73, 0x70, 0x12, 0x5a, 0x0a, 0x11, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73,
+	0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x21, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73,
+	0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73,
+	0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x1a, 0x22, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d,
+	0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x70, 0x12, 0x5d,
+	0x0a, 0x12, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x53,
+	0x74, 0x6f, 0x72, 0x65, 0x12, 0x22, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e,
+	0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x23, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75,
+	0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73,
+	0x73, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x12, 0x57, 0x0a,
+	0x10, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x44, 0x65,
+	0x6c, 0x12, 0x20, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e,
+	0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x44, 0x65, 0x6c,
+	0x52, 0x65, 0x71, 0x1a, 0x21, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76,
+	0x31, 0x2e, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x44,
+	0x65, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x12, 0x60, 0x0a, 0x13, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72,
+	0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x23, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x50,
+	0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52,
+	0x65, 0x71, 0x1a, 0x24, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31,
+	0x2e, 0x53, 0x79, 0x73, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x53, 0x74,
+	0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x42, 0x17, 0x5a, 0x15, 0x66, 0x6b, 0x72, 0x61,
+	0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x76,
+	0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
-var file_rpc_sys_v1_sys_permission_proto_goTypes = []interface{}{}
+var (
+	file_rpc_sys_v1_sys_permission_proto_rawDescOnce sync.Once
+	file_rpc_sys_v1_sys_permission_proto_rawDescData = file_rpc_sys_v1_sys_permission_proto_rawDesc
+)
+
+func file_rpc_sys_v1_sys_permission_proto_rawDescGZIP() []byte {
+	file_rpc_sys_v1_sys_permission_proto_rawDescOnce.Do(func() {
+		file_rpc_sys_v1_sys_permission_proto_rawDescData = protoimpl.X.CompressGZIP(file_rpc_sys_v1_sys_permission_proto_rawDescData)
+	})
+	return file_rpc_sys_v1_sys_permission_proto_rawDescData
+}
+
+var file_rpc_sys_v1_sys_permission_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_rpc_sys_v1_sys_permission_proto_goTypes = []interface{}{
+	(*SysPermissionListReq)(nil),    // 0: api.user.v1.SysPermissionListReq
+	(*SysPermissionListResp)(nil),   // 1: api.user.v1.SysPermissionListResp
+	(*SysPermissionInfoReq)(nil),    // 2: api.user.v1.SysPermissionInfoReq
+	(*SysPermissionInfoResp)(nil),   // 3: api.user.v1.SysPermissionInfoResp
+	(*SysPermissionStoreReq)(nil),   // 4: api.user.v1.SysPermissionStoreReq
+	(*SysPermissionStoreResp)(nil),  // 5: api.user.v1.SysPermissionStoreResp
+	(*SysPermissionDelReq)(nil),     // 6: api.user.v1.SysPermissionDelReq
+	(*SysPermissionDelResp)(nil),    // 7: api.user.v1.SysPermissionDelResp
+	(*SysPermissionStatusReq)(nil),  // 8: api.user.v1.SysPermissionStatusReq
+	(*SysPermissionStatusResp)(nil), // 9: api.user.v1.SysPermissionStatusResp
+}
 var file_rpc_sys_v1_sys_permission_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
+	0, // 0: api.user.v1.Permission.SysPermissionList:input_type -> api.user.v1.SysPermissionListReq
+	2, // 1: api.user.v1.Permission.SysPermissionInfo:input_type -> api.user.v1.SysPermissionInfoReq
+	4, // 2: api.user.v1.Permission.SysPermissionStore:input_type -> api.user.v1.SysPermissionStoreReq
+	6, // 3: api.user.v1.Permission.SysPermissionDel:input_type -> api.user.v1.SysPermissionDelReq
+	8, // 4: api.user.v1.Permission.SysPermissionStatus:input_type -> api.user.v1.SysPermissionStatusReq
+	1, // 5: api.user.v1.Permission.SysPermissionList:output_type -> api.user.v1.SysPermissionListResp
+	3, // 6: api.user.v1.Permission.SysPermissionInfo:output_type -> api.user.v1.SysPermissionInfoResp
+	5, // 7: api.user.v1.Permission.SysPermissionStore:output_type -> api.user.v1.SysPermissionStoreResp
+	7, // 8: api.user.v1.Permission.SysPermissionDel:output_type -> api.user.v1.SysPermissionDelResp
+	9, // 9: api.user.v1.Permission.SysPermissionStatus:output_type -> api.user.v1.SysPermissionStatusResp
+	5, // [5:10] is the sub-list for method output_type
+	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -44,18 +504,141 @@ func file_rpc_sys_v1_sys_permission_proto_init() {
 	if File_rpc_sys_v1_sys_permission_proto != nil {
 		return
 	}
+	if !protoimpl.UnsafeEnabled {
+		file_rpc_sys_v1_sys_permission_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysPermissionListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_permission_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysPermissionListResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_permission_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysPermissionInfoReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_permission_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysPermissionInfoResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_permission_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysPermissionStoreReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_permission_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysPermissionStoreResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_permission_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysPermissionDelReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_permission_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysPermissionDelResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_permission_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysPermissionStatusReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_permission_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysPermissionStatusResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_sys_v1_sys_permission_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   0,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_rpc_sys_v1_sys_permission_proto_goTypes,
 		DependencyIndexes: file_rpc_sys_v1_sys_permission_proto_depIdxs,
+		MessageInfos:      file_rpc_sys_v1_sys_permission_proto_msgTypes,
 	}.Build()
 	File_rpc_sys_v1_sys_permission_proto = out.File
 	file_rpc_sys_v1_sys_permission_proto_rawDesc = nil

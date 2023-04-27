@@ -22,6 +22,10 @@ const (
 	Admin_SysAdminInfo_FullMethodName           = "/api.user.v1.admin/SysAdminInfo"
 	Admin_SysAdminInfoUpdate_FullMethodName     = "/api.user.v1.admin/SysAdminInfoUpdate"
 	Admin_SysAdminGenerateAvatar_FullMethodName = "/api.user.v1.admin/SysAdminGenerateAvatar"
+	Admin_SysManageList_FullMethodName          = "/api.user.v1.admin/SysManageList"
+	Admin_SysManageInfo_FullMethodName          = "/api.user.v1.admin/SysManageInfo"
+	Admin_SysManageStore_FullMethodName         = "/api.user.v1.admin/SysManageStore"
+	Admin_SysManageDel_FullMethodName           = "/api.user.v1.admin/SysManageDel"
 )
 
 // AdminClient is the client API for Admin service.
@@ -32,7 +36,16 @@ type AdminClient interface {
 	SysAdminInfo(ctx context.Context, in *SysAdminInfoReq, opts ...grpc.CallOption) (*SysAdminInfoReply, error)
 	// 管理员更新
 	SysAdminInfoUpdate(ctx context.Context, in *SysAdminInfoUpdateReq, opts ...grpc.CallOption) (*SysAdminInfoUpdateReply, error)
+	// 生成头像
 	SysAdminGenerateAvatar(ctx context.Context, in *SysAdminGenerateAvatarReq, opts ...grpc.CallOption) (*SysAdminGenerateAvatarReply, error)
+	// 管理员列表
+	SysManageList(ctx context.Context, in *SysManageListReq, opts ...grpc.CallOption) (*SysManageListReply, error)
+	// 单个管理员
+	SysManageInfo(ctx context.Context, in *SysManageInfoReq, opts ...grpc.CallOption) (*SysManageInfoReply, error)
+	// 保存管理员
+	SysManageStore(ctx context.Context, in *SysManageStoreReq, opts ...grpc.CallOption) (*SysManageStoreReply, error)
+	// 删除管理员
+	SysManageDel(ctx context.Context, in *SysManageDelReq, opts ...grpc.CallOption) (*SysManageDelReply, error)
 }
 
 type adminClient struct {
@@ -70,6 +83,42 @@ func (c *adminClient) SysAdminGenerateAvatar(ctx context.Context, in *SysAdminGe
 	return out, nil
 }
 
+func (c *adminClient) SysManageList(ctx context.Context, in *SysManageListReq, opts ...grpc.CallOption) (*SysManageListReply, error) {
+	out := new(SysManageListReply)
+	err := c.cc.Invoke(ctx, Admin_SysManageList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminClient) SysManageInfo(ctx context.Context, in *SysManageInfoReq, opts ...grpc.CallOption) (*SysManageInfoReply, error) {
+	out := new(SysManageInfoReply)
+	err := c.cc.Invoke(ctx, Admin_SysManageInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminClient) SysManageStore(ctx context.Context, in *SysManageStoreReq, opts ...grpc.CallOption) (*SysManageStoreReply, error) {
+	out := new(SysManageStoreReply)
+	err := c.cc.Invoke(ctx, Admin_SysManageStore_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminClient) SysManageDel(ctx context.Context, in *SysManageDelReq, opts ...grpc.CallOption) (*SysManageDelReply, error) {
+	out := new(SysManageDelReply)
+	err := c.cc.Invoke(ctx, Admin_SysManageDel_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AdminServer is the server API for Admin service.
 // All implementations must embed UnimplementedAdminServer
 // for forward compatibility
@@ -78,7 +127,16 @@ type AdminServer interface {
 	SysAdminInfo(context.Context, *SysAdminInfoReq) (*SysAdminInfoReply, error)
 	// 管理员更新
 	SysAdminInfoUpdate(context.Context, *SysAdminInfoUpdateReq) (*SysAdminInfoUpdateReply, error)
+	// 生成头像
 	SysAdminGenerateAvatar(context.Context, *SysAdminGenerateAvatarReq) (*SysAdminGenerateAvatarReply, error)
+	// 管理员列表
+	SysManageList(context.Context, *SysManageListReq) (*SysManageListReply, error)
+	// 单个管理员
+	SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error)
+	// 保存管理员
+	SysManageStore(context.Context, *SysManageStoreReq) (*SysManageStoreReply, error)
+	// 删除管理员
+	SysManageDel(context.Context, *SysManageDelReq) (*SysManageDelReply, error)
 	mustEmbedUnimplementedAdminServer()
 }
 
@@ -94,6 +152,18 @@ func (UnimplementedAdminServer) SysAdminInfoUpdate(context.Context, *SysAdminInf
 }
 func (UnimplementedAdminServer) SysAdminGenerateAvatar(context.Context, *SysAdminGenerateAvatarReq) (*SysAdminGenerateAvatarReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAdminGenerateAvatar not implemented")
+}
+func (UnimplementedAdminServer) SysManageList(context.Context, *SysManageListReq) (*SysManageListReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysManageList not implemented")
+}
+func (UnimplementedAdminServer) SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysManageInfo not implemented")
+}
+func (UnimplementedAdminServer) SysManageStore(context.Context, *SysManageStoreReq) (*SysManageStoreReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysManageStore not implemented")
+}
+func (UnimplementedAdminServer) SysManageDel(context.Context, *SysManageDelReq) (*SysManageDelReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysManageDel not implemented")
 }
 func (UnimplementedAdminServer) mustEmbedUnimplementedAdminServer() {}
 
@@ -162,6 +232,78 @@ func _Admin_SysAdminGenerateAvatar_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Admin_SysManageList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysManageListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).SysManageList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_SysManageList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).SysManageList(ctx, req.(*SysManageListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Admin_SysManageInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysManageInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).SysManageInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_SysManageInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).SysManageInfo(ctx, req.(*SysManageInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Admin_SysManageStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysManageStoreReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).SysManageStore(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_SysManageStore_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).SysManageStore(ctx, req.(*SysManageStoreReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Admin_SysManageDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysManageDelReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).SysManageDel(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_SysManageDel_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).SysManageDel(ctx, req.(*SysManageDelReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Admin_ServiceDesc is the grpc.ServiceDesc for Admin service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -180,6 +322,22 @@ var Admin_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SysAdminGenerateAvatar",
 			Handler:    _Admin_SysAdminGenerateAvatar_Handler,
+		},
+		{
+			MethodName: "SysManageList",
+			Handler:    _Admin_SysManageList_Handler,
+		},
+		{
+			MethodName: "SysManageInfo",
+			Handler:    _Admin_SysManageInfo_Handler,
+		},
+		{
+			MethodName: "SysManageStore",
+			Handler:    _Admin_SysManageStore_Handler,
+		},
+		{
+			MethodName: "SysManageDel",
+			Handler:    _Admin_SysManageDel_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

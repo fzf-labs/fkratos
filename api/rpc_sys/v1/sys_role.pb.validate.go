@@ -34,3 +34,1005 @@ var (
 	_ = anypb.Any{}
 	_ = sort.Sort
 )
+
+// Validate checks the field values on SysRoleListReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysRoleListReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysRoleListReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysRoleListReqMultiError,
+// or nil if none found.
+func (m *SysRoleListReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysRoleListReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysRoleListReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysRoleListReqMultiError is an error wrapping multiple validation errors
+// returned by SysRoleListReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysRoleListReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysRoleListReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysRoleListReqMultiError) AllErrors() []error { return m }
+
+// SysRoleListReqValidationError is the validation error returned by
+// SysRoleListReq.Validate if the designated constraints aren't met.
+type SysRoleListReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysRoleListReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysRoleListReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysRoleListReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysRoleListReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysRoleListReqValidationError) ErrorName() string { return "SysRoleListReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysRoleListReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysRoleListReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysRoleListReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysRoleListReqValidationError{}
+
+// Validate checks the field values on SysRoleListResp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysRoleListResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysRoleListResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysRoleListRespMultiError, or nil if none found.
+func (m *SysRoleListResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysRoleListResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysRoleListRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysRoleListRespMultiError is an error wrapping multiple validation errors
+// returned by SysRoleListResp.ValidateAll() if the designated constraints
+// aren't met.
+type SysRoleListRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysRoleListRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysRoleListRespMultiError) AllErrors() []error { return m }
+
+// SysRoleListRespValidationError is the validation error returned by
+// SysRoleListResp.Validate if the designated constraints aren't met.
+type SysRoleListRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysRoleListRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysRoleListRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysRoleListRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysRoleListRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysRoleListRespValidationError) ErrorName() string { return "SysRoleListRespValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysRoleListRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysRoleListResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysRoleListRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysRoleListRespValidationError{}
+
+// Validate checks the field values on SysRoleInfoReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysRoleInfoReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysRoleInfoReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysRoleInfoReqMultiError,
+// or nil if none found.
+func (m *SysRoleInfoReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysRoleInfoReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysRoleInfoReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysRoleInfoReqMultiError is an error wrapping multiple validation errors
+// returned by SysRoleInfoReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysRoleInfoReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysRoleInfoReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysRoleInfoReqMultiError) AllErrors() []error { return m }
+
+// SysRoleInfoReqValidationError is the validation error returned by
+// SysRoleInfoReq.Validate if the designated constraints aren't met.
+type SysRoleInfoReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysRoleInfoReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysRoleInfoReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysRoleInfoReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysRoleInfoReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysRoleInfoReqValidationError) ErrorName() string { return "SysRoleInfoReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysRoleInfoReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysRoleInfoReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysRoleInfoReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysRoleInfoReqValidationError{}
+
+// Validate checks the field values on SysRoleInfoResp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysRoleInfoResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysRoleInfoResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysRoleInfoRespMultiError, or nil if none found.
+func (m *SysRoleInfoResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysRoleInfoResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysRoleInfoRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysRoleInfoRespMultiError is an error wrapping multiple validation errors
+// returned by SysRoleInfoResp.ValidateAll() if the designated constraints
+// aren't met.
+type SysRoleInfoRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysRoleInfoRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysRoleInfoRespMultiError) AllErrors() []error { return m }
+
+// SysRoleInfoRespValidationError is the validation error returned by
+// SysRoleInfoResp.Validate if the designated constraints aren't met.
+type SysRoleInfoRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysRoleInfoRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysRoleInfoRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysRoleInfoRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysRoleInfoRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysRoleInfoRespValidationError) ErrorName() string { return "SysRoleInfoRespValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysRoleInfoRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysRoleInfoResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysRoleInfoRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysRoleInfoRespValidationError{}
+
+// Validate checks the field values on SysRoleStoreReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysRoleStoreReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysRoleStoreReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysRoleStoreReqMultiError, or nil if none found.
+func (m *SysRoleStoreReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysRoleStoreReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysRoleStoreReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysRoleStoreReqMultiError is an error wrapping multiple validation errors
+// returned by SysRoleStoreReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysRoleStoreReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysRoleStoreReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysRoleStoreReqMultiError) AllErrors() []error { return m }
+
+// SysRoleStoreReqValidationError is the validation error returned by
+// SysRoleStoreReq.Validate if the designated constraints aren't met.
+type SysRoleStoreReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysRoleStoreReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysRoleStoreReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysRoleStoreReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysRoleStoreReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysRoleStoreReqValidationError) ErrorName() string { return "SysRoleStoreReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysRoleStoreReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysRoleStoreReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysRoleStoreReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysRoleStoreReqValidationError{}
+
+// Validate checks the field values on SysRoleStoreResp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysRoleStoreResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysRoleStoreResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysRoleStoreRespMultiError, or nil if none found.
+func (m *SysRoleStoreResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysRoleStoreResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysRoleStoreRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysRoleStoreRespMultiError is an error wrapping multiple validation errors
+// returned by SysRoleStoreResp.ValidateAll() if the designated constraints
+// aren't met.
+type SysRoleStoreRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysRoleStoreRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysRoleStoreRespMultiError) AllErrors() []error { return m }
+
+// SysRoleStoreRespValidationError is the validation error returned by
+// SysRoleStoreResp.Validate if the designated constraints aren't met.
+type SysRoleStoreRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysRoleStoreRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysRoleStoreRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysRoleStoreRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysRoleStoreRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysRoleStoreRespValidationError) ErrorName() string { return "SysRoleStoreRespValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysRoleStoreRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysRoleStoreResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysRoleStoreRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysRoleStoreRespValidationError{}
+
+// Validate checks the field values on SysRoleDelReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysRoleDelReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysRoleDelReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysRoleDelReqMultiError, or
+// nil if none found.
+func (m *SysRoleDelReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysRoleDelReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysRoleDelReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysRoleDelReqMultiError is an error wrapping multiple validation errors
+// returned by SysRoleDelReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysRoleDelReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysRoleDelReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysRoleDelReqMultiError) AllErrors() []error { return m }
+
+// SysRoleDelReqValidationError is the validation error returned by
+// SysRoleDelReq.Validate if the designated constraints aren't met.
+type SysRoleDelReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysRoleDelReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysRoleDelReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysRoleDelReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysRoleDelReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysRoleDelReqValidationError) ErrorName() string { return "SysRoleDelReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysRoleDelReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysRoleDelReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysRoleDelReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysRoleDelReqValidationError{}
+
+// Validate checks the field values on SysRoleDelResp with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysRoleDelResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysRoleDelResp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysRoleDelRespMultiError,
+// or nil if none found.
+func (m *SysRoleDelResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysRoleDelResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysRoleDelRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysRoleDelRespMultiError is an error wrapping multiple validation errors
+// returned by SysRoleDelResp.ValidateAll() if the designated constraints
+// aren't met.
+type SysRoleDelRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysRoleDelRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysRoleDelRespMultiError) AllErrors() []error { return m }
+
+// SysRoleDelRespValidationError is the validation error returned by
+// SysRoleDelResp.Validate if the designated constraints aren't met.
+type SysRoleDelRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysRoleDelRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysRoleDelRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysRoleDelRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysRoleDelRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysRoleDelRespValidationError) ErrorName() string { return "SysRoleDelRespValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysRoleDelRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysRoleDelResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysRoleDelRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysRoleDelRespValidationError{}
+
+// Validate checks the field values on SysRoleStatusReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysRoleStatusReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysRoleStatusReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysRoleStatusReqMultiError, or nil if none found.
+func (m *SysRoleStatusReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysRoleStatusReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysRoleStatusReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysRoleStatusReqMultiError is an error wrapping multiple validation errors
+// returned by SysRoleStatusReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysRoleStatusReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysRoleStatusReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysRoleStatusReqMultiError) AllErrors() []error { return m }
+
+// SysRoleStatusReqValidationError is the validation error returned by
+// SysRoleStatusReq.Validate if the designated constraints aren't met.
+type SysRoleStatusReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysRoleStatusReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysRoleStatusReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysRoleStatusReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysRoleStatusReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysRoleStatusReqValidationError) ErrorName() string { return "SysRoleStatusReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysRoleStatusReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysRoleStatusReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysRoleStatusReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysRoleStatusReqValidationError{}
+
+// Validate checks the field values on SysRoleStatusResp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysRoleStatusResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysRoleStatusResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysRoleStatusRespMultiError, or nil if none found.
+func (m *SysRoleStatusResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysRoleStatusResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysRoleStatusRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysRoleStatusRespMultiError is an error wrapping multiple validation errors
+// returned by SysRoleStatusResp.ValidateAll() if the designated constraints
+// aren't met.
+type SysRoleStatusRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysRoleStatusRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysRoleStatusRespMultiError) AllErrors() []error { return m }
+
+// SysRoleStatusRespValidationError is the validation error returned by
+// SysRoleStatusResp.Validate if the designated constraints aren't met.
+type SysRoleStatusRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysRoleStatusRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysRoleStatusRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysRoleStatusRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysRoleStatusRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysRoleStatusRespValidationError) ErrorName() string {
+	return "SysRoleStatusRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SysRoleStatusRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysRoleStatusResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysRoleStatusRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysRoleStatusRespValidationError{}

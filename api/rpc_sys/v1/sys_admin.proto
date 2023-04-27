@@ -10,12 +10,23 @@ option go_package = "fkratos/api/sys/v1;v1";
 
 // 管理员
 service admin {
-	//管理员信息
-	rpc SysAdminInfo (SysAdminInfoReq) returns (SysAdminInfoReply);
-	//管理员更新
-	rpc SysAdminInfoUpdate (SysAdminInfoUpdateReq) returns (SysAdminInfoUpdateReply);
+  //管理员信息
+  rpc SysAdminInfo (SysAdminInfoReq) returns (SysAdminInfoReply);
+  //管理员更新
+  rpc SysAdminInfoUpdate (SysAdminInfoUpdateReq) returns (SysAdminInfoUpdateReply);
+  //生成头像
+  rpc SysAdminGenerateAvatar (SysAdminGenerateAvatarReq) returns (SysAdminGenerateAvatarReply);
 
-	rpc SysAdminGenerateAvatar (SysAdminGenerateAvatarReq) returns (SysAdminGenerateAvatarReply);
+
+  //管理员列表
+  rpc SysManageList (SysManageListReq) returns (SysManageListReply);
+  //单个管理员
+  rpc SysManageInfo (SysManageInfoReq) returns (SysManageInfoReply);
+  //保存管理员
+  rpc SysManageStore (SysManageStoreReq) returns (SysManageStoreReply);
+  //删除管理员
+  rpc SysManageDel (SysManageDelReq) returns (SysManageDelReply);
+
 }
 
 //请求-管理员信息
@@ -36,11 +47,44 @@ message SysAdminInfoUpdateReply {
 
 }
 
-//请求-管理员更新
+//请求-生成头像
 message SysAdminGenerateAvatarReq {
 
 }
-//响应-管理员更新
+//响应-生成头像
 message SysAdminGenerateAvatarReply {
 
 }
+
+
+//请求-管理员列表
+message SysManageListReq {
+}
+//响应-管理员列表
+message SysManageListReply {
+}
+
+
+//请求-管理员信息
+message SysManageInfoReq {
+}
+//响应-管理员信息
+message SysManageInfoReply {
+}
+
+
+//请求-管理员保存
+message SysManageStoreReq {
+}
+//响应-管理员保存
+message SysManageStoreReply {
+}
+
+
+//请求-管理员删除
+message SysManageDelReq {
+}
+//响应-管理员删除
+message SysManageDelReply {
+}
+

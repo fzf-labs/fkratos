@@ -7,7 +7,10 @@
 package v1
 
 import (
+	context "context"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -15,12 +18,19 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-const ()
+const (
+	Log_SysLogList_FullMethodName = "/api.user.v1.Log/SysLogList"
+	Log_SysLogInfo_FullMethodName = "/api.user.v1.Log/SysLogInfo"
+)
 
 // LogClient is the client API for Log service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LogClient interface {
+	// 日志列表
+	SysLogList(ctx context.Context, in *SysLogListReq, opts ...grpc.CallOption) (*SysLogListResp, error)
+	// 单条日志
+	SysLogInfo(ctx context.Context, in *SysLogInfoReq, opts ...grpc.CallOption) (*SysLogInfoResp, error)
 }
 
 type logClient struct {
@@ -31,10 +41,32 @@ func NewLogClient(cc grpc.ClientConnInterface) LogClient {
 	return &logClient{cc}
 }
 
+func (c *logClient) SysLogList(ctx context.Context, in *SysLogListReq, opts ...grpc.CallOption) (*SysLogListResp, error) {
+	out := new(SysLogListResp)
+	err := c.cc.Invoke(ctx, Log_SysLogList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *logClient) SysLogInfo(ctx context.Context, in *SysLogInfoReq, opts ...grpc.CallOption) (*SysLogInfoResp, error) {
+	out := new(SysLogInfoResp)
+	err := c.cc.Invoke(ctx, Log_SysLogInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LogServer is the server API for Log service.
 // All implementations must embed UnimplementedLogServer
 // for forward compatibility
 type LogServer interface {
+	// 日志列表
+	SysLogList(context.Context, *SysLogListReq) (*SysLogListResp, error)
+	// 单条日志
+	SysLogInfo(context.Context, *SysLogInfoReq) (*SysLogInfoResp, error)
 	mustEmbedUnimplementedLogServer()
 }
 
@@ -42,6 +74,12 @@ type LogServer interface {
 type UnimplementedLogServer struct {
 }
 
+func (UnimplementedLogServer) SysLogList(context.Context, *SysLogListReq) (*SysLogListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysLogList not implemented")
+}
+func (UnimplementedLogServer) SysLogInfo(context.Context, *SysLogInfoReq) (*SysLogInfoResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysLogInfo not implemented")
+}
 func (UnimplementedLogServer) mustEmbedUnimplementedLogServer() {}
 
 // UnsafeLogServer may be embedded to opt out of forward compatibility for this service.
@@ -55,13 +93,58 @@ func RegisterLogServer(s grpc.ServiceRegistrar, srv LogServer) {
 	s.RegisterService(&Log_ServiceDesc, srv)
 }
 
+func _Log_SysLogList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysLogListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LogServer).SysLogList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Log_SysLogList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LogServer).SysLogList(ctx, req.(*SysLogListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Log_SysLogInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysLogInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LogServer).SysLogInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Log_SysLogInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LogServer).SysLogInfo(ctx, req.(*SysLogInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Log_ServiceDesc is the grpc.ServiceDesc for Log service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Log_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "api.user.v1.Log",
 	HandlerType: (*LogServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "rpc_sys/v1/sys_log.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "SysLogList",
+			Handler:    _Log_SysLogList_Handler,
+		},
+		{
+			MethodName: "SysLogInfo",
+			Handler:    _Log_SysLogInfo_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "rpc_sys/v1/sys_log.proto",
 }

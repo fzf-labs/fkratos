@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 )
 
 const (
@@ -19,21 +20,391 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 请求-部门列表
+type SysDeptListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysDeptListReq) Reset() {
+	*x = SysDeptListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysDeptListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysDeptListReq) ProtoMessage() {}
+
+func (x *SysDeptListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysDeptListReq.ProtoReflect.Descriptor instead.
+func (*SysDeptListReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_dept_proto_rawDescGZIP(), []int{0}
+}
+
+// 响应-部门列表
+type SysDeptListReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysDeptListReply) Reset() {
+	*x = SysDeptListReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysDeptListReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysDeptListReply) ProtoMessage() {}
+
+func (x *SysDeptListReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysDeptListReply.ProtoReflect.Descriptor instead.
+func (*SysDeptListReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_dept_proto_rawDescGZIP(), []int{1}
+}
+
+// 请求-部门信息
+type SysDeptInfoReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysDeptInfoReq) Reset() {
+	*x = SysDeptInfoReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysDeptInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysDeptInfoReq) ProtoMessage() {}
+
+func (x *SysDeptInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysDeptInfoReq.ProtoReflect.Descriptor instead.
+func (*SysDeptInfoReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_dept_proto_rawDescGZIP(), []int{2}
+}
+
+// 响应-部门信息
+type SysDeptInfoReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysDeptInfoReply) Reset() {
+	*x = SysDeptInfoReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysDeptInfoReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysDeptInfoReply) ProtoMessage() {}
+
+func (x *SysDeptInfoReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysDeptInfoReply.ProtoReflect.Descriptor instead.
+func (*SysDeptInfoReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_dept_proto_rawDescGZIP(), []int{3}
+}
+
+// 请求-部门保存
+type SysDeptStoreReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysDeptStoreReq) Reset() {
+	*x = SysDeptStoreReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysDeptStoreReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysDeptStoreReq) ProtoMessage() {}
+
+func (x *SysDeptStoreReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysDeptStoreReq.ProtoReflect.Descriptor instead.
+func (*SysDeptStoreReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_dept_proto_rawDescGZIP(), []int{4}
+}
+
+// 响应-部门保存
+type SysDeptStoreReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysDeptStoreReply) Reset() {
+	*x = SysDeptStoreReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysDeptStoreReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysDeptStoreReply) ProtoMessage() {}
+
+func (x *SysDeptStoreReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysDeptStoreReply.ProtoReflect.Descriptor instead.
+func (*SysDeptStoreReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_dept_proto_rawDescGZIP(), []int{5}
+}
+
+// 请求-部门删除
+type SysDeptDelReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysDeptDelReq) Reset() {
+	*x = SysDeptDelReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysDeptDelReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysDeptDelReq) ProtoMessage() {}
+
+func (x *SysDeptDelReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysDeptDelReq.ProtoReflect.Descriptor instead.
+func (*SysDeptDelReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_dept_proto_rawDescGZIP(), []int{6}
+}
+
+// 响应-部门删除
+type SysDeptDelReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysDeptDelReply) Reset() {
+	*x = SysDeptDelReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysDeptDelReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysDeptDelReply) ProtoMessage() {}
+
+func (x *SysDeptDelReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_dept_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysDeptDelReply.ProtoReflect.Descriptor instead.
+func (*SysDeptDelReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_dept_proto_rawDescGZIP(), []int{7}
+}
+
 var File_rpc_sys_v1_sys_dept_proto protoreflect.FileDescriptor
 
 var file_rpc_sys_v1_sys_dept_proto_rawDesc = []byte{
 	0x0a, 0x19, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x73, 0x79, 0x73,
 	0x5f, 0x64, 0x65, 0x70, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0b, 0x61, 0x70, 0x69,
-	0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x32, 0x06, 0x0a, 0x04, 0x44, 0x65, 0x70, 0x74,
-	0x42, 0x17, 0x5a, 0x15, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f,
-	0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x22, 0x10, 0x0a, 0x0e, 0x53, 0x79, 0x73, 0x44,
+	0x65, 0x70, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x12, 0x0a, 0x10, 0x53, 0x79,
+	0x73, 0x44, 0x65, 0x70, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x10,
+	0x0a, 0x0e, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71,
+	0x22, 0x12, 0x0a, 0x10, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x22, 0x11, 0x0a, 0x0f, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x53,
+	0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x22, 0x13, 0x0a, 0x11, 0x53, 0x79, 0x73, 0x44, 0x65,
+	0x70, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x0f, 0x0a, 0x0d,
+	0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x22, 0x11, 0x0a,
+	0x0f, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x32, 0xb2, 0x02, 0x0a, 0x04, 0x44, 0x65, 0x70, 0x74, 0x12, 0x49, 0x0a, 0x0b, 0x53, 0x79, 0x73,
+	0x44, 0x65, 0x70, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1b, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75,
+	0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x4c, 0x69,
+	0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72,
+	0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x49, 0x0a, 0x0b, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x49,
+	0x6e, 0x66, 0x6f, 0x12, 0x1b, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76,
+	0x31, 0x2e, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71,
+	0x1a, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53,
+	0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12,
+	0x4c, 0x0a, 0x0c, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x12,
+	0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79,
+	0x73, 0x44, 0x65, 0x70, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x1e, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x44,
+	0x65, 0x70, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x46, 0x0a,
+	0x0a, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x44, 0x65, 0x6c, 0x12, 0x1a, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70,
+	0x74, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x1a, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x75, 0x73,
+	0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x44, 0x65, 0x70, 0x74, 0x44, 0x65, 0x6c,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x42, 0x17, 0x5a, 0x15, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73,
+	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
-var file_rpc_sys_v1_sys_dept_proto_goTypes = []interface{}{}
+var (
+	file_rpc_sys_v1_sys_dept_proto_rawDescOnce sync.Once
+	file_rpc_sys_v1_sys_dept_proto_rawDescData = file_rpc_sys_v1_sys_dept_proto_rawDesc
+)
+
+func file_rpc_sys_v1_sys_dept_proto_rawDescGZIP() []byte {
+	file_rpc_sys_v1_sys_dept_proto_rawDescOnce.Do(func() {
+		file_rpc_sys_v1_sys_dept_proto_rawDescData = protoimpl.X.CompressGZIP(file_rpc_sys_v1_sys_dept_proto_rawDescData)
+	})
+	return file_rpc_sys_v1_sys_dept_proto_rawDescData
+}
+
+var file_rpc_sys_v1_sys_dept_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_rpc_sys_v1_sys_dept_proto_goTypes = []interface{}{
+	(*SysDeptListReq)(nil),    // 0: api.user.v1.SysDeptListReq
+	(*SysDeptListReply)(nil),  // 1: api.user.v1.SysDeptListReply
+	(*SysDeptInfoReq)(nil),    // 2: api.user.v1.SysDeptInfoReq
+	(*SysDeptInfoReply)(nil),  // 3: api.user.v1.SysDeptInfoReply
+	(*SysDeptStoreReq)(nil),   // 4: api.user.v1.SysDeptStoreReq
+	(*SysDeptStoreReply)(nil), // 5: api.user.v1.SysDeptStoreReply
+	(*SysDeptDelReq)(nil),     // 6: api.user.v1.SysDeptDelReq
+	(*SysDeptDelReply)(nil),   // 7: api.user.v1.SysDeptDelReply
+}
 var file_rpc_sys_v1_sys_dept_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
+	0, // 0: api.user.v1.Dept.SysDeptList:input_type -> api.user.v1.SysDeptListReq
+	2, // 1: api.user.v1.Dept.SysDeptInfo:input_type -> api.user.v1.SysDeptInfoReq
+	4, // 2: api.user.v1.Dept.SysDeptStore:input_type -> api.user.v1.SysDeptStoreReq
+	6, // 3: api.user.v1.Dept.SysDeptDel:input_type -> api.user.v1.SysDeptDelReq
+	1, // 4: api.user.v1.Dept.SysDeptList:output_type -> api.user.v1.SysDeptListReply
+	3, // 5: api.user.v1.Dept.SysDeptInfo:output_type -> api.user.v1.SysDeptInfoReply
+	5, // 6: api.user.v1.Dept.SysDeptStore:output_type -> api.user.v1.SysDeptStoreReply
+	7, // 7: api.user.v1.Dept.SysDeptDel:output_type -> api.user.v1.SysDeptDelReply
+	4, // [4:8] is the sub-list for method output_type
+	0, // [0:4] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -44,18 +415,117 @@ func file_rpc_sys_v1_sys_dept_proto_init() {
 	if File_rpc_sys_v1_sys_dept_proto != nil {
 		return
 	}
+	if !protoimpl.UnsafeEnabled {
+		file_rpc_sys_v1_sys_dept_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysDeptListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_dept_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysDeptListReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_dept_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysDeptInfoReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_dept_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysDeptInfoReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_dept_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysDeptStoreReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_dept_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysDeptStoreReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_dept_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysDeptDelReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_dept_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysDeptDelReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_sys_v1_sys_dept_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   0,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_rpc_sys_v1_sys_dept_proto_goTypes,
 		DependencyIndexes: file_rpc_sys_v1_sys_dept_proto_depIdxs,
+		MessageInfos:      file_rpc_sys_v1_sys_dept_proto_msgTypes,
 	}.Build()
 	File_rpc_sys_v1_sys_dept_proto = out.File
 	file_rpc_sys_v1_sys_dept_proto_rawDesc = nil

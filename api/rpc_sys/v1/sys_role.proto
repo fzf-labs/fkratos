@@ -10,4 +10,31 @@ option go_package = "fkratos/api/sys/v1;v1";
 
 // 角色
 service Role {
+  //权限列表
+  rpc SysRoleList (SysRoleListReq) returns (SysRoleListResp);
+  //单个权限
+  rpc SysRoleInfo (SysRoleInfoReq) returns (SysRoleInfoResp);
+  //保存权限
+  rpc SysRoleStore (SysRoleStoreReq) returns (SysRoleStoreResp);
+  //删除权限
+  rpc SysRoleDel (SysRoleDelReq) returns (SysRoleDelResp);
+  //修改权限状态
+  rpc SysRoleStatus (SysRoleStatusReq) returns (SysRoleStatusResp);
 }
+
+message SysRoleListReq{}
+message SysRoleListResp{}
+
+message SysRoleInfoReq{}
+message SysRoleInfoResp{}
+
+
+message SysRoleStoreReq{}
+message SysRoleStoreResp{}
+
+
+message SysRoleDelReq{}
+message SysRoleDelResp{}
+
+message SysRoleStatusReq{}
+message SysRoleStatusResp{}

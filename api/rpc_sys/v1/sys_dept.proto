@@ -10,5 +10,44 @@ option go_package = "fkratos/api/sys/v1;v1";
 
 // 部门
 service Dept {
-
+  //部门列表
+  rpc SysDeptList (SysDeptListReq) returns (SysDeptListReply);
+  //单个部门
+  rpc SysDeptInfo (SysDeptInfoReq) returns (SysDeptInfoReply);
+  //保存部门
+  rpc SysDeptStore (SysDeptStoreReq) returns (SysDeptStoreReply);
+  //删除部门
+  rpc SysDeptDel (SysDeptDelReq) returns (SysDeptDelReply);
 }
+
+//请求-部门列表
+message SysDeptListReq {
+}
+//响应-部门列表
+message SysDeptListReply {
+}
+
+
+//请求-部门信息
+message SysDeptInfoReq {
+}
+//响应-部门信息
+message SysDeptInfoReply {
+}
+
+
+//请求-部门保存
+message SysDeptStoreReq {
+}
+//响应-部门保存
+message SysDeptStoreReply {
+}
+
+
+//请求-部门删除
+message SysDeptDelReq {
+}
+//响应-部门删除
+message SysDeptDelReply {
+}
+
