@@ -21,11 +21,12 @@ message Data {
   message Redis {
     string network = 1; // 网络
     string addr = 2;  // 服务端地址
-    string password = 3;  // 密码
-    int32 db = 4; // 数据库索引
-    google.protobuf.Duration dialTimeout = 5;  // 连接超时时间
-    google.protobuf.Duration readTimeout = 6;  // 读取超时时间
-    google.protobuf.Duration writeTimeout = 7; // 写入超时时间
+    string username = 3;  // 账号
+    string password = 4;  // 密码
+    int32 db = 5; // 数据库索引
+    google.protobuf.Duration dialTimeout = 6;  // 连接超时时间
+    google.protobuf.Duration readTimeout = 7;  // 读取超时时间
+    google.protobuf.Duration writeTimeout = 8; // 写入超时时间
   }
 
   Gorm gorm = 1;  // 数据库 gorm

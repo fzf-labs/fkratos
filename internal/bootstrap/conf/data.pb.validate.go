@@ -355,6 +355,8 @@ func (m *Data_Redis) validate(all bool) error {
 
 	// no validation rules for Addr
 
+	// no validation rules for Username
+
 	// no validation rules for Password
 
 	// no validation rules for Db
