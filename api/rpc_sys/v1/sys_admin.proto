@@ -1,90 +1,152 @@
 syntax = "proto3";
 
-package api.user.v1;
+package api.rpc_sys.v1;
 
-option go_package = "fkratos/api/sys/v1;v1";
+import "validate/validate.proto";
+import "common/common.proto";
 
+option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
-
 // 管理员
-service admin {
+service Admin {
   //管理员信息
-  rpc SysAdminInfo (SysAdminInfoReq) returns (SysAdminInfoReply);
+  rpc SysAdminInfo(SysAdminInfoReq) returns (SysAdminInfoReply);
   //管理员更新
-  rpc SysAdminInfoUpdate (SysAdminInfoUpdateReq) returns (SysAdminInfoUpdateReply);
+  rpc SysAdminInfoUpdate(SysAdminInfoUpdateReq) returns (SysAdminInfoUpdateReply);
   //生成头像
-  rpc SysAdminGenerateAvatar (SysAdminGenerateAvatarReq) returns (SysAdminGenerateAvatarReply);
-
+  rpc SysAdminGenerateAvatar(SysAdminGenerateAvatarReq) returns (SysAdminGenerateAvatarReply);
 
   //管理员列表
-  rpc SysManageList (SysManageListReq) returns (SysManageListReply);
+  rpc SysManageList(SysManageListReq) returns (SysManageListReply);
   //单个管理员
-  rpc SysManageInfo (SysManageInfoReq) returns (SysManageInfoReply);
+  rpc SysManageInfo(SysManageInfoReq) returns (SysManageInfoReply);
   //保存管理员
-  rpc SysManageStore (SysManageStoreReq) returns (SysManageStoreReply);
+  rpc SysManageStore(SysManageStoreReq) returns (SysManageStoreReply);
   //删除管理员
-  rpc SysManageDel (SysManageDelReq) returns (SysManageDelReply);
+  rpc SysManageDel(SysManageDelReq) returns (SysManageDelReply);
+}
 
+message SysAdminInfo {
+  string id = 1; // ID
+  string username = 2; // 账号
+  string nickname = 3; // 昵称
+  string avatar = 4; // 头像
+  int32 gender = 5; // 0=保密 1=女 2=男
+  string email = 6; // 邮件
+  string mobile = 7; // 手机号
+  string jobID = 8; // 岗位
+  string deptID = 9; // 部门
+  repeated string roleIds = 10; // 角色集
+  string motto = 11; // 个性签名
 }
 
 //请求-管理员信息
 message SysAdminInfoReq {
-
+  string adminId = 1 [(validate.rules).string.uuid = true]; //ID
 }
+
 //响应-管理员信息
 message SysAdminInfoReply {
-
+  SysAdminInfo info = 1;
 }
 
 //请求-管理员更新
 message SysAdminInfoUpdateReq {
-
+  string adminId = 1 [(validate.rules).string.uuid = true];
+  string nickname = 2 [(validate.rules).string = {min_len: 0,max_len: 50}]; //昵称
+  string email = 3 [(validate.rules).string = {min_len: 0,max_len: 50}]; //邮件
+  string mobile = 4 [(validate.rules).string = {min_len: 0,max_len: 15}]; //手机号
+  string motto = 5 [(validate.rules).string = {min_len: 0,max_len: 255}]; //个性签名
+  string password = 6 [(validate.rules).string = {min_len: 0,max_len: 128}]; //密码
 }
+
 //响应-管理员更新
-message SysAdminInfoUpdateReply {
-
-}
+message SysAdminInfoUpdateReply {}
 
 //请求-生成头像
 message SysAdminGenerateAvatarReq {
-
+  string adminId = 1 [(validate.rules).string.uuid = true];
 }
+
 //响应-生成头像
 message SysAdminGenerateAvatarReply {
-
+  string avatarUrl = 1; //头像地址
 }
+
+message SysManageInfo {
+  string id = 1;
+  string username = 2; // 账号
+  string nickname = 3; // 昵称
+  string avatar = 4; // 头像
+  int32 gender = 5; // 0=保密 1=女 2=男
+  string email = 6; // 邮件
+  string mobile = 7; // 手机号
+  string jobID = 8; // 岗位
+  string deptID = 9; // 部门
+  repeated string roleIds = 10; // 角色集
+  string jobName = 11; // 岗位
+  string deptName = 12; // 部门
+  repeated string roleNames = 13; // 角色名称集
+  string motto = 14; // 个性签名
+  int32 status = 15; //状态
+  string createdAt = 16; //创建时间
+  string updatedAt = 17; //更新时间
+}
+
 
 
 //请求-管理员列表
 message SysManageListReq {
-}
-//响应-管理员列表
-message SysManageListReply {
+  int32 page = 1; //页码
+  int32 pageSize = 2; //页数
+  string quickSearch = 3; //快捷搜索
+  repeated common.SearchParam search = 4; //详细搜索
 }
 
+//响应-管理员列表
+message SysManageListReply {
+  repeated SysManageInfo list = 1;      //管理员列表
+  common.Paginator paginator = 2; //分页
+}
 
 //请求-管理员信息
 message SysManageInfoReq {
-}
-//响应-管理员信息
-message SysManageInfoReply {
+  string adminId = 1 [(validate.rules).string.uuid = true];
 }
 
+//响应-管理员信息
+message SysManageInfoReply {
+  SysManageInfo info = 1;
+}
 
 //请求-管理员保存
 message SysManageStoreReq {
-}
-//响应-管理员保存
-message SysManageStoreReply {
+  string id = 1;
+  string username = 2; // 账号
+  string nickname = 3; // 昵称
+  string password = 4; // 昵称
+  string avatar = 5; // 头像
+  int32 gender = 6; // 0=保密 1=女 2=男
+  string email = 7; // 邮件
+  string mobile = 8; // 手机号
+  string jobID = 9; // 岗位
+  string deptID = 10; // 部门
+  repeated string roleIds = 11; // 角色集
+  string motto = 12; // 个性签名
+  int32 status = 13; //状态
 }
 
+//响应-管理员保存
+message SysManageStoreReply {
+
+}
 
 //请求-管理员删除
 message SysManageDelReq {
-}
-//响应-管理员删除
-message SysManageDelReply {
+  repeated string ids = 1;
 }
 
+//响应-管理员删除
+message SysManageDelReply {}

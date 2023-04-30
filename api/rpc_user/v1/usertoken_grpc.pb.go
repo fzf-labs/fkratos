@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Usertoken_CreateUsertoken_FullMethodName = "/api.user.v1.Usertoken/CreateUsertoken"
-	Usertoken_UpdateUsertoken_FullMethodName = "/api.user.v1.Usertoken/UpdateUsertoken"
-	Usertoken_DeleteUsertoken_FullMethodName = "/api.user.v1.Usertoken/DeleteUsertoken"
-	Usertoken_GetUsertoken_FullMethodName    = "/api.user.v1.Usertoken/GetUsertoken"
-	Usertoken_ListUsertoken_FullMethodName   = "/api.user.v1.Usertoken/ListUsertoken"
+	Usertoken_CreateUsertoken_FullMethodName = "/api.rpc_sys.v1.Usertoken/CreateUsertoken"
+	Usertoken_UpdateUsertoken_FullMethodName = "/api.rpc_sys.v1.Usertoken/UpdateUsertoken"
+	Usertoken_DeleteUsertoken_FullMethodName = "/api.rpc_sys.v1.Usertoken/DeleteUsertoken"
+	Usertoken_GetUsertoken_FullMethodName    = "/api.rpc_sys.v1.Usertoken/GetUsertoken"
+	Usertoken_ListUsertoken_FullMethodName   = "/api.rpc_sys.v1.Usertoken/ListUsertoken"
 )
 
 // UsertokenClient is the client API for Usertoken service.
@@ -228,7 +228,7 @@ func _Usertoken_ListUsertoken_Handler(srv interface{}, ctx context.Context, dec 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Usertoken_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.user.v1.Usertoken",
+	ServiceName: "api.rpc_sys.v1.Usertoken",
 	HandlerType: (*UsertokenServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

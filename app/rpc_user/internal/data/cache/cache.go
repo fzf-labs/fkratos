@@ -3,10 +3,10 @@ package cache
 import (
 	"time"
 
-	fCache "github.com/fzf-labs/fpkg/cache"
+	"github.com/fzf-labs/fpkg/cache/cachekey"
 )
 
-var cache = fCache.NewKeyPrefixes("user")
+var cache = cachekey.NewKeyPrefixes("user")
 
 // 缓存key前缀
 var (

@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package api.api.v1;
+package api.bff_api.v1;
 
-option go_package = "fkratos/api/api/v1;v1";
+option go_package = "fkratos/api/bff_api/v1;v1";
 
 import "errors/errors.proto";
 

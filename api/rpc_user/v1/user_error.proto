@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package api.user.v1;
+package api.rpc_user.v1;
 
-option go_package = "fkratos/api/user/v1;v1";
+option go_package = "fkratos/api/rpc_user/v1;v1";
 
 import "errors/errors.proto";
 

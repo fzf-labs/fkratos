@@ -35,6 +35,128 @@ var (
 	_ = sort.Sort
 )
 
+// define the regex for a UUID once up-front
+var _sys_admin_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+
+// Validate checks the field values on SysAdminInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysAdminInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysAdminInfo with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysAdminInfoMultiError, or
+// nil if none found.
+func (m *SysAdminInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysAdminInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Username
+
+	// no validation rules for Nickname
+
+	// no validation rules for Avatar
+
+	// no validation rules for Gender
+
+	// no validation rules for Email
+
+	// no validation rules for Mobile
+
+	// no validation rules for JobID
+
+	// no validation rules for DeptID
+
+	// no validation rules for Motto
+
+	if len(errors) > 0 {
+		return SysAdminInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysAdminInfoMultiError is an error wrapping multiple validation errors
+// returned by SysAdminInfo.ValidateAll() if the designated constraints aren't met.
+type SysAdminInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysAdminInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysAdminInfoMultiError) AllErrors() []error { return m }
+
+// SysAdminInfoValidationError is the validation error returned by
+// SysAdminInfo.Validate if the designated constraints aren't met.
+type SysAdminInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysAdminInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysAdminInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysAdminInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysAdminInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysAdminInfoValidationError) ErrorName() string { return "SysAdminInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysAdminInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysAdminInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysAdminInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysAdminInfoValidationError{}
+
 // Validate checks the field values on SysAdminInfoReq with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -57,8 +179,28 @@ func (m *SysAdminInfoReq) validate(all bool) error {
 
 	var errors []error
 
+	if err := m._validateUuid(m.GetAdminId()); err != nil {
+		err = SysAdminInfoReqValidationError{
+			field:  "AdminId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return SysAdminInfoReqMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *SysAdminInfoReq) _validateUuid(uuid string) error {
+	if matched := _sys_admin_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -156,6 +298,35 @@ func (m *SysAdminInfoReply) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInfo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SysAdminInfoReplyValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SysAdminInfoReplyValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SysAdminInfoReplyValidationError{
+				field:  "Info",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return SysAdminInfoReplyMultiError(errors)
@@ -259,8 +430,83 @@ func (m *SysAdminInfoUpdateReq) validate(all bool) error {
 
 	var errors []error
 
+	if err := m._validateUuid(m.GetAdminId()); err != nil {
+		err = SysAdminInfoUpdateReqValidationError{
+			field:  "AdminId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetNickname()); l < 0 || l > 50 {
+		err := SysAdminInfoUpdateReqValidationError{
+			field:  "Nickname",
+			reason: "value length must be between 0 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetEmail()); l < 0 || l > 50 {
+		err := SysAdminInfoUpdateReqValidationError{
+			field:  "Email",
+			reason: "value length must be between 0 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetMobile()); l < 0 || l > 15 {
+		err := SysAdminInfoUpdateReqValidationError{
+			field:  "Mobile",
+			reason: "value length must be between 0 and 15 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetMotto()); l < 0 || l > 255 {
+		err := SysAdminInfoUpdateReqValidationError{
+			field:  "Motto",
+			reason: "value length must be between 0 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetPassword()); l < 0 || l > 128 {
+		err := SysAdminInfoUpdateReqValidationError{
+			field:  "Password",
+			reason: "value length must be between 0 and 128 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return SysAdminInfoUpdateReqMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *SysAdminInfoUpdateReq) _validateUuid(uuid string) error {
+	if matched := _sys_admin_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -463,8 +709,28 @@ func (m *SysAdminGenerateAvatarReq) validate(all bool) error {
 
 	var errors []error
 
+	if err := m._validateUuid(m.GetAdminId()); err != nil {
+		err = SysAdminGenerateAvatarReqValidationError{
+			field:  "AdminId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return SysAdminGenerateAvatarReqMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *SysAdminGenerateAvatarReq) _validateUuid(uuid string) error {
+	if matched := _sys_admin_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -565,6 +831,8 @@ func (m *SysAdminGenerateAvatarReply) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for AvatarUrl
+
 	if len(errors) > 0 {
 		return SysAdminGenerateAvatarReplyMultiError(errors)
 	}
@@ -646,6 +914,136 @@ var _ interface {
 	ErrorName() string
 } = SysAdminGenerateAvatarReplyValidationError{}
 
+// Validate checks the field values on SysManageInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysManageInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysManageInfo with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysManageInfoMultiError, or
+// nil if none found.
+func (m *SysManageInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysManageInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Username
+
+	// no validation rules for Nickname
+
+	// no validation rules for Avatar
+
+	// no validation rules for Gender
+
+	// no validation rules for Email
+
+	// no validation rules for Mobile
+
+	// no validation rules for JobID
+
+	// no validation rules for DeptID
+
+	// no validation rules for JobName
+
+	// no validation rules for DeptName
+
+	// no validation rules for Motto
+
+	// no validation rules for Status
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	if len(errors) > 0 {
+		return SysManageInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysManageInfoMultiError is an error wrapping multiple validation errors
+// returned by SysManageInfo.ValidateAll() if the designated constraints
+// aren't met.
+type SysManageInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysManageInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysManageInfoMultiError) AllErrors() []error { return m }
+
+// SysManageInfoValidationError is the validation error returned by
+// SysManageInfo.Validate if the designated constraints aren't met.
+type SysManageInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysManageInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysManageInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysManageInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysManageInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysManageInfoValidationError) ErrorName() string { return "SysManageInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysManageInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysManageInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysManageInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysManageInfoValidationError{}
+
 // Validate checks the field values on SysManageListReq with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -667,6 +1065,46 @@ func (m *SysManageListReq) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Page
+
+	// no validation rules for PageSize
+
+	// no validation rules for QuickSearch
+
+	for idx, item := range m.GetSearch() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SysManageListReqValidationError{
+						field:  fmt.Sprintf("Search[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SysManageListReqValidationError{
+						field:  fmt.Sprintf("Search[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SysManageListReqValidationError{
+					field:  fmt.Sprintf("Search[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return SysManageListReqMultiError(errors)
@@ -767,6 +1205,69 @@ func (m *SysManageListReply) validate(all bool) error {
 	}
 
 	var errors []error
+
+	for idx, item := range m.GetList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SysManageListReplyValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SysManageListReplyValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SysManageListReplyValidationError{
+					field:  fmt.Sprintf("List[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if all {
+		switch v := interface{}(m.GetPaginator()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SysManageListReplyValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SysManageListReplyValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPaginator()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SysManageListReplyValidationError{
+				field:  "Paginator",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return SysManageListReplyMultiError(errors)
@@ -870,8 +1371,28 @@ func (m *SysManageInfoReq) validate(all bool) error {
 
 	var errors []error
 
+	if err := m._validateUuid(m.GetAdminId()); err != nil {
+		err = SysManageInfoReqValidationError{
+			field:  "AdminId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return SysManageInfoReqMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *SysManageInfoReq) _validateUuid(uuid string) error {
+	if matched := _sys_admin_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -969,6 +1490,35 @@ func (m *SysManageInfoReply) validate(all bool) error {
 	}
 
 	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInfo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SysManageInfoReplyValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SysManageInfoReplyValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SysManageInfoReplyValidationError{
+				field:  "Info",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return SysManageInfoReplyMultiError(errors)
@@ -1071,6 +1621,30 @@ func (m *SysManageStoreReq) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Username
+
+	// no validation rules for Nickname
+
+	// no validation rules for Password
+
+	// no validation rules for Avatar
+
+	// no validation rules for Gender
+
+	// no validation rules for Email
+
+	// no validation rules for Mobile
+
+	// no validation rules for JobID
+
+	// no validation rules for DeptID
+
+	// no validation rules for Motto
+
+	// no validation rules for Status
 
 	if len(errors) > 0 {
 		return SysManageStoreReqMultiError(errors)

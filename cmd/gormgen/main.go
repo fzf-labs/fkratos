@@ -21,8 +21,8 @@ var defaultPostgresDataMap = map[string]func(detailType string) (dataType string
 func main() {
 	flag.Parse()
 	db := GetDsn(*configFile)
-	outPath := fmt.Sprintf("./internal/data/gorm/%sdao", *serverName)
-	modelPkgPath := fmt.Sprintf("./internal/data/gorm/%smodel", *serverName)
+	outPath := fmt.Sprintf("./internal/data/gorm/%s_dao", *serverName)
+	modelPkgPath := fmt.Sprintf("./internal/data/gorm/%s_model", *serverName)
 	gen.Generation(gen.ConnectDB("postgres", db), defaultPostgresDataMap, outPath, modelPkgPath)
 }
 
@@ -35,5 +35,5 @@ func GetDsn(configFile string) string {
 	if err := config.ReadInConfig(); err != nil {
 		panic(err)
 	}
-	return conv.String(config.Get("data.database.source"))
+	return conv.String(config.Get("data.gorm.dataSourceName"))
 }

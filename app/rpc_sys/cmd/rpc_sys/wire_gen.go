@@ -33,10 +33,15 @@ func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registr
 	if err != nil {
 		return nil, nil, err
 	}
-	userRepo := data.NewUserRepo(dataData, logger)
-	userUseCase := biz.NewUserUseCase(userRepo, logger)
-	userService := service.NewUserService(logger, userUseCase)
-	grpcServer := server.NewGRPCServer(confBootstrap, logger, userService)
+	sysAdminRepo := data.NewSysAdminRepo(dataData, logger)
+	authUseCase := biz.NewAuthUseCase(logger, sysAdminRepo)
+	authService := service.NewAuthService(logger, authUseCase)
+	sysRoleRepo := data.NewSysRoleRepo(dataData, logger)
+	sysJobRepo := data.NewSysJobRepo(dataData, logger)
+	sysDeptRepo := data.NewSysDeptRepo(dataData, logger)
+	adminUseCase := biz.NewAdminUseCase(logger, sysAdminRepo, sysRoleRepo, sysJobRepo, sysDeptRepo)
+	adminService := service.NewAdminService(logger, adminUseCase)
+	grpcServer := server.NewGRPCServer(confBootstrap, logger, authService, adminService)
 	app := newApp(logger, registrar, grpcServer)
 	return app, func() {
 		cleanup()

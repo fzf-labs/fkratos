@@ -13,7 +13,7 @@ import (
 
 var (
 	Service = bootstrap.NewService(
-		service.RpcUser,
+		service.RpcSys,
 		"1.0.0",
 		"",
 	)

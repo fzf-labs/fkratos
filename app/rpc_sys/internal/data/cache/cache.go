@@ -1,12 +1,13 @@
 package cache
 
 import (
+	"fkratos/internal/service"
 	"time"
 
-	fCache "github.com/fzf-labs/fpkg/cache"
+	"github.com/fzf-labs/fpkg/cache/cachekey"
 )
 
-var cache = fCache.NewKeyPrefixes("user")
+var cache = cachekey.NewKeyPrefixes(service.RpcSys)
 
 // 缓存key前缀
 var (
@@ -15,4 +16,11 @@ var (
 	Sms           = cache.AddKeyPrefix("sms", time.Minute*5, "短信验证")
 	SmsDayNum     = cache.AddKeyPrefix("sms_day_num", time.Minute*5, "短信发送次数")
 	SensitiveWord = cache.AddKeyPrefix("sensitive_word", time.Hour*24, "敏感词")
+	TinyUrl       = cache.AddKeyPrefix("tiny_url", time.Hour*24, "短连接")
+)
+
+// admin
+var (
+	SysAdminInfo     = cache.AddKeyPrefix("sys_admin_info", time.Minute*5, "管理员信息")
+	SysAdminPermmenu = cache.AddKeyPrefix("sys_admin_permmenu", time.Minute*5, "管理员权限")
 )

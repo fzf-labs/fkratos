@@ -468,28 +468,28 @@ func file_rpc_user_v1_usertoken_proto_rawDescGZIP() []byte {
 
 var file_rpc_user_v1_usertoken_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_rpc_user_v1_usertoken_proto_goTypes = []interface{}{
-	(*CreateUsertokenRequest)(nil), // 0: api.user.v1.CreateUsertokenRequest
-	(*CreateUsertokenReply)(nil),   // 1: api.user.v1.CreateUsertokenReply
-	(*UpdateUsertokenRequest)(nil), // 2: api.user.v1.UpdateUsertokenRequest
-	(*UpdateUsertokenReply)(nil),   // 3: api.user.v1.UpdateUsertokenReply
-	(*DeleteUsertokenRequest)(nil), // 4: api.user.v1.DeleteUsertokenRequest
-	(*DeleteUsertokenReply)(nil),   // 5: api.user.v1.DeleteUsertokenReply
-	(*GetUsertokenRequest)(nil),    // 6: api.user.v1.GetUsertokenRequest
-	(*GetUsertokenReply)(nil),      // 7: api.user.v1.GetUsertokenReply
-	(*ListUsertokenRequest)(nil),   // 8: api.user.v1.ListUsertokenRequest
-	(*ListUsertokenReply)(nil),     // 9: api.user.v1.ListUsertokenReply
+	(*CreateUsertokenRequest)(nil), // 0: api.rpc_sys.v1.CreateUsertokenRequest
+	(*CreateUsertokenReply)(nil),   // 1: api.rpc_sys.v1.CreateUsertokenReply
+	(*UpdateUsertokenRequest)(nil), // 2: api.rpc_sys.v1.UpdateUsertokenRequest
+	(*UpdateUsertokenReply)(nil),   // 3: api.rpc_sys.v1.UpdateUsertokenReply
+	(*DeleteUsertokenRequest)(nil), // 4: api.rpc_sys.v1.DeleteUsertokenRequest
+	(*DeleteUsertokenReply)(nil),   // 5: api.rpc_sys.v1.DeleteUsertokenReply
+	(*GetUsertokenRequest)(nil),    // 6: api.rpc_sys.v1.GetUsertokenRequest
+	(*GetUsertokenReply)(nil),      // 7: api.rpc_sys.v1.GetUsertokenReply
+	(*ListUsertokenRequest)(nil),   // 8: api.rpc_sys.v1.ListUsertokenRequest
+	(*ListUsertokenReply)(nil),     // 9: api.rpc_sys.v1.ListUsertokenReply
 }
 var file_rpc_user_v1_usertoken_proto_depIdxs = []int32{
-	0, // 0: api.user.v1.Usertoken.CreateUsertoken:input_type -> api.user.v1.CreateUsertokenRequest
-	2, // 1: api.user.v1.Usertoken.UpdateUsertoken:input_type -> api.user.v1.UpdateUsertokenRequest
-	4, // 2: api.user.v1.Usertoken.DeleteUsertoken:input_type -> api.user.v1.DeleteUsertokenRequest
-	6, // 3: api.user.v1.Usertoken.GetUsertoken:input_type -> api.user.v1.GetUsertokenRequest
-	8, // 4: api.user.v1.Usertoken.ListUsertoken:input_type -> api.user.v1.ListUsertokenRequest
-	1, // 5: api.user.v1.Usertoken.CreateUsertoken:output_type -> api.user.v1.CreateUsertokenReply
-	3, // 6: api.user.v1.Usertoken.UpdateUsertoken:output_type -> api.user.v1.UpdateUsertokenReply
-	5, // 7: api.user.v1.Usertoken.DeleteUsertoken:output_type -> api.user.v1.DeleteUsertokenReply
-	7, // 8: api.user.v1.Usertoken.GetUsertoken:output_type -> api.user.v1.GetUsertokenReply
-	9, // 9: api.user.v1.Usertoken.ListUsertoken:output_type -> api.user.v1.ListUsertokenReply
+	0, // 0: api.rpc_sys.v1.Usertoken.CreateUsertoken:input_type -> api.rpc_sys.v1.CreateUsertokenRequest
+	2, // 1: api.rpc_sys.v1.Usertoken.UpdateUsertoken:input_type -> api.rpc_sys.v1.UpdateUsertokenRequest
+	4, // 2: api.rpc_sys.v1.Usertoken.DeleteUsertoken:input_type -> api.rpc_sys.v1.DeleteUsertokenRequest
+	6, // 3: api.rpc_sys.v1.Usertoken.GetUsertoken:input_type -> api.rpc_sys.v1.GetUsertokenRequest
+	8, // 4: api.rpc_sys.v1.Usertoken.ListUsertoken:input_type -> api.rpc_sys.v1.ListUsertokenRequest
+	1, // 5: api.rpc_sys.v1.Usertoken.CreateUsertoken:output_type -> api.rpc_sys.v1.CreateUsertokenReply
+	3, // 6: api.rpc_sys.v1.Usertoken.UpdateUsertoken:output_type -> api.rpc_sys.v1.UpdateUsertokenReply
+	5, // 7: api.rpc_sys.v1.Usertoken.DeleteUsertoken:output_type -> api.rpc_sys.v1.DeleteUsertokenReply
+	7, // 8: api.rpc_sys.v1.Usertoken.GetUsertoken:output_type -> api.rpc_sys.v1.GetUsertokenReply
+	9, // 9: api.rpc_sys.v1.Usertoken.ListUsertoken:output_type -> api.rpc_sys.v1.ListUsertokenReply
 	5, // [5:10] is the sub-list for method output_type
 	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

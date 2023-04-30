@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package api.admin.v1;
+package api.bff_admin.v1;
 
-option go_package = "fkratos/api/admin/v1;v1";
+option go_package = "fkratos/api/bff_admin/v1;v1";
 
 import "google/api/annotations.proto";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。

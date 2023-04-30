@@ -156,7 +156,6 @@ func NewTencentLogger(cfg *conf.Logger) log.Logger {
 	)
 	if err != nil {
 		panic(err)
-		return nil
 	}
 	return wrapped
 }

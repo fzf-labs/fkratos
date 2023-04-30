@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package common;
+
+option go_package = "fkratos/api/common;common";
+// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
+// 后缀定义:请求req,响应reply
+
+
+message SearchListReq {
+  int32 page = 1; //页码
+  int32 pageSize = 2; //页数
+  string quickSearch = 3; //快捷搜索
+  repeated SearchParam search = 4; //详细搜索
+}
+
+//搜索参数
+message SearchParam {
+  string field = 1; //字段
+  string val = 2; //值
+  string operator = 3; //操作
+}
+
+//分页响应
+message Paginator {
+  int32 page = 1; //第几页
+  int32 pageSize = 2; //页大小
+  int32 total = 3; //总数
+  int32 prevPage = 4; //上一页
+  int32 nextPage = 5; //下一页
+  int32 totalPage = 6; //总页数
+}

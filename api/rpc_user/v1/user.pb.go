@@ -468,28 +468,28 @@ func file_rpc_user_v1_user_proto_rawDescGZIP() []byte {
 
 var file_rpc_user_v1_user_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_rpc_user_v1_user_proto_goTypes = []interface{}{
-	(*CreateUserReq)(nil),   // 0: api.user.v1.CreateUserReq
-	(*CreateUserReply)(nil), // 1: api.user.v1.CreateUserReply
-	(*UpdateUserReq)(nil),   // 2: api.user.v1.UpdateUserReq
-	(*UpdateUserReply)(nil), // 3: api.user.v1.UpdateUserReply
-	(*DeleteUserReq)(nil),   // 4: api.user.v1.DeleteUserReq
-	(*DeleteUserReply)(nil), // 5: api.user.v1.DeleteUserReply
-	(*GetUserReq)(nil),      // 6: api.user.v1.GetUserReq
-	(*GetUserReply)(nil),    // 7: api.user.v1.GetUserReply
-	(*ListUserReq)(nil),     // 8: api.user.v1.ListUserReq
-	(*ListUserReply)(nil),   // 9: api.user.v1.ListUserReply
+	(*CreateUserReq)(nil),   // 0: api.rpc_sys.v1.CreateUserReq
+	(*CreateUserReply)(nil), // 1: api.rpc_sys.v1.CreateUserReply
+	(*UpdateUserReq)(nil),   // 2: api.rpc_sys.v1.UpdateUserReq
+	(*UpdateUserReply)(nil), // 3: api.rpc_sys.v1.UpdateUserReply
+	(*DeleteUserReq)(nil),   // 4: api.rpc_sys.v1.DeleteUserReq
+	(*DeleteUserReply)(nil), // 5: api.rpc_sys.v1.DeleteUserReply
+	(*GetUserReq)(nil),      // 6: api.rpc_sys.v1.GetUserReq
+	(*GetUserReply)(nil),    // 7: api.rpc_sys.v1.GetUserReply
+	(*ListUserReq)(nil),     // 8: api.rpc_sys.v1.ListUserReq
+	(*ListUserReply)(nil),   // 9: api.rpc_sys.v1.ListUserReply
 }
 var file_rpc_user_v1_user_proto_depIdxs = []int32{
-	0, // 0: api.user.v1.User.CreateUser:input_type -> api.user.v1.CreateUserReq
-	2, // 1: api.user.v1.User.UpdateUser:input_type -> api.user.v1.UpdateUserReq
-	4, // 2: api.user.v1.User.DeleteUser:input_type -> api.user.v1.DeleteUserReq
-	6, // 3: api.user.v1.User.GetUser:input_type -> api.user.v1.GetUserReq
-	8, // 4: api.user.v1.User.ListUser:input_type -> api.user.v1.ListUserReq
-	1, // 5: api.user.v1.User.CreateUser:output_type -> api.user.v1.CreateUserReply
-	3, // 6: api.user.v1.User.UpdateUser:output_type -> api.user.v1.UpdateUserReply
-	5, // 7: api.user.v1.User.DeleteUser:output_type -> api.user.v1.DeleteUserReply
-	7, // 8: api.user.v1.User.GetUser:output_type -> api.user.v1.GetUserReply
-	9, // 9: api.user.v1.User.ListUser:output_type -> api.user.v1.ListUserReply
+	0, // 0: api.rpc_sys.v1.User.CreateUser:input_type -> api.rpc_sys.v1.CreateUserReq
+	2, // 1: api.rpc_sys.v1.User.UpdateUser:input_type -> api.rpc_sys.v1.UpdateUserReq
+	4, // 2: api.rpc_sys.v1.User.DeleteUser:input_type -> api.rpc_sys.v1.DeleteUserReq
+	6, // 3: api.rpc_sys.v1.User.GetUser:input_type -> api.rpc_sys.v1.GetUserReq
+	8, // 4: api.rpc_sys.v1.User.ListUser:input_type -> api.rpc_sys.v1.ListUserReq
+	1, // 5: api.rpc_sys.v1.User.CreateUser:output_type -> api.rpc_sys.v1.CreateUserReply
+	3, // 6: api.rpc_sys.v1.User.UpdateUser:output_type -> api.rpc_sys.v1.UpdateUserReply
+	5, // 7: api.rpc_sys.v1.User.DeleteUser:output_type -> api.rpc_sys.v1.DeleteUserReply
+	7, // 8: api.rpc_sys.v1.User.GetUser:output_type -> api.rpc_sys.v1.GetUserReply
+	9, // 9: api.rpc_sys.v1.User.ListUser:output_type -> api.rpc_sys.v1.ListUserReply
 	5, // [5:10] is the sub-list for method output_type
 	0, // [0:5] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package api.user.v1;
+package api.rpc_user.v1;
 
-option go_package = "fkratos/api/user/v1;v1";
+option go_package = "fkratos/api/rpc_user/v1;v1";
 option java_multiple_files = true;
-option java_package = "api.user.v1";
+option java_package = "api.rpc_sys.v1";
 
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply

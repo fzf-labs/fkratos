@@ -5,7 +5,8 @@ import (
 	"fmt"
 
 	"github.com/dtm-labs/rockscache"
-	"github.com/fzf-labs/fpkg/cache"
+	fRedis "github.com/fzf-labs/fpkg/cache/redis"
+	fRockscache "github.com/fzf-labs/fpkg/cache/rockscache"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-redis/redis/v8"
 )
@@ -13,7 +14,7 @@ import (
 // NewRedis 初始化redis
 func NewRedis(cfg *conf.Bootstrap, logger log.Logger) *redis.Client {
 	l := log.NewHelper(log.With(logger, "module", "NewRedis"))
-	r, err := cache.NewGoRedis(cache.GoRedisConfig{
+	r, err := fRedis.NewGoRedis(fRedis.GoRedisConfig{
 		Addr:         cfg.Data.Redis.Addr,
 		Password:     cfg.Data.Redis.Password,
 		DB:           int(cfg.Data.Redis.Db),
@@ -30,5 +31,5 @@ func NewRedis(cfg *conf.Bootstrap, logger log.Logger) *redis.Client {
 
 // NewRocksCache 初始化RocksCache
 func NewRocksCache(rdb *redis.Client) *rockscache.Client {
-	return cache.NewRocksCache(rdb)
+	return fRockscache.NewRocksCache(rdb)
 }

@@ -11,6 +11,7 @@ import "tracer.proto";
 import "logger.proto";
 import "registry.proto";
 import "remoteconfig.proto";
+import "business.proto";
 
 
 // 引导信息
@@ -22,4 +23,5 @@ message Bootstrap {
   Logger logger = 5;
   Registry registry = 6;
   RemoteConfig config = 7;
+  Business business = 8;
 }

@@ -18,13 +18,16 @@ var ProviderSet = wire.NewSet(
 	bootstrap.NewRedis,
 	bootstrap.NewRocksCache,
 
-	NewAuthRepo,
+	NewSysAdminRepo,
+	NewSysDeptRepo,
+	NewSysJobRepo,
+	NewSysRoleRepo,
 )
 
 // Data .
 type Data struct {
 	logger     *log.Helper
-	db         *gorm.DB
+	gorm       *gorm.DB
 	redis      *redis.Client
 	rocksCache *rockscache.Client
 }
@@ -34,13 +37,13 @@ func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redis *redis.Cli
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data"))
 	d := &Data{
 		logger:     l,
-		db:         db,
+		gorm:       db,
 		redis:      redis,
 		rocksCache: rocksCache,
 	}
 	cleanup := func() {
 		log.Info("closing the data resources")
-		sqlDB, err := d.db.DB()
+		sqlDB, err := d.gorm.DB()
 		if err != nil {
 			l.Error(err)
 		}

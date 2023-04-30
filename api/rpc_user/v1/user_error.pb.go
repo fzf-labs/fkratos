@@ -182,7 +182,7 @@ func file_rpc_user_v1_user_error_proto_rawDescGZIP() []byte {
 
 var file_rpc_user_v1_user_error_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_rpc_user_v1_user_error_proto_goTypes = []interface{}{
-	(UserErrorReason)(0), // 0: api.user.v1.UserErrorReason
+	(UserErrorReason)(0), // 0: api.rpc_sys.v1.UserErrorReason
 }
 var file_rpc_user_v1_user_error_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
