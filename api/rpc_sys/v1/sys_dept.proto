@@ -7,47 +7,73 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
-
 // 部门
 service Dept {
   //部门列表
-  rpc SysDeptList (SysDeptListReq) returns (SysDeptListReply);
+  rpc SysDeptList(SysDeptListReq) returns (SysDeptListReply);
   //单个部门
-  rpc SysDeptInfo (SysDeptInfoReq) returns (SysDeptInfoReply);
+  rpc SysDeptInfo(SysDeptInfoReq) returns (SysDeptInfoReply);
   //保存部门
-  rpc SysDeptStore (SysDeptStoreReq) returns (SysDeptStoreReply);
+  rpc SysDeptStore(SysDeptStoreReq) returns (SysDeptStoreReply);
   //删除部门
-  rpc SysDeptDel (SysDeptDelReq) returns (SysDeptDelReply);
+  rpc SysDeptDel(SysDeptDelReq) returns (SysDeptDelReply);
+}
+
+message SysDeptInfo {
+  string id = 1; // id
+  string pid = 2; // 父级id
+  string name = 3; // 部门简称
+  string fullName = 4; // 部门全称
+  string responsible = 5; // 负责人
+  string phone = 6; // 负责人电话
+  string email = 7; // 负责人邮箱
+  int32 type = 8; // 1=公司 2=子公司 3=部门
+  int32 status = 9; // 0=禁用 1=开启
+  int32 sort = 10; // 排序值
+  string createdAt = 11; // 创建时间
+  string updatedAt = 12; // 更新时间
+  repeated SysDeptInfo children = 13;
 }
 
 //请求-部门列表
-message SysDeptListReq {
-}
+message SysDeptListReq {}
+
 //响应-部门列表
 message SysDeptListReply {
+  repeated SysDeptInfo list = 1;
 }
-
 
 //请求-部门信息
 message SysDeptInfoReq {
-}
-//响应-部门信息
-message SysDeptInfoReply {
+  string id = 1; // id
 }
 
+//响应-部门信息
+message SysDeptInfoReply {
+  SysDeptInfo info = 1;
+}
 
 //请求-部门保存
 message SysDeptStoreReq {
-}
-//响应-部门保存
-message SysDeptStoreReply {
+  string id = 1; // id
+  string pid = 2; // 父级id
+  string name = 3; // 部门简称
+  string fullName = 4; // 部门全称
+  string responsible = 5; // 负责人
+  string phone = 6; // 负责人电话
+  string email = 7; // 负责人邮箱
+  int32 type = 8; // 1=公司 2=子公司 3=部门
+  int32 status = 9; // 0=禁用 1=开启
+  int32 sort = 10; // 排序值
 }
 
+//响应-部门保存
+message SysDeptStoreReply {}
 
 //请求-部门删除
 message SysDeptDelReq {
-}
-//响应-部门删除
-message SysDeptDelReply {
+  repeated string ids = 1;
 }
 
+//响应-部门删除
+message SysDeptDelReply {}

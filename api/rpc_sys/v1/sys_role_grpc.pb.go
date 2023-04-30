@@ -19,27 +19,24 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Role_SysRoleList_FullMethodName   = "/api.rpc_sys.v1.Role/SysRoleList"
-	Role_SysRoleInfo_FullMethodName   = "/api.rpc_sys.v1.Role/SysRoleInfo"
-	Role_SysRoleStore_FullMethodName  = "/api.rpc_sys.v1.Role/SysRoleStore"
-	Role_SysRoleDel_FullMethodName    = "/api.rpc_sys.v1.Role/SysRoleDel"
-	Role_SysRoleStatus_FullMethodName = "/api.rpc_sys.v1.Role/SysRoleStatus"
+	Role_SysRoleList_FullMethodName  = "/api.rpc_sys.v1.Role/SysRoleList"
+	Role_SysRoleInfo_FullMethodName  = "/api.rpc_sys.v1.Role/SysRoleInfo"
+	Role_SysRoleStore_FullMethodName = "/api.rpc_sys.v1.Role/SysRoleStore"
+	Role_SysRoleDel_FullMethodName   = "/api.rpc_sys.v1.Role/SysRoleDel"
 )
 
 // RoleClient is the client API for Role service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RoleClient interface {
-	// 权限列表
+	// 角色列表
 	SysRoleList(ctx context.Context, in *SysRoleListReq, opts ...grpc.CallOption) (*SysRoleListResp, error)
-	// 单个权限
+	// 单个角色
 	SysRoleInfo(ctx context.Context, in *SysRoleInfoReq, opts ...grpc.CallOption) (*SysRoleInfoResp, error)
-	// 保存权限
+	// 保存角色
 	SysRoleStore(ctx context.Context, in *SysRoleStoreReq, opts ...grpc.CallOption) (*SysRoleStoreResp, error)
-	// 删除权限
+	// 删除角色
 	SysRoleDel(ctx context.Context, in *SysRoleDelReq, opts ...grpc.CallOption) (*SysRoleDelResp, error)
-	// 修改权限状态
-	SysRoleStatus(ctx context.Context, in *SysRoleStatusReq, opts ...grpc.CallOption) (*SysRoleStatusResp, error)
 }
 
 type roleClient struct {
@@ -86,29 +83,18 @@ func (c *roleClient) SysRoleDel(ctx context.Context, in *SysRoleDelReq, opts ...
 	return out, nil
 }
 
-func (c *roleClient) SysRoleStatus(ctx context.Context, in *SysRoleStatusReq, opts ...grpc.CallOption) (*SysRoleStatusResp, error) {
-	out := new(SysRoleStatusResp)
-	err := c.cc.Invoke(ctx, Role_SysRoleStatus_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // RoleServer is the server API for Role service.
 // All implementations must embed UnimplementedRoleServer
 // for forward compatibility
 type RoleServer interface {
-	// 权限列表
+	// 角色列表
 	SysRoleList(context.Context, *SysRoleListReq) (*SysRoleListResp, error)
-	// 单个权限
+	// 单个角色
 	SysRoleInfo(context.Context, *SysRoleInfoReq) (*SysRoleInfoResp, error)
-	// 保存权限
+	// 保存角色
 	SysRoleStore(context.Context, *SysRoleStoreReq) (*SysRoleStoreResp, error)
-	// 删除权限
+	// 删除角色
 	SysRoleDel(context.Context, *SysRoleDelReq) (*SysRoleDelResp, error)
-	// 修改权限状态
-	SysRoleStatus(context.Context, *SysRoleStatusReq) (*SysRoleStatusResp, error)
 	mustEmbedUnimplementedRoleServer()
 }
 
@@ -127,9 +113,6 @@ func (UnimplementedRoleServer) SysRoleStore(context.Context, *SysRoleStoreReq) (
 }
 func (UnimplementedRoleServer) SysRoleDel(context.Context, *SysRoleDelReq) (*SysRoleDelResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysRoleDel not implemented")
-}
-func (UnimplementedRoleServer) SysRoleStatus(context.Context, *SysRoleStatusReq) (*SysRoleStatusResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SysRoleStatus not implemented")
 }
 func (UnimplementedRoleServer) mustEmbedUnimplementedRoleServer() {}
 
@@ -216,24 +199,6 @@ func _Role_SysRoleDel_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Role_SysRoleStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SysRoleStatusReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RoleServer).SysRoleStatus(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Role_SysRoleStatus_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RoleServer).SysRoleStatus(ctx, req.(*SysRoleStatusReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Role_ServiceDesc is the grpc.ServiceDesc for Role service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -256,10 +221,6 @@ var Role_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SysRoleDel",
 			Handler:    _Role_SysRoleDel_Handler,
-		},
-		{
-			MethodName: "SysRoleStatus",
-			Handler:    _Role_SysRoleStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

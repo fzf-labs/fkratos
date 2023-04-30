@@ -2,52 +2,76 @@ syntax = "proto3";
 
 package api.rpc_sys.v1;
 
-option go_package = "fkratos/api/rpc_sys/v1;v1";
+import "common/common.proto";
 
+option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
-
 
 // 岗位
 service Job {
   //岗位列表
-  rpc SysJobList (SysJobListReq) returns (SysJobListReply);
+  rpc SysJobList(SysJobListReq) returns (SysJobListReply);
   //单个岗位
-  rpc SysJobInfo (SysJobInfoReq) returns (SysJobInfoReply);
+  rpc SysJobInfo(SysJobInfoReq) returns (SysJobInfoReply);
   //保存岗位
-  rpc SysJobStore (SysJobStoreReq) returns (SysJobStoreReply);
+  rpc SysJobStore(SysJobStoreReq) returns (SysJobStoreReply);
   //删除岗位
-  rpc SysJobDel (SysJobDelReq) returns (SysJobDelReply);
+  rpc SysJobDel(SysJobDelReq) returns (SysJobDelReply);
+}
+
+message SysJobInfo {
+  string id = 1; // 编号
+  string name = 2; // 岗位名称
+  string code = 3; //岗位编码
+  string remark = 4; //备注
+  int32 status = 5; // 0=禁用 1=开启
+  int32 sort = 6; // 排序值
+  string createdAt = 7; // 创建时间
+  string updatedAt = 8; // 更新时间
 }
 
 //请求-岗位列表
 message SysJobListReq {
-}
-//响应-岗位列表
-message SysJobListReply {
+  int32 page = 1; //页码
+  int32 pageSize = 2; //页数
+  string quickSearch = 3; //快捷搜索
+  repeated common.SearchParam search = 4; //详细搜索
 }
 
+//响应-岗位列表
+message SysJobListReply {
+  repeated SysJobInfo list = 1; //列表
+  common.Paginator paginator = 2; //分页
+}
 
 //请求-岗位信息
 message SysJobInfoReq {
-}
-//响应-岗位信息
-message SysJobInfoReply {
+  string id = 1;
 }
 
+//响应-岗位信息
+message SysJobInfoReply {
+  SysJobInfo info = 1;
+}
 
 //请求-岗位保存
 message SysJobStoreReq {
-}
-//响应-岗位保存
-message SysJobStoreReply {
+  string id = 1; // 编号
+  string name = 2; // 岗位名称
+  string code = 3; //岗位编码
+  string remark = 4; //备注
+  int32 status = 5; // 0=禁用 1=开启
+  int32 sort = 6; // 排序值
 }
 
+//响应-岗位保存
+message SysJobStoreReply {}
 
 //请求-岗位删除
 message SysJobDelReq {
-}
-//响应-岗位删除
-message SysJobDelReply {
+  repeated string ids = 1;
 }
 
+//响应-岗位删除
+message SysJobDelReply {}

@@ -7,34 +7,78 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
-
 // 权限服务
 service Permission {
   //权限列表
-  rpc SysPermissionList (SysPermissionListReq) returns (SysPermissionListResp);
+  rpc SysPermissionList(SysPermissionListReq) returns (SysPermissionListResp);
   //单个权限
-  rpc SysPermissionInfo (SysPermissionInfoReq) returns (SysPermissionInfoResp);
+  rpc SysPermissionInfo(SysPermissionInfoReq) returns (SysPermissionInfoResp);
   //保存权限
-  rpc SysPermissionStore (SysPermissionStoreReq) returns (SysPermissionStoreResp);
+  rpc SysPermissionStore(SysPermissionStoreReq) returns (SysPermissionStoreResp);
   //删除权限
-  rpc SysPermissionDel (SysPermissionDelReq) returns (SysPermissionDelResp);
+  rpc SysPermissionDel(SysPermissionDelReq) returns (SysPermissionDelResp);
   //修改权限状态
-  rpc SysPermissionStatus (SysPermissionStatusReq) returns (SysPermissionStatusResp);
+  rpc SysPermissionStatus(SysPermissionStatusReq) returns (SysPermissionStatusResp);
+}
+message SysPermMenu {
+  string id = 1; // ID
+  string pid = 2; // 上级菜单
+  string type = 3; // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
+  string title = 4; // 标题
+  string name = 5; // 规则名称
+  string path = 6; // 路由路径
+  string icon = 7; // 图标
+  string menuType = 8; // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
+  string url = 9; // Url
+  string component = 10; // 组件路径
+  int32 keepalive = 11; // 缓存:0=关闭,1=开启
+  string extend = 12; // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
+  string remark = 13; // 备注
+  int32 sort = 14; // 权重(排序)
+  int32 status = 15; // 状态:0=禁用,1=启用
+  string createdAt = 16; // 创建时间
+  string updatedAt = 17; // 更新时间
+  repeated SysPermMenu children = 18;
 }
 
-message SysPermissionListReq{}
-message SysPermissionListResp{}
+message SysPermissionListReq {}
+message SysPermissionListResp {
+  repeated SysPermMenu list = 1;
+}
 
-message SysPermissionInfoReq{}
-message SysPermissionInfoResp{}
+message SysPermissionInfoReq {
+  string id = 1;
+}
+message SysPermissionInfoResp {
+  SysPermMenu info = 1;
+}
 
+message SysPermissionStoreReq {
+  string id = 1; // ID
+  string pid = 2; // 上级菜单
+  string type = 3; // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
+  string title = 4; // 标题
+  string name = 5; // 规则名称
+  string path = 6; // 路由路径
+  string icon = 7; // 图标
+  string menuType = 8; // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
+  string url = 9; // Url
+  string component = 10; // 组件路径
+  int32 keepalive = 11; // 缓存:0=关闭,1=开启
+  string extend = 12; // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
+  string remark = 13; // 备注
+  int32 sort = 14; // 权重(排序)
+  int32 status = 15; // 状态:0=禁用,1=启用
+}
+message SysPermissionStoreResp {}
 
-message SysPermissionStoreReq{}
-message SysPermissionStoreResp{}
+message SysPermissionDelReq {
+  repeated string ids = 1;
+}
+message SysPermissionDelResp {}
 
-
-message SysPermissionDelReq{}
-message SysPermissionDelResp{}
-
-message SysPermissionStatusReq{}
-message SysPermissionStatusResp{}
+message SysPermissionStatusReq {
+  string id = 1;
+  int32 status = 2; // 状态:0=禁用,1=启用
+}
+message SysPermissionStatusResp {}

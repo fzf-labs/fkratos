@@ -7,34 +7,54 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
-
 // 角色
 service Role {
-  //权限列表
-  rpc SysRoleList (SysRoleListReq) returns (SysRoleListResp);
-  //单个权限
-  rpc SysRoleInfo (SysRoleInfoReq) returns (SysRoleInfoResp);
-  //保存权限
-  rpc SysRoleStore (SysRoleStoreReq) returns (SysRoleStoreResp);
-  //删除权限
-  rpc SysRoleDel (SysRoleDelReq) returns (SysRoleDelResp);
-  //修改权限状态
-  rpc SysRoleStatus (SysRoleStatusReq) returns (SysRoleStatusResp);
+  //角色列表
+  rpc SysRoleList(SysRoleListReq) returns (SysRoleListResp);
+  //单个角色
+  rpc SysRoleInfo(SysRoleInfoReq) returns (SysRoleInfoResp);
+  //保存角色
+  rpc SysRoleStore(SysRoleStoreReq) returns (SysRoleStoreResp);
+  //删除角色
+  rpc SysRoleDel(SysRoleDelReq) returns (SysRoleDelResp);
 }
 
-message SysRoleListReq{}
-message SysRoleListResp{}
+message SysRole {
+  string id = 1; //角色id
+  string pid = 2; //父级角色id
+  string name = 3; //角色名称
+  string remark = 4; //备注
+  int32 status = 5; //状态
+  int32 sort = 6; //排序
+  repeated string permissionIds = 7; //菜单角色集合
+  string createdAt = 8; //创建时间
+  string updatedAt = 9; //更新时间
+  repeated SysRole children = 10;
+}
 
-message SysRoleInfoReq{}
-message SysRoleInfoResp{}
+message SysRoleListReq {}
+message SysRoleListResp {
+  repeated SysRole list = 1;
+}
 
+message SysRoleInfoReq {
+  string id = 1;
+}
+message SysRoleInfoResp {
+  SysRole info = 1;
+}
 
-message SysRoleStoreReq{}
-message SysRoleStoreResp{}
+message SysRoleStoreReq {
+  string id = 1; //角色id
+  string pid = 2; //父级角色id
+  string name = 3; //角色名称
+  string remark = 4; //备注
+  int32 status = 5; //状态
+  repeated string permissionIds = 6; //菜单角色集合
+}
+message SysRoleStoreResp {}
 
-
-message SysRoleDelReq{}
-message SysRoleDelResp{}
-
-message SysRoleStatusReq{}
-message SysRoleStatusResp{}
+message SysRoleDelReq {
+  repeated string ids = 1;
+}
+message SysRoleDelResp {}

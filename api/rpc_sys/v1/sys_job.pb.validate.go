@@ -35,6 +35,121 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on SysJobInfo with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysJobInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysJobInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysJobInfoMultiError, or
+// nil if none found.
+func (m *SysJobInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysJobInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Code
+
+	// no validation rules for Remark
+
+	// no validation rules for Status
+
+	// no validation rules for Sort
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	if len(errors) > 0 {
+		return SysJobInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysJobInfoMultiError is an error wrapping multiple validation errors
+// returned by SysJobInfo.ValidateAll() if the designated constraints aren't met.
+type SysJobInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysJobInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysJobInfoMultiError) AllErrors() []error { return m }
+
+// SysJobInfoValidationError is the validation error returned by
+// SysJobInfo.Validate if the designated constraints aren't met.
+type SysJobInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysJobInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysJobInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysJobInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysJobInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysJobInfoValidationError) ErrorName() string { return "SysJobInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysJobInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysJobInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysJobInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysJobInfoValidationError{}
+
 // Validate checks the field values on SysJobListReq with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -56,6 +171,46 @@ func (m *SysJobListReq) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Page
+
+	// no validation rules for PageSize
+
+	// no validation rules for QuickSearch
+
+	for idx, item := range m.GetSearch() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SysJobListReqValidationError{
+						field:  fmt.Sprintf("Search[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SysJobListReqValidationError{
+						field:  fmt.Sprintf("Search[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SysJobListReqValidationError{
+					field:  fmt.Sprintf("Search[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return SysJobListReqMultiError(errors)
@@ -157,6 +312,69 @@ func (m *SysJobListReply) validate(all bool) error {
 
 	var errors []error
 
+	for idx, item := range m.GetList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SysJobListReplyValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SysJobListReplyValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SysJobListReplyValidationError{
+					field:  fmt.Sprintf("List[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if all {
+		switch v := interface{}(m.GetPaginator()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SysJobListReplyValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SysJobListReplyValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPaginator()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SysJobListReplyValidationError{
+				field:  "Paginator",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return SysJobListReplyMultiError(errors)
 	}
@@ -256,6 +474,8 @@ func (m *SysJobInfoReq) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return SysJobInfoReqMultiError(errors)
@@ -357,6 +577,35 @@ func (m *SysJobInfoReply) validate(all bool) error {
 
 	var errors []error
 
+	if all {
+		switch v := interface{}(m.GetInfo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SysJobInfoReplyValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SysJobInfoReplyValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SysJobInfoReplyValidationError{
+				field:  "Info",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return SysJobInfoReplyMultiError(errors)
 	}
@@ -456,6 +705,18 @@ func (m *SysJobStoreReq) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Code
+
+	// no validation rules for Remark
+
+	// no validation rules for Status
+
+	// no validation rules for Sort
 
 	if len(errors) > 0 {
 		return SysJobStoreReqMultiError(errors)
