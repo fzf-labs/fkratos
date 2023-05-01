@@ -12,12 +12,12 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 日志
 service Log {
   //日志列表
-  rpc SysLogList(SysLogListReq) returns (SysLogListResp);
+  rpc SysLogList(common.SearchListReq) returns (SysLogListResp);
   //单条日志
   rpc SysLogInfo(SysLogInfoReq) returns (SysLogInfoResp);
 }
 
-message SysLog {
+message SysLogInfo {
   string id = 1; // 编号
   string adminID = 2; // 管理员ID
   string username = 3; // 账号
@@ -25,10 +25,9 @@ message SysLog {
   string uri = 5; // 请求路径
   string uriDesc = 6; // 请求描述
   string useragent = 7; // 浏览器标识
-  int32 httpCode = 8; // 响应编码
-  string req = 9; // 请求数据
-  string resp = 10; // 响应数据
-  string createdAt = 11; // 创建时间
+  string req = 8; // 请求数据
+  string resp = 9; // 响应数据
+  string createdAt = 10; // 创建时间
 }
 
 //请求-日志列表
@@ -39,7 +38,7 @@ message SysLogListReq {
 
 //响应-日志列表
 message SysLogListResp {
-  repeated SysLog list = 1; //管理员列表
+  repeated SysLogInfo list = 1; //管理员列表
   common.Paginator paginator = 2; //分页
 }
 
@@ -50,5 +49,5 @@ message SysLogInfoReq {
 
 //响应-单条日志
 message SysLogInfoResp {
-  SysLog info = 1;
+  SysLogInfo info = 1;
 }

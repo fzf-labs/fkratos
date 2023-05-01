@@ -4,6 +4,15 @@ import (
 	"github.com/go-kratos/kratos/v2/errors"
 )
 
+// 参数相关
+var (
+	ParamBindErr        = errors.New(20001, "Param Bind Err", "Param Exception")
+	ParamErr            = errors.New(20002, "Param Err", "Param Exception")
+	ParamValidationErr  = errors.New(20003, "Param Validation Err", "Param Exception")
+	ParamNotJsonRequest = errors.New(20004, "Param Not Json Request", "Param Exception")
+	ParamHeaderErr      = errors.New(20005, "Param Header Err", "Param Exception")
+)
+
 var (
 	DataSqlErr           = errors.New(20100, "Data Sql Err", "Data Exception")
 	DataRedisErr         = errors.New(20101, "Data Redis Err", "Data Exception")

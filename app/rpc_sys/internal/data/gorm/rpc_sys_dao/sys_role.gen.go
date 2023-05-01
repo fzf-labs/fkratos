@@ -30,7 +30,7 @@ func newSysRole(db *gorm.DB, opts ...gen.DOOption) sysRole {
 	_sysRole.ID = field.NewString(tableName, "id")
 	_sysRole.Pid = field.NewString(tableName, "pid")
 	_sysRole.Name = field.NewString(tableName, "name")
-	_sysRole.PermMenuIds = field.NewString(tableName, "perm_menu_ids")
+	_sysRole.PermissionIds = field.NewString(tableName, "permission_ids")
 	_sysRole.Remark = field.NewString(tableName, "remark")
 	_sysRole.Status = field.NewInt16(tableName, "status")
 	_sysRole.Sort = field.NewInt64(tableName, "sort")
@@ -46,17 +46,17 @@ func newSysRole(db *gorm.DB, opts ...gen.DOOption) sysRole {
 type sysRole struct {
 	sysRoleDo sysRoleDo
 
-	ALL         field.Asterisk
-	ID          field.String // 编号
-	Pid         field.String // 父级id
-	Name        field.String // 名称
-	PermMenuIds field.String // 菜单权限集合
-	Remark      field.String // 备注
-	Status      field.Int16  // 0=禁用 1=开启
-	Sort        field.Int64  // 排序值
-	CreatedAt   field.Time   // 创建时间
-	UpdatedAt   field.Time   // 更新时间
-	DeletedAt   field.Field  // 删除时间
+	ALL           field.Asterisk
+	ID            field.String // 编号
+	Pid           field.String // 父级id
+	Name          field.String // 名称
+	PermissionIds field.String // 菜单权限集合
+	Remark        field.String // 备注
+	Status        field.Int16  // 0=禁用 1=开启
+	Sort          field.Int64  // 排序值
+	CreatedAt     field.Time   // 创建时间
+	UpdatedAt     field.Time   // 更新时间
+	DeletedAt     field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
 }
@@ -76,7 +76,7 @@ func (s *sysRole) updateTableName(table string) *sysRole {
 	s.ID = field.NewString(table, "id")
 	s.Pid = field.NewString(table, "pid")
 	s.Name = field.NewString(table, "name")
-	s.PermMenuIds = field.NewString(table, "perm_menu_ids")
+	s.PermissionIds = field.NewString(table, "permission_ids")
 	s.Remark = field.NewString(table, "remark")
 	s.Status = field.NewInt16(table, "status")
 	s.Sort = field.NewInt64(table, "sort")
@@ -109,7 +109,7 @@ func (s *sysRole) fillFieldMap() {
 	s.fieldMap["id"] = s.ID
 	s.fieldMap["pid"] = s.Pid
 	s.fieldMap["name"] = s.Name
-	s.fieldMap["perm_menu_ids"] = s.PermMenuIds
+	s.fieldMap["permission_ids"] = s.PermissionIds
 	s.fieldMap["remark"] = s.Remark
 	s.fieldMap["status"] = s.Status
 	s.fieldMap["sort"] = s.Sort

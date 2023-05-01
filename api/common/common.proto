@@ -6,12 +6,12 @@ option go_package = "fkratos/api/common;common";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
-
 message SearchListReq {
   int32 page = 1; //页码
   int32 pageSize = 2; //页数
   string quickSearch = 3; //快捷搜索
   repeated SearchParam search = 4; //详细搜索
+  string order = 5; //排序
 }
 
 //搜索参数

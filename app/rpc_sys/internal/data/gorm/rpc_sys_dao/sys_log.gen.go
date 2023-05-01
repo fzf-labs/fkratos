@@ -32,9 +32,9 @@ func newSysLog(db *gorm.DB, opts ...gen.DOOption) sysLog {
 	_sysLog.IP = field.NewString(tableName, "ip")
 	_sysLog.URI = field.NewString(tableName, "uri")
 	_sysLog.Useragent = field.NewString(tableName, "useragent")
-	_sysLog.Header = field.NewString(tableName, "header")
-	_sysLog.Req = field.NewString(tableName, "req")
-	_sysLog.Resp = field.NewString(tableName, "resp")
+	_sysLog.Header = field.NewField(tableName, "header")
+	_sysLog.Req = field.NewField(tableName, "req")
+	_sysLog.Resp = field.NewField(tableName, "resp")
 	_sysLog.CreatedAt = field.NewTime(tableName, "created_at")
 
 	_sysLog.fillFieldMap()
@@ -51,9 +51,9 @@ type sysLog struct {
 	IP        field.String // ip
 	URI       field.String // 请求路径
 	Useragent field.String // 浏览器标识
-	Header    field.String // header
-	Req       field.String // 请求数据
-	Resp      field.String // 响应数据
+	Header    field.Field  // header
+	Req       field.Field  // 请求数据
+	Resp      field.Field  // 响应数据
 	CreatedAt field.Time   // 创建时间
 
 	fieldMap map[string]field.Expr
@@ -76,9 +76,9 @@ func (s *sysLog) updateTableName(table string) *sysLog {
 	s.IP = field.NewString(table, "ip")
 	s.URI = field.NewString(table, "uri")
 	s.Useragent = field.NewString(table, "useragent")
-	s.Header = field.NewString(table, "header")
-	s.Req = field.NewString(table, "req")
-	s.Resp = field.NewString(table, "resp")
+	s.Header = field.NewField(table, "header")
+	s.Req = field.NewField(table, "req")
+	s.Resp = field.NewField(table, "resp")
 	s.CreatedAt = field.NewTime(table, "created_at")
 
 	s.fillFieldMap()

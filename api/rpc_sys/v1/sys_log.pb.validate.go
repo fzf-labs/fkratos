@@ -35,21 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on SysLog with the rules defined in the
+// Validate checks the field values on SysLogInfo with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
-func (m *SysLog) Validate() error {
+func (m *SysLogInfo) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on SysLog with the rules defined in the
-// proto definition for this message. If any rules are violated, the result is
-// a list of violation errors wrapped in SysLogMultiError, or nil if none found.
-func (m *SysLog) ValidateAll() error {
+// ValidateAll checks the field values on SysLogInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysLogInfoMultiError, or
+// nil if none found.
+func (m *SysLogInfo) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *SysLog) validate(all bool) error {
+func (m *SysLogInfo) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -70,8 +71,6 @@ func (m *SysLog) validate(all bool) error {
 
 	// no validation rules for Useragent
 
-	// no validation rules for HttpCode
-
 	// no validation rules for Req
 
 	// no validation rules for Resp
@@ -79,18 +78,18 @@ func (m *SysLog) validate(all bool) error {
 	// no validation rules for CreatedAt
 
 	if len(errors) > 0 {
-		return SysLogMultiError(errors)
+		return SysLogInfoMultiError(errors)
 	}
 
 	return nil
 }
 
-// SysLogMultiError is an error wrapping multiple validation errors returned by
-// SysLog.ValidateAll() if the designated constraints aren't met.
-type SysLogMultiError []error
+// SysLogInfoMultiError is an error wrapping multiple validation errors
+// returned by SysLogInfo.ValidateAll() if the designated constraints aren't met.
+type SysLogInfoMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m SysLogMultiError) Error() string {
+func (m SysLogInfoMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -99,11 +98,11 @@ func (m SysLogMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m SysLogMultiError) AllErrors() []error { return m }
+func (m SysLogInfoMultiError) AllErrors() []error { return m }
 
-// SysLogValidationError is the validation error returned by SysLog.Validate if
-// the designated constraints aren't met.
-type SysLogValidationError struct {
+// SysLogInfoValidationError is the validation error returned by
+// SysLogInfo.Validate if the designated constraints aren't met.
+type SysLogInfoValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -111,22 +110,22 @@ type SysLogValidationError struct {
 }
 
 // Field function returns field value.
-func (e SysLogValidationError) Field() string { return e.field }
+func (e SysLogInfoValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SysLogValidationError) Reason() string { return e.reason }
+func (e SysLogInfoValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SysLogValidationError) Cause() error { return e.cause }
+func (e SysLogInfoValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SysLogValidationError) Key() bool { return e.key }
+func (e SysLogInfoValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SysLogValidationError) ErrorName() string { return "SysLogValidationError" }
+func (e SysLogInfoValidationError) ErrorName() string { return "SysLogInfoValidationError" }
 
 // Error satisfies the builtin error interface
-func (e SysLogValidationError) Error() string {
+func (e SysLogInfoValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -138,14 +137,14 @@ func (e SysLogValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSysLog.%s: %s%s",
+		"invalid %sSysLogInfo.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SysLogValidationError{}
+var _ error = SysLogInfoValidationError{}
 
 var _ interface {
 	Field() string
@@ -153,7 +152,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SysLogValidationError{}
+} = SysLogInfoValidationError{}
 
 // Validate checks the field values on SysLogListReq with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

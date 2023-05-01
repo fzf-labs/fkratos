@@ -12,7 +12,7 @@ import (
 )
 
 func NewAuthUseCase(logger log.Logger, sysAdminRepo SysAdminRepo) *AuthUseCase {
-	l := log.NewHelper(log.With(logger, "module", "auth/usecase/auth-service"))
+	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/auth"))
 	return &AuthUseCase{
 		sysAdminRepo: sysAdminRepo,
 		log:          l,

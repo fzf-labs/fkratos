@@ -19,7 +19,7 @@ service Admin {
   rpc SysAdminGenerateAvatar(SysAdminGenerateAvatarReq) returns (SysAdminGenerateAvatarReply);
 
   //管理员列表
-  rpc SysManageList(SysManageListReq) returns (SysManageListReply);
+  rpc SysManageList(common.SearchListReq) returns (SysManageListReply);
   //单个管理员
   rpc SysManageInfo(SysManageInfoReq) returns (SysManageInfoReply);
   //保存管理员

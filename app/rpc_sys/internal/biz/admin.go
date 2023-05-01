@@ -2,6 +2,7 @@ package biz
 
 import (
 	"context"
+	"fkratos/api/common"
 	v1 "fkratos/api/rpc_sys/v1"
 
 	"github.com/fzf-labs/fpkg/third_api/avatar"
@@ -12,7 +13,7 @@ import (
 )
 
 func NewAdminUseCase(logger log.Logger, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo) *AdminUseCase {
-	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/AdminUseCase"))
+	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/admin"))
 	return &AdminUseCase{
 		log:          l,
 		sysAdminRepo: sysAdminRepo,
@@ -49,7 +50,7 @@ func (a *AdminUseCase) SysAdminGenerateAvatar(ctx context.Context, req *v1.SysAd
 	return &v1.SysAdminGenerateAvatarReply{AvatarUrl: avatar.Url()}, nil
 }
 
-func (a *AdminUseCase) SysManageList(ctx context.Context, req *v1.SysManageListReq) (*v1.SysManageListReply, error) {
+func (a *AdminUseCase) SysManageList(ctx context.Context, req *common.SearchListReq) (*v1.SysManageListReply, error) {
 	resp := new(v1.SysManageListReply)
 	sysAdmins, p, err := a.sysAdminRepo.SysManageListBySearch(ctx, req)
 	if err != nil {

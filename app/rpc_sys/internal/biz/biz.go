@@ -2,6 +2,7 @@ package biz
 
 import (
 	"context"
+	"fkratos/api/common"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
 
@@ -14,6 +15,9 @@ import (
 var ProviderSet = wire.NewSet(
 	NewAuthUseCase,
 	NewAdminUseCase,
+	NewJobUseCase,
+	NewDeptUseCase,
+	NewLogUseCase,
 )
 
 type SysAdminRepo interface {
@@ -24,8 +28,9 @@ type SysAdminRepo interface {
 	SysAdminDel(ctx context.Context, ids []string) error
 	GenerateJwTToken(ctx context.Context, kv map[string]interface{}) (*jwt.Token, error)
 	ClearJwTToken(ctx context.Context, jwtUId string) error
-	SysManageListBySearch(ctx context.Context, req *v1.SysManageListReq) ([]*rpc_sys_model.SysAdmin, *page.Page, error)
+	SysManageListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysAdmin, *page.Page, error)
 	SysManageStore(ctx context.Context, req *v1.SysManageStoreReq) (*rpc_sys_model.SysAdmin, error)
+	GetAdminIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 }
 
 type SysRoleRepo interface {
@@ -34,8 +39,25 @@ type SysRoleRepo interface {
 
 type SysJobRepo interface {
 	GetJobIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	SysJobListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysJob, *page.Page, error)
+	SysJobInfoById(ctx context.Context, id string) (*v1.SysJobInfo, error)
+	SysJobDelByIds(ctx context.Context, ids []string) error
+	SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*rpc_sys_model.SysJob, error)
 }
 
 type SysDeptRepo interface {
 	GetDeptIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	SysDeptList(ctx context.Context) ([]*v1.SysDeptInfo, error)
+	SysDeptInfoById(ctx context.Context, id string) (*v1.SysDeptInfo, error)
+	SysDeptDelByIds(ctx context.Context, ids []string) error
+	SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq) (*rpc_sys_model.SysDept, error)
+}
+
+type SysLogRepo interface {
+	SysLogListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysLog, *page.Page, error)
+	SysLogInfoById(ctx context.Context, id string) (*rpc_sys_model.SysLog, error)
+}
+
+type SysApiRepo interface {
+	GetApiIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 }

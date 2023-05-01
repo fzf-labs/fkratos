@@ -14,7 +14,7 @@ import (
 var _ biz.SysRoleRepo = (*SysRoleRepo)(nil)
 
 func NewSysRoleRepo(data *Data, logger log.Logger) biz.SysRoleRepo {
-	l := log.NewHelper(log.With(logger, "module", "auth/repo/auth-service"))
+	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_role"))
 	return &SysRoleRepo{
 		data: data,
 		log:  l,

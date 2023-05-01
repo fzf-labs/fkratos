@@ -8,6 +8,7 @@ package v1
 
 import (
 	context "context"
+	common "fkratos/api/common"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -39,7 +40,7 @@ type AdminClient interface {
 	// 生成头像
 	SysAdminGenerateAvatar(ctx context.Context, in *SysAdminGenerateAvatarReq, opts ...grpc.CallOption) (*SysAdminGenerateAvatarReply, error)
 	// 管理员列表
-	SysManageList(ctx context.Context, in *SysManageListReq, opts ...grpc.CallOption) (*SysManageListReply, error)
+	SysManageList(ctx context.Context, in *common.SearchListReq, opts ...grpc.CallOption) (*SysManageListReply, error)
 	// 单个管理员
 	SysManageInfo(ctx context.Context, in *SysManageInfoReq, opts ...grpc.CallOption) (*SysManageInfoReply, error)
 	// 保存管理员
@@ -83,7 +84,7 @@ func (c *adminClient) SysAdminGenerateAvatar(ctx context.Context, in *SysAdminGe
 	return out, nil
 }
 
-func (c *adminClient) SysManageList(ctx context.Context, in *SysManageListReq, opts ...grpc.CallOption) (*SysManageListReply, error) {
+func (c *adminClient) SysManageList(ctx context.Context, in *common.SearchListReq, opts ...grpc.CallOption) (*SysManageListReply, error) {
 	out := new(SysManageListReply)
 	err := c.cc.Invoke(ctx, Admin_SysManageList_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -130,7 +131,7 @@ type AdminServer interface {
 	// 生成头像
 	SysAdminGenerateAvatar(context.Context, *SysAdminGenerateAvatarReq) (*SysAdminGenerateAvatarReply, error)
 	// 管理员列表
-	SysManageList(context.Context, *SysManageListReq) (*SysManageListReply, error)
+	SysManageList(context.Context, *common.SearchListReq) (*SysManageListReply, error)
 	// 单个管理员
 	SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error)
 	// 保存管理员
@@ -153,7 +154,7 @@ func (UnimplementedAdminServer) SysAdminInfoUpdate(context.Context, *SysAdminInf
 func (UnimplementedAdminServer) SysAdminGenerateAvatar(context.Context, *SysAdminGenerateAvatarReq) (*SysAdminGenerateAvatarReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAdminGenerateAvatar not implemented")
 }
-func (UnimplementedAdminServer) SysManageList(context.Context, *SysManageListReq) (*SysManageListReply, error) {
+func (UnimplementedAdminServer) SysManageList(context.Context, *common.SearchListReq) (*SysManageListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysManageList not implemented")
 }
 func (UnimplementedAdminServer) SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error) {
@@ -233,7 +234,7 @@ func _Admin_SysAdminGenerateAvatar_Handler(srv interface{}, ctx context.Context,
 }
 
 func _Admin_SysManageList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SysManageListReq)
+	in := new(common.SearchListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -245,7 +246,7 @@ func _Admin_SysManageList_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: Admin_SysManageList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdminServer).SysManageList(ctx, req.(*SysManageListReq))
+		return srv.(AdminServer).SysManageList(ctx, req.(*common.SearchListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

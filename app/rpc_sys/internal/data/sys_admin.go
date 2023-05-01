@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"fkratos/api/common"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/cache"
@@ -26,7 +27,7 @@ import (
 var _ biz.SysAdminRepo = (*SysAdminRepo)(nil)
 
 func NewSysAdminRepo(data *Data, logger log.Logger) biz.SysAdminRepo {
-	l := log.NewHelper(log.With(logger, "module", "auth/repo/auth-service"))
+	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_admin"))
 	return &SysAdminRepo{
 		data: data,
 		log:  l,
@@ -37,6 +38,19 @@ type SysAdminRepo struct {
 	config *conf.Bootstrap
 	data   *Data
 	log    *log.Helper
+}
+
+func (s *SysAdminRepo) GetAdminIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {
+	res := make(map[string]string)
+	sysAdminDao := rpc_sys_dao.Use(s.data.gorm).SysAdmin
+	sysAdmins, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.In(ids...)).Find()
+	if err != nil {
+		return nil, err
+	}
+	for _, v := range sysAdmins {
+		res[v.ID] = v.Username
+	}
+	return nil, nil
 }
 
 func (s *SysAdminRepo) SysAdminDel(ctx context.Context, ids []string) error {
@@ -118,7 +132,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStor
 	return sysAdmin, nil
 }
 
-func (s *SysAdminRepo) SysManageListBySearch(ctx context.Context, req *v1.SysManageListReq) ([]*rpc_sys_model.SysAdmin, *page.Page, error) {
+func (s *SysAdminRepo) SysManageListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysAdmin, *page.Page, error) {
 	sysAdminDao := rpc_sys_dao.Use(s.data.gorm).SysAdmin
 	query := sysAdminDao.WithContext(ctx)
 	if req.QuickSearch != "" {

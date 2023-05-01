@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fkratos/api/common"
 	"fkratos/app/rpc_sys/internal/biz"
 
 	pb "fkratos/api/rpc_sys/v1"
@@ -32,7 +33,7 @@ func (s *AdminService) SysAdminInfoUpdate(ctx context.Context, req *pb.SysAdminI
 func (s *AdminService) SysAdminGenerateAvatar(ctx context.Context, req *pb.SysAdminGenerateAvatarReq) (*pb.SysAdminGenerateAvatarReply, error) {
 	return s.adminUseCase.SysAdminGenerateAvatar(ctx, req)
 }
-func (s *AdminService) SysManageList(ctx context.Context, req *pb.SysManageListReq) (*pb.SysManageListReply, error) {
+func (s *AdminService) SysManageList(ctx context.Context, req *common.SearchListReq) (*pb.SysManageListReply, error) {
 	return s.adminUseCase.SysManageList(ctx, req)
 }
 func (s *AdminService) SysManageInfo(ctx context.Context, req *pb.SysManageInfoReq) (*pb.SysManageInfoReply, error) {

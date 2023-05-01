@@ -212,6 +212,8 @@ func (m *SysJobListReq) validate(all bool) error {
 
 	}
 
+	// no validation rules for Order
+
 	if len(errors) > 0 {
 		return SysJobListReqMultiError(errors)
 	}
