@@ -35,22 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on SysPermMenu with the rules defined in
-// the proto definition for this message. If any rules are violated, the first
-// error encountered is returned, or nil if there are no violations.
-func (m *SysPermMenu) Validate() error {
+// Validate checks the field values on SysPermissionInfo with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysPermissionInfo) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on SysPermMenu with the rules defined in
-// the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in SysPermMenuMultiError, or
-// nil if none found.
-func (m *SysPermMenu) ValidateAll() error {
+// ValidateAll checks the field values on SysPermissionInfo with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysPermissionInfoMultiError, or nil if none found.
+func (m *SysPermissionInfo) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *SysPermMenu) validate(all bool) error {
+func (m *SysPermissionInfo) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -98,7 +98,7 @@ func (m *SysPermMenu) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, SysPermMenuValidationError{
+					errors = append(errors, SysPermissionInfoValidationError{
 						field:  fmt.Sprintf("Children[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -106,7 +106,7 @@ func (m *SysPermMenu) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, SysPermMenuValidationError{
+					errors = append(errors, SysPermissionInfoValidationError{
 						field:  fmt.Sprintf("Children[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -115,7 +115,7 @@ func (m *SysPermMenu) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return SysPermMenuValidationError{
+				return SysPermissionInfoValidationError{
 					field:  fmt.Sprintf("Children[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -126,18 +126,19 @@ func (m *SysPermMenu) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return SysPermMenuMultiError(errors)
+		return SysPermissionInfoMultiError(errors)
 	}
 
 	return nil
 }
 
-// SysPermMenuMultiError is an error wrapping multiple validation errors
-// returned by SysPermMenu.ValidateAll() if the designated constraints aren't met.
-type SysPermMenuMultiError []error
+// SysPermissionInfoMultiError is an error wrapping multiple validation errors
+// returned by SysPermissionInfo.ValidateAll() if the designated constraints
+// aren't met.
+type SysPermissionInfoMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m SysPermMenuMultiError) Error() string {
+func (m SysPermissionInfoMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -146,11 +147,11 @@ func (m SysPermMenuMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m SysPermMenuMultiError) AllErrors() []error { return m }
+func (m SysPermissionInfoMultiError) AllErrors() []error { return m }
 
-// SysPermMenuValidationError is the validation error returned by
-// SysPermMenu.Validate if the designated constraints aren't met.
-type SysPermMenuValidationError struct {
+// SysPermissionInfoValidationError is the validation error returned by
+// SysPermissionInfo.Validate if the designated constraints aren't met.
+type SysPermissionInfoValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -158,22 +159,24 @@ type SysPermMenuValidationError struct {
 }
 
 // Field function returns field value.
-func (e SysPermMenuValidationError) Field() string { return e.field }
+func (e SysPermissionInfoValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SysPermMenuValidationError) Reason() string { return e.reason }
+func (e SysPermissionInfoValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SysPermMenuValidationError) Cause() error { return e.cause }
+func (e SysPermissionInfoValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SysPermMenuValidationError) Key() bool { return e.key }
+func (e SysPermissionInfoValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SysPermMenuValidationError) ErrorName() string { return "SysPermMenuValidationError" }
+func (e SysPermissionInfoValidationError) ErrorName() string {
+	return "SysPermissionInfoValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e SysPermMenuValidationError) Error() string {
+func (e SysPermissionInfoValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -185,14 +188,14 @@ func (e SysPermMenuValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSysPermMenu.%s: %s%s",
+		"invalid %sSysPermissionInfo.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SysPermMenuValidationError{}
+var _ error = SysPermissionInfoValidationError{}
 
 var _ interface {
 	Field() string
@@ -200,7 +203,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SysPermMenuValidationError{}
+} = SysPermissionInfoValidationError{}
 
 // Validate checks the field values on SysPermissionListReq with the rules
 // defined in the proto definition for this message. If any rules are

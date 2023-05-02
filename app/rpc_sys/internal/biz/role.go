@@ -10,7 +10,7 @@ import (
 )
 
 func NewRoleUseCase(logger log.Logger, sysRoleRepo SysRoleRepo) *RoleUseCase {
-	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/dept"))
+	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/role"))
 	return &RoleUseCase{
 		log:         l,
 		sysRoleRepo: sysRoleRepo,

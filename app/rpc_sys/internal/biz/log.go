@@ -11,7 +11,7 @@ import (
 )
 
 func NewLogUseCase(logger log.Logger, sysLogRepo SysLogRepo, sysAdminRepo SysAdminRepo, sysApiRepo SysApiRepo) *LogUseCase {
-	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/dept"))
+	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/log"))
 	return &LogUseCase{
 		log:          l,
 		sysLogRepo:   sysLogRepo,

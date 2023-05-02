@@ -20,7 +20,7 @@ service Permission {
   //修改权限状态
   rpc SysPermissionStatus(SysPermissionStatusReq) returns (SysPermissionStatusResp);
 }
-message SysPermMenu {
+message SysPermissionInfo {
   string id = 1; // ID
   string pid = 2; // 上级菜单
   string type = 3; // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
@@ -38,19 +38,19 @@ message SysPermMenu {
   int32 status = 15; // 状态:0=禁用,1=启用
   string createdAt = 16; // 创建时间
   string updatedAt = 17; // 更新时间
-  repeated SysPermMenu children = 18;
+  repeated SysPermissionInfo children = 18;
 }
 
 message SysPermissionListReq {}
 message SysPermissionListResp {
-  repeated SysPermMenu list = 1;
+  repeated SysPermissionInfo list = 1;
 }
 
 message SysPermissionInfoReq {
   string id = 1;
 }
 message SysPermissionInfoResp {
-  SysPermMenu info = 1;
+  SysPermissionInfo info = 1;
 }
 
 message SysPermissionStoreReq {

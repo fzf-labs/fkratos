@@ -11,7 +11,7 @@ import (
 )
 
 func NewJobUseCase(logger log.Logger, sysJobRepo SysJobRepo) *JobUseCase {
-	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/dept"))
+	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/job"))
 	return &JobUseCase{
 		log:        l,
 		sysJobRepo: sysJobRepo,

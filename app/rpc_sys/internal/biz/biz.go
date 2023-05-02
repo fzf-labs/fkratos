@@ -42,6 +42,14 @@ type SysRoleRepo interface {
 	SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq) (*rpc_sys_model.SysRole, error)
 }
 
+type SysPermissionRepo interface {
+	SysPermissionList(ctx context.Context) ([]*rpc_sys_model.SysPermission, error)
+	SysPermissionInfoById(ctx context.Context, id string) (*rpc_sys_model.SysPermission, error)
+	SysPermissionDelByIds(ctx context.Context, ids []string) error
+	SysPermissionStore(ctx context.Context, req *v1.SysPermissionStoreReq) (*rpc_sys_model.SysPermission, error)
+	SysPermissionUpdateStatus(ctx context.Context, id string, status int32) error
+}
+
 type SysJobRepo interface {
 	GetJobIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 	SysJobListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysJob, *page.Page, error)

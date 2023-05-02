@@ -25,7 +25,7 @@ func NewRoleService(logger log.Logger, roleUseCase *biz.RoleUseCase) *RoleServic
 }
 
 func (s *RoleService) SysRoleList(ctx context.Context, req *pb.SysRoleListReq) (*pb.SysRoleListResp, error) {
-	return s.SysRoleList(ctx, req)
+	return s.roleUseCase.SysRoleList(ctx, req)
 }
 
 func (s *RoleService) SysRoleInfo(ctx context.Context, req *pb.SysRoleInfoReq) (*pb.SysRoleInfoResp, error) {
