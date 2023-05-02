@@ -21,7 +21,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		SysAPI:        newSysAPI(db, opts...),
 		SysAdmin:      newSysAdmin(db, opts...),
 		SysDept:       newSysDept(db, opts...),
-		SysDictionary: newSysDictionary(db, opts...),
+		SysDict:       newSysDict(db, opts...),
 		SysJob:        newSysJob(db, opts...),
 		SysLog:        newSysLog(db, opts...),
 		SysPermission: newSysPermission(db, opts...),
@@ -35,7 +35,7 @@ type Query struct {
 	SysAPI        sysAPI
 	SysAdmin      sysAdmin
 	SysDept       sysDept
-	SysDictionary sysDictionary
+	SysDict       sysDict
 	SysJob        sysJob
 	SysLog        sysLog
 	SysPermission sysPermission
@@ -50,7 +50,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		SysAPI:        q.SysAPI.clone(db),
 		SysAdmin:      q.SysAdmin.clone(db),
 		SysDept:       q.SysDept.clone(db),
-		SysDictionary: q.SysDictionary.clone(db),
+		SysDict:       q.SysDict.clone(db),
 		SysJob:        q.SysJob.clone(db),
 		SysLog:        q.SysLog.clone(db),
 		SysPermission: q.SysPermission.clone(db),
@@ -72,7 +72,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		SysAPI:        q.SysAPI.replaceDB(db),
 		SysAdmin:      q.SysAdmin.replaceDB(db),
 		SysDept:       q.SysDept.replaceDB(db),
-		SysDictionary: q.SysDictionary.replaceDB(db),
+		SysDict:       q.SysDict.replaceDB(db),
 		SysJob:        q.SysJob.replaceDB(db),
 		SysLog:        q.SysLog.replaceDB(db),
 		SysPermission: q.SysPermission.replaceDB(db),
@@ -84,7 +84,7 @@ type queryCtx struct {
 	SysAPI        *sysAPIDo
 	SysAdmin      *sysAdminDo
 	SysDept       *sysDeptDo
-	SysDictionary *sysDictionaryDo
+	SysDict       *sysDictDo
 	SysJob        *sysJobDo
 	SysLog        *sysLogDo
 	SysPermission *sysPermissionDo
@@ -96,7 +96,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		SysAPI:        q.SysAPI.WithContext(ctx),
 		SysAdmin:      q.SysAdmin.WithContext(ctx),
 		SysDept:       q.SysDept.WithContext(ctx),
-		SysDictionary: q.SysDictionary.WithContext(ctx),
+		SysDict:       q.SysDict.WithContext(ctx),
 		SysJob:        q.SysJob.WithContext(ctx),
 		SysLog:        q.SysLog.WithContext(ctx),
 		SysPermission: q.SysPermission.WithContext(ctx),

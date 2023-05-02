@@ -4,6 +4,7 @@ import (
 	"context"
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_dao"
+	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
 	"fkratos/internal/bootstrap/conf"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -23,6 +24,15 @@ type SysApiRepo struct {
 	config *conf.Bootstrap
 	data   *Data
 	log    *log.Helper
+}
+
+func (s *SysApiRepo) SysDeptList(ctx context.Context, permissionId string) ([]*rpc_sys_model.SysAPI, error) {
+	sysAPIDao := rpc_sys_dao.Use(s.data.gorm).SysAPI
+	sysAPIS, err := sysAPIDao.WithContext(ctx).Where(sysAPIDao.PermissionID.Eq(permissionId)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return sysAPIS, nil
 }
 
 func (s *SysApiRepo) GetApiIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {

@@ -73,4 +73,5 @@ type SysLogRepo interface {
 
 type SysApiRepo interface {
 	GetApiIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	SysDeptList(ctx context.Context, permissionId string) ([]*rpc_sys_model.SysAPI, error)
 }

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package api.rpc_sys.v1;
+
+option go_package = "fkratos/api/rpc_sys/v1;v1";
+
+// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
+// 后缀定义:请求req,响应reply
+
+// Api模块
+service Api {
+  //api列表
+  rpc SysApiList(SysApiListReq) returns (SysApiListReply);
+}
+
+message SysApiInfo{
+  string id = 1;  // 编号
+  string permissionID = 2;  // 权限Id
+  string method = 3;  // 方法
+  string path = 4;  // 路径
+  string desc = 5;  // 描述
+  string createdAt = 6; // 创建时间
+  string updatedAt = 7; // 更新时间
+}
+
+message SysApiListReq{
+  string permissionId = 1;
+}
+message SysApiListReply{
+  repeated SysApiInfo list = 1;
+}

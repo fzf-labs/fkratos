@@ -28,7 +28,7 @@ func newSysAPI(db *gorm.DB, opts ...gen.DOOption) sysAPI {
 	tableName := _sysAPI.sysAPIDo.TableName()
 	_sysAPI.ALL = field.NewAsterisk(tableName)
 	_sysAPI.ID = field.NewString(tableName, "id")
-	_sysAPI.Group = field.NewString(tableName, "group")
+	_sysAPI.PermissionID = field.NewString(tableName, "permission_id")
 	_sysAPI.Method = field.NewString(tableName, "method")
 	_sysAPI.Path = field.NewString(tableName, "path")
 	_sysAPI.Desc = field.NewString(tableName, "desc")
@@ -44,15 +44,15 @@ func newSysAPI(db *gorm.DB, opts ...gen.DOOption) sysAPI {
 type sysAPI struct {
 	sysAPIDo sysAPIDo
 
-	ALL       field.Asterisk
-	ID        field.String // 编号
-	Group     field.String // 分组
-	Method    field.String // 方法
-	Path      field.String // 路径
-	Desc      field.String // 描述
-	CreatedAt field.Time   // 创建时间
-	UpdatedAt field.Time   // 更新时间
-	DeletedAt field.Field  // 删除时间
+	ALL          field.Asterisk
+	ID           field.String // 编号
+	PermissionID field.String // 权限Id
+	Method       field.String // 方法
+	Path         field.String // 路径
+	Desc         field.String // 描述
+	CreatedAt    field.Time   // 创建时间
+	UpdatedAt    field.Time   // 更新时间
+	DeletedAt    field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
 }
@@ -70,7 +70,7 @@ func (s sysAPI) As(alias string) *sysAPI {
 func (s *sysAPI) updateTableName(table string) *sysAPI {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
-	s.Group = field.NewString(table, "group")
+	s.PermissionID = field.NewString(table, "permission_id")
 	s.Method = field.NewString(table, "method")
 	s.Path = field.NewString(table, "path")
 	s.Desc = field.NewString(table, "desc")
@@ -101,7 +101,7 @@ func (s *sysAPI) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 func (s *sysAPI) fillFieldMap() {
 	s.fieldMap = make(map[string]field.Expr, 8)
 	s.fieldMap["id"] = s.ID
-	s.fieldMap["group"] = s.Group
+	s.fieldMap["permission_id"] = s.PermissionID
 	s.fieldMap["method"] = s.Method
 	s.fieldMap["path"] = s.Path
 	s.fieldMap["desc"] = s.Desc

@@ -10,10 +10,10 @@ import (
 	"gorm.io/gorm"
 )
 
-const TableNameSysDictionary = "sys_dictionary"
+const TableNameSysDict = "sys_dict"
 
-// SysDictionary mapped from table <sys_dictionary>
-type SysDictionary struct {
+// SysDict mapped from table <sys_dict>
+type SysDict struct {
 	ID        string         `gorm:"column:id;primaryKey" json:"id"`              // 编号
 	Pid       string         `gorm:"column:pid;not null" json:"pid"`              // 0=配置集 !0=父级id
 	Name      string         `gorm:"column:name;not null" json:"name"`            // 名称
@@ -28,7 +28,7 @@ type SysDictionary struct {
 	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deletedAt"`          // 删除时间
 }
 
-// TableName SysDictionary's table name
-func (*SysDictionary) TableName() string {
-	return TableNameSysDictionary
+// TableName SysDict's table name
+func (*SysDict) TableName() string {
+	return TableNameSysDict
 }

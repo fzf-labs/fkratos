@@ -14,14 +14,14 @@ const TableNameSysAPI = "sys_api"
 
 // SysAPI mapped from table <sys_api>
 type SysAPI struct {
-	ID        string         `gorm:"column:id;primaryKey" json:"id"`              // 编号
-	Group     string         `gorm:"column:group" json:"group"`                   // 分组
-	Method    string         `gorm:"column:method" json:"method"`                 // 方法
-	Path      string         `gorm:"column:path" json:"path"`                     // 路径
-	Desc      string         `gorm:"column:desc" json:"desc"`                     // 描述
-	CreatedAt time.Time      `gorm:"column:created_at;not null" json:"createdAt"` // 创建时间
-	UpdatedAt time.Time      `gorm:"column:updated_at" json:"updatedAt"`          // 更新时间
-	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deletedAt"`          // 删除时间
+	ID           string         `gorm:"column:id;primaryKey" json:"id"`                    // 编号
+	PermissionID string         `gorm:"column:permission_id;not null" json:"permissionId"` // 权限Id
+	Method       string         `gorm:"column:method;not null" json:"method"`              // 方法
+	Path         string         `gorm:"column:path;not null" json:"path"`                  // 路径
+	Desc         string         `gorm:"column:desc;not null" json:"desc"`                  // 描述
+	CreatedAt    time.Time      `gorm:"column:created_at" json:"createdAt"`                // 创建时间
+	UpdatedAt    time.Time      `gorm:"column:updated_at" json:"updatedAt"`                // 更新时间
+	DeletedAt    gorm.DeletedAt `gorm:"column:deleted_at" json:"deletedAt"`                // 删除时间
 }
 
 // TableName SysAPI's table name
