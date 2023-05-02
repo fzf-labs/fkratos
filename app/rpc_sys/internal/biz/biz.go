@@ -18,6 +18,7 @@ var ProviderSet = wire.NewSet(
 	NewJobUseCase,
 	NewDeptUseCase,
 	NewLogUseCase,
+	NewRoleUseCase,
 )
 
 type SysAdminRepo interface {
@@ -35,6 +36,10 @@ type SysAdminRepo interface {
 
 type SysRoleRepo interface {
 	GetRoleIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	SysRoleList(ctx context.Context) ([]*rpc_sys_model.SysRole, error)
+	SysRoleInfoById(ctx context.Context, id string) (*rpc_sys_model.SysRole, error)
+	SysRoleDelByIds(ctx context.Context, ids []string) error
+	SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq) (*rpc_sys_model.SysRole, error)
 }
 
 type SysJobRepo interface {

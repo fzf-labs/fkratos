@@ -35,21 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on SysRole with the rules defined in the
-// proto definition for this message. If any rules are violated, the first
+// Validate checks the field values on SysRoleInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
-func (m *SysRole) Validate() error {
+func (m *SysRoleInfo) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on SysRole with the rules defined in the
-// proto definition for this message. If any rules are violated, the result is
-// a list of violation errors wrapped in SysRoleMultiError, or nil if none found.
-func (m *SysRole) ValidateAll() error {
+// ValidateAll checks the field values on SysRoleInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysRoleInfoMultiError, or
+// nil if none found.
+func (m *SysRoleInfo) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *SysRole) validate(all bool) error {
+func (m *SysRoleInfo) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -79,7 +80,7 @@ func (m *SysRole) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, SysRoleValidationError{
+					errors = append(errors, SysRoleInfoValidationError{
 						field:  fmt.Sprintf("Children[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -87,7 +88,7 @@ func (m *SysRole) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, SysRoleValidationError{
+					errors = append(errors, SysRoleInfoValidationError{
 						field:  fmt.Sprintf("Children[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -96,7 +97,7 @@ func (m *SysRole) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return SysRoleValidationError{
+				return SysRoleInfoValidationError{
 					field:  fmt.Sprintf("Children[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -107,18 +108,18 @@ func (m *SysRole) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return SysRoleMultiError(errors)
+		return SysRoleInfoMultiError(errors)
 	}
 
 	return nil
 }
 
-// SysRoleMultiError is an error wrapping multiple validation errors returned
-// by SysRole.ValidateAll() if the designated constraints aren't met.
-type SysRoleMultiError []error
+// SysRoleInfoMultiError is an error wrapping multiple validation errors
+// returned by SysRoleInfo.ValidateAll() if the designated constraints aren't met.
+type SysRoleInfoMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m SysRoleMultiError) Error() string {
+func (m SysRoleInfoMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -127,11 +128,11 @@ func (m SysRoleMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m SysRoleMultiError) AllErrors() []error { return m }
+func (m SysRoleInfoMultiError) AllErrors() []error { return m }
 
-// SysRoleValidationError is the validation error returned by SysRole.Validate
-// if the designated constraints aren't met.
-type SysRoleValidationError struct {
+// SysRoleInfoValidationError is the validation error returned by
+// SysRoleInfo.Validate if the designated constraints aren't met.
+type SysRoleInfoValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -139,22 +140,22 @@ type SysRoleValidationError struct {
 }
 
 // Field function returns field value.
-func (e SysRoleValidationError) Field() string { return e.field }
+func (e SysRoleInfoValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SysRoleValidationError) Reason() string { return e.reason }
+func (e SysRoleInfoValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SysRoleValidationError) Cause() error { return e.cause }
+func (e SysRoleInfoValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SysRoleValidationError) Key() bool { return e.key }
+func (e SysRoleInfoValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SysRoleValidationError) ErrorName() string { return "SysRoleValidationError" }
+func (e SysRoleInfoValidationError) ErrorName() string { return "SysRoleInfoValidationError" }
 
 // Error satisfies the builtin error interface
-func (e SysRoleValidationError) Error() string {
+func (e SysRoleInfoValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -166,14 +167,14 @@ func (e SysRoleValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSysRole.%s: %s%s",
+		"invalid %sSysRoleInfo.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SysRoleValidationError{}
+var _ error = SysRoleInfoValidationError{}
 
 var _ interface {
 	Field() string
@@ -181,7 +182,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SysRoleValidationError{}
+} = SysRoleInfoValidationError{}
 
 // Validate checks the field values on SysRoleListReq with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

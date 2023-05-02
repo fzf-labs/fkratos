@@ -19,7 +19,7 @@ service Role {
   rpc SysRoleDel(SysRoleDelReq) returns (SysRoleDelResp);
 }
 
-message SysRole {
+message SysRoleInfo {
   string id = 1; //角色id
   string pid = 2; //父级角色id
   string name = 3; //角色名称
@@ -29,19 +29,19 @@ message SysRole {
   repeated string permissionIds = 7; //菜单角色集合
   string createdAt = 8; //创建时间
   string updatedAt = 9; //更新时间
-  repeated SysRole children = 10;
+  repeated SysRoleInfo children = 10;
 }
 
 message SysRoleListReq {}
 message SysRoleListResp {
-  repeated SysRole list = 1;
+  repeated SysRoleInfo list = 1;
 }
 
 message SysRoleInfoReq {
   string id = 1;
 }
 message SysRoleInfoResp {
-  SysRole info = 1;
+  SysRoleInfo info = 1;
 }
 
 message SysRoleStoreReq {
