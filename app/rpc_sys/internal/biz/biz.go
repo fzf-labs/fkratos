@@ -13,12 +13,14 @@ import (
 
 // ProviderSet is biz providers.
 var ProviderSet = wire.NewSet(
-	NewAuthUseCase,
 	NewAdminUseCase,
+	NewApiUseCase,
+	NewAuthUseCase,
 	NewJobUseCase,
 	NewDeptUseCase,
 	NewLogUseCase,
 	NewRoleUseCase,
+	NewPermissionUseCase,
 )
 
 type SysAdminRepo interface {
@@ -38,6 +40,7 @@ type SysRoleRepo interface {
 	GetRoleIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 	SysRoleList(ctx context.Context) ([]*rpc_sys_model.SysRole, error)
 	SysRoleInfoById(ctx context.Context, id string) (*rpc_sys_model.SysRole, error)
+	SysRoleInfoByIds(ctx context.Context, ids []string) ([]*rpc_sys_model.SysRole, error)
 	SysRoleDelByIds(ctx context.Context, ids []string) error
 	SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq) (*rpc_sys_model.SysRole, error)
 }
@@ -48,6 +51,8 @@ type SysPermissionRepo interface {
 	SysPermissionDelByIds(ctx context.Context, ids []string) error
 	SysPermissionStore(ctx context.Context, req *v1.SysPermissionStoreReq) (*rpc_sys_model.SysPermission, error)
 	SysPermissionUpdateStatus(ctx context.Context, id string, status int32) error
+	SysPermissionByIdsAndStatus(ctx context.Context, ids []string, status int16) ([]*rpc_sys_model.SysPermission, error)
+	SysPermissionByStatus(ctx context.Context, status int16) ([]*rpc_sys_model.SysPermission, error)
 }
 
 type SysJobRepo interface {

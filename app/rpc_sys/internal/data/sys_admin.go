@@ -26,11 +26,12 @@ import (
 
 var _ biz.SysAdminRepo = (*SysAdminRepo)(nil)
 
-func NewSysAdminRepo(data *Data, logger log.Logger) biz.SysAdminRepo {
+func NewSysAdminRepo(c *conf.Bootstrap, data *Data, logger log.Logger) biz.SysAdminRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_admin"))
 	return &SysAdminRepo{
-		data: data,
-		log:  l,
+		config: c,
+		data:   data,
+		log:    l,
 	}
 }
 

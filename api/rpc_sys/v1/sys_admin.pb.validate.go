@@ -1044,6 +1044,422 @@ var _ interface {
 	ErrorName() string
 } = SysManageInfoValidationError{}
 
+// Validate checks the field values on SysAdminPermission with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SysAdminPermission) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysAdminPermission with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysAdminPermissionMultiError, or nil if none found.
+func (m *SysAdminPermission) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysAdminPermission) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ID
+
+	// no validation rules for Pid
+
+	// no validation rules for Type
+
+	// no validation rules for Title
+
+	// no validation rules for Name
+
+	// no validation rules for Path
+
+	// no validation rules for Icon
+
+	// no validation rules for MenuType
+
+	// no validation rules for URL
+
+	// no validation rules for Component
+
+	// no validation rules for Extend
+
+	for idx, item := range m.GetChildren() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SysAdminPermissionValidationError{
+						field:  fmt.Sprintf("Children[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SysAdminPermissionValidationError{
+						field:  fmt.Sprintf("Children[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SysAdminPermissionValidationError{
+					field:  fmt.Sprintf("Children[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SysAdminPermissionMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysAdminPermissionMultiError is an error wrapping multiple validation errors
+// returned by SysAdminPermission.ValidateAll() if the designated constraints
+// aren't met.
+type SysAdminPermissionMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysAdminPermissionMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysAdminPermissionMultiError) AllErrors() []error { return m }
+
+// SysAdminPermissionValidationError is the validation error returned by
+// SysAdminPermission.Validate if the designated constraints aren't met.
+type SysAdminPermissionValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysAdminPermissionValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysAdminPermissionValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysAdminPermissionValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysAdminPermissionValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysAdminPermissionValidationError) ErrorName() string {
+	return "SysAdminPermissionValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SysAdminPermissionValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysAdminPermission.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysAdminPermissionValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysAdminPermissionValidationError{}
+
+// Validate checks the field values on SysAdminPermissionReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SysAdminPermissionReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysAdminPermissionReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysAdminPermissionReqMultiError, or nil if none found.
+func (m *SysAdminPermissionReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysAdminPermissionReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if err := m._validateUuid(m.GetAdminId()); err != nil {
+		err = SysAdminPermissionReqValidationError{
+			field:  "AdminId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return SysAdminPermissionReqMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *SysAdminPermissionReq) _validateUuid(uuid string) error {
+	if matched := _sys_admin_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
+	}
+
+	return nil
+}
+
+// SysAdminPermissionReqMultiError is an error wrapping multiple validation
+// errors returned by SysAdminPermissionReq.ValidateAll() if the designated
+// constraints aren't met.
+type SysAdminPermissionReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysAdminPermissionReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysAdminPermissionReqMultiError) AllErrors() []error { return m }
+
+// SysAdminPermissionReqValidationError is the validation error returned by
+// SysAdminPermissionReq.Validate if the designated constraints aren't met.
+type SysAdminPermissionReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysAdminPermissionReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysAdminPermissionReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysAdminPermissionReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysAdminPermissionReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysAdminPermissionReqValidationError) ErrorName() string {
+	return "SysAdminPermissionReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SysAdminPermissionReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysAdminPermissionReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysAdminPermissionReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysAdminPermissionReqValidationError{}
+
+// Validate checks the field values on SysAdminPermissionReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SysAdminPermissionReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysAdminPermissionReply with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysAdminPermissionReplyMultiError, or nil if none found.
+func (m *SysAdminPermissionReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysAdminPermissionReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SysAdminPermissionReplyValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SysAdminPermissionReplyValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SysAdminPermissionReplyValidationError{
+					field:  fmt.Sprintf("List[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SysAdminPermissionReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysAdminPermissionReplyMultiError is an error wrapping multiple validation
+// errors returned by SysAdminPermissionReply.ValidateAll() if the designated
+// constraints aren't met.
+type SysAdminPermissionReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysAdminPermissionReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysAdminPermissionReplyMultiError) AllErrors() []error { return m }
+
+// SysAdminPermissionReplyValidationError is the validation error returned by
+// SysAdminPermissionReply.Validate if the designated constraints aren't met.
+type SysAdminPermissionReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysAdminPermissionReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysAdminPermissionReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysAdminPermissionReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysAdminPermissionReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysAdminPermissionReplyValidationError) ErrorName() string {
+	return "SysAdminPermissionReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SysAdminPermissionReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysAdminPermissionReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysAdminPermissionReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysAdminPermissionReplyValidationError{}
+
 // Validate checks the field values on SysManageListReq with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.

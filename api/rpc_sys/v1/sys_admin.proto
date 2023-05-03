@@ -17,6 +17,8 @@ service Admin {
   rpc SysAdminInfoUpdate(SysAdminInfoUpdateReq) returns (SysAdminInfoUpdateReply);
   //生成头像
   rpc SysAdminGenerateAvatar(SysAdminGenerateAvatarReq) returns (SysAdminGenerateAvatarReply);
+  //查询权限
+  rpc SysAdminPermission(SysAdminPermissionReq) returns (SysAdminPermissionReply);
 
   //管理员列表
   rpc SysManageList(common.SearchListReq) returns (SysManageListReply);
@@ -95,7 +97,27 @@ message SysManageInfo {
   string updatedAt = 17; //更新时间
 }
 
+message SysAdminPermission{
+  string ID = 1;                                                 // ID
+  string Pid = 2;                                                 // 上级菜单
+  string Type = 3;                                             // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
+  string Title = 4;                                           // 标题
+  string  Name = 5;                                                // 规则名称
+  string Path = 6;                                               // 路由路径
+  string  Icon = 7;                                         // 图标
+  string  MenuType = 8;                                // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
+  string  URL = 9;                                                  // Url
+  string  Component = 10;                                        // 组件路径
+  string  Extend = 11;                                              // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
+  repeated SysAdminPermission children = 12;
+}
 
+message SysAdminPermissionReq{
+  string adminId = 1 [(validate.rules).string.uuid = true];
+}
+message SysAdminPermissionReply{
+  repeated SysAdminPermission list = 1;
+}
 
 //请求-管理员列表
 message SysManageListReq {

@@ -33,13 +33,14 @@ func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registr
 	if err != nil {
 		return nil, nil, err
 	}
-	sysAdminRepo := data.NewSysAdminRepo(dataData, logger)
+	sysAdminRepo := data.NewSysAdminRepo(confBootstrap, dataData, logger)
 	authUseCase := biz.NewAuthUseCase(logger, sysAdminRepo)
 	authService := service.NewAuthService(logger, authUseCase)
 	sysRoleRepo := data.NewSysRoleRepo(dataData, logger)
 	sysJobRepo := data.NewSysJobRepo(dataData, logger)
 	sysDeptRepo := data.NewSysDeptRepo(dataData, logger)
-	adminUseCase := biz.NewAdminUseCase(logger, sysAdminRepo, sysRoleRepo, sysJobRepo, sysDeptRepo)
+	sysPermissionRepo := data.NewSysPermissionRepo(dataData, logger)
+	adminUseCase := biz.NewAdminUseCase(logger, rockscacheClient, sysAdminRepo, sysRoleRepo, sysJobRepo, sysDeptRepo, sysPermissionRepo)
 	adminService := service.NewAdminService(logger, adminUseCase)
 	grpcServer := server.NewGRPCServer(confBootstrap, logger, authService, adminService)
 	sysLogRepo := data.NewSysLogRepo(dataData, logger)

@@ -30,6 +30,15 @@ type SysRoleRepo struct {
 	log    *log.Helper
 }
 
+func (s *SysRoleRepo) SysRoleInfoByIds(ctx context.Context, ids []string) ([]*rpc_sys_model.SysRole, error) {
+	sysRoleDao := rpc_sys_dao.Use(s.data.gorm).SysRole
+	sysRoles, err := sysRoleDao.WithContext(ctx).Where(sysRoleDao.ID.In(ids...)).Find()
+	if err != nil {
+		return nil, errorx.DataSqlErr.WithCause(err)
+	}
+	return sysRoles, nil
+}
+
 func (s *SysRoleRepo) SysRoleList(ctx context.Context) ([]*rpc_sys_model.SysRole, error) {
 	sysRoleDao := rpc_sys_dao.Use(s.data.gorm).SysRole
 	sysRoles, err := sysRoleDao.WithContext(ctx).Find()

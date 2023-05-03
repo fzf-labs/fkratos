@@ -23,6 +23,7 @@ const (
 	Admin_SysAdminInfo_FullMethodName           = "/api.rpc_sys.v1.Admin/SysAdminInfo"
 	Admin_SysAdminInfoUpdate_FullMethodName     = "/api.rpc_sys.v1.Admin/SysAdminInfoUpdate"
 	Admin_SysAdminGenerateAvatar_FullMethodName = "/api.rpc_sys.v1.Admin/SysAdminGenerateAvatar"
+	Admin_SysAdminPermission_FullMethodName     = "/api.rpc_sys.v1.Admin/SysAdminPermission"
 	Admin_SysManageList_FullMethodName          = "/api.rpc_sys.v1.Admin/SysManageList"
 	Admin_SysManageInfo_FullMethodName          = "/api.rpc_sys.v1.Admin/SysManageInfo"
 	Admin_SysManageStore_FullMethodName         = "/api.rpc_sys.v1.Admin/SysManageStore"
@@ -39,6 +40,8 @@ type AdminClient interface {
 	SysAdminInfoUpdate(ctx context.Context, in *SysAdminInfoUpdateReq, opts ...grpc.CallOption) (*SysAdminInfoUpdateReply, error)
 	// 生成头像
 	SysAdminGenerateAvatar(ctx context.Context, in *SysAdminGenerateAvatarReq, opts ...grpc.CallOption) (*SysAdminGenerateAvatarReply, error)
+	// 查询权限
+	SysAdminPermission(ctx context.Context, in *SysAdminPermissionReq, opts ...grpc.CallOption) (*SysAdminPermissionReply, error)
 	// 管理员列表
 	SysManageList(ctx context.Context, in *common.SearchListReq, opts ...grpc.CallOption) (*SysManageListReply, error)
 	// 单个管理员
@@ -78,6 +81,15 @@ func (c *adminClient) SysAdminInfoUpdate(ctx context.Context, in *SysAdminInfoUp
 func (c *adminClient) SysAdminGenerateAvatar(ctx context.Context, in *SysAdminGenerateAvatarReq, opts ...grpc.CallOption) (*SysAdminGenerateAvatarReply, error) {
 	out := new(SysAdminGenerateAvatarReply)
 	err := c.cc.Invoke(ctx, Admin_SysAdminGenerateAvatar_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminClient) SysAdminPermission(ctx context.Context, in *SysAdminPermissionReq, opts ...grpc.CallOption) (*SysAdminPermissionReply, error) {
+	out := new(SysAdminPermissionReply)
+	err := c.cc.Invoke(ctx, Admin_SysAdminPermission_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -130,6 +142,8 @@ type AdminServer interface {
 	SysAdminInfoUpdate(context.Context, *SysAdminInfoUpdateReq) (*SysAdminInfoUpdateReply, error)
 	// 生成头像
 	SysAdminGenerateAvatar(context.Context, *SysAdminGenerateAvatarReq) (*SysAdminGenerateAvatarReply, error)
+	// 查询权限
+	SysAdminPermission(context.Context, *SysAdminPermissionReq) (*SysAdminPermissionReply, error)
 	// 管理员列表
 	SysManageList(context.Context, *common.SearchListReq) (*SysManageListReply, error)
 	// 单个管理员
@@ -153,6 +167,9 @@ func (UnimplementedAdminServer) SysAdminInfoUpdate(context.Context, *SysAdminInf
 }
 func (UnimplementedAdminServer) SysAdminGenerateAvatar(context.Context, *SysAdminGenerateAvatarReq) (*SysAdminGenerateAvatarReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAdminGenerateAvatar not implemented")
+}
+func (UnimplementedAdminServer) SysAdminPermission(context.Context, *SysAdminPermissionReq) (*SysAdminPermissionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysAdminPermission not implemented")
 }
 func (UnimplementedAdminServer) SysManageList(context.Context, *common.SearchListReq) (*SysManageListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysManageList not implemented")
@@ -229,6 +246,24 @@ func _Admin_SysAdminGenerateAvatar_Handler(srv interface{}, ctx context.Context,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AdminServer).SysAdminGenerateAvatar(ctx, req.(*SysAdminGenerateAvatarReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Admin_SysAdminPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysAdminPermissionReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).SysAdminPermission(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_SysAdminPermission_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).SysAdminPermission(ctx, req.(*SysAdminPermissionReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -323,6 +358,10 @@ var Admin_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SysAdminGenerateAvatar",
 			Handler:    _Admin_SysAdminGenerateAvatar_Handler,
+		},
+		{
+			MethodName: "SysAdminPermission",
+			Handler:    _Admin_SysAdminPermission_Handler,
 		},
 		{
 			MethodName: "SysManageList",

@@ -43,7 +43,10 @@ func (s *LogService) SysLogStore(ctx context.Context, req *pb.SysLogStoreReq) (*
 
 // SysLogStoreProducer 日志生产者
 func (s *LogService) SysLogStoreProducer(ctx context.Context, req *pb.SysLogStoreReq) error {
-
+	err := s.logUseCase.SysLogStoreProducer(ctx, req)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 

@@ -21,6 +21,6 @@ var (
 
 // admin
 var (
-	SysAdminInfo     = cache.AddKeyPrefix("sys_admin_info", time.Minute*5, "管理员信息")
-	SysAdminPermmenu = cache.AddKeyPrefix("sys_admin_permmenu", time.Minute*5, "管理员权限")
+	SysAdminInfo       = cache.AddKeyPrefix("sys_admin_info", time.Minute*5, "管理员信息")
+	SysAdminPermission = cache.AddKeyPrefix("sys_admin_permission", time.Hour*1, "管理员权限")
 )

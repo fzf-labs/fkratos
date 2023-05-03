@@ -4,7 +4,13 @@ import (
 	"context"
 	"fkratos/api/common"
 	v1 "fkratos/api/rpc_sys/v1"
+	"fkratos/app/rpc_sys/internal/data/cache"
+	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
+	"fkratos/internal/constant"
+	"fkratos/internal/errorx"
+	"strings"
 
+	"github.com/dtm-labs/rockscache"
 	"github.com/fzf-labs/fpkg/third_api/avatar"
 	"github.com/fzf-labs/fpkg/util/jsonutil"
 	"github.com/fzf-labs/fpkg/util/timeutil"
@@ -12,23 +18,27 @@ import (
 	"github.com/jinzhu/copier"
 )
 
-func NewAdminUseCase(logger log.Logger, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo) *AdminUseCase {
+func NewAdminUseCase(logger log.Logger, rocksCache *rockscache.Client, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo, sysPermissionRepo SysPermissionRepo) *AdminUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/admin"))
 	return &AdminUseCase{
-		log:          l,
-		sysAdminRepo: sysAdminRepo,
-		sysRoleRepo:  sysRoleRepo,
-		sysJobRepo:   sysJobRepo,
-		sysDeptRepo:  sysDeptRepo,
+		log:               l,
+		rocksCache:        rocksCache,
+		sysAdminRepo:      sysAdminRepo,
+		sysRoleRepo:       sysRoleRepo,
+		sysJobRepo:        sysJobRepo,
+		sysDeptRepo:       sysDeptRepo,
+		sysPermissionRepo: sysPermissionRepo,
 	}
 }
 
 type AdminUseCase struct {
-	log          *log.Helper
-	sysAdminRepo SysAdminRepo
-	sysRoleRepo  SysRoleRepo
-	sysJobRepo   SysJobRepo
-	sysDeptRepo  SysDeptRepo
+	log               *log.Helper
+	rocksCache        *rockscache.Client
+	sysAdminRepo      SysAdminRepo
+	sysRoleRepo       SysRoleRepo
+	sysJobRepo        SysJobRepo
+	sysDeptRepo       SysDeptRepo
+	sysPermissionRepo SysPermissionRepo
 }
 
 func (a *AdminUseCase) SysAdminInfo(ctx context.Context, req *v1.SysAdminInfoReq) (*v1.SysAdminInfoReply, error) {
@@ -189,4 +199,148 @@ func (a *AdminUseCase) SysManageDel(ctx context.Context, req *v1.SysManageDelReq
 		return nil, err
 	}
 	return resp, nil
+}
+
+func (a *AdminUseCase) SysAdminPermission(ctx context.Context, req *v1.SysAdminPermissionReq) (*v1.SysAdminPermissionReply, error) {
+	resp := new(v1.SysAdminPermissionReply)
+	cacheKey := cache.SysAdminPermission.BuildCacheKey(req.GetAdminId())
+	res, err := cacheKey.RocksCache(a.rocksCache, ctx, func() (string, error) {
+		sysAdmin, err := a.sysAdminRepo.SysAdminInfoByAdminId(ctx, req.GetAdminId())
+		if err != nil {
+			return "", err
+		}
+		if sysAdmin.RoleIds == nil {
+			return "", errorx.AccountNotBoundRole
+		}
+		roleIds := make([]string, 0)
+		err = jsonutil.Decode(sysAdmin.RoleIds, &roleIds)
+		if err != nil {
+			return "", err
+		}
+		sysRoles, err := a.sysRoleRepo.SysRoleInfoByIds(ctx, roleIds)
+		if err != nil {
+			return "", err
+		}
+		if len(sysRoles) == 0 {
+			return "", errorx.AccountNotBoundRole
+		}
+		var super bool
+		permissionIds := make([]string, 0)
+		for _, role := range sysRoles {
+			if role.PermissionIds == "" {
+				continue
+			}
+			if role.PermissionIds == "*" {
+				super = true
+				break
+			}
+			int64s := strings.Split(role.PermissionIds, ",")
+			permissionIds = append(permissionIds, int64s...)
+		}
+		var permissions []*rpc_sys_model.SysPermission
+		if super {
+			permissions, err = a.sysPermissionRepo.SysPermissionByStatus(ctx, constant.StatusEnable)
+			if err != nil {
+				return "", err
+			}
+		} else {
+			permissions, err = a.sysPermissionRepo.SysPermissionByIdsAndStatus(ctx, permissionIds, constant.StatusEnable)
+			if err != nil {
+				return "", err
+			}
+		}
+		if len(permissions) == 0 {
+			return "", errorx.AccountNotBoundRole
+		}
+		menus := make([]*v1.SysPermissionInfo, 0)
+		for _, v := range permissions {
+			menus = append(menus, &v1.SysPermissionInfo{
+				Id:        v.ID,
+				Pid:       v.Pid,
+				Type:      v.Type,
+				Title:     v.Title,
+				Name:      v.Name,
+				Path:      v.Path,
+				Icon:      v.Icon,
+				MenuType:  v.MenuType,
+				Url:       v.URL,
+				Component: v.Component,
+				Extend:    v.Extend,
+			})
+		}
+		menus = sysAdminPermissionGenerateTree(menus)
+		toString, err := jsonutil.EncodeToString(menus)
+		if err != nil {
+			return "", err
+		}
+		return toString, nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	err = jsonutil.DecodeString(res, resp.List)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+func sysAdminPermissionGenerateTree(list []*v1.SysPermissionInfo) []*v1.SysPermissionInfo {
+	var trees []*v1.SysPermissionInfo
+	// Define the top-level root and child nodes
+	var roots, childs []*v1.SysPermissionInfo
+	for _, v := range list {
+		if v.Pid == "" {
+			// Determine the top-level root node
+			roots = append(roots, v)
+		}
+		childs = append(childs, v)
+	}
+
+	for _, v := range roots {
+		childTree := &v1.SysPermissionInfo{
+			Id:        v.Id,
+			Pid:       v.Pid,
+			Type:      v.Type,
+			Title:     v.Title,
+			Name:      v.Name,
+			Path:      v.Path,
+			Icon:      v.Icon,
+			MenuType:  v.MenuType,
+			Url:       v.Url,
+			Component: v.Component,
+			Extend:    v.Extend,
+			Children:  make([]*v1.SysPermissionInfo, 0),
+		}
+		// recursive
+		sysAdminPermissionRecursiveTree(childTree, childs)
+
+		trees = append(trees, childTree)
+	}
+	return trees
+}
+func sysAdminPermissionRecursiveTree(tree *v1.SysPermissionInfo, allNodes []*v1.SysPermissionInfo) {
+	for _, v := range allNodes {
+		if v.Pid == "" {
+			// If the current node is the top-level root node, skip
+			continue
+		}
+		if tree.Id == v.Pid {
+			childTree := &v1.SysPermissionInfo{
+				Id:        v.Id,
+				Pid:       v.Pid,
+				Type:      v.Type,
+				Title:     v.Title,
+				Name:      v.Name,
+				Path:      v.Path,
+				Icon:      v.Icon,
+				MenuType:  v.MenuType,
+				Url:       v.Url,
+				Component: v.Component,
+				Extend:    v.Extend,
+				Children:  make([]*v1.SysPermissionInfo, 0),
+			}
+			sysAdminPermissionRecursiveTree(childTree, allNodes)
+			tree.Children = append(tree.Children, childTree)
+		}
+	}
 }

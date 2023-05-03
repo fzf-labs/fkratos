@@ -45,3 +45,6 @@ func (s *AdminService) SysManageStore(ctx context.Context, req *pb.SysManageStor
 func (s *AdminService) SysManageDel(ctx context.Context, req *pb.SysManageDelReq) (*pb.SysManageDelReply, error) {
 	return s.adminUseCase.SysManageDel(ctx, req)
 }
+func (s *AdminService) SysAdminPermission(ctx context.Context, req *pb.SysAdminPermissionReq) (*pb.SysAdminPermissionReply, error) {
+	return s.adminUseCase.SysAdminPermission(ctx, req)
+}

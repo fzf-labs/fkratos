@@ -5,7 +5,6 @@ import (
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
-	"fkratos/internal/bootstrap/conf"
 
 	"github.com/go-kratos/kratos/v2/log"
 )
@@ -21,9 +20,8 @@ func NewSysApiRepo(data *Data, logger log.Logger) biz.SysApiRepo {
 }
 
 type SysApiRepo struct {
-	config *conf.Bootstrap
-	data   *Data
-	log    *log.Helper
+	data *Data
+	log  *log.Helper
 }
 
 func (s *SysApiRepo) SysDeptList(ctx context.Context, permissionId string) ([]*rpc_sys_model.SysAPI, error) {

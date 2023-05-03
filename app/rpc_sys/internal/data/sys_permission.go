@@ -28,6 +28,24 @@ type SysPermissionRepo struct {
 	log    *log.Helper
 }
 
+func (s *SysPermissionRepo) SysPermissionByStatus(ctx context.Context, status int16) ([]*rpc_sys_model.SysPermission, error) {
+	sysPermissionDao := rpc_sys_dao.Use(s.data.gorm).SysPermission
+	res, err := sysPermissionDao.WithContext(ctx).Where(sysPermissionDao.Status.Eq(status)).Find()
+	if err != nil {
+		return nil, errorx.DataSqlErr.WithCause(err)
+	}
+	return res, nil
+}
+
+func (s *SysPermissionRepo) SysPermissionByIdsAndStatus(ctx context.Context, ids []string, status int16) ([]*rpc_sys_model.SysPermission, error) {
+	sysPermissionDao := rpc_sys_dao.Use(s.data.gorm).SysPermission
+	res, err := sysPermissionDao.WithContext(ctx).Where(sysPermissionDao.ID.In(ids...), sysPermissionDao.Status.Eq(status)).Find()
+	if err != nil {
+		return nil, errorx.DataSqlErr.WithCause(err)
+	}
+	return res, nil
+}
+
 func (s *SysPermissionRepo) SysPermissionUpdateStatus(ctx context.Context, id string, status int32) error {
 	sysPermMenuDao := rpc_sys_dao.Use(s.data.gorm).SysPermission
 	_, err := sysPermMenuDao.WithContext(ctx).Where(sysPermMenuDao.ID.Eq(id)).UpdateColumn(sysPermMenuDao.Status, status)
