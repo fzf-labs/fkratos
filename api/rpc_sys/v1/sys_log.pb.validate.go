@@ -651,3 +651,248 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SysLogInfoRespValidationError{}
+
+// Validate checks the field values on SysLogStoreReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysLogStoreReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysLogStoreReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysLogStoreReqMultiError,
+// or nil if none found.
+func (m *SysLogStoreReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysLogStoreReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for AdminID
+
+	// no validation rules for Username
+
+	// no validation rules for Ip
+
+	// no validation rules for Uri
+
+	// no validation rules for UriDesc
+
+	// no validation rules for Useragent
+
+	// no validation rules for Req
+
+	// no validation rules for Resp
+
+	if len(errors) > 0 {
+		return SysLogStoreReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysLogStoreReqMultiError is an error wrapping multiple validation errors
+// returned by SysLogStoreReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysLogStoreReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysLogStoreReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysLogStoreReqMultiError) AllErrors() []error { return m }
+
+// SysLogStoreReqValidationError is the validation error returned by
+// SysLogStoreReq.Validate if the designated constraints aren't met.
+type SysLogStoreReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysLogStoreReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysLogStoreReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysLogStoreReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysLogStoreReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysLogStoreReqValidationError) ErrorName() string { return "SysLogStoreReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysLogStoreReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysLogStoreReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysLogStoreReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysLogStoreReqValidationError{}
+
+// Validate checks the field values on SysLogStoreResp with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysLogStoreResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysLogStoreResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysLogStoreRespMultiError, or nil if none found.
+func (m *SysLogStoreResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysLogStoreResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInfo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SysLogStoreRespValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SysLogStoreRespValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SysLogStoreRespValidationError{
+				field:  "Info",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return SysLogStoreRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysLogStoreRespMultiError is an error wrapping multiple validation errors
+// returned by SysLogStoreResp.ValidateAll() if the designated constraints
+// aren't met.
+type SysLogStoreRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysLogStoreRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysLogStoreRespMultiError) AllErrors() []error { return m }
+
+// SysLogStoreRespValidationError is the validation error returned by
+// SysLogStoreResp.Validate if the designated constraints aren't met.
+type SysLogStoreRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysLogStoreRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysLogStoreRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysLogStoreRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysLogStoreRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysLogStoreRespValidationError) ErrorName() string { return "SysLogStoreRespValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysLogStoreRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysLogStoreResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysLogStoreRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysLogStoreRespValidationError{}

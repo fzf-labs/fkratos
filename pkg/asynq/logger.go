@@ -14,7 +14,7 @@ const (
 type logger struct {
 }
 
-func newLogger() asynq.Logger {
+func NewLogger() asynq.Logger {
 	return &logger{}
 }
 

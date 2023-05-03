@@ -3,6 +3,7 @@ package data
 import (
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
+	"fkratos/pkg/asynq"
 
 	"github.com/dtm-labs/rockscache"
 	"github.com/go-kratos/kratos/v2/log"
@@ -17,6 +18,7 @@ var ProviderSet = wire.NewSet(
 	bootstrap.NewGorm,
 	bootstrap.NewRedis,
 	bootstrap.NewRocksCache,
+	bootstrap.NewAysnqClient,
 
 	NewSysAdminRepo,
 	NewSysDeptRepo,
@@ -28,10 +30,11 @@ var ProviderSet = wire.NewSet(
 
 // Data .
 type Data struct {
-	logger     *log.Helper
-	gorm       *gorm.DB
-	redis      *redis.Client
-	rocksCache *rockscache.Client
+	logger      *log.Helper
+	gorm        *gorm.DB
+	redis       *redis.Client
+	rocksCache  *rockscache.Client
+	aysnqClient *asynq.Client
 }
 
 // NewData .

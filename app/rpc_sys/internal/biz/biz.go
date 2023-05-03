@@ -69,6 +69,8 @@ type SysDeptRepo interface {
 type SysLogRepo interface {
 	SysLogListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysLog, *page.Page, error)
 	SysLogInfoById(ctx context.Context, id string) (*rpc_sys_model.SysLog, error)
+	SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*rpc_sys_model.SysLog, error)
+	SysLogStoreMQProducer(ctx context.Context, req *v1.SysLogStoreReq) error
 }
 
 type SysApiRepo interface {

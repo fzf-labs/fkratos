@@ -101,3 +101,20 @@ func (l *LogUseCase) SysLogInfo(ctx context.Context, req *v1.SysLogInfoReq) (*v1
 	}
 	return resp, nil
 }
+
+func (l *LogUseCase) SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*v1.SysLogStoreResp, error) {
+	resp := new(v1.SysLogStoreResp)
+	_, err := l.sysLogRepo.SysLogStore(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (l *LogUseCase) SysLogStoreProducer(ctx context.Context, req *v1.SysLogStoreReq) error {
+	err := l.sysLogRepo.SysLogStoreMQProducer(ctx, req)
+	if err != nil {
+		return err
+	}
+	return nil
+}

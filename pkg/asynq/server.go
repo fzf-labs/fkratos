@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/transport"
@@ -16,9 +17,85 @@ var (
 	_ transport.Endpointer = (*Server)(nil)
 )
 
-const (
-	defaultRedisAddress = "127.0.0.1:6379"
-)
+type ServerOption func(o *Server)
+
+func WithConcurrency(concurrency int) ServerOption {
+	return func(s *Server) {
+		s.asynqConfig.Concurrency = concurrency
+	}
+}
+
+func WithQueues(queues map[string]int) ServerOption {
+	return func(s *Server) {
+		s.asynqConfig.Queues = queues
+	}
+}
+
+func WithRetryDelayFunc(fn asynq.RetryDelayFunc) ServerOption {
+	return func(s *Server) {
+		s.asynqConfig.RetryDelayFunc = fn
+	}
+}
+
+func WithStrictPriority(val bool) ServerOption {
+	return func(s *Server) {
+		s.asynqConfig.StrictPriority = val
+	}
+}
+
+func WithErrorHandler(fn asynq.ErrorHandler) ServerOption {
+	return func(s *Server) {
+		s.asynqConfig.ErrorHandler = fn
+	}
+}
+
+func WithHealthCheckFunc(fn func(error)) ServerOption {
+	return func(s *Server) {
+		s.asynqConfig.HealthCheckFunc = fn
+	}
+}
+
+func WithHealthCheckInterval(tm time.Duration) ServerOption {
+	return func(s *Server) {
+		s.asynqConfig.HealthCheckInterval = tm
+	}
+}
+
+func WithDelayedTaskCheckInterval(tm time.Duration) ServerOption {
+	return func(s *Server) {
+		s.asynqConfig.DelayedTaskCheckInterval = tm
+	}
+}
+
+func WithGroupGracePeriod(tm time.Duration) ServerOption {
+	return func(s *Server) {
+		s.asynqConfig.GroupGracePeriod = tm
+	}
+}
+
+func WithGroupMaxDelay(tm time.Duration) ServerOption {
+	return func(s *Server) {
+		s.asynqConfig.GroupMaxDelay = tm
+	}
+}
+
+func WithGroupMaxSize(sz int) ServerOption {
+	return func(s *Server) {
+		s.asynqConfig.GroupMaxSize = sz
+	}
+}
+
+func WithMiddleware(m ...asynq.MiddlewareFunc) ServerOption {
+	return func(o *Server) {
+		o.mux.Use(m...)
+	}
+}
+
+func WithLocation(loc *time.Location) ServerOption {
+	return func(s *Server) {
+		s.schedulerOpts.Location = loc
+	}
+}
 
 type Server struct {
 	started bool
@@ -32,21 +109,18 @@ type Server struct {
 
 	mux           *asynq.ServeMux
 	asynqConfig   asynq.Config
-	redisOpt      asynq.RedisClientOpt
+	redisOpt      *asynq.RedisClientOpt
 	schedulerOpts *asynq.SchedulerOpts
 }
 
-func NewServer(opts ...ServerOption) *Server {
+func NewServer(redisOpt *asynq.RedisClientOpt, opts ...ServerOption) *Server {
 	srv := &Server{
-		baseCtx: context.Background(),
-		started: false,
-		redisOpt: asynq.RedisClientOpt{
-			Addr: defaultRedisAddress,
-			DB:   0,
-		},
+		baseCtx:  context.Background(),
+		started:  false,
+		redisOpt: redisOpt,
 		asynqConfig: asynq.Config{
 			Concurrency: 10,
-			Logger:      newLogger(),
+			Logger:      NewLogger(),
 		},
 		schedulerOpts: &asynq.SchedulerOpts{},
 		mux:           asynq.NewServeMux(),

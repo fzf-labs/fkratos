@@ -42,7 +42,12 @@ func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registr
 	adminUseCase := biz.NewAdminUseCase(logger, sysAdminRepo, sysRoleRepo, sysJobRepo, sysDeptRepo)
 	adminService := service.NewAdminService(logger, adminUseCase)
 	grpcServer := server.NewGRPCServer(confBootstrap, logger, authService, adminService)
-	app := newApp(logger, registrar, grpcServer)
+	sysLogRepo := data.NewSysLogRepo(dataData, logger)
+	sysApiRepo := data.NewSysApiRepo(dataData, logger)
+	logUseCase := biz.NewLogUseCase(logger, sysLogRepo, sysAdminRepo, sysApiRepo)
+	logService := service.NewLogService(logger, logUseCase)
+	asynqServer := server.NewAsynqServer(confBootstrap, logger, logService)
+	app := newApp(logger, registrar, grpcServer, asynqServer)
 	return app, func() {
 		cleanup()
 	}, nil
