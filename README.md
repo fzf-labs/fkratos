@@ -75,3 +75,6 @@ kratos 微服务脚手架,采用大仓模式。
    ```bash
    make wire
    ```
+致谢:
+- [zeromicro/go-zero](https://github.com/zeromicro/go-zero)
+- [tx7do/kratos-transport](https://github.com/tx7do/kratos-transport)

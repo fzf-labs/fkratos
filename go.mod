@@ -22,7 +22,7 @@ require (
 	github.com/go-kratos/kratos/contrib/registry/kubernetes/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/registry/nacos/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/registry/polaris/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/v2 v2.6.1
+	github.com/go-kratos/kratos/v2 v2.6.2
 	github.com/go-redis/redis/v8 v8.11.6-0.20220405070650-99c79f7041fc
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
@@ -73,7 +73,7 @@ require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
 	github.com/go-kit/kit v0.10.0 // indirect
-	github.com/go-kratos/aegis v0.1.4 // indirect
+	github.com/go-kratos/aegis v0.2.0 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
