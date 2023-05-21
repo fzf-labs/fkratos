@@ -11,6 +11,10 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 service Api {
   //api列表
   rpc SysApiList(SysApiListReq) returns (SysApiListReply);
+  //保存api
+  rpc SysApiStore(SysApiStoreReq) returns (SysApiStoreReply);
+  //删除api
+  rpc SysApiDel(SysApiDelReq) returns (SysApiDelReply);
 }
 
 message SysApiInfo{
@@ -28,4 +32,21 @@ message SysApiListReq{
 }
 message SysApiListReply{
   repeated SysApiInfo list = 1;
+}
+
+message SysApiStoreReq{
+  string id = 1;  // 编号
+  string permissionID = 2;  // 权限Id
+  string method = 3;  // 方法
+  string path = 4;  // 路径
+  string desc = 5;  // 描述
+}
+message SysApiStoreReply{
+  string id = 1;
+}
+
+message SysApiDelReq{
+  repeated string ids = 1;
+}
+message SysApiDelReply{
 }

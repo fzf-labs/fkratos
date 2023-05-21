@@ -6,7 +6,6 @@ import (
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
-	"fkratos/internal/bootstrap/conf"
 	"fkratos/internal/errorx"
 	"strings"
 
@@ -25,9 +24,8 @@ func NewSysRoleRepo(data *Data, logger log.Logger) biz.SysRoleRepo {
 }
 
 type SysRoleRepo struct {
-	config *conf.Bootstrap
-	data   *Data
-	log    *log.Helper
+	data *Data
+	log  *log.Helper
 }
 
 func (s *SysRoleRepo) SysRoleInfoByIds(ctx context.Context, ids []string) ([]*rpc_sys_model.SysRole, error) {

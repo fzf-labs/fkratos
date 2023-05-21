@@ -19,7 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Api_SysApiList_FullMethodName = "/api.rpc_sys.v1.Api/SysApiList"
+	Api_SysApiList_FullMethodName  = "/api.rpc_sys.v1.Api/SysApiList"
+	Api_SysApiStore_FullMethodName = "/api.rpc_sys.v1.Api/SysApiStore"
+	Api_SysApiDel_FullMethodName   = "/api.rpc_sys.v1.Api/SysApiDel"
 )
 
 // ApiClient is the client API for Api service.
@@ -28,6 +30,10 @@ const (
 type ApiClient interface {
 	// api列表
 	SysApiList(ctx context.Context, in *SysApiListReq, opts ...grpc.CallOption) (*SysApiListReply, error)
+	// 保存api
+	SysApiStore(ctx context.Context, in *SysApiStoreReq, opts ...grpc.CallOption) (*SysApiStoreReply, error)
+	// 删除api
+	SysApiDel(ctx context.Context, in *SysApiDelReq, opts ...grpc.CallOption) (*SysApiDelReply, error)
 }
 
 type apiClient struct {
@@ -47,12 +53,34 @@ func (c *apiClient) SysApiList(ctx context.Context, in *SysApiListReq, opts ...g
 	return out, nil
 }
 
+func (c *apiClient) SysApiStore(ctx context.Context, in *SysApiStoreReq, opts ...grpc.CallOption) (*SysApiStoreReply, error) {
+	out := new(SysApiStoreReply)
+	err := c.cc.Invoke(ctx, Api_SysApiStore_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *apiClient) SysApiDel(ctx context.Context, in *SysApiDelReq, opts ...grpc.CallOption) (*SysApiDelReply, error) {
+	out := new(SysApiDelReply)
+	err := c.cc.Invoke(ctx, Api_SysApiDel_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ApiServer is the server API for Api service.
 // All implementations must embed UnimplementedApiServer
 // for forward compatibility
 type ApiServer interface {
 	// api列表
 	SysApiList(context.Context, *SysApiListReq) (*SysApiListReply, error)
+	// 保存api
+	SysApiStore(context.Context, *SysApiStoreReq) (*SysApiStoreReply, error)
+	// 删除api
+	SysApiDel(context.Context, *SysApiDelReq) (*SysApiDelReply, error)
 	mustEmbedUnimplementedApiServer()
 }
 
@@ -62,6 +90,12 @@ type UnimplementedApiServer struct {
 
 func (UnimplementedApiServer) SysApiList(context.Context, *SysApiListReq) (*SysApiListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysApiList not implemented")
+}
+func (UnimplementedApiServer) SysApiStore(context.Context, *SysApiStoreReq) (*SysApiStoreReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysApiStore not implemented")
+}
+func (UnimplementedApiServer) SysApiDel(context.Context, *SysApiDelReq) (*SysApiDelReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysApiDel not implemented")
 }
 func (UnimplementedApiServer) mustEmbedUnimplementedApiServer() {}
 
@@ -94,6 +128,42 @@ func _Api_SysApiList_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Api_SysApiStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysApiStoreReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServer).SysApiStore(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Api_SysApiStore_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServer).SysApiStore(ctx, req.(*SysApiStoreReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Api_SysApiDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysApiDelReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServer).SysApiDel(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Api_SysApiDel_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServer).SysApiDel(ctx, req.(*SysApiDelReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Api_ServiceDesc is the grpc.ServiceDesc for Api service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -104,6 +174,14 @@ var Api_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SysApiList",
 			Handler:    _Api_SysApiList_Handler,
+		},
+		{
+			MethodName: "SysApiStore",
+			Handler:    _Api_SysApiStore_Handler,
+		},
+		{
+			MethodName: "SysApiDel",
+			Handler:    _Api_SysApiDel_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

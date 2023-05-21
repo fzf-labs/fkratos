@@ -46,7 +46,7 @@ func (s *SysAdminRepo) GetAdminIdToNameByIds(ctx context.Context, ids []string) 
 	sysAdminDao := rpc_sys_dao.Use(s.data.gorm).SysAdmin
 	sysAdmins, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.In(ids...)).Find()
 	if err != nil {
-		return nil, err
+		return nil, errorx.DataSqlErr.WithCause(err)
 	}
 	for _, v := range sysAdmins {
 		res[v.ID] = v.Username

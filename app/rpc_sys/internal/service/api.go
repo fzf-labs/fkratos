@@ -2,19 +2,11 @@ package service
 
 import (
 	"context"
-	"fkratos/app/rpc_sys/internal/biz"
-
 	pb "fkratos/api/rpc_sys/v1"
+	"fkratos/app/rpc_sys/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
 )
-
-type ApiService struct {
-	pb.UnimplementedApiServer
-
-	log        *log.Helper
-	apiUseCase *biz.ApiUseCase
-}
 
 func NewApiService(logger log.Logger, apiUseCase *biz.ApiUseCase) *ApiService {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/service/api"))
@@ -24,6 +16,20 @@ func NewApiService(logger log.Logger, apiUseCase *biz.ApiUseCase) *ApiService {
 	}
 }
 
-func (s *ApiService) SysApiList(ctx context.Context, req *pb.SysApiListReq) (*pb.SysApiListReply, error) {
-	return s.apiUseCase.SysApiList(ctx, req)
+type ApiService struct {
+	pb.UnimplementedApiServer
+	log        *log.Helper
+	apiUseCase *biz.ApiUseCase
+}
+
+func (a *ApiService) SysApiList(ctx context.Context, req *pb.SysApiListReq) (*pb.SysApiListReply, error) {
+	return a.apiUseCase.SysApiList(ctx, req)
+}
+
+func (a *ApiService) SysApiStore(ctx context.Context, req *pb.SysApiStoreReq) (*pb.SysApiStoreReply, error) {
+	return a.apiUseCase.SysApiStore(ctx, req)
+}
+
+func (a *ApiService) SysApiDel(ctx context.Context, req *pb.SysApiDelReq) (*pb.SysApiDelReply, error) {
+	return a.apiUseCase.SysApiDel(ctx, req)
 }

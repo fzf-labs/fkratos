@@ -383,3 +383,414 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SysApiListReplyValidationError{}
+
+// Validate checks the field values on SysApiStoreReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysApiStoreReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysApiStoreReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysApiStoreReqMultiError,
+// or nil if none found.
+func (m *SysApiStoreReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysApiStoreReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for PermissionID
+
+	// no validation rules for Method
+
+	// no validation rules for Path
+
+	// no validation rules for Desc
+
+	if len(errors) > 0 {
+		return SysApiStoreReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysApiStoreReqMultiError is an error wrapping multiple validation errors
+// returned by SysApiStoreReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysApiStoreReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysApiStoreReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysApiStoreReqMultiError) AllErrors() []error { return m }
+
+// SysApiStoreReqValidationError is the validation error returned by
+// SysApiStoreReq.Validate if the designated constraints aren't met.
+type SysApiStoreReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysApiStoreReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysApiStoreReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysApiStoreReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysApiStoreReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysApiStoreReqValidationError) ErrorName() string { return "SysApiStoreReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysApiStoreReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysApiStoreReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysApiStoreReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysApiStoreReqValidationError{}
+
+// Validate checks the field values on SysApiStoreReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysApiStoreReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysApiStoreReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysApiStoreReplyMultiError, or nil if none found.
+func (m *SysApiStoreReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysApiStoreReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return SysApiStoreReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysApiStoreReplyMultiError is an error wrapping multiple validation errors
+// returned by SysApiStoreReply.ValidateAll() if the designated constraints
+// aren't met.
+type SysApiStoreReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysApiStoreReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysApiStoreReplyMultiError) AllErrors() []error { return m }
+
+// SysApiStoreReplyValidationError is the validation error returned by
+// SysApiStoreReply.Validate if the designated constraints aren't met.
+type SysApiStoreReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysApiStoreReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysApiStoreReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysApiStoreReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysApiStoreReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysApiStoreReplyValidationError) ErrorName() string { return "SysApiStoreReplyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysApiStoreReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysApiStoreReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysApiStoreReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysApiStoreReplyValidationError{}
+
+// Validate checks the field values on SysApiDelReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysApiDelReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysApiDelReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysApiDelReqMultiError, or
+// nil if none found.
+func (m *SysApiDelReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysApiDelReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysApiDelReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysApiDelReqMultiError is an error wrapping multiple validation errors
+// returned by SysApiDelReq.ValidateAll() if the designated constraints aren't met.
+type SysApiDelReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysApiDelReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysApiDelReqMultiError) AllErrors() []error { return m }
+
+// SysApiDelReqValidationError is the validation error returned by
+// SysApiDelReq.Validate if the designated constraints aren't met.
+type SysApiDelReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysApiDelReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysApiDelReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysApiDelReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysApiDelReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysApiDelReqValidationError) ErrorName() string { return "SysApiDelReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysApiDelReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysApiDelReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysApiDelReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysApiDelReqValidationError{}
+
+// Validate checks the field values on SysApiDelReply with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysApiDelReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysApiDelReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysApiDelReplyMultiError,
+// or nil if none found.
+func (m *SysApiDelReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysApiDelReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SysApiDelReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysApiDelReplyMultiError is an error wrapping multiple validation errors
+// returned by SysApiDelReply.ValidateAll() if the designated constraints
+// aren't met.
+type SysApiDelReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysApiDelReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysApiDelReplyMultiError) AllErrors() []error { return m }
+
+// SysApiDelReplyValidationError is the validation error returned by
+// SysApiDelReply.Validate if the designated constraints aren't met.
+type SysApiDelReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysApiDelReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysApiDelReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysApiDelReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysApiDelReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysApiDelReplyValidationError) ErrorName() string { return "SysApiDelReplyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysApiDelReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysApiDelReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysApiDelReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysApiDelReplyValidationError{}

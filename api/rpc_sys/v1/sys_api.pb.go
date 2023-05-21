@@ -209,6 +209,217 @@ func (x *SysApiListReply) GetList() []*SysApiInfo {
 	return nil
 }
 
+type SysApiStoreReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id           string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`                     // 编号
+	PermissionID string `protobuf:"bytes,2,opt,name=permissionID,proto3" json:"permissionID,omitempty"` // 权限Id
+	Method       string `protobuf:"bytes,3,opt,name=method,proto3" json:"method,omitempty"`             // 方法
+	Path         string `protobuf:"bytes,4,opt,name=path,proto3" json:"path,omitempty"`                 // 路径
+	Desc         string `protobuf:"bytes,5,opt,name=desc,proto3" json:"desc,omitempty"`                 // 描述
+}
+
+func (x *SysApiStoreReq) Reset() {
+	*x = SysApiStoreReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysApiStoreReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysApiStoreReq) ProtoMessage() {}
+
+func (x *SysApiStoreReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysApiStoreReq.ProtoReflect.Descriptor instead.
+func (*SysApiStoreReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_api_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *SysApiStoreReq) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *SysApiStoreReq) GetPermissionID() string {
+	if x != nil {
+		return x.PermissionID
+	}
+	return ""
+}
+
+func (x *SysApiStoreReq) GetMethod() string {
+	if x != nil {
+		return x.Method
+	}
+	return ""
+}
+
+func (x *SysApiStoreReq) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *SysApiStoreReq) GetDesc() string {
+	if x != nil {
+		return x.Desc
+	}
+	return ""
+}
+
+type SysApiStoreReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *SysApiStoreReply) Reset() {
+	*x = SysApiStoreReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysApiStoreReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysApiStoreReply) ProtoMessage() {}
+
+func (x *SysApiStoreReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysApiStoreReply.ProtoReflect.Descriptor instead.
+func (*SysApiStoreReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_api_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *SysApiStoreReply) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type SysApiDelReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
+}
+
+func (x *SysApiDelReq) Reset() {
+	*x = SysApiDelReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysApiDelReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysApiDelReq) ProtoMessage() {}
+
+func (x *SysApiDelReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysApiDelReq.ProtoReflect.Descriptor instead.
+func (*SysApiDelReq) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_api_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *SysApiDelReq) GetIds() []string {
+	if x != nil {
+		return x.Ids
+	}
+	return nil
+}
+
+type SysApiDelReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SysApiDelReply) Reset() {
+	*x = SysApiDelReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SysApiDelReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SysApiDelReply) ProtoMessage() {}
+
+func (x *SysApiDelReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SysApiDelReply.ProtoReflect.Descriptor instead.
+func (*SysApiDelReply) Descriptor() ([]byte, []int) {
+	return file_rpc_sys_v1_sys_api_proto_rawDescGZIP(), []int{6}
+}
+
 var File_rpc_sys_v1_sys_api_proto protoreflect.FileDescriptor
 
 var file_rpc_sys_v1_sys_api_proto_rawDesc = []byte{
@@ -234,14 +445,38 @@ var file_rpc_sys_v1_sys_api_proto_rawDesc = []byte{
 	0x79, 0x12, 0x2e, 0x0a, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
 	0x1a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2e, 0x76, 0x31,
 	0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x6c, 0x69, 0x73,
-	0x74, 0x32, 0x53, 0x0a, 0x03, 0x41, 0x70, 0x69, 0x12, 0x4c, 0x0a, 0x0a, 0x53, 0x79, 0x73, 0x41,
+	0x74, 0x22, 0x84, 0x01, 0x0a, 0x0e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x53, 0x74, 0x6f, 0x72,
+	0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x02, 0x69, 0x64, 0x12, 0x22, 0x0a, 0x0c, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69,
+	0x6f, 0x6e, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x70, 0x65, 0x72, 0x6d,
+	0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x6d, 0x65, 0x74, 0x68,
+	0x6f, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64,
+	0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x74, 0x68, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x70, 0x61, 0x74, 0x68, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x65, 0x73, 0x63, 0x18, 0x05, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x04, 0x64, 0x65, 0x73, 0x63, 0x22, 0x22, 0x0a, 0x10, 0x53, 0x79, 0x73, 0x41,
+	0x70, 0x69, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x20, 0x0a, 0x0c,
+	0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x12, 0x10, 0x0a, 0x03,
+	0x69, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x03, 0x69, 0x64, 0x73, 0x22, 0x10,
+	0x0a, 0x0e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x32, 0xef, 0x01, 0x0a, 0x03, 0x41, 0x70, 0x69, 0x12, 0x4c, 0x0a, 0x0a, 0x53, 0x79, 0x73, 0x41,
 	0x70, 0x69, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63,
 	0x5f, 0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x4c, 0x69,
 	0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x1f, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f,
 	0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x4c, 0x69, 0x73,
-	0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x42, 0x1b, 0x5a, 0x19, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f,
-	0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31,
-	0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x4f, 0x0a, 0x0b, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69,
+	0x53, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f,
+	0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x53, 0x74, 0x6f,
+	0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x20, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f,
+	0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x53, 0x74, 0x6f,
+	0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x49, 0x0a, 0x09, 0x53, 0x79, 0x73, 0x41, 0x70,
+	0x69, 0x44, 0x65, 0x6c, 0x12, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x73,
+	0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x44, 0x65, 0x6c, 0x52,
+	0x65, 0x71, 0x1a, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73,
+	0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70,
+	0x6c, 0x79, 0x42, 0x1b, 0x5a, 0x19, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70,
+	0x69, 0x2f, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -256,18 +491,26 @@ func file_rpc_sys_v1_sys_api_proto_rawDescGZIP() []byte {
 	return file_rpc_sys_v1_sys_api_proto_rawDescData
 }
 
-var file_rpc_sys_v1_sys_api_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_rpc_sys_v1_sys_api_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_rpc_sys_v1_sys_api_proto_goTypes = []interface{}{
-	(*SysApiInfo)(nil),      // 0: api.rpc_sys.v1.SysApiInfo
-	(*SysApiListReq)(nil),   // 1: api.rpc_sys.v1.SysApiListReq
-	(*SysApiListReply)(nil), // 2: api.rpc_sys.v1.SysApiListReply
+	(*SysApiInfo)(nil),       // 0: api.rpc_sys.v1.SysApiInfo
+	(*SysApiListReq)(nil),    // 1: api.rpc_sys.v1.SysApiListReq
+	(*SysApiListReply)(nil),  // 2: api.rpc_sys.v1.SysApiListReply
+	(*SysApiStoreReq)(nil),   // 3: api.rpc_sys.v1.SysApiStoreReq
+	(*SysApiStoreReply)(nil), // 4: api.rpc_sys.v1.SysApiStoreReply
+	(*SysApiDelReq)(nil),     // 5: api.rpc_sys.v1.SysApiDelReq
+	(*SysApiDelReply)(nil),   // 6: api.rpc_sys.v1.SysApiDelReply
 }
 var file_rpc_sys_v1_sys_api_proto_depIdxs = []int32{
 	0, // 0: api.rpc_sys.v1.SysApiListReply.list:type_name -> api.rpc_sys.v1.SysApiInfo
 	1, // 1: api.rpc_sys.v1.Api.SysApiList:input_type -> api.rpc_sys.v1.SysApiListReq
-	2, // 2: api.rpc_sys.v1.Api.SysApiList:output_type -> api.rpc_sys.v1.SysApiListReply
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
+	3, // 2: api.rpc_sys.v1.Api.SysApiStore:input_type -> api.rpc_sys.v1.SysApiStoreReq
+	5, // 3: api.rpc_sys.v1.Api.SysApiDel:input_type -> api.rpc_sys.v1.SysApiDelReq
+	2, // 4: api.rpc_sys.v1.Api.SysApiList:output_type -> api.rpc_sys.v1.SysApiListReply
+	4, // 5: api.rpc_sys.v1.Api.SysApiStore:output_type -> api.rpc_sys.v1.SysApiStoreReply
+	6, // 6: api.rpc_sys.v1.Api.SysApiDel:output_type -> api.rpc_sys.v1.SysApiDelReply
+	4, // [4:7] is the sub-list for method output_type
+	1, // [1:4] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -315,6 +558,54 @@ func file_rpc_sys_v1_sys_api_proto_init() {
 				return nil
 			}
 		}
+		file_rpc_sys_v1_sys_api_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysApiStoreReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_api_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysApiStoreReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_api_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysApiDelReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_sys_v1_sys_api_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SysApiDelReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -322,7 +613,7 @@ func file_rpc_sys_v1_sys_api_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_sys_v1_sys_api_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

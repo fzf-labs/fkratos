@@ -3,6 +3,7 @@ package biz
 import (
 	"context"
 	v1 "fkratos/api/rpc_sys/v1"
+	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
 
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
@@ -21,9 +22,32 @@ type ApiUseCase struct {
 	sysApiRepo SysApiRepo
 }
 
+func (a *ApiUseCase) SysApiStore(ctx context.Context, req *v1.SysApiStoreReq) (*v1.SysApiStoreReply, error) {
+	resp := new(v1.SysApiStoreReply)
+	_, err := a.sysApiRepo.SysApiStore(ctx, &rpc_sys_model.SysAPI{
+		PermissionID: req.GetPermissionID(),
+		Method:       req.GetMethod(),
+		Path:         req.GetPath(),
+		Desc:         req.GetDesc(),
+	})
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+func (a *ApiUseCase) SysApiDel(ctx context.Context, req *v1.SysApiDelReq) (*v1.SysApiDelReply, error) {
+	resp := new(v1.SysApiDelReply)
+	err := a.sysApiRepo.SysApiDel(ctx, req.GetIds())
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
 func (a *ApiUseCase) SysApiList(ctx context.Context, req *v1.SysApiListReq) (*v1.SysApiListReply, error) {
 	resp := new(v1.SysApiListReply)
-	list, err := a.sysApiRepo.SysDeptList(ctx, req.GetPermissionId())
+	list, err := a.sysApiRepo.SysApiList(ctx, req.GetPermissionId())
 	if err != nil {
 		return nil, err
 	}

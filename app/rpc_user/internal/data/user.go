@@ -47,7 +47,6 @@ func (u *UserRepo) CreateUser(ctx context.Context, req *v1.CreateUserReq) (*v1.C
 	}
 	return reply, err
 }
-
 func (u *UserRepo) UpdateUser(ctx context.Context, req *v1.UpdateUserReq) (*v1.UpdateUserReply, error) {
 	//TODO implement me
 	panic("implement me")

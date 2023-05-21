@@ -9,7 +9,6 @@ import (
 	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
 	"fkratos/app/rpc_sys/internal/data/mq"
-	"fkratos/internal/bootstrap/conf"
 	"fkratos/internal/errorx"
 
 	"github.com/fzf-labs/fpkg/page"
@@ -28,9 +27,8 @@ func NewSysLogRepo(data *Data, logger log.Logger) biz.SysLogRepo {
 }
 
 type SysLogRepo struct {
-	config *conf.Bootstrap
-	data   *Data
-	log    *log.Helper
+	data *Data
+	log  *log.Helper
 }
 
 func (s *SysLogRepo) SysLogStoreMQProducer(ctx context.Context, req *v1.SysLogStoreReq) error {

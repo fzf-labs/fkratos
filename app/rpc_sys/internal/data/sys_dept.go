@@ -6,7 +6,6 @@ import (
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
-	"fkratos/internal/bootstrap/conf"
 	"fkratos/internal/errorx"
 
 	"github.com/fzf-labs/fpkg/util/timeutil"
@@ -25,9 +24,8 @@ func NewSysDeptRepo(data *Data, logger log.Logger) biz.SysDeptRepo {
 }
 
 type SysDeptRepo struct {
-	config *conf.Bootstrap
-	data   *Data
-	log    *log.Helper
+	data *Data
+	log  *log.Helper
 }
 
 func (s *SysDeptRepo) SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq) (*rpc_sys_model.SysDept, error) {

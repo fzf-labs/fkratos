@@ -45,8 +45,8 @@ func (r *RoleUseCase) SysRoleList(ctx context.Context, req *v1.SysRoleListReq) (
 	sysRoleGenerateTree(roles)
 	return resp, nil
 }
-func sysRoleGenerateTree(list []*v1.SysRoleInfo) []v1.SysRoleInfo {
-	var trees []v1.SysRoleInfo
+func sysRoleGenerateTree(list []*v1.SysRoleInfo) []*v1.SysRoleInfo {
+	var trees []*v1.SysRoleInfo
 	// Define the top-level root and child nodes
 	var roots, childs []*v1.SysRoleInfo
 	for _, v := range list {
@@ -72,7 +72,7 @@ func sysRoleGenerateTree(list []*v1.SysRoleInfo) []v1.SysRoleInfo {
 		// recursive
 		sysRoleRecursiveTree(childTree, childs)
 
-		trees = append(trees, *childTree)
+		trees = append(trees, childTree)
 	}
 	return trees
 }
