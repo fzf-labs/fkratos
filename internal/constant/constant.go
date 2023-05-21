@@ -3,7 +3,7 @@ package constant
 type ContextWithValueKey string
 
 const (
-	HeaderLanguage   = "language"    //语言类型
+	HeaderLang       = "lang"        //语言类型
 	HeaderDeviceType = "device_type" //设备类型 例如: ios  android
 	HeaderDeviceId   = "device_id"   //设备ID 例如：123456789
 	HeaderDeviceSign = "device_sign" //设备签名

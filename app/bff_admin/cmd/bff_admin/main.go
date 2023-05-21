@@ -27,10 +27,10 @@ func newApp(logger log.Logger, registry registry.Registrar, hs *http.Server) *kr
 		kratos.Version(Service.Version),
 		kratos.Metadata(Service.Metadata),
 		kratos.Logger(logger),
+		kratos.Registrar(registry),
 		kratos.Server(
 			hs,
 		),
-		kratos.Registrar(registry),
 	)
 }
 

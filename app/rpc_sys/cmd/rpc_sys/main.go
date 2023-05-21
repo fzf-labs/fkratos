@@ -3,7 +3,6 @@ package main
 import (
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/service"
-	kAsynq "fkratos/pkg/asynq"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
@@ -20,7 +19,7 @@ var (
 	)
 )
 
-func newApp(logger log.Logger, registry registry.Registrar, gs *grpc.Server, as *kAsynq.Server) *kratos.App {
+func newApp(logger log.Logger, registry registry.Registrar, gs *grpc.Server) *kratos.App {
 	return kratos.New(
 		kratos.ID(Service.GetInstanceId()),
 		kratos.Name(Service.Name),
@@ -30,7 +29,6 @@ func newApp(logger log.Logger, registry registry.Registrar, gs *grpc.Server, as 
 		kratos.Registrar(registry),
 		kratos.Server(
 			gs,
-			as,
 		),
 	)
 }

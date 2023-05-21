@@ -29,9 +29,12 @@ func New(code int, reason, message string) *errors.Error {
 func ErrorEncoder(w http.ResponseWriter, r *http.Request, err error) {
 	se := errors.FromError(err)
 	if se != nil {
-		lang := r.Header.Get(constant.HeaderLanguage)
+		lang := r.Header.Get(constant.HeaderLang)
 		if lang != "" {
-			se.Message = GetMessage(se.GetMessage(), lang)
+			message := GetMessage(se.GetReason(), lang)
+			if message != "" {
+				se.Message = message
+			}
 		}
 	}
 	codec, _ := http2.CodecForRequest(r, "Accept")

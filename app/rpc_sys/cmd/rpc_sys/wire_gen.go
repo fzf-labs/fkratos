@@ -43,12 +43,7 @@ func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registr
 	adminUseCase := biz.NewAdminUseCase(logger, rockscacheClient, sysAdminRepo, sysRoleRepo, sysJobRepo, sysDeptRepo, sysPermissionRepo)
 	adminService := service.NewAdminService(logger, adminUseCase)
 	grpcServer := server.NewGRPCServer(confBootstrap, logger, authService, adminService)
-	sysLogRepo := data.NewSysLogRepo(dataData, logger)
-	sysApiRepo := data.NewSysApiRepo(dataData, logger)
-	logUseCase := biz.NewLogUseCase(logger, sysLogRepo, sysAdminRepo, sysApiRepo)
-	logService := service.NewLogService(logger, logUseCase)
-	asynqServer := server.NewAsynqServer(confBootstrap, logger, logService)
-	app := newApp(logger, registrar, grpcServer, asynqServer)
+	app := newApp(logger, registrar, grpcServer)
 	return app, func() {
 		cleanup()
 	}, nil

@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"fkratos/internal/bootstrap/conf"
+	"fkratos/internal/errorx"
 
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/metadata"
@@ -41,6 +42,7 @@ func NewHttpServer(cfg *conf.Bootstrap, m ...middleware.Middleware) *kHttp.Serve
 	if cfg.Server.Http.Timeout != nil {
 		opts = append(opts, kHttp.Timeout(cfg.Server.Http.Timeout.AsDuration()))
 	}
+	opts = append(opts, kHttp.ErrorEncoder(errorx.ErrorEncoder))
 	srv := kHttp.NewServer(opts...)
 	srv.Handle("/metrics", promhttp.Handler())
 	return srv
