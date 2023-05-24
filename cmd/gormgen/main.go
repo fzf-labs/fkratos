@@ -8,14 +8,22 @@ import (
 	"github.com/fzf-labs/fpkg/conv"
 	"github.com/fzf-labs/fpkg/db/gen"
 	"github.com/spf13/viper"
+	"gorm.io/gorm"
 )
 
 var configFile = flag.String("f", "config.yaml", "the config file")
 var serverName = flag.String("s", "", "the server name")
 
 // 默认Postgres字段类型映射
-var defaultPostgresDataMap = map[string]func(detailType string) (dataType string){
-	"json": func(string) string { return "datatypes.JSON" },
+var defaultPostgresDataMap = map[string]func(columnType gorm.ColumnType) (dataType string){
+	"json": func(columnType gorm.ColumnType) string { return "datatypes.JSON" },
+	"timestamptz": func(columnType gorm.ColumnType) string {
+		nullable, _ := columnType.Nullable()
+		if nullable {
+			return "sql.NullTime"
+		}
+		return "time.Time"
+	},
 }
 
 func main() {

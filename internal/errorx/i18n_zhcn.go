@@ -5,4 +5,3 @@ var ZhCNMap = map[string]string{
 	ParamErr.GetReason():     "参数错误",
 	DataSqlErr.GetReason():   "DB数据异常",
 }
-var EnUSMap = map[string]string{}
