@@ -1,16 +1,16 @@
 package cache
 
 import (
-	"fkratos/internal/service"
+	"fkratos/internal/constant"
 	"time"
 
 	"github.com/fzf-labs/fpkg/cache/cachekey"
 )
 
-var cache = cachekey.NewKeyPrefixes(service.RpcCommon)
+var cache = cachekey.NewKeyManage(constant.RpcCommon)
 
 // 缓存key前缀
 
 var (
-	DL = cache.AddKeyPrefix("dl", time.Second*5, "分布式锁")
+	DL = cache.AddKey("dl", time.Second*5, "分布式锁")
 )

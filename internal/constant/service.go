@@ -1,4 +1,4 @@
-package service
+package constant
 
 const (
 	BffAdmin = "bff.admin" // 后台网关

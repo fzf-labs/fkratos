@@ -2,7 +2,7 @@ package main
 
 import (
 	"fkratos/internal/bootstrap"
-	"fkratos/internal/service"
+	"fkratos/internal/constant"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
@@ -13,7 +13,7 @@ import (
 
 var (
 	Service = bootstrap.NewService(
-		service.RpcSys,
+		constant.RpcSys,
 		"1.0.0",
 		"",
 	)
