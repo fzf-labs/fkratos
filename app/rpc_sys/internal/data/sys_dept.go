@@ -73,8 +73,8 @@ func (s *SysDeptRepo) SysDeptInfoById(ctx context.Context, id string) (*v1.SysDe
 		Type:        int32(sysDept.Type),
 		Status:      int32(sysDept.Status),
 		Sort:        int32(sysDept.Sort),
-		CreatedAt:   timeutil.ToDateTimeStringByTime(sysDept.CreatedAt.Time),
-		UpdatedAt:   timeutil.ToDateTimeStringByTime(sysDept.UpdatedAt.Time),
+		CreatedAt:   timeutil.ToDateTimeStringByTime(sysDept.CreatedAt),
+		UpdatedAt:   timeutil.ToDateTimeStringByTime(sysDept.UpdatedAt),
 		Children:    nil,
 	}, nil
 }
@@ -107,8 +107,8 @@ func (s *SysDeptRepo) SysDeptList(ctx context.Context) ([]*v1.SysDeptInfo, error
 			Type:        int32(role.Type),
 			Status:      int32(role.Status),
 			Sort:        int32(role.Sort),
-			CreatedAt:   timeutil.ToDateTimeStringByTime(role.CreatedAt.Time),
-			UpdatedAt:   timeutil.ToDateTimeStringByTime(role.UpdatedAt.Time),
+			CreatedAt:   role.CreatedAt.Format(timeutil.TimeLayout),
+			UpdatedAt:   role.UpdatedAt.Format(timeutil.TimeLayout),
 			Children:    nil,
 		})
 	}

@@ -17,50 +17,44 @@ import (
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
-		db:              db,
-		SysAPI:          newSysAPI(db, opts...),
-		SysAdmin:        newSysAdmin(db, opts...),
-		SysDept:         newSysDept(db, opts...),
-		SysDict:         newSysDict(db, opts...),
-		SysJob:          newSysJob(db, opts...),
-		SysLoginLog:     newSysLoginLog(db, opts...),
-		SysOperationLog: newSysOperationLog(db, opts...),
-		SysPermission:   newSysPermission(db, opts...),
-		SysRole:         newSysRole(db, opts...),
-		SysTenant:       newSysTenant(db, opts...),
+		db:            db,
+		SysAPI:        newSysAPI(db, opts...),
+		SysAdmin:      newSysAdmin(db, opts...),
+		SysDept:       newSysDept(db, opts...),
+		SysDict:       newSysDict(db, opts...),
+		SysJob:        newSysJob(db, opts...),
+		SysLog:        newSysLog(db, opts...),
+		SysPermission: newSysPermission(db, opts...),
+		SysRole:       newSysRole(db, opts...),
 	}
 }
 
 type Query struct {
 	db *gorm.DB
 
-	SysAPI          sysAPI
-	SysAdmin        sysAdmin
-	SysDept         sysDept
-	SysDict         sysDict
-	SysJob          sysJob
-	SysLoginLog     sysLoginLog
-	SysOperationLog sysOperationLog
-	SysPermission   sysPermission
-	SysRole         sysRole
-	SysTenant       sysTenant
+	SysAPI        sysAPI
+	SysAdmin      sysAdmin
+	SysDept       sysDept
+	SysDict       sysDict
+	SysJob        sysJob
+	SysLog        sysLog
+	SysPermission sysPermission
+	SysRole       sysRole
 }
 
 func (q *Query) Available() bool { return q.db != nil }
 
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
-		db:              db,
-		SysAPI:          q.SysAPI.clone(db),
-		SysAdmin:        q.SysAdmin.clone(db),
-		SysDept:         q.SysDept.clone(db),
-		SysDict:         q.SysDict.clone(db),
-		SysJob:          q.SysJob.clone(db),
-		SysLoginLog:     q.SysLoginLog.clone(db),
-		SysOperationLog: q.SysOperationLog.clone(db),
-		SysPermission:   q.SysPermission.clone(db),
-		SysRole:         q.SysRole.clone(db),
-		SysTenant:       q.SysTenant.clone(db),
+		db:            db,
+		SysAPI:        q.SysAPI.clone(db),
+		SysAdmin:      q.SysAdmin.clone(db),
+		SysDept:       q.SysDept.clone(db),
+		SysDict:       q.SysDict.clone(db),
+		SysJob:        q.SysJob.clone(db),
+		SysLog:        q.SysLog.clone(db),
+		SysPermission: q.SysPermission.clone(db),
+		SysRole:       q.SysRole.clone(db),
 	}
 }
 
@@ -74,45 +68,39 @@ func (q *Query) WriteDB() *Query {
 
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
-		db:              db,
-		SysAPI:          q.SysAPI.replaceDB(db),
-		SysAdmin:        q.SysAdmin.replaceDB(db),
-		SysDept:         q.SysDept.replaceDB(db),
-		SysDict:         q.SysDict.replaceDB(db),
-		SysJob:          q.SysJob.replaceDB(db),
-		SysLoginLog:     q.SysLoginLog.replaceDB(db),
-		SysOperationLog: q.SysOperationLog.replaceDB(db),
-		SysPermission:   q.SysPermission.replaceDB(db),
-		SysRole:         q.SysRole.replaceDB(db),
-		SysTenant:       q.SysTenant.replaceDB(db),
+		db:            db,
+		SysAPI:        q.SysAPI.replaceDB(db),
+		SysAdmin:      q.SysAdmin.replaceDB(db),
+		SysDept:       q.SysDept.replaceDB(db),
+		SysDict:       q.SysDict.replaceDB(db),
+		SysJob:        q.SysJob.replaceDB(db),
+		SysLog:        q.SysLog.replaceDB(db),
+		SysPermission: q.SysPermission.replaceDB(db),
+		SysRole:       q.SysRole.replaceDB(db),
 	}
 }
 
 type queryCtx struct {
-	SysAPI          *sysAPIDo
-	SysAdmin        *sysAdminDo
-	SysDept         *sysDeptDo
-	SysDict         *sysDictDo
-	SysJob          *sysJobDo
-	SysLoginLog     *sysLoginLogDo
-	SysOperationLog *sysOperationLogDo
-	SysPermission   *sysPermissionDo
-	SysRole         *sysRoleDo
-	SysTenant       *sysTenantDo
+	SysAPI        *sysAPIDo
+	SysAdmin      *sysAdminDo
+	SysDept       *sysDeptDo
+	SysDict       *sysDictDo
+	SysJob        *sysJobDo
+	SysLog        *sysLogDo
+	SysPermission *sysPermissionDo
+	SysRole       *sysRoleDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
-		SysAPI:          q.SysAPI.WithContext(ctx),
-		SysAdmin:        q.SysAdmin.WithContext(ctx),
-		SysDept:         q.SysDept.WithContext(ctx),
-		SysDict:         q.SysDict.WithContext(ctx),
-		SysJob:          q.SysJob.WithContext(ctx),
-		SysLoginLog:     q.SysLoginLog.WithContext(ctx),
-		SysOperationLog: q.SysOperationLog.WithContext(ctx),
-		SysPermission:   q.SysPermission.WithContext(ctx),
-		SysRole:         q.SysRole.WithContext(ctx),
-		SysTenant:       q.SysTenant.WithContext(ctx),
+		SysAPI:        q.SysAPI.WithContext(ctx),
+		SysAdmin:      q.SysAdmin.WithContext(ctx),
+		SysDept:       q.SysDept.WithContext(ctx),
+		SysDict:       q.SysDict.WithContext(ctx),
+		SysJob:        q.SysJob.WithContext(ctx),
+		SysLog:        q.SysLog.WithContext(ctx),
+		SysPermission: q.SysPermission.WithContext(ctx),
+		SysRole:       q.SysRole.WithContext(ctx),
 	}
 }
 
@@ -121,14 +109,10 @@ func (q *Query) Transaction(fc func(tx *Query) error, opts ...*sql.TxOptions) er
 }
 
 func (q *Query) Begin(opts ...*sql.TxOptions) *QueryTx {
-	tx := q.db.Begin(opts...)
-	return &QueryTx{Query: q.clone(tx), Error: tx.Error}
+	return &QueryTx{q.clone(q.db.Begin(opts...))}
 }
 
-type QueryTx struct {
-	*Query
-	Error error
-}
+type QueryTx struct{ *Query }
 
 func (q *QueryTx) Commit() error {
 	return q.db.Commit().Error

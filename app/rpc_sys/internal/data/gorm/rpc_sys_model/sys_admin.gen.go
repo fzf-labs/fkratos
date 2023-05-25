@@ -5,33 +5,33 @@
 package rpc_sys_model
 
 import (
-	"database/sql"
+	"time"
 
 	"gorm.io/datatypes"
+	"gorm.io/gorm"
 )
 
 const TableNameSysAdmin = "sys_admin"
 
 // SysAdmin mapped from table <sys_admin>
 type SysAdmin struct {
-	ID        string         `gorm:"column:id;primaryKey;default:gen_random_uuid();comment:编号" json:"id"`
-	TenantID  string         `gorm:"column:tenant_id;not null;comment:租户ID" json:"tenantId"`
-	Username  string         `gorm:"column:username;not null;comment:用户名" json:"username"`
-	Password  string         `gorm:"column:password;not null;comment:密码" json:"password"`
-	Nickname  string         `gorm:"column:nickname;not null;comment:昵称" json:"nickname"`
-	Avatar    string         `gorm:"column:avatar;comment:头像" json:"avatar"`
-	Gender    int16          `gorm:"column:gender;not null;comment:0=保密 1=女 2=男" json:"gender"`
-	Email     string         `gorm:"column:email;comment:邮件" json:"email"`
-	Mobile    string         `gorm:"column:mobile;comment:手机号" json:"mobile"`
-	JobID     string         `gorm:"column:job_id;comment:岗位" json:"jobId"`
-	DeptID    string         `gorm:"column:dept_id;comment:部门" json:"deptId"`
-	RoleIds   datatypes.JSON `gorm:"column:role_ids;comment:角色集" json:"roleIds"`
-	Salt      string         `gorm:"column:salt;not null;comment:盐值" json:"salt"`
-	Status    int16          `gorm:"column:status;not null;default:1;comment:0=禁用 1=开启" json:"status"`
-	Motto     string         `gorm:"column:motto;comment:个性签名" json:"motto"`
-	CreatedAt sql.NullTime   `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
-	UpdatedAt sql.NullTime   `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
-	DeletedAt sql.NullTime   `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`
+	ID        string         `gorm:"column:id;primaryKey" json:"id"`                 // 编号
+	Username  string         `gorm:"column:username;not null" json:"username"`       // 用户名
+	Password  string         `gorm:"column:password;not null" json:"password"`       // 密码
+	Nickname  string         `gorm:"column:nickname;not null" json:"nickname"`       // 昵称
+	Avatar    string         `gorm:"column:avatar" json:"avatar"`                    // 头像
+	Gender    int16          `gorm:"column:gender;not null" json:"gender"`           // 0=保密 1=女 2=男
+	Email     string         `gorm:"column:email" json:"email"`                      // 邮件
+	Mobile    string         `gorm:"column:mobile" json:"mobile"`                    // 手机号
+	JobID     string         `gorm:"column:job_id" json:"jobId"`                     // 岗位
+	DeptID    string         `gorm:"column:dept_id" json:"deptId"`                   // 部门
+	RoleIds   datatypes.JSON `gorm:"column:role_ids" json:"roleIds"`                 // 角色集
+	Salt      string         `gorm:"column:salt;not null" json:"salt"`               // 盐值
+	Status    int16          `gorm:"column:status;not null;default:1" json:"status"` // 0=禁用 1=开启
+	Motto     string         `gorm:"column:motto" json:"motto"`                      // 个性签名
+	CreatedAt time.Time      `gorm:"column:created_at" json:"createdAt"`             // 创建时间
+	UpdatedAt time.Time      `gorm:"column:updated_at" json:"updatedAt"`             // 更新时间
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deletedAt"`             // 删除时间
 }
 
 // TableName SysAdmin's table name

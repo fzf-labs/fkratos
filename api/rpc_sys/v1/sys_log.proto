@@ -9,17 +9,17 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
-// 操作日志
-service OperationLog {
-  //操作日志列表
-  rpc SysOperationLogList(common.SearchListReq) returns (SysOperationLogListResp);
-  //单条操作日志
-  rpc SysOperationLogInfo(SysOperationLogInfoReq) returns (SysOperationLogInfoResp);
-  //操作日志记录
-  rpc SysOperationLogStore(SysOperationLogStoreReq) returns (SysOperationLogStoreResp);
+// 日志
+service Log {
+  //日志列表
+  rpc SysLogList(common.SearchListReq) returns (SysLogListResp);
+  //单条日志
+  rpc SysLogInfo(SysLogInfoReq) returns (SysLogInfoResp);
+  //日志记录
+  rpc SysLogStore(SysLogStoreReq) returns (SysLogStoreResp);
 }
 
-message SysOperationLogInfo {
+message SysLogInfo {
   string id = 1; // 编号
   string adminID = 2; // 管理员ID
   string username = 3; // 账号
@@ -32,31 +32,31 @@ message SysOperationLogInfo {
   string createdAt = 10; // 创建时间
 }
 
-//请求-操作日志列表
-message SysOperationLogListReq {
+//请求-日志列表
+message SysLogListReq {
   int32 page = 1; //页码
   int32 pageSize = 2; //页数
 }
 
-//响应-操作日志列表
-message SysOperationLogListResp {
-  repeated SysOperationLogInfo list = 1; //管理员列表
+//响应-日志列表
+message SysLogListResp {
+  repeated SysLogInfo list = 1; //管理员列表
   common.Paginator paginator = 2; //分页
 }
 
-//请求-单条操作日志
-message SysOperationLogInfoReq {
+//请求-单条日志
+message SysLogInfoReq {
   string id = 1;
 }
 
-//响应-单条操作日志
-message SysOperationLogInfoResp {
-  SysOperationLogInfo info = 1;
+//响应-单条日志
+message SysLogInfoResp {
+  SysLogInfo info = 1;
 }
 
 
-//请求-操作日志存储
-message SysOperationLogStoreReq {
+//请求-日志存储
+message SysLogStoreReq {
   string adminID = 1; // 管理员ID
   string username = 2; // 账号
   string ip = 3; // ip
@@ -67,7 +67,7 @@ message SysOperationLogStoreReq {
   string resp = 8; // 响应数据
 }
 
-//响应-操作日志存储
-message SysOperationLogStoreResp {
-  SysOperationLogInfo info = 1;
+//响应-日志存储
+message SysLogStoreResp {
+  SysLogInfo info = 1;
 }

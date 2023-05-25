@@ -28,15 +28,14 @@ func newSysRole(db *gorm.DB, opts ...gen.DOOption) sysRole {
 	tableName := _sysRole.sysRoleDo.TableName()
 	_sysRole.ALL = field.NewAsterisk(tableName)
 	_sysRole.ID = field.NewString(tableName, "id")
-	_sysRole.TenantID = field.NewString(tableName, "tenant_id")
 	_sysRole.Pid = field.NewString(tableName, "pid")
 	_sysRole.Name = field.NewString(tableName, "name")
 	_sysRole.PermissionIds = field.NewString(tableName, "permission_ids")
 	_sysRole.Remark = field.NewString(tableName, "remark")
 	_sysRole.Status = field.NewInt16(tableName, "status")
 	_sysRole.Sort = field.NewInt64(tableName, "sort")
-	_sysRole.CreatedAt = field.NewField(tableName, "created_at")
-	_sysRole.UpdatedAt = field.NewField(tableName, "updated_at")
+	_sysRole.CreatedAt = field.NewTime(tableName, "created_at")
+	_sysRole.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_sysRole.DeletedAt = field.NewField(tableName, "deleted_at")
 
 	_sysRole.fillFieldMap()
@@ -49,15 +48,14 @@ type sysRole struct {
 
 	ALL           field.Asterisk
 	ID            field.String // 编号
-	TenantID      field.String // 租户ID
 	Pid           field.String // 父级id
 	Name          field.String // 名称
 	PermissionIds field.String // 菜单权限集合
 	Remark        field.String // 备注
 	Status        field.Int16  // 0=禁用 1=开启
 	Sort          field.Int64  // 排序值
-	CreatedAt     field.Field  // 创建时间
-	UpdatedAt     field.Field  // 更新时间
+	CreatedAt     field.Time   // 创建时间
+	UpdatedAt     field.Time   // 更新时间
 	DeletedAt     field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
@@ -76,15 +74,14 @@ func (s sysRole) As(alias string) *sysRole {
 func (s *sysRole) updateTableName(table string) *sysRole {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
-	s.TenantID = field.NewString(table, "tenant_id")
 	s.Pid = field.NewString(table, "pid")
 	s.Name = field.NewString(table, "name")
 	s.PermissionIds = field.NewString(table, "permission_ids")
 	s.Remark = field.NewString(table, "remark")
 	s.Status = field.NewInt16(table, "status")
 	s.Sort = field.NewInt64(table, "sort")
-	s.CreatedAt = field.NewField(table, "created_at")
-	s.UpdatedAt = field.NewField(table, "updated_at")
+	s.CreatedAt = field.NewTime(table, "created_at")
+	s.UpdatedAt = field.NewTime(table, "updated_at")
 	s.DeletedAt = field.NewField(table, "deleted_at")
 
 	s.fillFieldMap()
@@ -108,9 +105,8 @@ func (s *sysRole) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysRole) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 11)
+	s.fieldMap = make(map[string]field.Expr, 10)
 	s.fieldMap["id"] = s.ID
-	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["pid"] = s.Pid
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["permission_ids"] = s.PermissionIds

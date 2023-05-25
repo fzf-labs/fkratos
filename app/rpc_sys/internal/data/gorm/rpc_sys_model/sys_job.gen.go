@@ -4,22 +4,25 @@
 
 package rpc_sys_model
 
-import "database/sql"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 const TableNameSysJob = "sys_job"
 
 // SysJob mapped from table <sys_job>
 type SysJob struct {
-	ID        string       `gorm:"column:id;primaryKey;comment:编号" json:"id"`
-	TenantID  string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`
-	Name      string       `gorm:"column:name;not null;comment:岗位名称" json:"name"`
-	Code      string       `gorm:"column:code;comment:岗位编码" json:"code"`
-	Remark    string       `gorm:"column:remark;comment:备注" json:"remark"`
-	Sort      int64        `gorm:"column:sort;not null;comment:排序值" json:"sort"`
-	Status    int16        `gorm:"column:status;not null;comment:0=禁用 1=开启" json:"status"`
-	CreatedAt sql.NullTime `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
-	UpdatedAt sql.NullTime `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
-	DeletedAt sql.NullTime `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`
+	ID        string         `gorm:"column:id;primaryKey" json:"id"`              // 编号
+	Name      string         `gorm:"column:name;not null" json:"name"`            // 岗位名称
+	Code      string         `gorm:"column:code" json:"code"`                     // 岗位编码
+	Remark    string         `gorm:"column:remark" json:"remark"`                 // 备注
+	Sort      int64          `gorm:"column:sort;not null" json:"sort"`            // 排序值
+	Status    int16          `gorm:"column:status;not null" json:"status"`        // 0=禁用 1=开启
+	CreatedAt time.Time      `gorm:"column:created_at;not null" json:"createdAt"` // 创建时间
+	UpdatedAt time.Time      `gorm:"column:updated_at" json:"updatedAt"`          // 更新时间
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deletedAt"`          // 删除时间
 }
 
 // TableName SysJob's table name

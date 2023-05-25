@@ -16,49 +16,61 @@ import (
 	"gorm.io/gorm"
 )
 
-var _ biz.SysLoginLogRepo = (*SysLoginLogRepo)(nil)
+var _ biz.SysLogRepo = (*SysLogRepo)(nil)
 
-func NewSysLoginLogRepo(data *Data, logger log.Logger) biz.SysLoginLogRepo {
+func NewSysLogRepo(data *Data, logger log.Logger) biz.SysLogRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_log"))
-	return &SysLoginLogRepo{
+	return &SysLogRepo{
 		data: data,
 		log:  l,
 	}
 }
 
-type SysLoginLogRepo struct {
+type SysLogRepo struct {
 	data *Data
 	log  *log.Helper
 }
 
-func (s *SysLoginLogRepo) SysLoginLogStoreMQProducer(ctx context.Context, req *v1.SysLoginLogStoreReq) error {
+func (s *SysLogRepo) SysLogStoreMQProducer(ctx context.Context, req *v1.SysLogStoreReq) error {
 	marshal, err := json.Marshal(req)
 	if err != nil {
 		return err
 	}
-	err = s.data.aysnqClient.NewTask(mq.SysLoginLogStore, marshal)
+	err = s.data.aysnqClient.NewTask(mq.SysLogStore, marshal)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SysLoginLogRepo) SysLoginLogStore(ctx context.Context, req *v1.SysLoginLogStoreReq) (*rpc_sys_model.SysLoginLog, error) {
-	sysLogDao := rpc_sys_dao.Use(s.data.gorm).SysLoginLog
-	model := &rpc_sys_model.SysLoginLog{
+func (s *SysLogRepo) SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*rpc_sys_model.SysLog, error) {
+	sysLogDao := rpc_sys_dao.Use(s.data.gorm).SysLog
+	reqJson, err := json.Marshal(req.Req)
+	if err != nil {
+		return nil, err
+	}
+	respJson, err := json.Marshal(req.Resp)
+	if err != nil {
+		return nil, err
+	}
+	model := &rpc_sys_model.SysLog{
 		AdminID:   req.AdminID,
 		IP:        req.Ip,
+		URI:       req.Uri,
 		Useragent: req.Useragent,
+		Header:    nil,
+		Req:       reqJson,
+		Resp:      respJson,
 	}
-	err := sysLogDao.WithContext(ctx).Create(model)
+	err = sysLogDao.WithContext(ctx).Create(model)
 	if err != nil {
 		return nil, errorx.DataSqlErr.WithCause(err)
 	}
 	return model, nil
 }
 
-func (s *SysLoginLogRepo) SysLoginLogListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysLoginLog, *page.Page, error) {
-	sysLogDao := rpc_sys_dao.Use(s.data.gorm).SysLoginLog
+func (s *SysLogRepo) SysLogListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysLog, *page.Page, error) {
+	sysLogDao := rpc_sys_dao.Use(s.data.gorm).SysLog
 	count, err := sysLogDao.WithContext(ctx).Count()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, nil, errorx.DataSqlErr.WithCause(err)
@@ -71,8 +83,8 @@ func (s *SysLoginLogRepo) SysLoginLogListBySearch(ctx context.Context, req *comm
 	return sysLogs, paginator, nil
 }
 
-func (s *SysLoginLogRepo) SysLoginLogInfoById(ctx context.Context, id string) (*rpc_sys_model.SysLoginLog, error) {
-	sysLogDao := rpc_sys_dao.Use(s.data.gorm).SysLoginLog
+func (s *SysLogRepo) SysLogInfoById(ctx context.Context, id string) (*rpc_sys_model.SysLog, error) {
+	sysLogDao := rpc_sys_dao.Use(s.data.gorm).SysLog
 	sysLog, err := sysLogDao.WithContext(ctx).Where(sysLogDao.ID.Eq(id)).First()
 	if err != nil {
 		return nil, err

@@ -38,8 +38,8 @@ func (d *JobUseCase) SysJobList(ctx context.Context, req *common.SearchListReq) 
 				Remark:    v.Remark,
 				Status:    int32(v.Status),
 				Sort:      int32(v.Sort),
-				CreatedAt: timeutil.ToDateTimeStringByTime(v.CreatedAt.Time),
-				UpdatedAt: timeutil.ToDateTimeStringByTime(v.UpdatedAt.Time),
+				CreatedAt: timeutil.ToDateTimeStringByTime(v.CreatedAt),
+				UpdatedAt: timeutil.ToDateTimeStringByTime(v.UpdatedAt),
 			})
 		}
 	}

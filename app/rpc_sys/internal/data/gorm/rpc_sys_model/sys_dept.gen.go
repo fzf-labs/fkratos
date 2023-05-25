@@ -4,26 +4,29 @@
 
 package rpc_sys_model
 
-import "database/sql"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 const TableNameSysDept = "sys_dept"
 
 // SysDept mapped from table <sys_dept>
 type SysDept struct {
-	ID          string       `gorm:"column:id;primaryKey;comment:编号" json:"id"`
-	TenantID    string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`
-	Pid         string       `gorm:"column:pid;not null;comment:父级id" json:"pid"`
-	Name        string       `gorm:"column:name;not null;comment:部门简称" json:"name"`
-	FullName    string       `gorm:"column:full_name;not null;comment:部门全称" json:"fullName"`
-	Responsible string       `gorm:"column:responsible;comment:负责人" json:"responsible"`
-	Phone       string       `gorm:"column:phone;comment:负责人电话" json:"phone"`
-	Email       string       `gorm:"column:email;comment:负责人邮箱" json:"email"`
-	Type        int16        `gorm:"column:type;not null;comment:1=公司 2=子公司 3=部门" json:"type"`
-	Status      int16        `gorm:"column:status;not null;comment:0=禁用 1=开启" json:"status"`
-	Sort        int64        `gorm:"column:sort;not null;comment:排序值" json:"sort"`
-	CreatedAt   sql.NullTime `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
-	UpdatedAt   sql.NullTime `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
-	DeletedAt   sql.NullTime `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`
+	ID          string         `gorm:"column:id;primaryKey" json:"id"`              // 编号
+	Pid         string         `gorm:"column:pid;not null" json:"pid"`              // 父级id
+	Name        string         `gorm:"column:name;not null" json:"name"`            // 部门简称
+	FullName    string         `gorm:"column:full_name;not null" json:"fullName"`   // 部门全称
+	Responsible string         `gorm:"column:responsible" json:"responsible"`       // 负责人
+	Phone       string         `gorm:"column:phone" json:"phone"`                   // 负责人电话
+	Email       string         `gorm:"column:email" json:"email"`                   // 负责人邮箱
+	Type        int16          `gorm:"column:type;not null" json:"type"`            // 1=公司 2=子公司 3=部门
+	Status      int16          `gorm:"column:status;not null" json:"status"`        // 0=禁用 1=开启
+	Sort        int64          `gorm:"column:sort;not null" json:"sort"`            // 排序值
+	CreatedAt   time.Time      `gorm:"column:created_at;not null" json:"createdAt"` // 创建时间
+	UpdatedAt   time.Time      `gorm:"column:updated_at" json:"updatedAt"`          // 更新时间
+	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at" json:"deletedAt"`          // 删除时间
 }
 
 // TableName SysDept's table name

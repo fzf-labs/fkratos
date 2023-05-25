@@ -24,7 +24,7 @@ var ProviderSet = wire.NewSet(
 	NewSysDeptRepo,
 	NewSysJobRepo,
 	NewSysRoleRepo,
-	NewSysOperationLogRepo,
+	NewSysLogRepo,
 	NewSysApiRepo,
 	NewSysPermissionRepo,
 )

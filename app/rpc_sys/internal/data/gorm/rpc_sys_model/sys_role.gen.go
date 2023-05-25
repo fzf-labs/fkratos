@@ -4,23 +4,26 @@
 
 package rpc_sys_model
 
-import "database/sql"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 const TableNameSysRole = "sys_role"
 
 // SysRole mapped from table <sys_role>
 type SysRole struct {
-	ID            string       `gorm:"column:id;primaryKey;comment:编号" json:"id"`
-	TenantID      string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`
-	Pid           string       `gorm:"column:pid;not null;comment:父级id" json:"pid"`
-	Name          string       `gorm:"column:name;not null;comment:名称" json:"name"`
-	PermissionIds string       `gorm:"column:permission_ids;comment:菜单权限集合" json:"permissionIds"`
-	Remark        string       `gorm:"column:remark;comment:备注" json:"remark"`
-	Status        int16        `gorm:"column:status;not null;comment:0=禁用 1=开启" json:"status"`
-	Sort          int64        `gorm:"column:sort;not null;comment:排序值" json:"sort"`
-	CreatedAt     sql.NullTime `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
-	UpdatedAt     sql.NullTime `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
-	DeletedAt     sql.NullTime `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`
+	ID            string         `gorm:"column:id;primaryKey" json:"id"`              // 编号
+	Pid           string         `gorm:"column:pid;not null" json:"pid"`              // 父级id
+	Name          string         `gorm:"column:name;not null" json:"name"`            // 名称
+	PermissionIds string         `gorm:"column:permission_ids" json:"permissionIds"`  // 菜单权限集合
+	Remark        string         `gorm:"column:remark" json:"remark"`                 // 备注
+	Status        int16          `gorm:"column:status;not null" json:"status"`        // 0=禁用 1=开启
+	Sort          int64          `gorm:"column:sort;not null" json:"sort"`            // 排序值
+	CreatedAt     time.Time      `gorm:"column:created_at;not null" json:"createdAt"` // 创建时间
+	UpdatedAt     time.Time      `gorm:"column:updated_at" json:"updatedAt"`          // 更新时间
+	DeletedAt     gorm.DeletedAt `gorm:"column:deleted_at" json:"deletedAt"`          // 删除时间
 }
 
 // TableName SysRole's table name

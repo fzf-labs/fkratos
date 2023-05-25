@@ -12,11 +12,11 @@ import (
 	"github.com/hibiken/asynq"
 )
 
-func NewAsynqServer(c *conf.Bootstrap, logger log.Logger, logService *service.OperationLogService) *asynq2.Server {
+func NewAsynqServer(c *conf.Bootstrap, logger log.Logger, logService *service.LogService) *asynq2.Server {
 	l := log.NewHelper(log.With(logger, "module", "devices-stats/server/asynq"))
 	srv := bootstrap.NewAysnqServer(c)
-	err := srv.HandleFunc(mq.SysOperationLogStore, func(ctx context.Context, task *asynq.Task) error {
-		return logService.SysOperationLogStoreConsumer(task.Payload())
+	err := srv.HandleFunc(mq.SysLogStore, func(ctx context.Context, task *asynq.Task) error {
+		return logService.SysLogStoreConsumer(task.Payload())
 	})
 	if err != nil {
 		l.Errorf("asynq HandleFunc err:%s", err)

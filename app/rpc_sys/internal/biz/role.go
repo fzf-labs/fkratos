@@ -37,8 +37,8 @@ func (r *RoleUseCase) SysRoleList(ctx context.Context, req *v1.SysRoleListReq) (
 			Remark:    role.Remark,
 			Status:    int32(role.Status),
 			Sort:      int32(role.Sort),
-			CreatedAt: timeutil.ToDateTimeStringByTime(role.CreatedAt.Time),
-			UpdatedAt: timeutil.ToDateTimeStringByTime(role.UpdatedAt.Time),
+			CreatedAt: role.CreatedAt.Format(timeutil.TimeLayout),
+			UpdatedAt: role.UpdatedAt.Format(timeutil.TimeLayout),
 			Children:  nil,
 		})
 	}
@@ -114,8 +114,8 @@ func (r *RoleUseCase) SysRoleInfo(ctx context.Context, req *v1.SysRoleInfoReq) (
 		Status:        int32(sysRole.Status),
 		Sort:          int32(sysRole.Sort),
 		PermissionIds: split,
-		CreatedAt:     timeutil.ToDateTimeStringByTime(sysRole.CreatedAt.Time),
-		UpdatedAt:     timeutil.ToDateTimeStringByTime(sysRole.UpdatedAt.Time),
+		CreatedAt:     timeutil.ToDateTimeStringByTime(sysRole.CreatedAt),
+		UpdatedAt:     timeutil.ToDateTimeStringByTime(sysRole.UpdatedAt),
 		Children:      nil,
 	}}, nil
 }
