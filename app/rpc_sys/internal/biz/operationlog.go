@@ -10,26 +10,26 @@ import (
 	"github.com/jinzhu/copier"
 )
 
-func NewLogUseCase(logger log.Logger, sysLogRepo SysLogRepo, sysAdminRepo SysAdminRepo, sysApiRepo SysApiRepo) *LogUseCase {
+func NewOperationLogUseCase(logger log.Logger, sysOperationLogRepo SysOperationLogRepo, sysAdminRepo SysAdminRepo, sysApiRepo SysApiRepo) *OperationLogUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/log"))
-	return &LogUseCase{
-		log:          l,
-		sysLogRepo:   sysLogRepo,
-		sysAdminRepo: sysAdminRepo,
-		sysApiRepo:   sysApiRepo,
+	return &OperationLogUseCase{
+		log:                 l,
+		sysOperationLogRepo: sysOperationLogRepo,
+		sysAdminRepo:        sysAdminRepo,
+		sysApiRepo:          sysApiRepo,
 	}
 }
 
-type LogUseCase struct {
-	log          *log.Helper
-	sysLogRepo   SysLogRepo
-	sysAdminRepo SysAdminRepo
-	sysApiRepo   SysApiRepo
+type OperationLogUseCase struct {
+	log                 *log.Helper
+	sysOperationLogRepo SysOperationLogRepo
+	sysAdminRepo        SysAdminRepo
+	sysApiRepo          SysApiRepo
 }
 
-func (l *LogUseCase) SysLogList(ctx context.Context, req *common.SearchListReq) (*v1.SysLogListResp, error) {
-	resp := new(v1.SysLogListResp)
-	sysLogs, paginator, err := l.sysLogRepo.SysLogListBySearch(ctx, req)
+func (l *OperationLogUseCase) SysOperationLogList(ctx context.Context, req *common.SearchListReq) (*v1.SysOperationLogListResp, error) {
+	resp := new(v1.SysOperationLogListResp)
+	sysLogs, paginator, err := l.sysOperationLogRepo.SysOperationLogListBySearch(ctx, req)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (l *LogUseCase) SysLogList(ctx context.Context, req *common.SearchListReq) 
 			return nil, err
 		}
 		for _, v := range sysLogs {
-			resp.List = append(resp.List, &v1.SysLogInfo{
+			resp.List = append(resp.List, &v1.SysOperationLogInfo{
 				Id:        v.ID,
 				AdminID:   v.AdminID,
 				Username:  adminIdToNameByIds[v.AdminID],
@@ -59,7 +59,7 @@ func (l *LogUseCase) SysLogList(ctx context.Context, req *common.SearchListReq) 
 				Useragent: v.Useragent,
 				Req:       v.Req.String(),
 				Resp:      v.Resp.String(),
-				CreatedAt: timeutil.ToDateTimeStringByTime(v.CreatedAt),
+				CreatedAt: timeutil.ToDateTimeStringByTime(v.CreatedAt.Time),
 			})
 		}
 	}
@@ -70,9 +70,9 @@ func (l *LogUseCase) SysLogList(ctx context.Context, req *common.SearchListReq) 
 	return resp, nil
 }
 
-func (l *LogUseCase) SysLogInfo(ctx context.Context, req *v1.SysLogInfoReq) (*v1.SysLogInfoResp, error) {
-	resp := new(v1.SysLogInfoResp)
-	sysLog, err := l.sysLogRepo.SysLogInfoById(ctx, req.GetId())
+func (l *OperationLogUseCase) SysOperationLogInfo(ctx context.Context, req *v1.SysOperationLogInfoReq) (*v1.SysOperationLogInfoResp, error) {
+	resp := new(v1.SysOperationLogInfoResp)
+	sysLog, err := l.sysOperationLogRepo.SysOperationLogInfoById(ctx, req.GetId())
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (l *LogUseCase) SysLogInfo(ctx context.Context, req *v1.SysLogInfoReq) (*v1
 	if err != nil {
 		return nil, err
 	}
-	resp.Info = &v1.SysLogInfo{
+	resp.Info = &v1.SysOperationLogInfo{
 		Id:        sysLog.ID,
 		AdminID:   adminIdToNameByIds[sysLog.AdminID],
 		Username:  sysLog.AdminID,
@@ -97,22 +97,22 @@ func (l *LogUseCase) SysLogInfo(ctx context.Context, req *v1.SysLogInfoReq) (*v1
 		Useragent: sysLog.Useragent,
 		Req:       sysLog.Req.String(),
 		Resp:      sysLog.Resp.String(),
-		CreatedAt: timeutil.ToDateTimeStringByTime(sysLog.CreatedAt),
+		CreatedAt: timeutil.ToDateTimeStringByTime(sysLog.CreatedAt.Time),
 	}
 	return resp, nil
 }
 
-func (l *LogUseCase) SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*v1.SysLogStoreResp, error) {
-	resp := new(v1.SysLogStoreResp)
-	_, err := l.sysLogRepo.SysLogStore(ctx, req)
+func (l *OperationLogUseCase) SysOperationLogStore(ctx context.Context, req *v1.SysOperationLogStoreReq) (*v1.SysOperationLogStoreResp, error) {
+	resp := new(v1.SysOperationLogStoreResp)
+	_, err := l.sysOperationLogRepo.SysOperationLogStore(ctx, req)
 	if err != nil {
 		return nil, err
 	}
 	return resp, nil
 }
 
-func (l *LogUseCase) SysLogStoreProducer(ctx context.Context, req *v1.SysLogStoreReq) error {
-	err := l.sysLogRepo.SysLogStoreMQProducer(ctx, req)
+func (l *OperationLogUseCase) SysOperationLogStoreProducer(ctx context.Context, req *v1.SysOperationLogStoreReq) error {
+	err := l.sysOperationLogRepo.SysOperationLogStoreMQProducer(ctx, req)
 	if err != nil {
 		return err
 	}

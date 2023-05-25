@@ -44,8 +44,8 @@ func (p *PermissionUseCase) SysPermissionList(ctx context.Context, req *v1.SysPe
 			Remark:    v.Remark,
 			Sort:      int32(v.Sort),
 			Status:    int32(v.Status),
-			CreatedAt: timeutil.ToDateTimeStringByTime(v.CreatedAt),
-			UpdatedAt: timeutil.ToDateTimeStringByTime(v.UpdatedAt),
+			CreatedAt: timeutil.ToDateTimeStringByTime(v.CreatedAt.Time),
+			UpdatedAt: timeutil.ToDateTimeStringByTime(v.UpdatedAt.Time),
 			Children:  nil,
 		})
 	}

@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"database/sql"
 	"fkratos/api/common"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
@@ -45,8 +46,8 @@ func (s *SysJobRepo) SysJobInfoById(ctx context.Context, id string) (*v1.SysJobI
 		Remark:    sysJob.Remark,
 		Status:    int32(sysJob.Status),
 		Sort:      int32(sysJob.Sort),
-		CreatedAt: timeutil.ToDateTimeStringByTime(sysJob.CreatedAt),
-		UpdatedAt: timeutil.ToDateTimeStringByTime(sysJob.UpdatedAt),
+		CreatedAt: timeutil.ToDateTimeStringByTime(sysJob.CreatedAt.Time),
+		UpdatedAt: timeutil.ToDateTimeStringByTime(sysJob.UpdatedAt.Time),
 	}, nil
 }
 
@@ -101,11 +102,23 @@ func (s *SysJobRepo) SysJobListBySearch(ctx context.Context, req *common.SearchL
 			}
 			if search.Field == "createdAt" {
 				ss := strings.Split(search.Val, ",")
-				query = query.Where(sysJobDao.CreatedAt.Gte(timeutil.Carbon().Parse(ss[0]).Carbon2Time()), sysJobDao.CreatedAt.Lte(timeutil.Carbon().Parse(ss[1]).Carbon2Time()))
+				query = query.Where(sysJobDao.CreatedAt.Gte(sql.NullTime{
+					Time:  timeutil.Carbon().Parse(ss[0]).Carbon2Time(),
+					Valid: true,
+				}), sysJobDao.CreatedAt.Lte(sql.NullTime{
+					Time:  timeutil.Carbon().Parse(ss[1]).Carbon2Time(),
+					Valid: true,
+				}))
 			}
 			if search.Field == "updatedAt" {
 				ss := strings.Split(search.Val, ",")
-				query = query.Where(sysJobDao.UpdatedAt.Gte(timeutil.Carbon().Parse(ss[0]).Carbon2Time()), sysJobDao.UpdatedAt.Lte(timeutil.Carbon().Parse(ss[1]).Carbon2Time()))
+				query = query.Where(sysJobDao.UpdatedAt.Gte(sql.NullTime{
+					Time:  timeutil.Carbon().Parse(ss[0]).Carbon2Time(),
+					Valid: true,
+				}), sysJobDao.UpdatedAt.Lte(sql.NullTime{
+					Time:  timeutil.Carbon().Parse(ss[1]).Carbon2Time(),
+					Valid: true,
+				}))
 			}
 		}
 	}

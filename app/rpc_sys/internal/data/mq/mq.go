@@ -1,5 +1,6 @@
 package mq
 
 var (
-	SysLogStore = "sys_log_store"
+	SysOperationLogStore = "sys_operation_log_store"
+	SysLoginLogStore     = "sys_login_log_store"
 )

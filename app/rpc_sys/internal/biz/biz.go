@@ -18,7 +18,8 @@ var ProviderSet = wire.NewSet(
 	NewAuthUseCase,
 	NewJobUseCase,
 	NewDeptUseCase,
-	NewLogUseCase,
+	NewOperationLogUseCase,
+	NewLoginLogUseCase,
 	NewRoleUseCase,
 	NewPermissionUseCase,
 )
@@ -71,11 +72,18 @@ type SysDeptRepo interface {
 	SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq) (*rpc_sys_model.SysDept, error)
 }
 
-type SysLogRepo interface {
-	SysLogListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysLog, *page.Page, error)
-	SysLogInfoById(ctx context.Context, id string) (*rpc_sys_model.SysLog, error)
-	SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*rpc_sys_model.SysLog, error)
-	SysLogStoreMQProducer(ctx context.Context, req *v1.SysLogStoreReq) error
+type SysOperationLogRepo interface {
+	SysOperationLogListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysOperationLog, *page.Page, error)
+	SysOperationLogInfoById(ctx context.Context, id string) (*rpc_sys_model.SysOperationLog, error)
+	SysOperationLogStore(ctx context.Context, req *v1.SysOperationLogStoreReq) (*rpc_sys_model.SysOperationLog, error)
+	SysOperationLogStoreMQProducer(ctx context.Context, req *v1.SysOperationLogStoreReq) error
+}
+
+type SysLoginLogRepo interface {
+	SysLoginLogListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysLoginLog, *page.Page, error)
+	SysLoginLogInfoById(ctx context.Context, id string) (*rpc_sys_model.SysLoginLog, error)
+	SysLoginLogStore(ctx context.Context, req *v1.SysLoginLogStoreReq) (*rpc_sys_model.SysLoginLog, error)
+	SysLoginLogStoreMQProducer(ctx context.Context, req *v1.SysLoginLogStoreReq) error
 }
 
 type SysApiRepo interface {

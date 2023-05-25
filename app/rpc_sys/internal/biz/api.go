@@ -58,8 +58,8 @@ func (a *ApiUseCase) SysApiList(ctx context.Context, req *v1.SysApiListReq) (*v1
 			Method:       v.Method,
 			Path:         v.Path,
 			Desc:         v.Desc,
-			CreatedAt:    timeutil.ToDateTimeStringByTime(v.CreatedAt),
-			UpdatedAt:    timeutil.ToDateTimeStringByTime(v.UpdatedAt),
+			CreatedAt:    timeutil.ToDateTimeStringByTime(v.CreatedAt.Time),
+			UpdatedAt:    timeutil.ToDateTimeStringByTime(v.UpdatedAt.Time),
 		})
 	}
 	return resp, nil

@@ -4,13 +4,7 @@ import (
 	"context"
 	"fkratos/api/rpc_user/v1"
 	"fkratos/app/rpc_user/internal/biz"
-	"fkratos/app/rpc_user/internal/data/cache"
-	"fkratos/app/rpc_user/internal/data/gorm/userdao"
-	"fkratos/app/rpc_user/internal/data/gorm/usermodel"
-	"fkratos/internal/errorx"
-	"fmt"
 
-	"github.com/fzf-labs/fpkg/util/strutil"
 	"github.com/go-kratos/kratos/v2/log"
 )
 
@@ -31,23 +25,7 @@ type UserRepo struct {
 
 func (u *UserRepo) CreateUser(ctx context.Context, req *v1.CreateUserReq) (*v1.CreateUserReply, error) {
 	reply := new(v1.CreateUserReply)
-	return reply, errorx.DataSqlErr
-	userDao := userdao.Use(u.data.db).User
-	err := userDao.WithContext(ctx).Omit(userDao.ID).Create(&usermodel.User{
-		Name: "fuzhifei",
-	})
-	if err != nil {
-		return nil, err
-	}
-	cacheKey := cache.UUID.BuildCacheKey("fuzhifei")
-	rocksCache, err := cacheKey.RocksCache(u.data.rocksCache, ctx, func() (string, error) {
-		return strutil.Random(6), nil
-	})
-	fmt.Println(rocksCache)
-	if err != nil {
-		return nil, err
-	}
-	return reply, err
+	return reply, nil
 }
 func (u *UserRepo) UpdateUser(ctx context.Context, req *v1.UpdateUserReq) (*v1.UpdateUserReply, error) {
 	//TODO implement me

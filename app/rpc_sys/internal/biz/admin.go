@@ -93,8 +93,8 @@ func (a *AdminUseCase) SysManageList(ctx context.Context, req *common.SearchList
 				RoleNames: make([]string, 0),
 				Motto:     v.Motto,
 				Status:    int32(v.Status),
-				CreatedAt: timeutil.ToDateTimeStringByTime(v.CreatedAt),
-				UpdatedAt: timeutil.ToDateTimeStringByTime(v.UpdatedAt),
+				CreatedAt: timeutil.ToDateTimeStringByTime(v.CreatedAt.Time),
+				UpdatedAt: timeutil.ToDateTimeStringByTime(v.UpdatedAt.Time),
 			})
 			roleIds = append(roleIds, tmpRoleIds...)
 			jobIds = append(jobIds, v.JobID)
@@ -176,8 +176,8 @@ func (a *AdminUseCase) SysManageInfo(ctx context.Context, req *v1.SysManageInfoR
 			RoleNames: roleNames,
 			Motto:     sysAdmin.Motto,
 			Status:    int32(sysAdmin.Status),
-			CreatedAt: timeutil.ToDateTimeStringByTime(sysAdmin.CreatedAt),
-			UpdatedAt: timeutil.ToDateTimeStringByTime(sysAdmin.UpdatedAt),
+			CreatedAt: timeutil.ToDateTimeStringByTime(sysAdmin.CreatedAt.Time),
+			UpdatedAt: timeutil.ToDateTimeStringByTime(sysAdmin.UpdatedAt.Time),
 		}
 	}
 	return resp, nil

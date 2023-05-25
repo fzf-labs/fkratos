@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package api.rpc_sys.v1;
+
+import "common/common.proto";
+
+option go_package = "fkratos/api/rpc_sys/v1;v1";
+
+// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
+// 后缀定义:请求req,响应reply
+
+// 登录日志
+service LoginLog {
+  //登录日志列表
+  rpc SysLoginLogList(common.SearchListReq) returns (SysLoginLogListResp);
+  //单条登录日志
+  rpc SysLoginLogInfo(SysLoginLogInfoReq) returns (SysLoginLogInfoResp);
+  //登录日志记录
+  rpc SysLoginLogStore(SysLoginLogStoreReq) returns (SysLoginLogStoreResp);
+}
+
+message SysLoginLogInfo {
+  string id = 1; // 编号
+  string tenantId = 2; // 租户ID
+  string adminID = 3; // 管理员ID
+  string username = 4; // 账号
+  string ip = 5; // ip
+  string useragent = 6; // 浏览器标识
+  string loginTime = 7; // 登录时间
+}
+
+//请求-登录日志列表
+message SysLoginLogListReq {
+  int32 page = 1; //页码
+  int32 pageSize = 2; //页数
+}
+
+//响应-登录日志列表
+message SysLoginLogListResp {
+  repeated SysLoginLogInfo list = 1; //管理员列表
+  common.Paginator paginator = 2; //分页
+}
+
+//请求-单条登录日志
+message SysLoginLogInfoReq {
+  string id = 1;
+}
+
+//响应-单条登录日志
+message SysLoginLogInfoResp {
+  SysLoginLogInfo info = 1;
+}
+
+
+//请求-登录日志存储
+message SysLoginLogStoreReq {
+  string tenantId = 1; // 租户ID
+  string adminID = 2; // 管理员ID
+  string ip = 3; // ip
+  string useragent = 4; // 浏览器标识
+  string loginTime = 5; // 登录时间
+}
+
+//响应-登录日志存储
+message SysLoginLogStoreResp {
+  string id = 1;
+}

@@ -28,6 +28,7 @@ func newSysDict(db *gorm.DB, opts ...gen.DOOption) sysDict {
 	tableName := _sysDict.sysDictDo.TableName()
 	_sysDict.ALL = field.NewAsterisk(tableName)
 	_sysDict.ID = field.NewString(tableName, "id")
+	_sysDict.TenantID = field.NewString(tableName, "tenant_id")
 	_sysDict.Pid = field.NewString(tableName, "pid")
 	_sysDict.Name = field.NewString(tableName, "name")
 	_sysDict.Type = field.NewInt16(tableName, "type")
@@ -36,8 +37,8 @@ func newSysDict(db *gorm.DB, opts ...gen.DOOption) sysDict {
 	_sysDict.Status = field.NewInt16(tableName, "status")
 	_sysDict.Sort = field.NewFloat64(tableName, "sort")
 	_sysDict.Remark = field.NewString(tableName, "remark")
-	_sysDict.CreatedAt = field.NewTime(tableName, "created_at")
-	_sysDict.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysDict.CreatedAt = field.NewField(tableName, "created_at")
+	_sysDict.UpdatedAt = field.NewField(tableName, "updated_at")
 	_sysDict.DeletedAt = field.NewField(tableName, "deleted_at")
 
 	_sysDict.fillFieldMap()
@@ -50,6 +51,7 @@ type sysDict struct {
 
 	ALL       field.Asterisk
 	ID        field.String  // 编号
+	TenantID  field.String  // 租户ID
 	Pid       field.String  // 0=配置集 !0=父级id
 	Name      field.String  // 名称
 	Type      field.Int16   // 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图 11单文件 12多文件
@@ -58,8 +60,8 @@ type sysDict struct {
 	Status    field.Int16   // 0=禁用 1=开启
 	Sort      field.Float64 // 排序值
 	Remark    field.String  // 备注
-	CreatedAt field.Time    // 创建时间
-	UpdatedAt field.Time    // 更新时间
+	CreatedAt field.Field   // 创建时间
+	UpdatedAt field.Field   // 更新时间
 	DeletedAt field.Field   // 删除时间
 
 	fieldMap map[string]field.Expr
@@ -78,6 +80,7 @@ func (s sysDict) As(alias string) *sysDict {
 func (s *sysDict) updateTableName(table string) *sysDict {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
+	s.TenantID = field.NewString(table, "tenant_id")
 	s.Pid = field.NewString(table, "pid")
 	s.Name = field.NewString(table, "name")
 	s.Type = field.NewInt16(table, "type")
@@ -86,8 +89,8 @@ func (s *sysDict) updateTableName(table string) *sysDict {
 	s.Status = field.NewInt16(table, "status")
 	s.Sort = field.NewFloat64(table, "sort")
 	s.Remark = field.NewString(table, "remark")
-	s.CreatedAt = field.NewTime(table, "created_at")
-	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.CreatedAt = field.NewField(table, "created_at")
+	s.UpdatedAt = field.NewField(table, "updated_at")
 	s.DeletedAt = field.NewField(table, "deleted_at")
 
 	s.fillFieldMap()
@@ -111,8 +114,9 @@ func (s *sysDict) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysDict) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 12)
+	s.fieldMap = make(map[string]field.Expr, 13)
 	s.fieldMap["id"] = s.ID
+	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["pid"] = s.Pid
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["type"] = s.Type

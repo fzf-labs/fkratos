@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"database/sql"
 	"fkratos/api/common"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
@@ -160,7 +161,13 @@ func (s *SysAdminRepo) SysManageListBySearch(ctx context.Context, req *common.Se
 			}
 			if search.Field == "createdAt" {
 				ss := strings.Split(search.Val, ",")
-				query = query.Where(sysAdminDao.CreatedAt.Gte(timeutil.Carbon().Parse(ss[0]).Carbon2Time()), sysAdminDao.CreatedAt.Lte(timeutil.Carbon().Parse(ss[1]).Carbon2Time()))
+				query = query.Where(sysAdminDao.CreatedAt.Gte(sql.NullTime{
+					Time:  timeutil.Carbon().Parse(ss[0]).Carbon2Time(),
+					Valid: true,
+				}), sysAdminDao.CreatedAt.Lte(sql.NullTime{
+					Time:  timeutil.Carbon().Parse(ss[1]).Carbon2Time(),
+					Valid: true,
+				}))
 			}
 		}
 	}

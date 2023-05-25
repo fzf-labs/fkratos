@@ -28,6 +28,7 @@ func newSysAdmin(db *gorm.DB, opts ...gen.DOOption) sysAdmin {
 	tableName := _sysAdmin.sysAdminDo.TableName()
 	_sysAdmin.ALL = field.NewAsterisk(tableName)
 	_sysAdmin.ID = field.NewString(tableName, "id")
+	_sysAdmin.TenantID = field.NewString(tableName, "tenant_id")
 	_sysAdmin.Username = field.NewString(tableName, "username")
 	_sysAdmin.Password = field.NewString(tableName, "password")
 	_sysAdmin.Nickname = field.NewString(tableName, "nickname")
@@ -41,8 +42,8 @@ func newSysAdmin(db *gorm.DB, opts ...gen.DOOption) sysAdmin {
 	_sysAdmin.Salt = field.NewString(tableName, "salt")
 	_sysAdmin.Status = field.NewInt16(tableName, "status")
 	_sysAdmin.Motto = field.NewString(tableName, "motto")
-	_sysAdmin.CreatedAt = field.NewTime(tableName, "created_at")
-	_sysAdmin.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysAdmin.CreatedAt = field.NewField(tableName, "created_at")
+	_sysAdmin.UpdatedAt = field.NewField(tableName, "updated_at")
 	_sysAdmin.DeletedAt = field.NewField(tableName, "deleted_at")
 
 	_sysAdmin.fillFieldMap()
@@ -55,6 +56,7 @@ type sysAdmin struct {
 
 	ALL       field.Asterisk
 	ID        field.String // 编号
+	TenantID  field.String // 租户ID
 	Username  field.String // 用户名
 	Password  field.String // 密码
 	Nickname  field.String // 昵称
@@ -68,8 +70,8 @@ type sysAdmin struct {
 	Salt      field.String // 盐值
 	Status    field.Int16  // 0=禁用 1=开启
 	Motto     field.String // 个性签名
-	CreatedAt field.Time   // 创建时间
-	UpdatedAt field.Time   // 更新时间
+	CreatedAt field.Field  // 创建时间
+	UpdatedAt field.Field  // 更新时间
 	DeletedAt field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
@@ -88,6 +90,7 @@ func (s sysAdmin) As(alias string) *sysAdmin {
 func (s *sysAdmin) updateTableName(table string) *sysAdmin {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
+	s.TenantID = field.NewString(table, "tenant_id")
 	s.Username = field.NewString(table, "username")
 	s.Password = field.NewString(table, "password")
 	s.Nickname = field.NewString(table, "nickname")
@@ -101,8 +104,8 @@ func (s *sysAdmin) updateTableName(table string) *sysAdmin {
 	s.Salt = field.NewString(table, "salt")
 	s.Status = field.NewInt16(table, "status")
 	s.Motto = field.NewString(table, "motto")
-	s.CreatedAt = field.NewTime(table, "created_at")
-	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.CreatedAt = field.NewField(table, "created_at")
+	s.UpdatedAt = field.NewField(table, "updated_at")
 	s.DeletedAt = field.NewField(table, "deleted_at")
 
 	s.fillFieldMap()
@@ -126,8 +129,9 @@ func (s *sysAdmin) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysAdmin) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 17)
+	s.fieldMap = make(map[string]field.Expr, 18)
 	s.fieldMap["id"] = s.ID
+	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["username"] = s.Username
 	s.fieldMap["password"] = s.Password
 	s.fieldMap["nickname"] = s.Nickname

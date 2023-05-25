@@ -28,6 +28,7 @@ func newSysDept(db *gorm.DB, opts ...gen.DOOption) sysDept {
 	tableName := _sysDept.sysDeptDo.TableName()
 	_sysDept.ALL = field.NewAsterisk(tableName)
 	_sysDept.ID = field.NewString(tableName, "id")
+	_sysDept.TenantID = field.NewString(tableName, "tenant_id")
 	_sysDept.Pid = field.NewString(tableName, "pid")
 	_sysDept.Name = field.NewString(tableName, "name")
 	_sysDept.FullName = field.NewString(tableName, "full_name")
@@ -37,8 +38,8 @@ func newSysDept(db *gorm.DB, opts ...gen.DOOption) sysDept {
 	_sysDept.Type = field.NewInt16(tableName, "type")
 	_sysDept.Status = field.NewInt16(tableName, "status")
 	_sysDept.Sort = field.NewInt64(tableName, "sort")
-	_sysDept.CreatedAt = field.NewTime(tableName, "created_at")
-	_sysDept.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysDept.CreatedAt = field.NewField(tableName, "created_at")
+	_sysDept.UpdatedAt = field.NewField(tableName, "updated_at")
 	_sysDept.DeletedAt = field.NewField(tableName, "deleted_at")
 
 	_sysDept.fillFieldMap()
@@ -51,6 +52,7 @@ type sysDept struct {
 
 	ALL         field.Asterisk
 	ID          field.String // 编号
+	TenantID    field.String // 租户ID
 	Pid         field.String // 父级id
 	Name        field.String // 部门简称
 	FullName    field.String // 部门全称
@@ -60,8 +62,8 @@ type sysDept struct {
 	Type        field.Int16  // 1=公司 2=子公司 3=部门
 	Status      field.Int16  // 0=禁用 1=开启
 	Sort        field.Int64  // 排序值
-	CreatedAt   field.Time   // 创建时间
-	UpdatedAt   field.Time   // 更新时间
+	CreatedAt   field.Field  // 创建时间
+	UpdatedAt   field.Field  // 更新时间
 	DeletedAt   field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
@@ -80,6 +82,7 @@ func (s sysDept) As(alias string) *sysDept {
 func (s *sysDept) updateTableName(table string) *sysDept {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
+	s.TenantID = field.NewString(table, "tenant_id")
 	s.Pid = field.NewString(table, "pid")
 	s.Name = field.NewString(table, "name")
 	s.FullName = field.NewString(table, "full_name")
@@ -89,8 +92,8 @@ func (s *sysDept) updateTableName(table string) *sysDept {
 	s.Type = field.NewInt16(table, "type")
 	s.Status = field.NewInt16(table, "status")
 	s.Sort = field.NewInt64(table, "sort")
-	s.CreatedAt = field.NewTime(table, "created_at")
-	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.CreatedAt = field.NewField(table, "created_at")
+	s.UpdatedAt = field.NewField(table, "updated_at")
 	s.DeletedAt = field.NewField(table, "deleted_at")
 
 	s.fillFieldMap()
@@ -114,8 +117,9 @@ func (s *sysDept) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysDept) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 13)
+	s.fieldMap = make(map[string]field.Expr, 14)
 	s.fieldMap["id"] = s.ID
+	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["pid"] = s.Pid
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["full_name"] = s.FullName

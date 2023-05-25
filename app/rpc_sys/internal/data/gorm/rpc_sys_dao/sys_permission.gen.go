@@ -28,6 +28,7 @@ func newSysPermission(db *gorm.DB, opts ...gen.DOOption) sysPermission {
 	tableName := _sysPermission.sysPermissionDo.TableName()
 	_sysPermission.ALL = field.NewAsterisk(tableName)
 	_sysPermission.ID = field.NewString(tableName, "id")
+	_sysPermission.TenantID = field.NewString(tableName, "tenant_id")
 	_sysPermission.Pid = field.NewString(tableName, "pid")
 	_sysPermission.Type = field.NewString(tableName, "type")
 	_sysPermission.Title = field.NewString(tableName, "title")
@@ -41,8 +42,8 @@ func newSysPermission(db *gorm.DB, opts ...gen.DOOption) sysPermission {
 	_sysPermission.Remark = field.NewString(tableName, "remark")
 	_sysPermission.Sort = field.NewInt64(tableName, "sort")
 	_sysPermission.Status = field.NewInt16(tableName, "status")
-	_sysPermission.CreatedAt = field.NewTime(tableName, "created_at")
-	_sysPermission.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysPermission.CreatedAt = field.NewField(tableName, "created_at")
+	_sysPermission.UpdatedAt = field.NewField(tableName, "updated_at")
 	_sysPermission.DeletedAt = field.NewField(tableName, "deleted_at")
 
 	_sysPermission.fillFieldMap()
@@ -55,6 +56,7 @@ type sysPermission struct {
 
 	ALL       field.Asterisk
 	ID        field.String
+	TenantID  field.String // 租户ID
 	Pid       field.String // 上级菜单
 	Type      field.String // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
 	Title     field.String // 标题
@@ -68,8 +70,8 @@ type sysPermission struct {
 	Remark    field.String // 备注
 	Sort      field.Int64  // 权重(排序)
 	Status    field.Int16  // 0=禁用 1=开启
-	CreatedAt field.Time   // 创建时间
-	UpdatedAt field.Time   // 更新时间
+	CreatedAt field.Field  // 创建时间
+	UpdatedAt field.Field  // 更新时间
 	DeletedAt field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
@@ -88,6 +90,7 @@ func (s sysPermission) As(alias string) *sysPermission {
 func (s *sysPermission) updateTableName(table string) *sysPermission {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
+	s.TenantID = field.NewString(table, "tenant_id")
 	s.Pid = field.NewString(table, "pid")
 	s.Type = field.NewString(table, "type")
 	s.Title = field.NewString(table, "title")
@@ -101,8 +104,8 @@ func (s *sysPermission) updateTableName(table string) *sysPermission {
 	s.Remark = field.NewString(table, "remark")
 	s.Sort = field.NewInt64(table, "sort")
 	s.Status = field.NewInt16(table, "status")
-	s.CreatedAt = field.NewTime(table, "created_at")
-	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.CreatedAt = field.NewField(table, "created_at")
+	s.UpdatedAt = field.NewField(table, "updated_at")
 	s.DeletedAt = field.NewField(table, "deleted_at")
 
 	s.fillFieldMap()
@@ -128,8 +131,9 @@ func (s *sysPermission) GetFieldByName(fieldName string) (field.OrderExpr, bool)
 }
 
 func (s *sysPermission) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 17)
+	s.fieldMap = make(map[string]field.Expr, 18)
 	s.fieldMap["id"] = s.ID
+	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["pid"] = s.Pid
 	s.fieldMap["type"] = s.Type
 	s.fieldMap["title"] = s.Title

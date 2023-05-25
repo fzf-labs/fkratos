@@ -28,13 +28,14 @@ func newSysJob(db *gorm.DB, opts ...gen.DOOption) sysJob {
 	tableName := _sysJob.sysJobDo.TableName()
 	_sysJob.ALL = field.NewAsterisk(tableName)
 	_sysJob.ID = field.NewString(tableName, "id")
+	_sysJob.TenantID = field.NewString(tableName, "tenant_id")
 	_sysJob.Name = field.NewString(tableName, "name")
 	_sysJob.Code = field.NewString(tableName, "code")
 	_sysJob.Remark = field.NewString(tableName, "remark")
 	_sysJob.Sort = field.NewInt64(tableName, "sort")
 	_sysJob.Status = field.NewInt16(tableName, "status")
-	_sysJob.CreatedAt = field.NewTime(tableName, "created_at")
-	_sysJob.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysJob.CreatedAt = field.NewField(tableName, "created_at")
+	_sysJob.UpdatedAt = field.NewField(tableName, "updated_at")
 	_sysJob.DeletedAt = field.NewField(tableName, "deleted_at")
 
 	_sysJob.fillFieldMap()
@@ -47,13 +48,14 @@ type sysJob struct {
 
 	ALL       field.Asterisk
 	ID        field.String // 编号
+	TenantID  field.String // 租户ID
 	Name      field.String // 岗位名称
 	Code      field.String // 岗位编码
 	Remark    field.String // 备注
 	Sort      field.Int64  // 排序值
 	Status    field.Int16  // 0=禁用 1=开启
-	CreatedAt field.Time   // 创建时间
-	UpdatedAt field.Time   // 更新时间
+	CreatedAt field.Field  // 创建时间
+	UpdatedAt field.Field  // 更新时间
 	DeletedAt field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
@@ -72,13 +74,14 @@ func (s sysJob) As(alias string) *sysJob {
 func (s *sysJob) updateTableName(table string) *sysJob {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
+	s.TenantID = field.NewString(table, "tenant_id")
 	s.Name = field.NewString(table, "name")
 	s.Code = field.NewString(table, "code")
 	s.Remark = field.NewString(table, "remark")
 	s.Sort = field.NewInt64(table, "sort")
 	s.Status = field.NewInt16(table, "status")
-	s.CreatedAt = field.NewTime(table, "created_at")
-	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.CreatedAt = field.NewField(table, "created_at")
+	s.UpdatedAt = field.NewField(table, "updated_at")
 	s.DeletedAt = field.NewField(table, "deleted_at")
 
 	s.fillFieldMap()
@@ -102,8 +105,9 @@ func (s *sysJob) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysJob) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 9)
+	s.fieldMap = make(map[string]field.Expr, 10)
 	s.fieldMap["id"] = s.ID
+	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["code"] = s.Code
 	s.fieldMap["remark"] = s.Remark

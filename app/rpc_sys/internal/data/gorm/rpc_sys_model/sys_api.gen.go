@@ -4,24 +4,21 @@
 
 package rpc_sys_model
 
-import (
-	"time"
-
-	"gorm.io/gorm"
-)
+import "database/sql"
 
 const TableNameSysAPI = "sys_api"
 
 // SysAPI mapped from table <sys_api>
 type SysAPI struct {
-	ID           string         `gorm:"column:id;primaryKey" json:"id"`                    // 编号
-	PermissionID string         `gorm:"column:permission_id;not null" json:"permissionId"` // 权限Id
-	Method       string         `gorm:"column:method;not null" json:"method"`              // 方法
-	Path         string         `gorm:"column:path;not null" json:"path"`                  // 路径
-	Desc         string         `gorm:"column:desc;not null" json:"desc"`                  // 描述
-	CreatedAt    time.Time      `gorm:"column:created_at" json:"createdAt"`                // 创建时间
-	UpdatedAt    time.Time      `gorm:"column:updated_at" json:"updatedAt"`                // 更新时间
-	DeletedAt    gorm.DeletedAt `gorm:"column:deleted_at" json:"deletedAt"`                // 删除时间
+	ID           string       `gorm:"column:id;primaryKey;comment:编号" json:"id"`
+	TenantID     string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`
+	PermissionID string       `gorm:"column:permission_id;not null;comment:权限Id" json:"permissionId"`
+	Method       string       `gorm:"column:method;not null;comment:方法" json:"method"`
+	Path         string       `gorm:"column:path;not null;comment:路径" json:"path"`
+	Desc         string       `gorm:"column:desc;not null;comment:描述" json:"desc"`
+	CreatedAt    sql.NullTime `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
+	UpdatedAt    sql.NullTime `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
+	DeletedAt    sql.NullTime `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`
 }
 
 // TableName SysAPI's table name

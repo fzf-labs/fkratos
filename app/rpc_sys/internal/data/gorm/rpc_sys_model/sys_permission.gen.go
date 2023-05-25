@@ -4,33 +4,30 @@
 
 package rpc_sys_model
 
-import (
-	"time"
-
-	"gorm.io/gorm"
-)
+import "database/sql"
 
 const TableNameSysPermission = "sys_permission"
 
 // SysPermission mapped from table <sys_permission>
 type SysPermission struct {
-	ID        string         `gorm:"column:id;primaryKey" json:"id"`
-	Pid       string         `gorm:"column:pid;not null" json:"pid"`              // 上级菜单
-	Type      string         `gorm:"column:type;not null" json:"type"`            // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
-	Title     string         `gorm:"column:title;not null" json:"title"`          // 标题
-	Name      string         `gorm:"column:name;not null" json:"name"`            // 规则名称
-	Path      string         `gorm:"column:path;not null" json:"path"`            // 路由路径
-	Icon      string         `gorm:"column:icon;not null" json:"icon"`            // 图标
-	MenuType  string         `gorm:"column:menu_type" json:"menuType"`            // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
-	URL       string         `gorm:"column:url;not null" json:"url"`              // Url
-	Component string         `gorm:"column:component;not null" json:"component"`  // 组件路径
-	Extend    string         `gorm:"column:extend;not null" json:"extend"`        // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
-	Remark    string         `gorm:"column:remark;not null" json:"remark"`        // 备注
-	Sort      int64          `gorm:"column:sort;not null" json:"sort"`            // 权重(排序)
-	Status    int16          `gorm:"column:status;not null" json:"status"`        // 0=禁用 1=开启
-	CreatedAt time.Time      `gorm:"column:created_at;not null" json:"createdAt"` // 创建时间
-	UpdatedAt time.Time      `gorm:"column:updated_at" json:"updatedAt"`          // 更新时间
-	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deletedAt"`          // 删除时间
+	ID        string       `gorm:"column:id;primaryKey" json:"id"`
+	TenantID  string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`
+	Pid       string       `gorm:"column:pid;not null;comment:上级菜单" json:"pid"`
+	Type      string       `gorm:"column:type;not null;comment:类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮" json:"type"`
+	Title     string       `gorm:"column:title;not null;comment:标题" json:"title"`
+	Name      string       `gorm:"column:name;not null;comment:规则名称" json:"name"`
+	Path      string       `gorm:"column:path;not null;comment:路由路径" json:"path"`
+	Icon      string       `gorm:"column:icon;not null;comment:图标" json:"icon"`
+	MenuType  string       `gorm:"column:menu_type;comment:菜单类型:tab=选项卡,link=链接,iframe=Iframe" json:"menuType"`
+	URL       string       `gorm:"column:url;not null;comment:Url" json:"url"`
+	Component string       `gorm:"column:component;not null;comment:组件路径" json:"component"`
+	Extend    string       `gorm:"column:extend;not null;comment:扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单" json:"extend"`
+	Remark    string       `gorm:"column:remark;not null;comment:备注" json:"remark"`
+	Sort      int64        `gorm:"column:sort;not null;comment:权重(排序)" json:"sort"`
+	Status    int16        `gorm:"column:status;not null;comment:0=禁用 1=开启" json:"status"`
+	CreatedAt sql.NullTime `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
+	UpdatedAt sql.NullTime `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
+	DeletedAt sql.NullTime `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`
 }
 
 // TableName SysPermission's table name

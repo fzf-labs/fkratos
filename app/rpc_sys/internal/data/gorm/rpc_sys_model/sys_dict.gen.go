@@ -4,28 +4,25 @@
 
 package rpc_sys_model
 
-import (
-	"time"
-
-	"gorm.io/gorm"
-)
+import "database/sql"
 
 const TableNameSysDict = "sys_dict"
 
 // SysDict mapped from table <sys_dict>
 type SysDict struct {
-	ID        string         `gorm:"column:id;primaryKey" json:"id"`              // 编号
-	Pid       string         `gorm:"column:pid;not null" json:"pid"`              // 0=配置集 !0=父级id
-	Name      string         `gorm:"column:name;not null" json:"name"`            // 名称
-	Type      int16          `gorm:"column:type;not null" json:"type"`            // 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图 11单文件 12多文件
-	UniqueKey string         `gorm:"column:unique_key;not null" json:"uniqueKey"` // 唯一值
-	Value     string         `gorm:"column:value;not null" json:"value"`          // 配置值
-	Status    int16          `gorm:"column:status;not null" json:"status"`        // 0=禁用 1=开启
-	Sort      float64        `gorm:"column:sort;not null" json:"sort"`            // 排序值
-	Remark    string         `gorm:"column:remark;not null" json:"remark"`        // 备注
-	CreatedAt time.Time      `gorm:"column:created_at;not null" json:"createdAt"` // 创建时间
-	UpdatedAt time.Time      `gorm:"column:updated_at" json:"updatedAt"`          // 更新时间
-	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deletedAt"`          // 删除时间
+	ID        string       `gorm:"column:id;primaryKey;comment:编号" json:"id"`
+	TenantID  string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`
+	Pid       string       `gorm:"column:pid;not null;comment:0=配置集 !0=父级id" json:"pid"`
+	Name      string       `gorm:"column:name;not null;comment:名称" json:"name"`
+	Type      int16        `gorm:"column:type;not null;comment:1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图 11单文件 12多文件" json:"type"`
+	UniqueKey string       `gorm:"column:unique_key;not null;comment:唯一值" json:"uniqueKey"`
+	Value     string       `gorm:"column:value;not null;comment:配置值" json:"value"`
+	Status    int16        `gorm:"column:status;not null;comment:0=禁用 1=开启" json:"status"`
+	Sort      float64      `gorm:"column:sort;not null;comment:排序值" json:"sort"`
+	Remark    string       `gorm:"column:remark;not null;comment:备注" json:"remark"`
+	CreatedAt sql.NullTime `gorm:"column:created_at;comment:创建时间" json:"createdAt"`
+	UpdatedAt sql.NullTime `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`
+	DeletedAt sql.NullTime `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`
 }
 
 // TableName SysDict's table name
