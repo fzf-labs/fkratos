@@ -34,6 +34,11 @@ var (
 	AccountNotBoundRole      = New(http.StatusUnprocessableEntity, "AccountNotBoundRole", "Account Exception")
 )
 
+// 验证码
+
+var (
+	VerificationCodeErr = New(http.StatusUnprocessableEntity, "verification code err", "verification code Exception")
+)
 var (
 	TokenNotRequest          = New(http.StatusUnprocessableEntity, "TokenNotRequest", "Token Exception")
 	TokenFormatErr           = New(http.StatusUnprocessableEntity, "TokenFormatErr", "Token Exception")
