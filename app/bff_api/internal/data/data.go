@@ -19,7 +19,6 @@ var ProviderSet = wire.NewSet(
 
 // Data .
 type Data struct {
-	// TODO wrapped database client
 }
 
 // NewData .
