@@ -202,8 +202,8 @@ func (s *SysAdminRepo) SysAdminInfoUpdate(ctx context.Context, req *v1.SysAdminI
 	if err != nil {
 		return nil, errorx.DataSqlErr.WithCause(err)
 	}
-	cacheKey := cache.SysAdminInfo.BuildCacheKey(req.GetAdminId())
-	err = cacheKey.RocksCacheDel(s.data.rocksCache, ctx)
+	cacheKey := cache.SysAdminInfo.NewSingleKey(s.data.redis)
+	err = cacheKey.SingleCacheDel(ctx, req.GetAdminId())
 	if err != nil {
 		return nil, errorx.DataRedisErr.WithCause(err)
 	}
@@ -212,8 +212,8 @@ func (s *SysAdminRepo) SysAdminInfoUpdate(ctx context.Context, req *v1.SysAdminI
 
 func (s *SysAdminRepo) SysAdminInfoCacheByAdminId(ctx context.Context, adminId string) (*v1.SysAdminInfo, error) {
 	resp := new(v1.SysAdminInfo)
-	cacheKey := cache.SysAdminInfo.BuildCacheKey(adminId)
-	res, err := cacheKey.RocksCache(s.data.rocksCache, ctx, func() (string, error) {
+	cacheKey := cache.SysAdminInfo.NewSingleKey(s.data.redis)
+	res, err := cacheKey.SingleCache(ctx, adminId, func() (string, error) {
 		sysAdmin, err := s.SysAdminInfoByAdminId(ctx, adminId)
 		if err != nil {
 			return "", err

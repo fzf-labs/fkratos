@@ -28,8 +28,7 @@ import (
 func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
 	db := bootstrap.NewGorm(confBootstrap, logger)
 	client := bootstrap.NewRedis(confBootstrap, logger)
-	rockscacheClient := bootstrap.NewRocksCache(client)
-	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, client, rockscacheClient)
+	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, client)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -40,7 +39,7 @@ func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registr
 	sysJobRepo := data.NewSysJobRepo(dataData, logger)
 	sysDeptRepo := data.NewSysDeptRepo(dataData, logger)
 	sysPermissionRepo := data.NewSysPermissionRepo(dataData, logger)
-	adminUseCase := biz.NewAdminUseCase(logger, rockscacheClient, sysAdminRepo, sysRoleRepo, sysJobRepo, sysDeptRepo, sysPermissionRepo)
+	adminUseCase := biz.NewAdminUseCase(logger, client, sysAdminRepo, sysRoleRepo, sysJobRepo, sysDeptRepo, sysPermissionRepo)
 	adminService := service.NewAdminService(logger, adminUseCase)
 	grpcServer := server.NewGRPCServer(confBootstrap, logger, authService, adminService)
 	app := newApp(logger, registrar, grpcServer)

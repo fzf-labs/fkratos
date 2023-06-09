@@ -49,8 +49,8 @@ vet:
 	@go vet ./...
 
 .PHONY: ci-lint
-# 代码检查 golangci-lint
-ci-lint:
+# 代码检查 lint
+lint:
 	@golangci-lint run ./...
 
 # git 记录清除

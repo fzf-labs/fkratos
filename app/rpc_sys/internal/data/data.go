@@ -5,7 +5,6 @@ import (
 	"fkratos/internal/bootstrap/conf"
 	"fkratos/pkg/asynq"
 
-	"github.com/dtm-labs/rockscache"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-redis/redis/v8"
 	"github.com/google/wire"
@@ -17,7 +16,6 @@ var ProviderSet = wire.NewSet(
 	NewData,
 	bootstrap.NewGorm,
 	bootstrap.NewRedis,
-	bootstrap.NewRocksCache,
 	bootstrap.NewAysnqClient,
 
 	NewSysAdminRepo,
@@ -34,18 +32,16 @@ type Data struct {
 	logger      *log.Helper
 	gorm        *gorm.DB
 	redis       *redis.Client
-	rocksCache  *rockscache.Client
 	aysnqClient *asynq.Client
 }
 
 // NewData .
-func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redis *redis.Client, rocksCache *rockscache.Client) (*Data, func(), error) {
+func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redis *redis.Client) (*Data, func(), error) {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data"))
 	d := &Data{
-		logger:     l,
-		gorm:       db,
-		redis:      redis,
-		rocksCache: rocksCache,
+		logger: l,
+		gorm:   db,
+		redis:  redis,
 	}
 	cleanup := func() {
 		log.Info("closing the data resources")

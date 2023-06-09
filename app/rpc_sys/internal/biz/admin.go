@@ -10,19 +10,19 @@ import (
 	"fkratos/internal/errorx"
 	"strings"
 
-	"github.com/dtm-labs/rockscache"
 	"github.com/fzf-labs/fpkg/third_api/avatar"
 	"github.com/fzf-labs/fpkg/util/jsonutil"
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/go-redis/redis/v8"
 	"github.com/jinzhu/copier"
 )
 
-func NewAdminUseCase(logger log.Logger, rocksCache *rockscache.Client, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo, sysPermissionRepo SysPermissionRepo) *AdminUseCase {
+func NewAdminUseCase(logger log.Logger, redis *redis.Client, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo, sysPermissionRepo SysPermissionRepo) *AdminUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/admin"))
 	return &AdminUseCase{
 		log:               l,
-		rocksCache:        rocksCache,
+		redis:             redis,
 		sysAdminRepo:      sysAdminRepo,
 		sysRoleRepo:       sysRoleRepo,
 		sysJobRepo:        sysJobRepo,
@@ -33,7 +33,7 @@ func NewAdminUseCase(logger log.Logger, rocksCache *rockscache.Client, sysAdminR
 
 type AdminUseCase struct {
 	log               *log.Helper
-	rocksCache        *rockscache.Client
+	redis             *redis.Client
 	sysAdminRepo      SysAdminRepo
 	sysRoleRepo       SysRoleRepo
 	sysJobRepo        SysJobRepo
@@ -203,8 +203,8 @@ func (a *AdminUseCase) SysManageDel(ctx context.Context, req *v1.SysManageDelReq
 
 func (a *AdminUseCase) SysAdminPermission(ctx context.Context, req *v1.SysAdminPermissionReq) (*v1.SysAdminPermissionReply, error) {
 	resp := new(v1.SysAdminPermissionReply)
-	cacheKey := cache.SysAdminPermission.BuildCacheKey(req.GetAdminId())
-	res, err := cacheKey.RocksCache(a.rocksCache, ctx, func() (string, error) {
+	cacheKey := cache.SysAdminPermission.NewHashKey(a.redis)
+	res, err := cacheKey.HashCache(ctx, req.GetAdminId(), "AdminPermission", func() (string, error) {
 		sysAdmin, err := a.sysAdminRepo.SysAdminInfoByAdminId(ctx, req.GetAdminId())
 		if err != nil {
 			return "", err
