@@ -1,0 +1,362 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "rpc_sys/v1/sys_admin.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Admin"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "commonPaginator": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "title": "第几页"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "title": "页大小"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "总数"
+        },
+        "prevPage": {
+          "type": "integer",
+          "format": "int32",
+          "title": "上一页"
+        },
+        "nextPage": {
+          "type": "integer",
+          "format": "int32",
+          "title": "下一页"
+        },
+        "totalPage": {
+          "type": "integer",
+          "format": "int32",
+          "title": "总页数"
+        }
+      },
+      "title": "分页响应"
+    },
+    "commonSearchParam": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string",
+          "title": "字段"
+        },
+        "val": {
+          "type": "string",
+          "title": "值"
+        },
+        "operator": {
+          "type": "string",
+          "title": "操作"
+        }
+      },
+      "title": "搜索参数"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1SysAdminGenerateAvatarReply": {
+      "type": "object",
+      "properties": {
+        "avatarUrl": {
+          "type": "string",
+          "title": "头像地址"
+        }
+      },
+      "title": "响应-生成头像"
+    },
+    "v1SysAdminInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "ID"
+        },
+        "username": {
+          "type": "string",
+          "title": "账号"
+        },
+        "nickname": {
+          "type": "string",
+          "title": "昵称"
+        },
+        "avatar": {
+          "type": "string",
+          "title": "头像"
+        },
+        "gender": {
+          "type": "integer",
+          "format": "int32",
+          "title": "0=保密 1=女 2=男"
+        },
+        "email": {
+          "type": "string",
+          "title": "邮件"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "手机号"
+        },
+        "jobID": {
+          "type": "string",
+          "title": "岗位"
+        },
+        "deptID": {
+          "type": "string",
+          "title": "部门"
+        },
+        "roleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "角色集"
+        },
+        "motto": {
+          "type": "string",
+          "title": "个性签名"
+        }
+      }
+    },
+    "v1SysAdminInfoReply": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "#/definitions/v1SysAdminInfo"
+        }
+      },
+      "title": "响应-管理员信息"
+    },
+    "v1SysAdminInfoUpdateReply": {
+      "type": "object",
+      "title": "响应-管理员更新"
+    },
+    "v1SysAdminPermission": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "title": "ID"
+        },
+        "Pid": {
+          "type": "string",
+          "title": "上级菜单"
+        },
+        "Type": {
+          "type": "string",
+          "title": "类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮"
+        },
+        "Title": {
+          "type": "string",
+          "title": "标题"
+        },
+        "Name": {
+          "type": "string",
+          "title": "规则名称"
+        },
+        "Path": {
+          "type": "string",
+          "title": "路由路径"
+        },
+        "Icon": {
+          "type": "string",
+          "title": "图标"
+        },
+        "MenuType": {
+          "type": "string",
+          "title": "菜单类型:tab=选项卡,link=链接,iframe=Iframe"
+        },
+        "URL": {
+          "type": "string",
+          "title": "Url"
+        },
+        "Component": {
+          "type": "string",
+          "title": "组件路径"
+        },
+        "Extend": {
+          "type": "string",
+          "title": "扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SysAdminPermission"
+          }
+        }
+      }
+    },
+    "v1SysAdminPermissionReply": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SysAdminPermission"
+          }
+        }
+      }
+    },
+    "v1SysManageDelReply": {
+      "type": "object",
+      "title": "响应-管理员删除"
+    },
+    "v1SysManageInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string",
+          "title": "账号"
+        },
+        "nickname": {
+          "type": "string",
+          "title": "昵称"
+        },
+        "avatar": {
+          "type": "string",
+          "title": "头像"
+        },
+        "gender": {
+          "type": "integer",
+          "format": "int32",
+          "title": "0=保密 1=女 2=男"
+        },
+        "email": {
+          "type": "string",
+          "title": "邮件"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "手机号"
+        },
+        "jobID": {
+          "type": "string",
+          "title": "岗位"
+        },
+        "deptID": {
+          "type": "string",
+          "title": "部门"
+        },
+        "roleIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "角色集"
+        },
+        "jobName": {
+          "type": "string",
+          "title": "岗位"
+        },
+        "deptName": {
+          "type": "string",
+          "title": "部门"
+        },
+        "roleNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "角色名称集"
+        },
+        "motto": {
+          "type": "string",
+          "title": "个性签名"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "状态"
+        },
+        "createdAt": {
+          "type": "string",
+          "title": "创建时间"
+        },
+        "updatedAt": {
+          "type": "string",
+          "title": "更新时间"
+        }
+      }
+    },
+    "v1SysManageInfoReply": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "#/definitions/v1SysManageInfo"
+        }
+      },
+      "title": "响应-管理员信息"
+    },
+    "v1SysManageListReply": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SysManageInfo"
+          },
+          "title": "管理员列表"
+        },
+        "paginator": {
+          "$ref": "#/definitions/commonPaginator",
+          "title": "分页"
+        }
+      },
+      "title": "响应-管理员列表"
+    },
+    "v1SysManageStoreReply": {
+      "type": "object",
+      "title": "响应-管理员保存"
+    }
+  }
+}

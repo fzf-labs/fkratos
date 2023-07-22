@@ -46,12 +46,11 @@ api:
  	       --go-http_out=paths=source_relative:./api \
  	       --go-grpc_out=paths=source_relative:./api \
  	       --go-errors_out=paths=source_relative:./api \
-	       --openapi_out=fq_schema_naming=true,default_response=false:./api/${APP_NAME} \
  	       --validate_out=paths=source_relative,lang=go:./api \
 	       $$files
 # protobuf 生成common Go 代码
 common:
-	@cd ../../ && files=`find api/common -name *.proto` && \
+	@cd ../../ && files=`find api/paginator -name *.proto` && \
 	protoc --proto_path=./api \
 	       --proto_path=./third_party \
  	       --go_out=paths=source_relative:./api \

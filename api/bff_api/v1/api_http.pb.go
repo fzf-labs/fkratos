@@ -19,11 +19,11 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationApiCreateApi = "/api.Api.v1.Api/CreateApi"
-const OperationApiDeleteApi = "/api.Api.v1.Api/DeleteApi"
-const OperationApiGetApi = "/api.Api.v1.Api/GetApi"
-const OperationApiListApi = "/api.Api.v1.Api/ListApi"
-const OperationApiUpdateApi = "/api.Api.v1.Api/UpdateApi"
+const OperationApiCreateApi = "/api.bff_api.v1.Api/CreateApi"
+const OperationApiDeleteApi = "/api.bff_api.v1.Api/DeleteApi"
+const OperationApiGetApi = "/api.bff_api.v1.Api/GetApi"
+const OperationApiListApi = "/api.bff_api.v1.Api/ListApi"
+const OperationApiUpdateApi = "/api.bff_api.v1.Api/UpdateApi"
 
 type ApiHTTPServer interface {
 	// CreateApi创建用户

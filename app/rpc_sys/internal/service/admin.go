@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"fkratos/api/common"
 	"fkratos/app/rpc_sys/internal/biz"
 
 	pb "fkratos/api/rpc_sys/v1"

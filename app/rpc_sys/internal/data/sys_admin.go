@@ -2,7 +2,6 @@ package data
 
 import (
 	"context"
-	"fkratos/api/common"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/cache"

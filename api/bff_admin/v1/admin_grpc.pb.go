@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Admin_CreateAdmin_FullMethodName = "/api.admin.v1.Admin/CreateAdmin"
-	Admin_UpdateAdmin_FullMethodName = "/api.admin.v1.Admin/UpdateAdmin"
-	Admin_DeleteAdmin_FullMethodName = "/api.admin.v1.Admin/DeleteAdmin"
-	Admin_GetAdmin_FullMethodName    = "/api.admin.v1.Admin/GetAdmin"
-	Admin_ListAdmin_FullMethodName   = "/api.admin.v1.Admin/ListAdmin"
+	Admin_CreateAdmin_FullMethodName = "/api.bff_admin.v1.Admin/CreateAdmin"
+	Admin_UpdateAdmin_FullMethodName = "/api.bff_admin.v1.Admin/UpdateAdmin"
+	Admin_DeleteAdmin_FullMethodName = "/api.bff_admin.v1.Admin/DeleteAdmin"
+	Admin_GetAdmin_FullMethodName    = "/api.bff_admin.v1.Admin/GetAdmin"
+	Admin_ListAdmin_FullMethodName   = "/api.bff_admin.v1.Admin/ListAdmin"
 )
 
 // AdminClient is the client API for Admin service.
@@ -238,7 +238,7 @@ func _Admin_ListAdmin_Handler(srv interface{}, ctx context.Context, dec func(int
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Admin_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.admin.v1.Admin",
+	ServiceName: "api.bff_admin.v1.Admin",
 	HandlerType: (*AdminServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

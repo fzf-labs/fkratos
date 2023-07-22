@@ -8,7 +8,7 @@ package v1
 
 import (
 	context "context"
-	common "fkratos/api/common"
+	paginator "fkratos/api/paginator"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -43,7 +43,7 @@ type AdminClient interface {
 	// 查询权限
 	SysAdminPermission(ctx context.Context, in *SysAdminPermissionReq, opts ...grpc.CallOption) (*SysAdminPermissionReply, error)
 	// 管理员列表
-	SysManageList(ctx context.Context, in *common.SearchListReq, opts ...grpc.CallOption) (*SysManageListReply, error)
+	SysManageList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysManageListReply, error)
 	// 单个管理员
 	SysManageInfo(ctx context.Context, in *SysManageInfoReq, opts ...grpc.CallOption) (*SysManageInfoReply, error)
 	// 保存管理员
@@ -96,7 +96,7 @@ func (c *adminClient) SysAdminPermission(ctx context.Context, in *SysAdminPermis
 	return out, nil
 }
 
-func (c *adminClient) SysManageList(ctx context.Context, in *common.SearchListReq, opts ...grpc.CallOption) (*SysManageListReply, error) {
+func (c *adminClient) SysManageList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysManageListReply, error) {
 	out := new(SysManageListReply)
 	err := c.cc.Invoke(ctx, Admin_SysManageList_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -145,7 +145,7 @@ type AdminServer interface {
 	// 查询权限
 	SysAdminPermission(context.Context, *SysAdminPermissionReq) (*SysAdminPermissionReply, error)
 	// 管理员列表
-	SysManageList(context.Context, *common.SearchListReq) (*SysManageListReply, error)
+	SysManageList(context.Context, *paginator.PaginatorReq) (*SysManageListReply, error)
 	// 单个管理员
 	SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error)
 	// 保存管理员
@@ -171,7 +171,7 @@ func (UnimplementedAdminServer) SysAdminGenerateAvatar(context.Context, *SysAdmi
 func (UnimplementedAdminServer) SysAdminPermission(context.Context, *SysAdminPermissionReq) (*SysAdminPermissionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAdminPermission not implemented")
 }
-func (UnimplementedAdminServer) SysManageList(context.Context, *common.SearchListReq) (*SysManageListReply, error) {
+func (UnimplementedAdminServer) SysManageList(context.Context, *paginator.PaginatorReq) (*SysManageListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysManageList not implemented")
 }
 func (UnimplementedAdminServer) SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error) {
@@ -269,7 +269,7 @@ func _Admin_SysAdminPermission_Handler(srv interface{}, ctx context.Context, dec
 }
 
 func _Admin_SysManageList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.SearchListReq)
+	in := new(paginator.PaginatorReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -281,7 +281,7 @@ func _Admin_SysManageList_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: Admin_SysManageList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdminServer).SysManageList(ctx, req.(*common.SearchListReq))
+		return srv.(AdminServer).SysManageList(ctx, req.(*paginator.PaginatorReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

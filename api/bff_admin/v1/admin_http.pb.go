@@ -19,11 +19,11 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationAdminCreateAdmin = "/api.admin.v1.Admin/CreateAdmin"
-const OperationAdminDeleteAdmin = "/api.admin.v1.Admin/DeleteAdmin"
-const OperationAdminGetAdmin = "/api.admin.v1.Admin/GetAdmin"
-const OperationAdminListAdmin = "/api.admin.v1.Admin/ListAdmin"
-const OperationAdminUpdateAdmin = "/api.admin.v1.Admin/UpdateAdmin"
+const OperationAdminCreateAdmin = "/api.bff_admin.v1.Admin/CreateAdmin"
+const OperationAdminDeleteAdmin = "/api.bff_admin.v1.Admin/DeleteAdmin"
+const OperationAdminGetAdmin = "/api.bff_admin.v1.Admin/GetAdmin"
+const OperationAdminListAdmin = "/api.bff_admin.v1.Admin/ListAdmin"
+const OperationAdminUpdateAdmin = "/api.bff_admin.v1.Admin/UpdateAdmin"
 
 type AdminHTTPServer interface {
 	// CreateAdmin创建用户

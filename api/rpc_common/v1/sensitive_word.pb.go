@@ -7,7 +7,7 @@
 package v1
 
 import (
-	common "fkratos/api/common"
+	common "fkratos/api/paginator"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

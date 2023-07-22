@@ -3,7 +3,7 @@ syntax = "proto3";
 package api.rpc_sys.v1;
 
 import "validate/validate.proto";
-import "common/common.proto";
+import "paginator/paginator.proto";
 
 option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
@@ -21,7 +21,7 @@ service Admin {
   rpc SysAdminPermission(SysAdminPermissionReq) returns (SysAdminPermissionReply);
 
   //管理员列表
-  rpc SysManageList(common.SearchListReq) returns (SysManageListReply);
+  rpc SysManageList(paginator.PaginatorReq) returns (SysManageListReply);
   //单个管理员
   rpc SysManageInfo(SysManageInfoReq) returns (SysManageInfoReply);
   //保存管理员
@@ -119,18 +119,10 @@ message SysAdminPermissionReply{
   repeated SysAdminPermission list = 1;
 }
 
-//请求-管理员列表
-message SysManageListReq {
-  int32 page = 1; //页码
-  int32 pageSize = 2; //页数
-  string quickSearch = 3; //快捷搜索
-  repeated common.SearchParam search = 4; //详细搜索
-}
-
 //响应-管理员列表
 message SysManageListReply {
   repeated SysManageInfo list = 1;      //管理员列表
-  common.Paginator paginator = 2; //分页
+  paginator.PaginatorReply paginator = 2; //分页
 }
 
 //请求-管理员信息

@@ -8,7 +8,7 @@ package v1
 
 import (
 	context "context"
-	common "fkratos/api/common"
+	paginator "fkratos/api/paginator"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -30,7 +30,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LogClient interface {
 	// 日志列表
-	SysLogList(ctx context.Context, in *common.SearchListReq, opts ...grpc.CallOption) (*SysLogListResp, error)
+	SysLogList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysLogListResp, error)
 	// 单条日志
 	SysLogInfo(ctx context.Context, in *SysLogInfoReq, opts ...grpc.CallOption) (*SysLogInfoResp, error)
 	// 日志记录
@@ -45,7 +45,7 @@ func NewLogClient(cc grpc.ClientConnInterface) LogClient {
 	return &logClient{cc}
 }
 
-func (c *logClient) SysLogList(ctx context.Context, in *common.SearchListReq, opts ...grpc.CallOption) (*SysLogListResp, error) {
+func (c *logClient) SysLogList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysLogListResp, error) {
 	out := new(SysLogListResp)
 	err := c.cc.Invoke(ctx, Log_SysLogList_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -77,7 +77,7 @@ func (c *logClient) SysLogStore(ctx context.Context, in *SysLogStoreReq, opts ..
 // for forward compatibility
 type LogServer interface {
 	// 日志列表
-	SysLogList(context.Context, *common.SearchListReq) (*SysLogListResp, error)
+	SysLogList(context.Context, *paginator.PaginatorReq) (*SysLogListResp, error)
 	// 单条日志
 	SysLogInfo(context.Context, *SysLogInfoReq) (*SysLogInfoResp, error)
 	// 日志记录
@@ -89,7 +89,7 @@ type LogServer interface {
 type UnimplementedLogServer struct {
 }
 
-func (UnimplementedLogServer) SysLogList(context.Context, *common.SearchListReq) (*SysLogListResp, error) {
+func (UnimplementedLogServer) SysLogList(context.Context, *paginator.PaginatorReq) (*SysLogListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysLogList not implemented")
 }
 func (UnimplementedLogServer) SysLogInfo(context.Context, *SysLogInfoReq) (*SysLogInfoResp, error) {
@@ -112,7 +112,7 @@ func RegisterLogServer(s grpc.ServiceRegistrar, srv LogServer) {
 }
 
 func _Log_SysLogList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.SearchListReq)
+	in := new(paginator.PaginatorReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -124,7 +124,7 @@ func _Log_SysLogList_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: Log_SysLogList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LogServer).SysLogList(ctx, req.(*common.SearchListReq))
+		return srv.(LogServer).SysLogList(ctx, req.(*paginator.PaginatorReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

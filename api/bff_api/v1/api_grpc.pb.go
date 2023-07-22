@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Api_CreateApi_FullMethodName = "/api.Api.v1.Api/CreateApi"
-	Api_UpdateApi_FullMethodName = "/api.Api.v1.Api/UpdateApi"
-	Api_DeleteApi_FullMethodName = "/api.Api.v1.Api/DeleteApi"
-	Api_GetApi_FullMethodName    = "/api.Api.v1.Api/GetApi"
-	Api_ListApi_FullMethodName   = "/api.Api.v1.Api/ListApi"
+	Api_CreateApi_FullMethodName = "/api.bff_api.v1.Api/CreateApi"
+	Api_UpdateApi_FullMethodName = "/api.bff_api.v1.Api/UpdateApi"
+	Api_DeleteApi_FullMethodName = "/api.bff_api.v1.Api/DeleteApi"
+	Api_GetApi_FullMethodName    = "/api.bff_api.v1.Api/GetApi"
+	Api_ListApi_FullMethodName   = "/api.bff_api.v1.Api/ListApi"
 )
 
 // ApiClient is the client API for Api service.
@@ -238,7 +238,7 @@ func _Api_ListApi_Handler(srv interface{}, ctx context.Context, dec func(interfa
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Api_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.Api.v1.Api",
+	ServiceName: "api.bff_api.v1.Api",
 	HandlerType: (*ApiServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

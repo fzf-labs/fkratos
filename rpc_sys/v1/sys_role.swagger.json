@@ -1,0 +1,128 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "rpc_sys/v1/sys_role.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Role"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1SysRoleDelResp": {
+      "type": "object"
+    },
+    "v1SysRoleInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "角色id"
+        },
+        "pid": {
+          "type": "string",
+          "title": "父级角色id"
+        },
+        "name": {
+          "type": "string",
+          "title": "角色名称"
+        },
+        "remark": {
+          "type": "string",
+          "title": "备注"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "title": "状态"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int32",
+          "title": "排序"
+        },
+        "permissionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "菜单角色集合"
+        },
+        "createdAt": {
+          "type": "string",
+          "title": "创建时间"
+        },
+        "updatedAt": {
+          "type": "string",
+          "title": "更新时间"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SysRoleInfo"
+          }
+        }
+      }
+    },
+    "v1SysRoleInfoResp": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "#/definitions/v1SysRoleInfo"
+        }
+      }
+    },
+    "v1SysRoleListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SysRoleInfo"
+          }
+        }
+      }
+    },
+    "v1SysRoleStoreResp": {
+      "type": "object"
+    }
+  }
+}

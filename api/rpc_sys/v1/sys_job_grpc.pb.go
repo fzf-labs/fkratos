@@ -8,7 +8,7 @@ package v1
 
 import (
 	context "context"
-	common "fkratos/api/common"
+	paginator "fkratos/api/paginator"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -31,7 +31,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type JobClient interface {
 	// 岗位列表
-	SysJobList(ctx context.Context, in *common.SearchListReq, opts ...grpc.CallOption) (*SysJobListReply, error)
+	SysJobList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysJobListReply, error)
 	// 单个岗位
 	SysJobInfo(ctx context.Context, in *SysJobInfoReq, opts ...grpc.CallOption) (*SysJobInfoReply, error)
 	// 保存岗位
@@ -48,7 +48,7 @@ func NewJobClient(cc grpc.ClientConnInterface) JobClient {
 	return &jobClient{cc}
 }
 
-func (c *jobClient) SysJobList(ctx context.Context, in *common.SearchListReq, opts ...grpc.CallOption) (*SysJobListReply, error) {
+func (c *jobClient) SysJobList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysJobListReply, error) {
 	out := new(SysJobListReply)
 	err := c.cc.Invoke(ctx, Job_SysJobList_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -89,7 +89,7 @@ func (c *jobClient) SysJobDel(ctx context.Context, in *SysJobDelReq, opts ...grp
 // for forward compatibility
 type JobServer interface {
 	// 岗位列表
-	SysJobList(context.Context, *common.SearchListReq) (*SysJobListReply, error)
+	SysJobList(context.Context, *paginator.PaginatorReq) (*SysJobListReply, error)
 	// 单个岗位
 	SysJobInfo(context.Context, *SysJobInfoReq) (*SysJobInfoReply, error)
 	// 保存岗位
@@ -103,7 +103,7 @@ type JobServer interface {
 type UnimplementedJobServer struct {
 }
 
-func (UnimplementedJobServer) SysJobList(context.Context, *common.SearchListReq) (*SysJobListReply, error) {
+func (UnimplementedJobServer) SysJobList(context.Context, *paginator.PaginatorReq) (*SysJobListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysJobList not implemented")
 }
 func (UnimplementedJobServer) SysJobInfo(context.Context, *SysJobInfoReq) (*SysJobInfoReply, error) {
@@ -129,7 +129,7 @@ func RegisterJobServer(s grpc.ServiceRegistrar, srv JobServer) {
 }
 
 func _Job_SysJobList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(common.SearchListReq)
+	in := new(paginator.PaginatorReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -141,7 +141,7 @@ func _Job_SysJobList_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: Job_SysJobList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(JobServer).SysJobList(ctx, req.(*common.SearchListReq))
+		return srv.(JobServer).SysJobList(ctx, req.(*paginator.PaginatorReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

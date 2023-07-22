@@ -1,0 +1,184 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "rpc_sys/v1/sys_log.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Log"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "commonPaginator": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "title": "第几页"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "title": "页大小"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "总数"
+        },
+        "prevPage": {
+          "type": "integer",
+          "format": "int32",
+          "title": "上一页"
+        },
+        "nextPage": {
+          "type": "integer",
+          "format": "int32",
+          "title": "下一页"
+        },
+        "totalPage": {
+          "type": "integer",
+          "format": "int32",
+          "title": "总页数"
+        }
+      },
+      "title": "分页响应"
+    },
+    "commonSearchParam": {
+      "type": "object",
+      "properties": {
+        "field": {
+          "type": "string",
+          "title": "字段"
+        },
+        "val": {
+          "type": "string",
+          "title": "值"
+        },
+        "operator": {
+          "type": "string",
+          "title": "操作"
+        }
+      },
+      "title": "搜索参数"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1SysLogInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "编号"
+        },
+        "adminID": {
+          "type": "string",
+          "title": "管理员ID"
+        },
+        "username": {
+          "type": "string",
+          "title": "账号"
+        },
+        "ip": {
+          "type": "string",
+          "title": "ip"
+        },
+        "uri": {
+          "type": "string",
+          "title": "请求路径"
+        },
+        "uriDesc": {
+          "type": "string",
+          "title": "请求描述"
+        },
+        "useragent": {
+          "type": "string",
+          "title": "浏览器标识"
+        },
+        "req": {
+          "type": "string",
+          "title": "请求数据"
+        },
+        "resp": {
+          "type": "string",
+          "title": "响应数据"
+        },
+        "createdAt": {
+          "type": "string",
+          "title": "创建时间"
+        }
+      }
+    },
+    "v1SysLogInfoResp": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "#/definitions/v1SysLogInfo"
+        }
+      },
+      "title": "响应-单条日志"
+    },
+    "v1SysLogListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SysLogInfo"
+          },
+          "title": "管理员列表"
+        },
+        "paginator": {
+          "$ref": "#/definitions/commonPaginator",
+          "title": "分页"
+        }
+      },
+      "title": "响应-日志列表"
+    },
+    "v1SysLogStoreResp": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "#/definitions/v1SysLogInfo"
+        }
+      },
+      "title": "响应-日志存储"
+    }
+  }
+}

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package api.rpc_sys.v1;
 
-import "common/common.proto";
+import "paginator/paginator.proto";
 
 option go_package = "fkratos/api/rpc_sys/v1;v1";
 
@@ -12,7 +12,7 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 日志
 service Log {
   //日志列表
-  rpc SysLogList(common.SearchListReq) returns (SysLogListResp);
+  rpc SysLogList(paginator.PaginatorReq) returns (SysLogListResp);
   //单条日志
   rpc SysLogInfo(SysLogInfoReq) returns (SysLogInfoResp);
   //日志记录
@@ -41,7 +41,7 @@ message SysLogListReq {
 //响应-日志列表
 message SysLogListResp {
   repeated SysLogInfo list = 1; //管理员列表
-  common.Paginator paginator = 2; //分页
+  paginator.PaginatorReply paginator = 2; //分页
 }
 
 //请求-单条日志

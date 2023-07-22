@@ -21,7 +21,7 @@ APP_RELATIVE_PATH=$(shell a=`basename $$PWD` && cd .. && b=`basename $$PWD` && e
 APP_NAME=$(shell echo $(APP_RELATIVE_PATH) | rev |cut -d '/' -f 1 | rev)
 APP_DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "fkratos/" $$0 ":0.1.0"}')
 
-.PHONY:  conf wire api openapi run test cover vet lint app
+.PHONY: conf wire proto api common service run app help
 
 # 生成配置文件
 conf:
@@ -47,11 +47,13 @@ api:
  	       --go-http_out=paths=source_relative:./api \
  	       --go-grpc_out=paths=source_relative:./api \
  	       --go-errors_out=paths=source_relative:./api \
-	       --openapi_out=fq_schema_naming=true,default_response=false:./api/${APP_NAME} \
  	       --validate_out=paths=source_relative,lang=go:./api \
+ 	       --openapiv2_out ./api \
+ 	       --openapiv2_opt logtostderr=true \
+ 	       --openapiv2_opt json_names_for_fields=false \
 	       $$files
 common:
-	@cd ../../ && files=`find api/common -name *.proto` && \
+	@cd ../../ && files=`find api/paginator -name *.proto` && \
 	protoc --proto_path=./api \
 	       --proto_path=./third_party \
  	       --go_out=paths=source_relative:./api \
@@ -66,7 +68,7 @@ run:
 	@kratos run
 
 # 多个命令同时执行
-app: conf api  wire
+app: conf api wire
 
 # show help
 help:
