@@ -18,7 +18,7 @@ type LogService struct {
 }
 
 func NewLogService(logger log.Logger, logUseCase *biz.LogUseCase) *LogService {
-	l := log.NewHelper(log.With(logger, "module", "rpc_sys/service/job"))
+	l := log.NewHelper(log.With(logger, "module", "rpc_sys/service/log"))
 	return &LogService{
 		log:        l,
 		logUseCase: logUseCase,

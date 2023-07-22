@@ -11,10 +11,8 @@ import (
 	"fkratos/app/bff_admin/internal/service"
 	"fkratos/internal/bootstrap/conf"
 
-	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
-	"github.com/google/wire"
 )
 
 // wireApp init kratos application.

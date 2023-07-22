@@ -17,7 +17,7 @@ type PermissionService struct {
 }
 
 func NewPermissionService(logger log.Logger, permissionUseCase *biz.PermissionUseCase) *PermissionService {
-	l := log.NewHelper(log.With(logger, "module", "rpc_sys/service/role"))
+	l := log.NewHelper(log.With(logger, "module", "rpc_sys/service/permission"))
 	return &PermissionService{
 		log:               l,
 		permissionUseCase: permissionUseCase,

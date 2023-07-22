@@ -6,10 +6,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"google.golang.org/grpc"
-
 	"github.com/go-kratos/kratos/v2/config"
 	"github.com/go-kratos/kratos/v2/log"
+	"google.golang.org/grpc"
 
 	// file
 	fileKratos "github.com/go-kratos/kratos/v2/config/file"
