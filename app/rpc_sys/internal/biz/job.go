@@ -2,6 +2,7 @@ package biz
 
 import (
 	"context"
+	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
 
 	"github.com/fzf-labs/fpkg/util/timeutil"
@@ -22,9 +23,9 @@ type JobUseCase struct {
 	sysJobRepo SysJobRepo
 }
 
-func (d *JobUseCase) SysJobList(ctx context.Context, req *common.SearchListReq) (*v1.SysJobListReply, error) {
+func (d *JobUseCase) SysJobList(ctx context.Context, req *paginator.PaginatorReq) (*v1.SysJobListReply, error) {
 	resp := new(v1.SysJobListReply)
-	sysJobs, paginator, err := d.sysJobRepo.SysJobListBySearch(ctx, req)
+	sysJobs, p, err := d.sysJobRepo.SysJobListBySearch(ctx, req)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +43,7 @@ func (d *JobUseCase) SysJobList(ctx context.Context, req *common.SearchListReq) 
 			})
 		}
 	}
-	err = copier.Copy(&resp.Paginator, paginator)
+	err = copier.Copy(&resp.Paginator, p)
 	if err != nil {
 		return nil, err
 	}

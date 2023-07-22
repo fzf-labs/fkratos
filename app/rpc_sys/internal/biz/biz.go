@@ -2,6 +2,7 @@ package biz
 
 import (
 	"context"
+	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
@@ -32,7 +33,7 @@ type SysAdminRepo interface {
 	SysAdminDel(ctx context.Context, ids []string) error
 	GenerateJwTToken(ctx context.Context, kv map[string]interface{}) (*jwt.Token, error)
 	ClearJwTToken(ctx context.Context, jwtUId string) error
-	SysManageListBySearch(ctx context.Context, req *common.SearchListReq) ([]*fkratos_sys_model.SysAdmin, *page.Page, error)
+	SysManageListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysAdmin, *page.Page, error)
 	SysManageStore(ctx context.Context, req *v1.SysManageStoreReq) (*fkratos_sys_model.SysAdmin, error)
 	GetAdminIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 }
@@ -58,7 +59,7 @@ type SysPermissionRepo interface {
 
 type SysJobRepo interface {
 	GetJobIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
-	SysJobListBySearch(ctx context.Context, req *common.SearchListReq) ([]*fkratos_sys_model.SysJob, *page.Page, error)
+	SysJobListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysJob, *page.Page, error)
 	SysJobInfoById(ctx context.Context, id string) (*v1.SysJobInfo, error)
 	SysJobDelByIds(ctx context.Context, ids []string) error
 	SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*fkratos_sys_model.SysJob, error)
@@ -73,7 +74,7 @@ type SysDeptRepo interface {
 }
 
 type SysLogRepo interface {
-	SysLogListBySearch(ctx context.Context, req *common.SearchListReq) ([]*fkratos_sys_model.SysLog, *page.Page, error)
+	SysLogListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysLog, *page.Page, error)
 	SysLogInfoById(ctx context.Context, id string) (*fkratos_sys_model.SysLog, error)
 	SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*fkratos_sys_model.SysLog, error)
 	SysLogStoreMQProducer(ctx context.Context, req *v1.SysLogStoreReq) error

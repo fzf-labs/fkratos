@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
@@ -81,7 +82,7 @@ func (s *SysJobRepo) SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*
 	return sysJob, nil
 }
 
-func (s *SysJobRepo) SysJobListBySearch(ctx context.Context, req *common.SearchListReq) ([]*fkratos_sys_model.SysJob, *page.Page, error) {
+func (s *SysJobRepo) SysJobListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysJob, *page.Page, error) {
 
 	sysJobDao := fkratos_sys_dao.Use(s.data.gorm).SysJob
 	query := sysJobDao.WithContext(ctx)

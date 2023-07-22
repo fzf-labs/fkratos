@@ -2,6 +2,7 @@ package biz
 
 import (
 	"context"
+	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
 
 	"github.com/fzf-labs/fpkg/util/timeutil"
@@ -26,7 +27,7 @@ type LogUseCase struct {
 	sysApiRepo   SysApiRepo
 }
 
-func (l *LogUseCase) SysLogList(ctx context.Context, req *common.SearchListReq) (*v1.SysLogListResp, error) {
+func (l *LogUseCase) SysLogList(ctx context.Context, req *paginator.PaginatorReq) (*v1.SysLogListResp, error) {
 	resp := new(v1.SysLogListResp)
 	sysLogs, paginator, err := l.sysLogRepo.SysLogListBySearch(ctx, req)
 	if err != nil {

@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/cache"
@@ -135,7 +136,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStor
 	return sysAdmin, nil
 }
 
-func (s *SysAdminRepo) SysManageListBySearch(ctx context.Context, req *common.SearchListReq) ([]*fkratos_sys_model.SysAdmin, *page.Page, error) {
+func (s *SysAdminRepo) SysManageListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysAdmin, *page.Page, error) {
 	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	query := sysAdminDao.WithContext(ctx)
 	if req.QuickSearch != "" {

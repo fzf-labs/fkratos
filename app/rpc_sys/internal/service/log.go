@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"encoding/json"
+	"fkratos/api/paginator"
 	pb "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
 
@@ -24,7 +25,7 @@ func NewLogService(logger log.Logger, logUseCase *biz.LogUseCase) *LogService {
 	}
 }
 
-func (s *LogService) SysLogList(ctx context.Context, req *common.SearchListReq) (*pb.SysLogListResp, error) {
+func (s *LogService) SysLogList(ctx context.Context, req *paginator.PaginatorReq) (*pb.SysLogListResp, error) {
 	return s.logUseCase.SysLogList(ctx, req)
 }
 

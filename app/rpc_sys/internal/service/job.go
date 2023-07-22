@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fkratos/api/paginator"
 	"fkratos/app/rpc_sys/internal/biz"
 
 	pb "fkratos/api/rpc_sys/v1"
@@ -24,7 +25,7 @@ func NewJobService(logger log.Logger, jobUseCase *biz.JobUseCase) *JobService {
 	}
 }
 
-func (s *JobService) SysJobList(ctx context.Context, req *common.SearchListReq) (*pb.SysJobListReply, error) {
+func (s *JobService) SysJobList(ctx context.Context, req *paginator.PaginatorReq) (*pb.SysJobListReply, error) {
 	return s.jobUseCase.SysJobList(ctx, req)
 }
 func (s *JobService) SysJobInfo(ctx context.Context, req *pb.SysJobInfoReq) (*pb.SysJobInfoReply, error) {

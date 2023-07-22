@@ -3,6 +3,7 @@ package data
 import (
 	"context"
 	"encoding/json"
+	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
@@ -68,7 +69,7 @@ func (s *SysLogRepo) SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*
 	return model, nil
 }
 
-func (s *SysLogRepo) SysLogListBySearch(ctx context.Context, req *common.SearchListReq) ([]*fkratos_sys_model.SysLog, *page.Page, error) {
+func (s *SysLogRepo) SysLogListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysLog, *page.Page, error) {
 	sysLogDao := fkratos_sys_dao.Use(s.data.gorm).SysLog
 	count, err := sysLogDao.WithContext(ctx).Count()
 	if err != nil && err != gorm.ErrRecordNotFound {

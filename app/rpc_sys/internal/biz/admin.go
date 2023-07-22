@@ -2,6 +2,7 @@ package biz
 
 import (
 	"context"
+	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/data/cache"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
@@ -59,7 +60,7 @@ func (a *AdminUseCase) SysAdminGenerateAvatar(ctx context.Context, req *v1.SysAd
 	return &v1.SysAdminGenerateAvatarReply{AvatarUrl: avatar.Url()}, nil
 }
 
-func (a *AdminUseCase) SysManageList(ctx context.Context, req *common.SearchListReq) (*v1.SysManageListReply, error) {
+func (a *AdminUseCase) SysManageList(ctx context.Context, req *paginator.PaginatorReq) (*v1.SysManageListReply, error) {
 	resp := new(v1.SysManageListReply)
 	sysAdmins, p, err := a.sysAdminRepo.SysManageListBySearch(ctx, req)
 	if err != nil {
