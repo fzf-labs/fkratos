@@ -24,7 +24,8 @@ import (
 
 // wireApp init kratos application.
 func wireApp(bootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
-	userClient := data.NewUserServiceClient(bootstrap, discovery)
+	rpcUserGrpc := data.NewRpcUserGrpc(bootstrap, discovery)
+	userClient := data.NewUserServiceClient(rpcUserGrpc)
 	adminService := service.NewAdminService(logger, userClient)
 	httpServer := server.NewHTTPServer(bootstrap, logger, adminService)
 	app := newApp(logger, registrar, httpServer)

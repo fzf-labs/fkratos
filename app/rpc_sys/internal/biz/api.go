@@ -3,7 +3,7 @@ package biz
 import (
 	"context"
 	v1 "fkratos/api/rpc_sys/v1"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
@@ -24,7 +24,7 @@ type ApiUseCase struct {
 
 func (a *ApiUseCase) SysApiStore(ctx context.Context, req *v1.SysApiStoreReq) (*v1.SysApiStoreReply, error) {
 	resp := new(v1.SysApiStoreReply)
-	_, err := a.sysApiRepo.SysApiStore(ctx, &rpc_sys_model.SysAPI{
+	_, err := a.sysApiRepo.SysApiStore(ctx, &fkratos_sys_model.SysAPI{
 		PermissionID: req.GetPermissionID(),
 		Method:       req.GetMethod(),
 		Path:         req.GetPath(),

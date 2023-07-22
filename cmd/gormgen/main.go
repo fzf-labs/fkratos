@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"path/filepath"
 
 	"github.com/fzf-labs/fpkg/conv"
@@ -12,7 +11,6 @@ import (
 )
 
 var configFile = flag.String("f", "config.yaml", "the config file")
-var serverName = flag.String("s", "", "the server name")
 
 // 默认Postgres字段类型映射
 var defaultPostgresDataMap = map[string]func(columnType gorm.ColumnType) (dataType string){
@@ -29,9 +27,8 @@ var defaultPostgresDataMap = map[string]func(columnType gorm.ColumnType) (dataTy
 func main() {
 	flag.Parse()
 	db := GetDsn(*configFile)
-	outPath := fmt.Sprintf("./internal/data/gorm/%s_dao", *serverName)
-	modelPkgPath := fmt.Sprintf("./internal/data/gorm/%s_model", *serverName)
-	gen.Generation(gen.ConnectDB("postgres", db), defaultPostgresDataMap, outPath, modelPkgPath)
+	outPath := "./internal/data/gorm"
+	gen.Generation(gen.ConnectDB("postgres", db), defaultPostgresDataMap, outPath)
 }
 
 func GetDsn(configFile string) string {

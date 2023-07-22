@@ -4,8 +4,8 @@ import (
 	"context"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_dao"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"fkratos/internal/errorx"
 
 	"github.com/fzf-labs/fpkg/util/timeutil"
@@ -28,9 +28,9 @@ type SysDeptRepo struct {
 	log  *log.Helper
 }
 
-func (s *SysDeptRepo) SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq) (*rpc_sys_model.SysDept, error) {
-	sysDeptDao := rpc_sys_dao.Use(s.data.gorm).SysDept
-	sysDept := &rpc_sys_model.SysDept{
+func (s *SysDeptRepo) SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq) (*fkratos_sys_model.SysDept, error) {
+	sysDeptDao := fkratos_sys_dao.Use(s.data.gorm).SysDept
+	sysDept := &fkratos_sys_model.SysDept{
 		Pid:         req.Pid,
 		Name:        req.Name,
 		FullName:    req.FullName,
@@ -57,7 +57,7 @@ func (s *SysDeptRepo) SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq)
 }
 
 func (s *SysDeptRepo) SysDeptInfoById(ctx context.Context, id string) (*v1.SysDeptInfo, error) {
-	sysDeptDao := rpc_sys_dao.Use(s.data.gorm).SysDept
+	sysDeptDao := fkratos_sys_dao.Use(s.data.gorm).SysDept
 	sysDept, err := sysDeptDao.WithContext(ctx).Where(sysDeptDao.ID.Eq(id)).First()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, errorx.DataSqlErr.WithCause(err)
@@ -80,7 +80,7 @@ func (s *SysDeptRepo) SysDeptInfoById(ctx context.Context, id string) (*v1.SysDe
 }
 
 func (s *SysDeptRepo) SysDeptDelByIds(ctx context.Context, ids []string) error {
-	sysDeptDao := rpc_sys_dao.Use(s.data.gorm).SysDept
+	sysDeptDao := fkratos_sys_dao.Use(s.data.gorm).SysDept
 	_, err := sysDeptDao.WithContext(ctx).Where(sysDeptDao.ID.In(ids...)).Delete()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return errorx.DataSqlErr.WithCause(err)
@@ -90,7 +90,7 @@ func (s *SysDeptRepo) SysDeptDelByIds(ctx context.Context, ids []string) error {
 
 func (s *SysDeptRepo) SysDeptList(ctx context.Context) ([]*v1.SysDeptInfo, error) {
 	resp := make([]*v1.SysDeptInfo, 0)
-	sysDeptDao := rpc_sys_dao.Use(s.data.gorm).SysDept
+	sysDeptDao := fkratos_sys_dao.Use(s.data.gorm).SysDept
 	results, err := sysDeptDao.WithContext(ctx).Find()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, errorx.DataSqlErr.WithCause(err)
@@ -180,7 +180,7 @@ func sysDeptRecursiveTree(tree *v1.SysDeptInfo, allNodes []*v1.SysDeptInfo) {
 
 func (s *SysDeptRepo) GetDeptIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {
 	resp := make(map[string]string)
-	dao := rpc_sys_dao.Use(s.data.gorm).SysDept
+	dao := fkratos_sys_dao.Use(s.data.gorm).SysDept
 	results, err := dao.WithContext(ctx).Where(dao.ID.In(ids...)).Find()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, errorx.DataSqlErr.WithCause(err)

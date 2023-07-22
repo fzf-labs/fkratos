@@ -6,8 +6,9 @@ import (
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/cache"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_dao"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 	"fkratos/internal/bootstrap/conf"
 	"fkratos/internal/errorx"
 	"strings"
@@ -29,21 +30,23 @@ var _ biz.SysAdminRepo = (*SysAdminRepo)(nil)
 func NewSysAdminRepo(c *conf.Bootstrap, data *Data, logger log.Logger) biz.SysAdminRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_admin"))
 	return &SysAdminRepo{
-		config: c,
-		data:   data,
-		log:    l,
+		config:       c,
+		data:         data,
+		log:          l,
+		SysAdminRepo: fkratos_sys_repo.NewSysAdminRepo(data.gorm, data.redis),
 	}
 }
 
 type SysAdminRepo struct {
 	config *conf.Bootstrap
-	data   *Data
 	log    *log.Helper
+	data   *Data
+	*fkratos_sys_repo.SysAdminRepo
 }
 
 func (s *SysAdminRepo) GetAdminIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {
 	res := make(map[string]string)
-	sysAdminDao := rpc_sys_dao.Use(s.data.gorm).SysAdmin
+	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	sysAdmins, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.In(ids...)).Find()
 	if err != nil {
 		return nil, errorx.DataSqlErr.WithCause(err)
@@ -55,7 +58,7 @@ func (s *SysAdminRepo) GetAdminIdToNameByIds(ctx context.Context, ids []string) 
 }
 
 func (s *SysAdminRepo) SysAdminDel(ctx context.Context, ids []string) error {
-	sysAdminDao := rpc_sys_dao.Use(s.data.gorm).SysAdmin
+	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	_, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.In(ids...)).Delete()
 	if err != nil {
 		return errorx.DataSqlErr.WithCause(err)
@@ -63,13 +66,13 @@ func (s *SysAdminRepo) SysAdminDel(ctx context.Context, ids []string) error {
 	return nil
 }
 
-func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStoreReq) (*rpc_sys_model.SysAdmin, error) {
-	sysAdminDao := rpc_sys_dao.Use(s.data.gorm).SysAdmin
+func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStoreReq) (*fkratos_sys_model.SysAdmin, error) {
+	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	roleIds, err := jsonutil.Encode(req.RoleIds)
 	if err != nil {
 		return nil, errorx.DataFormattingError.WithCause(err)
 	}
-	var sysAdmin *rpc_sys_model.SysAdmin
+	var sysAdmin *fkratos_sys_model.SysAdmin
 	if req.Id == "" {
 		if req.Avatar == "" {
 			req.Avatar = avatar.Url()
@@ -79,7 +82,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStor
 		if err != nil {
 			return nil, errorx.DataProcessingError.WithCause(err)
 		}
-		sysAdmin = &rpc_sys_model.SysAdmin{
+		sysAdmin = &fkratos_sys_model.SysAdmin{
 			Username: req.Username,
 			Password: pwd,
 			Nickname: req.Nickname,
@@ -133,8 +136,8 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStor
 	return sysAdmin, nil
 }
 
-func (s *SysAdminRepo) SysManageListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysAdmin, *page.Page, error) {
-	sysAdminDao := rpc_sys_dao.Use(s.data.gorm).SysAdmin
+func (s *SysAdminRepo) SysManageListBySearch(ctx context.Context, req *common.SearchListReq) ([]*fkratos_sys_model.SysAdmin, *page.Page, error) {
+	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	query := sysAdminDao.WithContext(ctx)
 	if req.QuickSearch != "" {
 		query = query.Where(sysAdminDao.Nickname.Like(req.QuickSearch))
@@ -180,7 +183,7 @@ func (s *SysAdminRepo) SysManageListBySearch(ctx context.Context, req *common.Se
 
 func (s *SysAdminRepo) SysAdminInfoUpdate(ctx context.Context, req *v1.SysAdminInfoUpdateReq) (*v1.SysAdminInfoUpdateReply, error) {
 	resp := new(v1.SysAdminInfoUpdateReply)
-	sysAdminDao := rpc_sys_dao.Use(s.data.gorm).SysAdmin
+	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	sysAdmin, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.Eq(req.GetAdminId())).First()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return resp, errorx.DataSqlErr.WithCause(err)
@@ -192,7 +195,7 @@ func (s *SysAdminRepo) SysAdminInfoUpdate(ctx context.Context, req *v1.SysAdminI
 			return resp, errorx.DataProcessingError.WithCause(err)
 		}
 	}
-	_, err = sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.Eq(req.GetAdminId())).Updates(rpc_sys_model.SysAdmin{
+	_, err = sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.Eq(req.GetAdminId())).Updates(fkratos_sys_model.SysAdmin{
 		Password: pwd,
 		Nickname: req.Nickname,
 		Email:    req.Email,
@@ -259,8 +262,8 @@ func (s *SysAdminRepo) SysAdminInfoCacheByAdminId(ctx context.Context, adminId s
 }
 
 // SysAdminInfoByAdminId 根据adminId查询SysAdminInfo
-func (s *SysAdminRepo) SysAdminInfoByAdminId(ctx context.Context, adminId string) (*rpc_sys_model.SysAdmin, error) {
-	sysAdminDao := rpc_sys_dao.Use(s.data.gorm).SysAdmin
+func (s *SysAdminRepo) SysAdminInfoByAdminId(ctx context.Context, adminId string) (*fkratos_sys_model.SysAdmin, error) {
+	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	sysAdmin, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.Eq(adminId)).First()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, errorx.DataSqlErr.WithCause(err)
@@ -303,8 +306,8 @@ func (s *SysAdminRepo) GenerateJwTToken(ctx context.Context, kv map[string]inter
 }
 
 // SysAdminInfoByUsername 根据username查询SysAdminInfo
-func (s *SysAdminRepo) SysAdminInfoByUsername(ctx context.Context, username string) (*rpc_sys_model.SysAdmin, error) {
-	sysAdminDao := rpc_sys_dao.Use(s.data.gorm).SysAdmin
+func (s *SysAdminRepo) SysAdminInfoByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error) {
+	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	sysAdmin, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.Username.Eq(username)).First()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, errorx.DataSqlErr.WithCause(err)

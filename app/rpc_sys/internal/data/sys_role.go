@@ -4,8 +4,8 @@ import (
 	"context"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_dao"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"fkratos/internal/errorx"
 	"strings"
 
@@ -28,8 +28,8 @@ type SysRoleRepo struct {
 	log  *log.Helper
 }
 
-func (s *SysRoleRepo) SysRoleInfoByIds(ctx context.Context, ids []string) ([]*rpc_sys_model.SysRole, error) {
-	sysRoleDao := rpc_sys_dao.Use(s.data.gorm).SysRole
+func (s *SysRoleRepo) SysRoleInfoByIds(ctx context.Context, ids []string) ([]*fkratos_sys_model.SysRole, error) {
+	sysRoleDao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	sysRoles, err := sysRoleDao.WithContext(ctx).Where(sysRoleDao.ID.In(ids...)).Find()
 	if err != nil {
 		return nil, errorx.DataSqlErr.WithCause(err)
@@ -37,8 +37,8 @@ func (s *SysRoleRepo) SysRoleInfoByIds(ctx context.Context, ids []string) ([]*rp
 	return sysRoles, nil
 }
 
-func (s *SysRoleRepo) SysRoleList(ctx context.Context) ([]*rpc_sys_model.SysRole, error) {
-	sysRoleDao := rpc_sys_dao.Use(s.data.gorm).SysRole
+func (s *SysRoleRepo) SysRoleList(ctx context.Context) ([]*fkratos_sys_model.SysRole, error) {
+	sysRoleDao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	sysRoles, err := sysRoleDao.WithContext(ctx).Find()
 	if err != nil {
 		return nil, errorx.DataSqlErr.WithCause(err)
@@ -46,8 +46,8 @@ func (s *SysRoleRepo) SysRoleList(ctx context.Context) ([]*rpc_sys_model.SysRole
 	return sysRoles, nil
 }
 
-func (s *SysRoleRepo) SysRoleInfoById(ctx context.Context, id string) (*rpc_sys_model.SysRole, error) {
-	sysRoleDao := rpc_sys_dao.Use(s.data.gorm).SysRole
+func (s *SysRoleRepo) SysRoleInfoById(ctx context.Context, id string) (*fkratos_sys_model.SysRole, error) {
+	sysRoleDao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	sysRole, err := sysRoleDao.WithContext(ctx).Where(sysRoleDao.ID.Eq(id)).First()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, errorx.DataSqlErr.WithCause(err)
@@ -56,7 +56,7 @@ func (s *SysRoleRepo) SysRoleInfoById(ctx context.Context, id string) (*rpc_sys_
 }
 
 func (s *SysRoleRepo) SysRoleDelByIds(ctx context.Context, ids []string) error {
-	sysRoleDao := rpc_sys_dao.Use(s.data.gorm).SysRole
+	sysRoleDao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	_, err := sysRoleDao.WithContext(ctx).Where(sysRoleDao.ID.In(ids...)).Delete()
 	if err != nil {
 		return errorx.DataSqlErr.WithCause(err)
@@ -64,10 +64,10 @@ func (s *SysRoleRepo) SysRoleDelByIds(ctx context.Context, ids []string) error {
 	return nil
 }
 
-func (s *SysRoleRepo) SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq) (*rpc_sys_model.SysRole, error) {
-	sysRoleDao := rpc_sys_dao.Use(s.data.gorm).SysRole
+func (s *SysRoleRepo) SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq) (*fkratos_sys_model.SysRole, error) {
+	sysRoleDao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	toString := strings.Join(req.GetPermissionIds(), ",")
-	model := &rpc_sys_model.SysRole{
+	model := &fkratos_sys_model.SysRole{
 		Pid:           req.Pid,
 		Name:          req.Name,
 		PermissionIds: toString,
@@ -91,7 +91,7 @@ func (s *SysRoleRepo) SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq)
 
 func (s *SysRoleRepo) GetRoleIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {
 	resp := make(map[string]string)
-	dao := rpc_sys_dao.Use(s.data.gorm).SysRole
+	dao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	results, err := dao.WithContext(ctx).Where(dao.ID.In(ids...)).Find()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, errorx.DataSqlErr.WithCause(err)

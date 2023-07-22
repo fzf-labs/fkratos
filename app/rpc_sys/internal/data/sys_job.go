@@ -5,8 +5,8 @@ import (
 	"fkratos/api/common"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_dao"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"fkratos/internal/errorx"
 	"strings"
 
@@ -33,7 +33,7 @@ type SysJobRepo struct {
 }
 
 func (s *SysJobRepo) SysJobInfoById(ctx context.Context, id string) (*v1.SysJobInfo, error) {
-	sysJobDao := rpc_sys_dao.Use(s.data.gorm).SysJob
+	sysJobDao := fkratos_sys_dao.Use(s.data.gorm).SysJob
 	sysJob, err := sysJobDao.WithContext(ctx).Where(sysJobDao.ID.Eq(id)).First()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, errorx.DataSqlErr.WithCause(err)
@@ -51,7 +51,7 @@ func (s *SysJobRepo) SysJobInfoById(ctx context.Context, id string) (*v1.SysJobI
 }
 
 func (s *SysJobRepo) SysJobDelByIds(ctx context.Context, ids []string) error {
-	sysJobDao := rpc_sys_dao.Use(s.data.gorm).SysJob
+	sysJobDao := fkratos_sys_dao.Use(s.data.gorm).SysJob
 	_, err := sysJobDao.WithContext(ctx).Where(sysJobDao.ID.In(ids...)).Delete()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return errorx.DataSqlErr.WithCause(err)
@@ -59,9 +59,9 @@ func (s *SysJobRepo) SysJobDelByIds(ctx context.Context, ids []string) error {
 	return nil
 }
 
-func (s *SysJobRepo) SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*rpc_sys_model.SysJob, error) {
-	sysJobDao := rpc_sys_dao.Use(s.data.gorm).SysJob
-	sysJob := &rpc_sys_model.SysJob{
+func (s *SysJobRepo) SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*fkratos_sys_model.SysJob, error) {
+	sysJobDao := fkratos_sys_dao.Use(s.data.gorm).SysJob
+	sysJob := &fkratos_sys_model.SysJob{
 		Name:   req.Name,
 		Code:   req.Code,
 		Remark: req.Remark,
@@ -82,9 +82,9 @@ func (s *SysJobRepo) SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*
 	return sysJob, nil
 }
 
-func (s *SysJobRepo) SysJobListBySearch(ctx context.Context, req *common.SearchListReq) ([]*rpc_sys_model.SysJob, *page.Page, error) {
+func (s *SysJobRepo) SysJobListBySearch(ctx context.Context, req *common.SearchListReq) ([]*fkratos_sys_model.SysJob, *page.Page, error) {
 
-	sysJobDao := rpc_sys_dao.Use(s.data.gorm).SysJob
+	sysJobDao := fkratos_sys_dao.Use(s.data.gorm).SysJob
 	query := sysJobDao.WithContext(ctx)
 	if req.QuickSearch != "" {
 		query = query.Where(sysJobDao.Name.Like(req.QuickSearch))
@@ -144,7 +144,7 @@ func (s *SysJobRepo) SysJobListBySearch(ctx context.Context, req *common.SearchL
 
 func (s *SysJobRepo) GetJobIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {
 	resp := make(map[string]string)
-	dao := rpc_sys_dao.Use(s.data.gorm).SysJob
+	dao := fkratos_sys_dao.Use(s.data.gorm).SysJob
 	results, err := dao.WithContext(ctx).Where(dao.ID.In(ids...)).Find()
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, errorx.DataSqlErr.WithCause(err)

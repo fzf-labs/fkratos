@@ -12,7 +12,9 @@ import (
 var ProviderSet = wire.NewSet(
 	NewData,
 	NewRpcSysGrpc,
+	NewSysAdminServiceClient,
 	NewUserServiceClient,
+	NewRpcUserGrpc,
 )
 
 // Data .

@@ -5,7 +5,7 @@ import (
 	"fkratos/api/common"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/data/cache"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"fkratos/internal/constant"
 	"fkratos/internal/errorx"
 	"strings"
@@ -237,7 +237,7 @@ func (a *AdminUseCase) SysAdminPermission(ctx context.Context, req *v1.SysAdminP
 			int64s := strings.Split(role.PermissionIds, ",")
 			permissionIds = append(permissionIds, int64s...)
 		}
-		var permissions []*rpc_sys_model.SysPermission
+		var permissions []*fkratos_sys_model.SysPermission
 		if super {
 			permissions, err = a.sysPermissionRepo.SysPermissionByStatus(ctx, constant.StatusEnable)
 			if err != nil {

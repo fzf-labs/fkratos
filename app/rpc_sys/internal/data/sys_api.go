@@ -3,8 +3,8 @@ package data
 import (
 	"context"
 	"fkratos/app/rpc_sys/internal/biz"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_dao"
-	"fkratos/app/rpc_sys/internal/data/gorm/rpc_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"fkratos/internal/errorx"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -26,7 +26,7 @@ type SysApiRepo struct {
 }
 
 func (s *SysApiRepo) SysApiDel(ctx context.Context, ids []string) error {
-	sysAPIDao := rpc_sys_dao.Use(s.data.gorm).SysAPI
+	sysAPIDao := fkratos_sys_dao.Use(s.data.gorm).SysAPI
 	_, err := sysAPIDao.WithContext(ctx).Where(sysAPIDao.ID.In(ids...)).Delete()
 	if err != nil {
 		return errorx.DataSqlErr.WithCause(err)
@@ -34,8 +34,8 @@ func (s *SysApiRepo) SysApiDel(ctx context.Context, ids []string) error {
 	return nil
 }
 
-func (s *SysApiRepo) SysApiStore(ctx context.Context, model *rpc_sys_model.SysAPI) (*rpc_sys_model.SysAPI, error) {
-	sysAPIDao := rpc_sys_dao.Use(s.data.gorm).SysAPI
+func (s *SysApiRepo) SysApiStore(ctx context.Context, model *fkratos_sys_model.SysAPI) (*fkratos_sys_model.SysAPI, error) {
+	sysAPIDao := fkratos_sys_dao.Use(s.data.gorm).SysAPI
 	err := sysAPIDao.WithContext(ctx).Create(model)
 	if err != nil {
 		return nil, errorx.DataSqlErr.WithCause(err)
@@ -43,8 +43,8 @@ func (s *SysApiRepo) SysApiStore(ctx context.Context, model *rpc_sys_model.SysAP
 	return nil, err
 }
 
-func (s *SysApiRepo) SysApiList(ctx context.Context, permissionId string) ([]*rpc_sys_model.SysAPI, error) {
-	sysAPIDao := rpc_sys_dao.Use(s.data.gorm).SysAPI
+func (s *SysApiRepo) SysApiList(ctx context.Context, permissionId string) ([]*fkratos_sys_model.SysAPI, error) {
+	sysAPIDao := fkratos_sys_dao.Use(s.data.gorm).SysAPI
 	sysAPIS, err := sysAPIDao.WithContext(ctx).Where(sysAPIDao.PermissionID.Eq(permissionId)).Find()
 	if err != nil {
 		return nil, errorx.DataSqlErr.WithCause(err)
@@ -54,7 +54,7 @@ func (s *SysApiRepo) SysApiList(ctx context.Context, permissionId string) ([]*rp
 
 func (s *SysApiRepo) GetApiIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {
 	resp := make(map[string]string)
-	sysAPIDao := rpc_sys_dao.Use(s.data.gorm).SysAPI
+	sysAPIDao := fkratos_sys_dao.Use(s.data.gorm).SysAPI
 	sysAPIS, err := sysAPIDao.WithContext(ctx).Where(sysAPIDao.ID.In(ids...)).Find()
 	if err != nil {
 		return nil, errorx.DataSqlErr.WithCause(err)

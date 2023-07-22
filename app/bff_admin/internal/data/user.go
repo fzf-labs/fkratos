@@ -15,8 +15,8 @@ type RpcUserGrpc struct {
 	grpcClientConn *grpc.ClientConn
 }
 
-func NewRpcUserGrpc(c *conf.Bootstrap, r registry.Discovery) *RpcSysGrpc {
-	return &RpcSysGrpc{grpcClientConn: bootstrap.NewGrpcClient(context.Background(), r, c.Registry.Type, constant.RpcUser, c.Server.Grpc.GetTimeout())}
+func NewRpcUserGrpc(c *conf.Bootstrap, r registry.Discovery) *RpcUserGrpc {
+	return &RpcUserGrpc{grpcClientConn: bootstrap.NewGrpcClient(context.Background(), r, c.Registry.Type, constant.RpcUser, c.Server.Grpc.GetTimeout())}
 }
 
 func NewUserServiceClient(rpcSysGrpc *RpcUserGrpc) userV1.UserClient {
