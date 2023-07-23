@@ -575,8 +575,8 @@ github.com/fsnotify/fsnotify v1.5.1/go.mod h1:T3375wBYaZdLLcVNkcVbzGHY7f1l/uK5T5
 github.com/fsnotify/fsnotify v1.5.4/go.mod h1:OVB6XrOHzAwXMpEM7uPOzcehqUV2UqJxmVXmkdnm1bU=
 github.com/fsnotify/fsnotify v1.6.0 h1:n+5WquG0fcWoWp6xPWfHdbskMCQaFnG6PfBrh1Ky4HY=
 github.com/fsnotify/fsnotify v1.6.0/go.mod h1:sl3t1tCWJFWoRz9R8WJCbQihKKwmorjAbSClcnxKAGw=
-github.com/fzf-labs/fpkg v1.2.7 h1:UN2Be1ieVrUG6e6F3QJkWq2vJlOCg93p8I2VX0B0934=
-github.com/fzf-labs/fpkg v1.2.7/go.mod h1:s5xCTE6Iv+vYdeIqqBee3xuyEKVQey7c7NcTBhRHQc8=
+github.com/fzf-labs/fpkg v1.3.0 h1:GQMMrXWvkGQ/21MBZAdsdm62BrFeRFFoy7gd0pcZEIA=
+github.com/fzf-labs/fpkg v1.3.0/go.mod h1:s5xCTE6Iv+vYdeIqqBee3xuyEKVQey7c7NcTBhRHQc8=
 github.com/getkin/kin-openapi v0.76.0/go.mod h1:660oXbgy5JFMKreazJaQTw7o+X00qeSyhcnluiMv+Xg=
 github.com/ghodss/yaml v1.0.0/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=
 github.com/go-errors/errors v1.0.1 h1:LUHzmkK3GUKUrL/1gfBUxAHzcev3apQlezX/+O7ma6w=

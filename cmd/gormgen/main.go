@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/fzf-labs/fpkg/conv"
+	"github.com/fzf-labs/fpkg/db"
 	"github.com/fzf-labs/fpkg/db/gen"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
@@ -26,9 +27,11 @@ var defaultPostgresDataMap = map[string]func(columnType gorm.ColumnType) (dataTy
 
 func main() {
 	flag.Parse()
-	db := GetDsn(*configFile)
+	dsn := GetDsn(*configFile)
 	outPath := "./internal/data/gorm"
-	gen.Generation(gen.ConnectDB("postgres", db), defaultPostgresDataMap, outPath)
+	connectDB := gen.ConnectDB("postgres", dsn)
+	gen.Generation(connectDB, defaultPostgresDataMap, outPath)
+	db.DumpSql(connectDB, dsn, "../../sql")
 }
 
 func GetDsn(configFile string) string {

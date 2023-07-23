@@ -24,7 +24,7 @@ APP_DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "fkratos/" $$0 ":0
 .PHONY: gorm
 # 生成 GORM 数据库代码
 gorm:
-	@go run ../../cmd/gormgen/main.go -f configs/config.yaml -s ${APP_NAME}
+	@go run ../../cmd/gormgen/main.go -f configs/config.yaml
 
 .PHONY: wire
 # 生成 wire 依赖注入代码

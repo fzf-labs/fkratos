@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/envoyproxy/protoc-gen-validate v0.10.1
-	github.com/fzf-labs/fpkg v1.2.7
+	github.com/fzf-labs/fpkg v1.3.0
 	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/config/etcd/v2 v2.0.0-20230410063538-3958f9d5c06e
