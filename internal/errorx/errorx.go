@@ -52,3 +52,10 @@ func ErrorEncoder(w http.ResponseWriter, r *http.Request, err error) {
 func ContentType(subtype string) string {
 	return strings.Join([]string{"application", subtype}, "/")
 }
+
+// SetErrMetadata 设置错误元数据
+func SetErrMetadata(err error) map[string]string {
+	return map[string]string{
+		"err": err.Error(),
+	}
+}

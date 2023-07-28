@@ -51,6 +51,7 @@ func NewTracerProvider(cfg *conf.Tracer, serviceInfo *Service) error {
 		cfg.Env = "dev"
 	}
 	opts := []traceSdk.TracerProviderOption{
+		// 将基于父span的采样率设置为Sampler(1.0=100%)
 		traceSdk.WithSampler(traceSdk.ParentBased(traceSdk.TraceIDRatioBased(cfg.Sampler))),
 		traceSdk.WithResource(resource.NewSchemaless(
 			semConv.ServiceNameKey.String(serviceInfo.Name),
@@ -60,10 +61,12 @@ func NewTracerProvider(cfg *conf.Tracer, serviceInfo *Service) error {
 		)),
 	}
 	if len(cfg.Endpoint) > 0 {
+		// 初始化采集器
 		exp, err := NewTracerExporter(cfg.Batcher, cfg.Endpoint)
 		if err != nil {
 			panic(err)
 		}
+		// 始终确保在生产中批量处理
 		opts = append(opts, traceSdk.WithBatcher(exp))
 	}
 	tp := traceSdk.NewTracerProvider(opts...)

@@ -11,6 +11,7 @@ var (
 	ParamHeaderErr      = New(http.StatusBadRequest, "ParamHeaderErr", "Param Exception")
 )
 
+// Data数据相关
 var (
 	DataSqlErr           = New(http.StatusInternalServerError, "DataSqlErr", "Data Exception")
 	DataRedisErr         = New(http.StatusInternalServerError, "DataRedisErr", "Data Exception")
@@ -20,25 +21,23 @@ var (
 	DataProcessingError  = New(http.StatusInternalServerError, "DataProcessingError", "Data Exception")
 )
 
+// Account账号验证
 var (
-	AccountNotExist          = New(http.StatusUnprocessableEntity, "AccountNotExist", "Account Exception")
-	AccountIsLocked          = New(http.StatusUnprocessableEntity, "AccountIsLocked", "Account Exception")
-	AccountIsLogout          = New(http.StatusUnprocessableEntity, "AccountIsLogout", "Account Exception")
-	AccountError             = New(http.StatusUnprocessableEntity, "AccountError", "Account Exception")
-	AccountWrongPassword     = New(http.StatusUnprocessableEntity, "AccountWrongPassword", "Account Exception")
-	AccountIsBanned          = New(http.StatusUnprocessableEntity, "AccountIsBanned", "Account Exception")
-	AccountUpdateFailed      = New(http.StatusUnprocessableEntity, "AccountUpdateFailed", "Account Exception")
-	AccountDuplicateUsername = New(http.StatusUnprocessableEntity, "AccountDuplicateUsername", "Account Exception")
-	AccountAbnormalStatus    = New(http.StatusUnprocessableEntity, "AccountAbnormalStatus", "Account Exception")
-	AccountNicknameViolation = New(http.StatusUnprocessableEntity, "AccountNicknameViolation", "Account Exception")
-	AccountNotBoundRole      = New(http.StatusUnprocessableEntity, "AccountNotBoundRole", "Account Exception")
+	AccountNotExist            = New(http.StatusUnprocessableEntity, "AccountNotExist", "Account Exception")
+	AccountIsLocked            = New(http.StatusUnprocessableEntity, "AccountIsLocked", "Account Exception")
+	AccountIsLogout            = New(http.StatusUnprocessableEntity, "AccountIsLogout", "Account Exception")
+	AccountError               = New(http.StatusUnprocessableEntity, "AccountError", "Account Exception")
+	AccountWrongPassword       = New(http.StatusUnprocessableEntity, "AccountWrongPassword", "Account Exception")
+	AccountIsBanned            = New(http.StatusUnprocessableEntity, "AccountIsBanned", "Account Exception")
+	AccountUpdateFailed        = New(http.StatusUnprocessableEntity, "AccountUpdateFailed", "Account Exception")
+	AccountDuplicateUsername   = New(http.StatusUnprocessableEntity, "AccountDuplicateUsername", "Account Exception")
+	AccountAbnormalStatus      = New(http.StatusUnprocessableEntity, "AccountAbnormalStatus", "Account Exception")
+	AccountNicknameViolation   = New(http.StatusUnprocessableEntity, "AccountNicknameViolation", "Account Exception")
+	AccountNotBoundRole        = New(http.StatusUnprocessableEntity, "AccountNotBoundRole", "Account Exception")
+	AccountVerificationCodeErr = New(http.StatusUnprocessableEntity, "AccountVerificationCodeErr", "Account Exception")
 )
 
-// 验证码
-
-var (
-	VerificationCodeErr = New(http.StatusUnprocessableEntity, "verification code err", "verification code Exception")
-)
+// Token验证
 var (
 	TokenNotRequest          = New(http.StatusUnprocessableEntity, "TokenNotRequest", "Token Exception")
 	TokenFormatErr           = New(http.StatusUnprocessableEntity, "TokenFormatErr", "Token Exception")

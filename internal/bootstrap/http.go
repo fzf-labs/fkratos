@@ -3,19 +3,21 @@ package bootstrap
 import (
 	"fkratos/internal/bootstrap/conf"
 	"fkratos/internal/errorx"
+	"fkratos/internal/middleware/validate"
 
+	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware"
+	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/metadata"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
-	"github.com/go-kratos/kratos/v2/middleware/validate"
 	kHttp "github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/gorilla/handlers"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 // NewHttpServer 创建Http服务端
-func NewHttpServer(cfg *conf.Bootstrap, m ...middleware.Middleware) *kHttp.Server {
+func NewHttpServer(cfg *conf.Bootstrap, logger log.Logger, m ...middleware.Middleware) *kHttp.Server {
 	var opts = []kHttp.ServerOption{
 		kHttp.Filter(handlers.CORS(
 			handlers.AllowedHeaders(cfg.Server.Http.Headers),
@@ -25,6 +27,7 @@ func NewHttpServer(cfg *conf.Bootstrap, m ...middleware.Middleware) *kHttp.Serve
 	}
 	var ms []middleware.Middleware
 	ms = append(ms,
+		logging.Server(logger),
 		recovery.Recovery(),
 		tracing.Server(),
 		metadata.Server(),

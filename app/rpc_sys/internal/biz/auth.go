@@ -42,7 +42,7 @@ func (a *AuthUseCase) SysAuthLogin(ctx context.Context, req *v1.SysAuthLoginReq)
 	//验证码
 	verify := base64Captcha.DefaultMemStore.Verify(req.CaptchaId, req.VerifyCode, true)
 	if !verify {
-		return nil, errorx.VerificationCodeErr
+		return nil, errorx.AccountVerificationCodeErr
 	}
 	//用户校验
 	sysAdmin, err := a.sysAdminRepo.SysAdminInfoByUsername(ctx, req.GetUsername())

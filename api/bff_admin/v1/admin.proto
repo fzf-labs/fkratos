@@ -5,6 +5,8 @@ package api.bff_admin.v1;
 option go_package = "fkratos/api/bff_admin/v1;v1";
 
 import "google/api/annotations.proto";
+import "validate/validate.proto";
+
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
@@ -48,7 +50,14 @@ message AdminInfo{
 
 }
 //请求-创建用户
-message CreateAdminReq {}
+message CreateAdminReq {
+  string adminId = 1 [(validate.rules).string.uuid = true];
+  string nickname = 2 [(validate.rules).string = {min_len: 0,max_len: 50}]; //昵称
+  string email = 3 [(validate.rules).string = {min_len: 0,max_len: 50}]; //邮件
+  string mobile = 4 [(validate.rules).string = {min_len: 0,max_len: 15}]; //手机号
+  string motto = 5 [(validate.rules).string = {min_len: 0,max_len: 255}]; //个性签名
+  string password = 6 [(validate.rules).string = {min_len: 0,max_len: 128}]; //密码
+}
 //响应-创建用户
 message CreateAdminReply {}
 //请求-更新用户

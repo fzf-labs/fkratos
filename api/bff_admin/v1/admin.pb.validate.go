@@ -35,6 +35,9 @@ var (
 	_ = sort.Sort
 )
 
+// define the regex for a UUID once up-front
+var _admin_uuidPattern = regexp.MustCompile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+
 // Validate checks the field values on AdminInfo with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -156,8 +159,83 @@ func (m *CreateAdminReq) validate(all bool) error {
 
 	var errors []error
 
+	if err := m._validateUuid(m.GetAdminId()); err != nil {
+		err = CreateAdminReqValidationError{
+			field:  "AdminId",
+			reason: "value must be a valid UUID",
+			cause:  err,
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetNickname()); l < 0 || l > 50 {
+		err := CreateAdminReqValidationError{
+			field:  "Nickname",
+			reason: "value length must be between 0 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetEmail()); l < 0 || l > 50 {
+		err := CreateAdminReqValidationError{
+			field:  "Email",
+			reason: "value length must be between 0 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetMobile()); l < 0 || l > 15 {
+		err := CreateAdminReqValidationError{
+			field:  "Mobile",
+			reason: "value length must be between 0 and 15 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetMotto()); l < 0 || l > 255 {
+		err := CreateAdminReqValidationError{
+			field:  "Motto",
+			reason: "value length must be between 0 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetPassword()); l < 0 || l > 128 {
+		err := CreateAdminReqValidationError{
+			field:  "Password",
+			reason: "value length must be between 0 and 128 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return CreateAdminReqMultiError(errors)
+	}
+
+	return nil
+}
+
+func (m *CreateAdminReq) _validateUuid(uuid string) error {
+	if matched := _admin_uuidPattern.MatchString(uuid); !matched {
+		return errors.New("invalid uuid format")
 	}
 
 	return nil

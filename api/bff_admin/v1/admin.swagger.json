@@ -190,6 +190,31 @@
     },
     "v1CreateAdminReq": {
       "type": "object",
+      "properties": {
+        "adminId": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string",
+          "title": "昵称"
+        },
+        "email": {
+          "type": "string",
+          "title": "邮件"
+        },
+        "mobile": {
+          "type": "string",
+          "title": "手机号"
+        },
+        "motto": {
+          "type": "string",
+          "title": "个性签名"
+        },
+        "password": {
+          "type": "string",
+          "title": "密码"
+        }
+      },
       "title": "请求-创建用户"
     },
     "v1DeleteAdminReply": {
