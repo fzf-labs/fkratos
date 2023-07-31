@@ -1,6 +1,9 @@
 package errorx
 
 const (
+	HeaderLang = "lang" //语言类型
+)
+const (
 	ZhCN = "zh-CN" // zh_CN 简体中文-中国
 	EnUS = "en-US" // en_US 英文-美国
 )

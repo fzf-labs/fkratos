@@ -1,7 +1,6 @@
 package errorx
 
 import (
-	"fkratos/internal/constant"
 	"fmt"
 	"net/http"
 	"strings"
@@ -29,7 +28,7 @@ func New(code int, reason, message string) *errors.Error {
 func ErrorEncoder(w http.ResponseWriter, r *http.Request, err error) {
 	se := errors.FromError(err)
 	if se != nil {
-		lang := r.Header.Get(constant.HeaderLang)
+		lang := r.Header.Get(HeaderLang)
 		if lang != "" {
 			message := GetMessage(se.GetReason(), lang)
 			if message != "" {
