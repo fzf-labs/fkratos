@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "bff_admin/v1/admin.proto",
+    "title": "bff_api/v1/api.proto",
     "version": "version not set"
   },
   "tags": [
     {
-      "name": "Admin"
+      "name": "Api"
     }
   ],
   "consumes": [
@@ -16,15 +16,15 @@
     "application/json"
   ],
   "paths": {
-    "/admin/v1/createAdmin": {
+    "/api/v1/createApi": {
       "post": {
         "summary": "创建用户",
-        "operationId": "Admin_CreateAdmin",
+        "operationId": "Api_CreateApi",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1CreateAdminReply"
+              "$ref": "#/definitions/v1CreateApiReply"
             }
           },
           "default": {
@@ -40,24 +40,24 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1CreateAdminReq"
+              "$ref": "#/definitions/v1CreateApiReq"
             }
           }
         ],
         "tags": [
-          "Admin"
+          "Api"
         ]
       }
     },
-    "/admin/v1/deleteAdmin": {
+    "/api/v1/deleteApi": {
       "delete": {
         "summary": "删除用户",
-        "operationId": "Admin_DeleteAdmin",
+        "operationId": "Api_DeleteApi",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1DeleteAdminReply"
+              "$ref": "#/definitions/v1DeleteApiReply"
             }
           },
           "default": {
@@ -68,19 +68,19 @@
           }
         },
         "tags": [
-          "Admin"
+          "Api"
         ]
       }
     },
-    "/admin/v1/getAdmin": {
+    "/api/v1/getApi": {
       "get": {
         "summary": "获取单个用户",
-        "operationId": "Admin_GetAdmin",
+        "operationId": "Api_GetApi",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetAdminReply"
+              "$ref": "#/definitions/v1GetApiReply"
             }
           },
           "default": {
@@ -91,19 +91,19 @@
           }
         },
         "tags": [
-          "Admin"
+          "Api"
         ]
       }
     },
-    "/admin/v1/listAdmin": {
+    "/api/v1/listApi": {
       "get": {
         "summary": "获取用户列表",
-        "operationId": "Admin_ListAdmin",
+        "operationId": "Api_ListApi",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1ListAdminReply"
+              "$ref": "#/definitions/v1ListApiReply"
             }
           },
           "default": {
@@ -114,19 +114,19 @@
           }
         },
         "tags": [
-          "Admin"
+          "Api"
         ]
       }
     },
-    "/admin/v1/updateAdmin": {
+    "/api/v1/updateApi": {
       "put": {
         "summary": "更新用户",
-        "operationId": "Admin_UpdateAdmin",
+        "operationId": "Api_UpdateApi",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1UpdateAdminReply"
+              "$ref": "#/definitions/v1UpdateApiReply"
             }
           },
           "default": {
@@ -138,16 +138,16 @@
         },
         "parameters": [
           {
-            "name": "adminInfo",
+            "name": "apiInfo",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1AdminInfo"
+              "$ref": "#/definitions/v1ApiInfo"
             }
           }
         ],
         "tags": [
-          "Admin"
+          "Api"
         ]
       }
     }
@@ -180,55 +180,30 @@
         }
       }
     },
-    "v1AdminInfo": {
+    "v1ApiInfo": {
       "type": "object"
     },
-    "v1CreateAdminReply": {
+    "v1CreateApiReply": {
       "type": "object",
       "title": "响应-创建用户"
     },
-    "v1CreateAdminReq": {
+    "v1CreateApiReq": {
       "type": "object",
-      "properties": {
-        "adminId": {
-          "type": "string"
-        },
-        "nickname": {
-          "type": "string",
-          "title": "昵称"
-        },
-        "email": {
-          "type": "string",
-          "title": "邮件"
-        },
-        "mobile": {
-          "type": "string",
-          "title": "手机号"
-        },
-        "motto": {
-          "type": "string",
-          "title": "个性签名"
-        },
-        "password": {
-          "type": "string",
-          "title": "密码"
-        }
-      },
       "title": "请求-创建用户"
     },
-    "v1DeleteAdminReply": {
+    "v1DeleteApiReply": {
       "type": "object",
       "title": "响应-删除用户"
     },
-    "v1GetAdminReply": {
+    "v1GetApiReply": {
       "type": "object",
       "title": "响应-获取单个用户"
     },
-    "v1ListAdminReply": {
+    "v1ListApiReply": {
       "type": "object",
       "title": "响应-获取用户列表"
     },
-    "v1UpdateAdminReply": {
+    "v1UpdateApiReply": {
       "type": "object",
       "title": "响应-更新用户"
     }

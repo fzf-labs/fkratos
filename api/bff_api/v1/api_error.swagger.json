@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "bff_admin/v1/admin_error.proto",
+    "title": "bff_api/v1/api_error.proto",
     "version": "version not set"
   },
   "consumes": [

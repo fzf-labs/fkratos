@@ -14,8 +14,8 @@ import (
 	"github.com/fzf-labs/fpkg/util/jsonutil"
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/go-redis/redis/v8"
 	"github.com/jinzhu/copier"
+	"github.com/redis/go-redis/v9"
 )
 
 func NewAdminUseCase(logger log.Logger, redis *redis.Client, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo, sysPermissionRepo SysPermissionRepo) *AdminUseCase {

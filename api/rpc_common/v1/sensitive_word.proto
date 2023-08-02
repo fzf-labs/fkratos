@@ -6,7 +6,7 @@ option go_package = "fkratos/api/rpc_common/v1;v1";
 
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
-import "common/common.proto";
+import "paginator/paginator.proto";
 
 // 敏感词
 service SensitiveWord {
@@ -40,7 +40,7 @@ message SensitiveCategoryInfo{
 message SensitiveCategoryListReq{}
 message SensitiveCategoryListReply{
   repeated SensitiveCategoryInfo list = 1;        //敏感词列表
-  common.Paginator paginator = 2; //分页
+  paginator.PaginatorReply paginator = 2; //分页
 }
 
 
@@ -80,7 +80,7 @@ message SensitiveWordInfo{
 message SensitiveWordListReq{}
 message SensitiveWordListReply{
   repeated SensitiveWordInfo list = 1;        //敏感词列表
-  common.Paginator paginator = 2; //分页
+  paginator.PaginatorReply paginator = 2; //分页
 }
 
 

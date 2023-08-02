@@ -6,7 +6,7 @@ import (
 
 	fRedis "github.com/fzf-labs/fpkg/cache/redis"
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/go-redis/redis/v8"
+	"github.com/redis/go-redis/v9"
 )
 
 // NewRedis 初始化redis

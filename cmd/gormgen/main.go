@@ -31,7 +31,7 @@ func main() {
 	outPath := "./internal/data/gorm"
 	connectDB := gen.ConnectDB("postgres", dsn)
 	gen.Generation(connectDB, defaultPostgresDataMap, outPath)
-	db.DumpSql(connectDB, dsn, "../../sql")
+	db.DumpPostgres(connectDB, dsn, "../../sql")
 }
 
 func GetDsn(configFile string) string {
