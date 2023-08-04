@@ -2,10 +2,10 @@ package data
 
 import (
 	"context"
+	"errors"
 	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
-	"fkratos/app/rpc_sys/internal/data/cache"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
@@ -49,7 +49,7 @@ func (s *SysAdminRepo) GetAdminIdToNameByIds(ctx context.Context, ids []string) 
 	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	sysAdmins, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.In(ids...)).Find()
 	if err != nil {
-		return nil, errorx.DataSqlErr.WithCause(err)
+		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	for _, v := range sysAdmins {
 		res[v.ID] = v.Username
@@ -61,7 +61,7 @@ func (s *SysAdminRepo) SysAdminDel(ctx context.Context, ids []string) error {
 	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	_, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.In(ids...)).Delete()
 	if err != nil {
-		return errorx.DataSqlErr.WithCause(err)
+		return errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return nil
 }
@@ -70,7 +70,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStor
 	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	roleIds, err := jsonutil.Encode(req.RoleIds)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithCause(err)
+		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	var sysAdmin *fkratos_sys_model.SysAdmin
 	if req.Id == "" {
@@ -80,7 +80,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStor
 		salt := strutil.Random(16)
 		pwd, err := crypt.Encrypt(req.Password + salt)
 		if err != nil {
-			return nil, errorx.DataProcessingError.WithCause(err)
+			return nil, errorx.DataProcessingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 		sysAdmin = &fkratos_sys_model.SysAdmin{
 			Username: req.Username,
@@ -99,12 +99,12 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStor
 		}
 		err = sysAdminDao.WithContext(ctx).Create(sysAdmin)
 		if err != nil {
-			return nil, errorx.DataSqlErr.WithCause(err)
+			return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 	} else {
 		sysAdmin, err = sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.Eq(req.Id)).First()
-		if err != nil && err != gorm.ErrRecordNotFound {
-			return nil, errorx.DataSqlErr.WithCause(err)
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 		if sysAdmin == nil {
 			return nil, errorx.AccountNotExist
@@ -112,7 +112,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStor
 		if req.Password != "" {
 			pwd, err := crypt.Encrypt(req.Password + sysAdmin.Salt)
 			if err != nil {
-				return nil, errorx.DataProcessingError.WithCause(err)
+				return nil, errorx.DataProcessingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 			}
 			sysAdmin.Password = pwd
 		}
@@ -130,7 +130,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStor
 			sysAdminDao.Motto,
 		).Where(sysAdminDao.ID.Eq(req.Id)).Updates(sysAdmin)
 		if err != nil {
-			return nil, errorx.DataSqlErr.WithCause(err)
+			return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 	}
 	return sysAdmin, nil
@@ -171,104 +171,14 @@ func (s *SysAdminRepo) SysManageListBySearch(ctx context.Context, req *paginator
 	queryCount := query
 	total, err := queryCount.Count()
 	if err != nil {
-		return nil, nil, errorx.DataSqlErr.WithCause(err)
+		return nil, nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	paginator := page.Paginator(int(req.Page), int(req.PageSize), int(total))
 	sysAdmins, err := query.Offset(paginator.Offset).Limit(paginator.Limit).Find()
 	if err != nil {
-		return nil, nil, errorx.DataSqlErr.WithCause(err)
+		return nil, nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return sysAdmins, paginator, nil
-}
-
-func (s *SysAdminRepo) SysAdminInfoUpdate(ctx context.Context, req *v1.SysAdminInfoUpdateReq) (*v1.SysAdminInfoUpdateReply, error) {
-	resp := new(v1.SysAdminInfoUpdateReply)
-	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
-	sysAdmin, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.Eq(req.GetAdminId())).First()
-	if err != nil && err != gorm.ErrRecordNotFound {
-		return resp, errorx.DataSqlErr.WithCause(err)
-	}
-	var pwd string
-	if req.Password != "" {
-		pwd, err = crypt.Encrypt(req.Password + sysAdmin.Salt)
-		if err != nil {
-			return resp, errorx.DataProcessingError.WithCause(err)
-		}
-	}
-	_, err = sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.Eq(req.GetAdminId())).Updates(fkratos_sys_model.SysAdmin{
-		Password: pwd,
-		Nickname: req.Nickname,
-		Email:    req.Email,
-		Mobile:   req.Mobile,
-		Motto:    req.Motto,
-	})
-	if err != nil {
-		return nil, errorx.DataSqlErr.WithCause(err)
-	}
-	cacheKey := cache.SysAdminInfo.NewSingleKey(s.data.redis)
-	err = cacheKey.SingleCacheDel(ctx, req.GetAdminId())
-	if err != nil {
-		return nil, errorx.DataRedisErr.WithCause(err)
-	}
-	return resp, nil
-}
-
-func (s *SysAdminRepo) SysAdminInfoCacheByAdminId(ctx context.Context, adminId string) (*v1.SysAdminInfo, error) {
-	resp := new(v1.SysAdminInfo)
-	cacheKey := cache.SysAdminInfo.NewSingleKey(s.data.redis)
-	res, err := cacheKey.SingleCache(ctx, adminId, func() (string, error) {
-		sysAdmin, err := s.SysAdminInfoByAdminId(ctx, adminId)
-		if err != nil {
-			return "", err
-		}
-		if sysAdmin == nil {
-			return "", nil
-		}
-		roleIds := make([]string, 0)
-		if sysAdmin.RoleIds.String() != "" {
-			err = jsonutil.Decode(sysAdmin.RoleIds, &roleIds)
-			if err != nil {
-				return "", errorx.DataFormattingError.WithCause(err)
-			}
-		}
-		res, err := jsonutil.EncodeToString(v1.SysAdminInfo{
-			Id:       sysAdmin.ID,
-			Username: sysAdmin.Username,
-			Nickname: sysAdmin.Nickname,
-			Avatar:   sysAdmin.Avatar,
-			Gender:   int32(sysAdmin.Gender),
-			Email:    sysAdmin.Email,
-			Mobile:   sysAdmin.Mobile,
-			JobID:    sysAdmin.JobID,
-			DeptID:   sysAdmin.DeptID,
-			RoleIds:  roleIds,
-			Motto:    sysAdmin.Motto,
-		})
-		if err != nil {
-			return "", errorx.DataFormattingError.WithCause(err)
-		}
-		return res, nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	if res != "" {
-		err = jsonutil.DecodeString(res, resp)
-		if err != nil {
-			return nil, errorx.DataFormattingError.WithCause(err)
-		}
-	}
-	return resp, nil
-}
-
-// SysAdminInfoByAdminId 根据adminId查询SysAdminInfo
-func (s *SysAdminRepo) SysAdminInfoByAdminId(ctx context.Context, adminId string) (*fkratos_sys_model.SysAdmin, error) {
-	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
-	sysAdmin, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.Eq(adminId)).First()
-	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, errorx.DataSqlErr.WithCause(err)
-	}
-	return sysAdmin, nil
 }
 
 // ClearJwTToken 清除jwtToken
@@ -296,21 +206,11 @@ func (s *SysAdminRepo) GenerateJwTToken(ctx context.Context, kv map[string]inter
 	})
 	token, claims, err := jwtClient.GenerateToken(kv)
 	if err != nil {
-		return nil, errorx.TokenGenerationFailed.WithCause(err)
+		return nil, errorx.TokenGenerationFailed.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	err = jwtClient.JwtTokenStore(claims)
 	if err != nil {
 		return nil, errorx.TokenStorageFailed
 	}
 	return token, nil
-}
-
-// SysAdminInfoByUsername 根据username查询SysAdminInfo
-func (s *SysAdminRepo) SysAdminInfoByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error) {
-	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
-	sysAdmin, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.Username.Eq(username)).First()
-	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, errorx.DataSqlErr.WithCause(err)
-	}
-	return sysAdmin, nil
 }

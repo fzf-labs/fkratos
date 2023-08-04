@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/envoyproxy/protoc-gen-validate v0.10.1
-	github.com/fzf-labs/fpkg v1.3.1
+	github.com/fzf-labs/fpkg v1.3.4
 	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/config/etcd/v2 v2.0.0-20230410063538-3958f9d5c06e
@@ -45,6 +45,7 @@ require (
 	google.golang.org/grpc v1.56.1
 	google.golang.org/protobuf v1.31.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
+	gorm.io/datatypes v1.2.0
 	gorm.io/gen v0.3.23-0.20230607102635-21d0628d5f07
 	gorm.io/gorm v1.25.2
 	gorm.io/plugin/dbresolver v1.4.1
@@ -186,7 +187,6 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/datatypes v1.2.0 // indirect
 	gorm.io/driver/mysql v1.5.1 // indirect
 	gorm.io/driver/postgres v1.5.0 // indirect
 	gorm.io/hints v1.1.2 // indirect

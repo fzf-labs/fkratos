@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/fzf-labs/fpkg/cache/cachekey"
+	"github.com/fzf-labs/fpkg/conv"
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
@@ -37,10 +38,10 @@ type (
 		DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error
 		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
 		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysTenant) error
-		// FindOneByID 根据ID查询一条数据并设置缓存
-		FindOneByID(ctx context.Context, ID string) (*fkratos_sys_model.SysTenant, error)
-		// FindMultiByIDS 根据IDS查询多条数据并设置缓存
-		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysTenant, error)
+		// FindOneCacheByID 根据ID查询一条数据并设置缓存
+		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysTenant, error)
+		// FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
+		FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysTenant, error)
 	}
 
 	SysTenantRepo struct {
@@ -134,11 +135,11 @@ func (r *SysTenantRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkra
 	return nil
 }
 
-// FindOneByID 根据ID查询一条数据并设置缓存
-func (r *SysTenantRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_sys_model.SysTenant, error) {
+// FindOneCacheByID 根据ID查询一条数据并设置缓存
+func (r *SysTenantRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysTenant, error) {
 	resp := new(fkratos_sys_model.SysTenant)
 	cache := CacheSysTenantByID.NewSingleKey(r.redis)
-	cacheValue, err := cache.SingleCache(ctx, ID, func() (string, error) {
+	cacheValue, err := cache.SingleCache(ctx, conv.String(ID), func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysTenant
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 		if err != nil && err != gorm.ErrRecordNotFound {
@@ -160,11 +161,15 @@ func (r *SysTenantRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_sy
 	return resp, nil
 }
 
-// FindMultiByIDS 根据IDS查询多条数据并设置缓存
-func (r *SysTenantRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysTenant, error) {
+// FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
+func (r *SysTenantRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysTenant, error) {
 	resp := make([]*fkratos_sys_model.SysTenant, 0)
 	cacheKey := CacheSysTenantByID.NewBatchKey(r.redis)
-	cacheValue, err := cacheKey.BatchKeyCache(ctx, IDS, func() (map[string]string, error) {
+	batchKeys := make([]string, 0)
+	for _, v := range IDS {
+		batchKeys = append(batchKeys, conv.String(v))
+	}
+	cacheValue, err := cacheKey.BatchKeyCache(ctx, batchKeys, func() (map[string]string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysTenant
 		result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
 		if err != nil && err != gorm.ErrRecordNotFound {
@@ -176,7 +181,7 @@ func (r *SysTenantRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fk
 			if err != nil {
 				return nil, err
 			}
-			value[v.ID] = string(marshal)
+			value[conv.String(v.ID)] = string(marshal)
 		}
 		return value, nil
 	})

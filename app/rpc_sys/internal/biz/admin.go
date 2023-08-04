@@ -10,6 +10,7 @@ import (
 	"fkratos/internal/errorx"
 	"strings"
 
+	"github.com/fzf-labs/fpkg/crypt"
 	"github.com/fzf-labs/fpkg/third_api/avatar"
 	"github.com/fzf-labs/fpkg/util/jsonutil"
 	"github.com/fzf-labs/fpkg/util/timeutil"
@@ -41,19 +42,66 @@ type AdminUseCase struct {
 	sysPermissionRepo SysPermissionRepo
 }
 
+// SysAdminInfo 查询管理员信息
 func (a *AdminUseCase) SysAdminInfo(ctx context.Context, req *v1.SysAdminInfoReq) (*v1.SysAdminInfoReply, error) {
 	resp := new(v1.SysAdminInfoReply)
-
-	sysAdmin, err := a.sysAdminRepo.SysAdminInfoCacheByAdminId(ctx, req.AdminId)
+	sysAdmin, err := a.sysAdminRepo.FindOneCacheByID(ctx, req.GetAdminId())
 	if err != nil {
 		return nil, err
 	}
-	resp.Info = sysAdmin
+	if sysAdmin == nil {
+		return resp, nil
+	}
+	roleIds := make([]string, 0)
+	if sysAdmin.RoleIds.String() != "" {
+		err = jsonutil.Decode(sysAdmin.RoleIds, &roleIds)
+		if err != nil {
+			return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		}
+	}
+	resp.Info = &v1.SysAdminInfo{
+		Id:       sysAdmin.ID,
+		Username: sysAdmin.Username,
+		Nickname: sysAdmin.Nickname,
+		Avatar:   sysAdmin.Avatar,
+		Gender:   int32(sysAdmin.Gender),
+		Email:    sysAdmin.Email,
+		Mobile:   sysAdmin.Mobile,
+		JobID:    sysAdmin.JobID,
+		DeptID:   sysAdmin.DeptID,
+		RoleIds:  roleIds,
+		Motto:    sysAdmin.Motto,
+	}
 	return resp, nil
 }
 
+// SysAdminInfoUpdate 管理员更新
 func (a *AdminUseCase) SysAdminInfoUpdate(ctx context.Context, req *v1.SysAdminInfoUpdateReq) (*v1.SysAdminInfoUpdateReply, error) {
-	return a.sysAdminRepo.SysAdminInfoUpdate(ctx, req)
+	resp := new(v1.SysAdminInfoUpdateReply)
+	sysAdminInfo, err := a.sysAdminRepo.FindOneCacheByID(ctx, req.GetAdminId())
+	if err != nil {
+		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+	}
+	if sysAdminInfo == nil {
+		return nil, errorx.AccountNotExist
+	}
+	var pwd string
+	if req.Password != "" {
+		pwd, err = crypt.Encrypt(req.Password + sysAdminInfo.Salt)
+		if err != nil {
+			return resp, errorx.DataProcessingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		}
+	}
+	sysAdminInfo.Password = pwd
+	sysAdminInfo.Nickname = req.Nickname
+	sysAdminInfo.Email = req.Email
+	sysAdminInfo.Mobile = req.Mobile
+	sysAdminInfo.Motto = req.Motto
+	err = a.sysAdminRepo.UpdateOne(ctx, sysAdminInfo)
+	if err != nil {
+		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+	}
+	return resp, nil
 }
 
 func (a *AdminUseCase) SysAdminGenerateAvatar(ctx context.Context, req *v1.SysAdminGenerateAvatarReq) (*v1.SysAdminGenerateAvatarReply, error) {
@@ -134,7 +182,7 @@ func (a *AdminUseCase) SysManageList(ctx context.Context, req *paginator.Paginat
 
 func (a *AdminUseCase) SysManageInfo(ctx context.Context, req *v1.SysManageInfoReq) (*v1.SysManageInfoReply, error) {
 	resp := new(v1.SysManageInfoReply)
-	sysAdmin, err := a.sysAdminRepo.SysAdminInfoByAdminId(ctx, req.GetAdminId())
+	sysAdmin, err := a.sysAdminRepo.FindOneCacheByID(ctx, req.GetAdminId())
 	if err != nil {
 		return nil, err
 	}
@@ -194,7 +242,7 @@ func (a *AdminUseCase) SysManageStore(ctx context.Context, req *v1.SysManageStor
 
 func (a *AdminUseCase) SysManageDel(ctx context.Context, req *v1.SysManageDelReq) (*v1.SysManageDelReply, error) {
 	resp := new(v1.SysManageDelReply)
-	err := a.sysAdminRepo.SysAdminDel(ctx, req.GetIds())
+	err := a.sysAdminRepo.DeleteMultiCacheByIDS(ctx, req.GetIds())
 	if err != nil {
 		return nil, err
 	}
@@ -205,7 +253,7 @@ func (a *AdminUseCase) SysAdminPermission(ctx context.Context, req *v1.SysAdminP
 	resp := new(v1.SysAdminPermissionReply)
 	cacheKey := cache.SysAdminPermission.NewHashKey(a.redis)
 	res, err := cacheKey.HashCache(ctx, req.GetAdminId(), "AdminPermission", func() (string, error) {
-		sysAdmin, err := a.sysAdminRepo.SysAdminInfoByAdminId(ctx, req.GetAdminId())
+		sysAdmin, err := a.sysAdminRepo.FindOneCacheByID(ctx, req.GetAdminId())
 		if err != nil {
 			return "", err
 		}

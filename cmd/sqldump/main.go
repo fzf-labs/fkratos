@@ -5,31 +5,18 @@ import (
 	"path/filepath"
 
 	"github.com/fzf-labs/fpkg/conv"
+	"github.com/fzf-labs/fpkg/db"
 	"github.com/fzf-labs/fpkg/db/gen"
 	"github.com/spf13/viper"
-	"gorm.io/gorm"
 )
 
 var configFile = flag.String("f", "config.yaml", "the config file")
 
-// 默认Postgres字段类型映射
-var defaultPostgresDataMap = map[string]func(columnType gorm.ColumnType) (dataType string){
-	"json": func(columnType gorm.ColumnType) string { return "datatypes.JSON" },
-	"timestamptz": func(columnType gorm.ColumnType) string {
-		nullable, _ := columnType.Nullable()
-		if nullable {
-			return "sql.NullTime"
-		}
-		return "time.Time"
-	},
-}
-
 func main() {
 	flag.Parse()
 	dsn := GetDsn(*configFile)
-	outPath := "./internal/data/gorm"
 	connectDB := gen.ConnectDB("postgres", dsn)
-	gen.Generation(connectDB, defaultPostgresDataMap, outPath)
+	db.DumpPostgres(connectDB, dsn, "../../sql")
 }
 
 func GetDsn(configFile string) string {

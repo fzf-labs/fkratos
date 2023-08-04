@@ -36,7 +36,7 @@ func (s *SysJobRepo) SysJobInfoById(ctx context.Context, id string) (*v1.SysJobI
 	sysJobDao := fkratos_sys_dao.Use(s.data.gorm).SysJob
 	sysJob, err := sysJobDao.WithContext(ctx).Where(sysJobDao.ID.Eq(id)).First()
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, errorx.DataSqlErr.WithCause(err)
+		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return &v1.SysJobInfo{
 		Id:        sysJob.ID,
@@ -54,7 +54,7 @@ func (s *SysJobRepo) SysJobDelByIds(ctx context.Context, ids []string) error {
 	sysJobDao := fkratos_sys_dao.Use(s.data.gorm).SysJob
 	_, err := sysJobDao.WithContext(ctx).Where(sysJobDao.ID.In(ids...)).Delete()
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return errorx.DataSqlErr.WithCause(err)
+		return errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return nil
 }
@@ -71,12 +71,12 @@ func (s *SysJobRepo) SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*
 	if req.Id != "" {
 		_, err := sysJobDao.WithContext(ctx).Select(sysJobDao.Name, sysJobDao.Code, sysJobDao.Remark, sysJobDao.Sort, sysJobDao.Status).Where(sysJobDao.ID.Eq(req.Id)).Updates(sysJob)
 		if err != nil {
-			return nil, errorx.DataSqlErr.WithCause(err)
+			return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 	} else {
 		err := sysJobDao.WithContext(ctx).Create(sysJob)
 		if err != nil {
-			return nil, errorx.DataSqlErr.WithCause(err)
+			return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 	}
 	return sysJob, nil
@@ -132,12 +132,12 @@ func (s *SysJobRepo) SysJobListBySearch(ctx context.Context, req *paginator.Pagi
 	queryCount := query
 	total, err := queryCount.Count()
 	if err != nil {
-		return nil, nil, errorx.DataSqlErr.WithCause(err)
+		return nil, nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	paginator := page.Paginator(int(req.Page), int(req.PageSize), int(total))
 	sysJobs, err := query.Offset(paginator.Offset).Limit(paginator.Limit).Find()
 	if err != nil {
-		return nil, nil, errorx.DataSqlErr.WithCause(err)
+		return nil, nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return sysJobs, paginator, nil
 }
@@ -147,7 +147,7 @@ func (s *SysJobRepo) GetJobIdToNameByIds(ctx context.Context, ids []string) (map
 	dao := fkratos_sys_dao.Use(s.data.gorm).SysJob
 	results, err := dao.WithContext(ctx).Where(dao.ID.In(ids...)).Find()
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, errorx.DataSqlErr.WithCause(err)
+		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	for _, v := range results {
 		resp[v.ID] = v.Name

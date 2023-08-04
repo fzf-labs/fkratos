@@ -24,6 +24,7 @@ type AuthUseCase struct {
 	sysAdminRepo SysAdminRepo
 }
 
+// SysAuthLoginCaptcha 验证码
 func (a *AuthUseCase) SysAuthLoginCaptcha(ctx context.Context, req *v1.SysAuthLoginCaptchaReq) (*v1.SysAuthLoginCaptchaReply, error) {
 	resp := new(v1.SysAuthLoginCaptchaReply)
 	driver := base64Captcha.NewDriverDigit(80, 240, 6, 0.7, 80)
@@ -37,6 +38,7 @@ func (a *AuthUseCase) SysAuthLoginCaptcha(ctx context.Context, req *v1.SysAuthLo
 	return resp, nil
 }
 
+// SysAuthLogin 登录
 func (a *AuthUseCase) SysAuthLogin(ctx context.Context, req *v1.SysAuthLoginReq) (*v1.SysAuthLoginReply, error) {
 	resp := new(v1.SysAuthLoginReply)
 	//验证码
@@ -45,7 +47,7 @@ func (a *AuthUseCase) SysAuthLogin(ctx context.Context, req *v1.SysAuthLoginReq)
 		return nil, errorx.AccountVerificationCodeErr
 	}
 	//用户校验
-	sysAdmin, err := a.sysAdminRepo.SysAdminInfoByUsername(ctx, req.GetUsername())
+	sysAdmin, err := a.sysAdminRepo.FindOneCacheByUsername(ctx, req.GetUsername())
 	if err != nil {
 		return nil, err
 	}
@@ -72,10 +74,10 @@ func (a *AuthUseCase) SysAuthLogin(ctx context.Context, req *v1.SysAuthLoginReq)
 	return resp, nil
 }
 
+// SysAuthLogout 登出
 func (a *AuthUseCase) SysAuthLogout(ctx context.Context, req *v1.SysAuthLogoutReq) (*v1.SysAuthLogoutReply, error) {
 	resp := new(v1.SysAuthLogoutReply)
-	// todo jwtuid
-	err := a.sysAdminRepo.ClearJwTToken(ctx, "")
+	err := a.sysAdminRepo.ClearJwTToken(ctx, req.GetAdminId())
 	if err != nil {
 		return nil, err
 	}

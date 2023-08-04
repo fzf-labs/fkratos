@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/fzf-labs/fpkg/cache/cachekey"
+	"github.com/fzf-labs/fpkg/conv"
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
@@ -39,10 +40,10 @@ type (
 		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysJob) error
 		// FindMultiByTenantIDS 根据tenantIDS查询多条数据
 		FindMultiByTenantIDS(ctx context.Context, tenantIDS []string) ([]*fkratos_sys_model.SysJob, error)
-		// FindOneByID 根据ID查询一条数据并设置缓存
-		FindOneByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error)
-		// FindMultiByIDS 根据IDS查询多条数据并设置缓存
-		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysJob, error)
+		// FindOneCacheByID 根据ID查询一条数据并设置缓存
+		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error)
+		// FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
+		FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysJob, error)
 	}
 
 	SysJobRepo struct {
@@ -146,11 +147,11 @@ func (r *SysJobRepo) FindMultiByTenantIDS(ctx context.Context, tenantIDS []strin
 	return result, nil
 }
 
-// FindOneByID 根据ID查询一条数据并设置缓存
-func (r *SysJobRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error) {
+// FindOneCacheByID 根据ID查询一条数据并设置缓存
+func (r *SysJobRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error) {
 	resp := new(fkratos_sys_model.SysJob)
 	cache := CacheSysJobByID.NewSingleKey(r.redis)
-	cacheValue, err := cache.SingleCache(ctx, ID, func() (string, error) {
+	cacheValue, err := cache.SingleCache(ctx, conv.String(ID), func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysJob
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 		if err != nil && err != gorm.ErrRecordNotFound {
@@ -172,11 +173,15 @@ func (r *SysJobRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_sys_m
 	return resp, nil
 }
 
-// FindMultiByIDS 根据IDS查询多条数据并设置缓存
-func (r *SysJobRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysJob, error) {
+// FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
+func (r *SysJobRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysJob, error) {
 	resp := make([]*fkratos_sys_model.SysJob, 0)
 	cacheKey := CacheSysJobByID.NewBatchKey(r.redis)
-	cacheValue, err := cacheKey.BatchKeyCache(ctx, IDS, func() (map[string]string, error) {
+	batchKeys := make([]string, 0)
+	for _, v := range IDS {
+		batchKeys = append(batchKeys, conv.String(v))
+	}
+	cacheValue, err := cacheKey.BatchKeyCache(ctx, batchKeys, func() (map[string]string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysJob
 		result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
 		if err != nil && err != gorm.ErrRecordNotFound {
@@ -188,7 +193,7 @@ func (r *SysJobRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkrat
 			if err != nil {
 				return nil, err
 			}
-			value[v.ID] = string(marshal)
+			value[conv.String(v.ID)] = string(marshal)
 		}
 		return value, nil
 	})

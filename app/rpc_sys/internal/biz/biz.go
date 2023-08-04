@@ -26,18 +26,12 @@ var ProviderSet = wire.NewSet(
 
 type SysAdminRepo interface {
 	fkratos_sys_repo.ISysAdminRepo
-	SysAdminInfoByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error)
-	SysAdminInfoByAdminId(ctx context.Context, adminId string) (*fkratos_sys_model.SysAdmin, error)
-	SysAdminInfoCacheByAdminId(ctx context.Context, adminId string) (*v1.SysAdminInfo, error)
-	SysAdminInfoUpdate(ctx context.Context, req *v1.SysAdminInfoUpdateReq) (*v1.SysAdminInfoUpdateReply, error)
-	SysAdminDel(ctx context.Context, ids []string) error
 	GenerateJwTToken(ctx context.Context, kv map[string]interface{}) (*jwt.Token, error)
 	ClearJwTToken(ctx context.Context, jwtUId string) error
 	SysManageListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysAdmin, *page.Page, error)
 	SysManageStore(ctx context.Context, req *v1.SysManageStoreReq) (*fkratos_sys_model.SysAdmin, error)
 	GetAdminIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 }
-
 type SysRoleRepo interface {
 	GetRoleIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 	SysRoleList(ctx context.Context) ([]*fkratos_sys_model.SysRole, error)

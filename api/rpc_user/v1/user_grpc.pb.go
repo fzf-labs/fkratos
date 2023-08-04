@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	User_CreateUser_FullMethodName = "/api.rpc_sys.v1.User/CreateUser"
-	User_UpdateUser_FullMethodName = "/api.rpc_sys.v1.User/UpdateUser"
-	User_DeleteUser_FullMethodName = "/api.rpc_sys.v1.User/DeleteUser"
-	User_GetUser_FullMethodName    = "/api.rpc_sys.v1.User/GetUser"
-	User_ListUser_FullMethodName   = "/api.rpc_sys.v1.User/ListUser"
+	User_CreateUser_FullMethodName = "/api.rpc_user.v1.User/CreateUser"
+	User_UpdateUser_FullMethodName = "/api.rpc_user.v1.User/UpdateUser"
+	User_DeleteUser_FullMethodName = "/api.rpc_user.v1.User/DeleteUser"
+	User_GetUser_FullMethodName    = "/api.rpc_user.v1.User/GetUser"
+	User_ListUser_FullMethodName   = "/api.rpc_user.v1.User/ListUser"
 )
 
 // UserClient is the client API for User service.
@@ -238,7 +238,7 @@ func _User_ListUser_Handler(srv interface{}, ctx context.Context, dec func(inter
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var User_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.rpc_sys.v1.User",
+	ServiceName: "api.rpc_user.v1.User",
 	HandlerType: (*UserServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

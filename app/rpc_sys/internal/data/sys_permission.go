@@ -30,7 +30,7 @@ func (s *SysPermissionRepo) SysPermissionByStatus(ctx context.Context, status in
 	sysPermissionDao := fkratos_sys_dao.Use(s.data.gorm).SysPermission
 	res, err := sysPermissionDao.WithContext(ctx).Where(sysPermissionDao.Status.Eq(status)).Find()
 	if err != nil {
-		return nil, errorx.DataSqlErr.WithCause(err)
+		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return res, nil
 }
@@ -39,7 +39,7 @@ func (s *SysPermissionRepo) SysPermissionByIdsAndStatus(ctx context.Context, ids
 	sysPermissionDao := fkratos_sys_dao.Use(s.data.gorm).SysPermission
 	res, err := sysPermissionDao.WithContext(ctx).Where(sysPermissionDao.ID.In(ids...), sysPermissionDao.Status.Eq(status)).Find()
 	if err != nil {
-		return nil, errorx.DataSqlErr.WithCause(err)
+		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return res, nil
 }
@@ -48,7 +48,7 @@ func (s *SysPermissionRepo) SysPermissionUpdateStatus(ctx context.Context, id st
 	sysPermMenuDao := fkratos_sys_dao.Use(s.data.gorm).SysPermission
 	_, err := sysPermMenuDao.WithContext(ctx).Where(sysPermMenuDao.ID.Eq(id)).UpdateColumn(sysPermMenuDao.Status, status)
 	if err != nil {
-		return errorx.DataSqlErr.WithCause(err)
+		return errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return nil
 }
@@ -57,7 +57,7 @@ func (s *SysPermissionRepo) SysPermissionList(ctx context.Context) ([]*fkratos_s
 	sysPermMenuDao := fkratos_sys_dao.Use(s.data.gorm).SysPermission
 	sysPermMenus, err := sysPermMenuDao.WithContext(ctx).Find()
 	if err != nil {
-		return nil, errorx.DataSqlErr.WithCause(err)
+		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return sysPermMenus, nil
 }
@@ -66,7 +66,7 @@ func (s *SysPermissionRepo) SysPermissionInfoById(ctx context.Context, id string
 	sysPermMenuDao := fkratos_sys_dao.Use(s.data.gorm).SysPermission
 	sysPermMenu, err := sysPermMenuDao.WithContext(ctx).Where(sysPermMenuDao.ID.Eq(id)).First()
 	if err != nil {
-		return nil, errorx.DataSqlErr.WithCause(err)
+		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return sysPermMenu, nil
 }
@@ -115,12 +115,12 @@ func (s *SysPermissionRepo) SysPermissionStore(ctx context.Context, req *v1.SysP
 			sysPermMenuDao.Status,
 		).Updates(model)
 		if err != nil {
-			return nil, errorx.DataSqlErr.WithCause(err)
+			return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 	} else {
 		err := sysPermMenuDao.WithContext(ctx).Create(model)
 		if err != nil {
-			return nil, errorx.DataSqlErr.WithCause(err)
+			return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 	}
 	return model, nil

@@ -3,6 +3,7 @@ syntax = "proto3";
 package api.rpc_sys.v1;
 
 option go_package = "fkratos/api/rpc_sys/v1;v1";
+import "validate/validate.proto";
 
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
@@ -44,7 +45,7 @@ message SysAuthLoginReply {
 }
 //请求-退出
 message SysAuthLogoutReq {
-
+  string adminId = 1 [(validate.rules).string.uuid = true]; //ID
 }
 //响应-退出
 message SysAuthLogoutReply {
