@@ -24,22 +24,24 @@ SET default_table_access_method = heap;
 -- Name: sys_role; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_role (
-    id uuid NOT NULL,
-    tenant_id uuid,
-    pid uuid NOT NULL,
-    name character varying(50) NOT NULL,
+CREATE TABLE public.sys_role
+(
+    id             uuid                     NOT NULL,
+    tenant_id      uuid,
+    pid            uuid                     NOT NULL,
+    name           character varying(50)    NOT NULL,
     permission_ids text,
-    remark character varying(200),
-    status smallint NOT NULL,
-    sort bigint NOT NULL,
-    created_at timestamp with time zone NOT NULL,
-    updated_at timestamp with time zone NOT NULL,
-    deleted_at timestamp with time zone
+    remark         character varying(200),
+    status         smallint                 NOT NULL,
+    sort           bigint                   NOT NULL,
+    created_at     timestamp with time zone NOT NULL,
+    updated_at     timestamp with time zone NOT NULL,
+    deleted_at     timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_role OWNER TO postgres;
+ALTER TABLE public.sys_role
+    OWNER TO postgres;
 
 --
 -- Name: TABLE sys_role; Type: COMMENT; Schema: public; Owner: postgres

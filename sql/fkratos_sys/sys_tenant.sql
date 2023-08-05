@@ -24,21 +24,23 @@ SET default_table_access_method = heap;
 -- Name: sys_tenant; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_tenant (
-    id uuid,
-    name character varying,
-    email character varying,
-    phone character varying,
-    address character varying,
-    type character varying,
-    status smallint DEFAULT 0,
+CREATE TABLE public.sys_tenant
+(
+    id         uuid,
+    name       character varying,
+    email      character varying,
+    phone      character varying,
+    address    character varying,
+    type       character varying,
+    status     smallint DEFAULT 0,
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
     deleted_at timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_tenant OWNER TO postgres;
+ALTER TABLE public.sys_tenant
+    OWNER TO postgres;
 
 --
 -- Name: TABLE sys_tenant; Type: COMMENT; Schema: public; Owner: postgres

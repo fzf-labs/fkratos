@@ -24,20 +24,22 @@ SET default_table_access_method = heap;
 -- Name: sys_api; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_api (
-    id uuid NOT NULL,
-    tenant_id uuid,
-    permission_id uuid NOT NULL,
-    method character varying(32) NOT NULL,
-    path character varying(255) NOT NULL,
-    "desc" character varying(255) NOT NULL,
-    created_at timestamp with time zone NOT NULL,
-    updated_at timestamp with time zone NOT NULL,
-    deleted_at timestamp with time zone
+CREATE TABLE public.sys_api
+(
+    id            uuid                     NOT NULL,
+    tenant_id     uuid,
+    permission_id uuid                     NOT NULL,
+    method        character varying(32)    NOT NULL,
+    path          character varying(255)   NOT NULL,
+    "desc"        character varying(255)   NOT NULL,
+    created_at    timestamp with time zone NOT NULL,
+    updated_at    timestamp with time zone NOT NULL,
+    deleted_at    timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_api OWNER TO postgres;
+ALTER TABLE public.sys_api
+    OWNER TO postgres;
 
 --
 -- Name: TABLE sys_api; Type: COMMENT; Schema: public; Owner: postgres

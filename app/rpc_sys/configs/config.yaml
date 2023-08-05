@@ -8,12 +8,12 @@ server:
 
 data:
   gorm:
-     dataSourceName: host=0.0.0.0 port=5432 user=postgres password=123456 dbname=fkratos_sys sslmode=disable TimeZone=Asia/Shanghai
-     maxIdleConn: 10
-     maxOpenConn: 60
-     connMaxLifeTime: 60s
-     showLog: true
-     tracing: true
+    dataSourceName: host=0.0.0.0 port=5432 user=postgres password=123456 dbname=fkratos_sys sslmode=disable TimeZone=Asia/Shanghai
+    maxIdleConn: 10
+    maxOpenConn: 60
+    connMaxLifeTime: 60s
+    showLog: true
+    tracing: true
   redis:
     addr: 0.0.0.0:6379
     password: "123456"
@@ -32,7 +32,7 @@ registry:
   type: "etcd"
   etcd:
     endpoints:
-     - 0.0.0.0:2379
+      - 0.0.0.0:2379
   polaris:
     address: 127.0.0.1
     port: 8091

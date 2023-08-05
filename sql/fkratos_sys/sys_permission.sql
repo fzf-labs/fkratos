@@ -24,29 +24,31 @@ SET default_table_access_method = heap;
 -- Name: sys_permission; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_permission (
-    id uuid NOT NULL,
-    tenant_id uuid,
-    pid uuid NOT NULL,
-    type character varying(255) NOT NULL,
-    title character varying(50) NOT NULL,
-    name character varying(50) NOT NULL,
-    path character varying(100) NOT NULL,
-    icon character varying(50) NOT NULL,
-    menu_type character varying(255),
-    url character varying(255) NOT NULL,
-    component character varying(100) NOT NULL,
-    extend character varying(255) NOT NULL,
-    remark character varying(255) NOT NULL,
-    sort bigint NOT NULL,
-    status smallint NOT NULL,
+CREATE TABLE public.sys_permission
+(
+    id         uuid                     NOT NULL,
+    tenant_id  uuid,
+    pid        uuid                     NOT NULL,
+    type       character varying(255)   NOT NULL,
+    title      character varying(50)    NOT NULL,
+    name       character varying(50)    NOT NULL,
+    path       character varying(100)   NOT NULL,
+    icon       character varying(50)    NOT NULL,
+    menu_type  character varying(255),
+    url        character varying(255)   NOT NULL,
+    component  character varying(100)   NOT NULL,
+    extend     character varying(255)   NOT NULL,
+    remark     character varying(255)   NOT NULL,
+    sort       bigint                   NOT NULL,
+    status     smallint                 NOT NULL,
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
     deleted_at timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_permission OWNER TO postgres;
+ALTER TABLE public.sys_permission
+    OWNER TO postgres;
 
 --
 -- Name: TABLE sys_permission; Type: COMMENT; Schema: public; Owner: postgres

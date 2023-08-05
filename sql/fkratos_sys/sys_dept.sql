@@ -24,25 +24,27 @@ SET default_table_access_method = heap;
 -- Name: sys_dept; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_dept (
-    id uuid NOT NULL,
-    tenant_id uuid,
-    pid uuid NOT NULL,
-    name character varying(50) NOT NULL,
-    full_name character varying(50) NOT NULL,
+CREATE TABLE public.sys_dept
+(
+    id          uuid                     NOT NULL,
+    tenant_id   uuid,
+    pid         uuid                     NOT NULL,
+    name        character varying(50)    NOT NULL,
+    full_name   character varying(50)    NOT NULL,
     responsible character varying(20),
-    phone character varying(20),
-    email character varying(255),
-    type smallint NOT NULL,
-    status smallint NOT NULL,
-    sort bigint NOT NULL,
-    created_at timestamp with time zone NOT NULL,
-    updated_at timestamp with time zone NOT NULL,
-    deleted_at timestamp with time zone
+    phone       character varying(20),
+    email       character varying(255),
+    type        smallint                 NOT NULL,
+    status      smallint                 NOT NULL,
+    sort        bigint                   NOT NULL,
+    created_at  timestamp with time zone NOT NULL,
+    updated_at  timestamp with time zone NOT NULL,
+    deleted_at  timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_dept OWNER TO postgres;
+ALTER TABLE public.sys_dept
+    OWNER TO postgres;
 
 --
 -- Name: TABLE sys_dept; Type: COMMENT; Schema: public; Owner: postgres

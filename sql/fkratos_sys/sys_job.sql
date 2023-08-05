@@ -24,21 +24,23 @@ SET default_table_access_method = heap;
 -- Name: sys_job; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_job (
-    id uuid NOT NULL,
-    tenant_id uuid,
-    name character varying(50) NOT NULL,
-    code character varying(32),
-    remark character varying(255),
-    sort bigint NOT NULL,
-    status smallint NOT NULL,
+CREATE TABLE public.sys_job
+(
+    id         uuid                     NOT NULL,
+    tenant_id  uuid,
+    name       character varying(50)    NOT NULL,
+    code       character varying(32),
+    remark     character varying(255),
+    sort       bigint                   NOT NULL,
+    status     smallint                 NOT NULL,
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
     deleted_at timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_job OWNER TO postgres;
+ALTER TABLE public.sys_job
+    OWNER TO postgres;
 
 --
 -- Name: TABLE sys_job; Type: COMMENT; Schema: public; Owner: postgres

@@ -13,5 +13,5 @@ message Business {
     int64 RefreshAfter = 3;//刷新时间 (大于刷新时间,而小于过期时间,则刷新Token)
     string Issuer = 4;//签发人
   }
-  Jwt jwt =1;
+  Jwt jwt = 1;
 }

@@ -24,21 +24,23 @@ SET default_table_access_method = heap;
 -- Name: sys_log; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_log (
-    id uuid NOT NULL,
-    tenant_id uuid,
-    admin_id uuid NOT NULL,
-    ip character varying(32) NOT NULL,
-    uri character varying(200) NOT NULL,
-    useragent character varying(255),
-    header json,
-    req json,
-    resp json,
+CREATE TABLE public.sys_log
+(
+    id         uuid                     NOT NULL,
+    tenant_id  uuid,
+    admin_id   uuid                     NOT NULL,
+    ip         character varying(32)    NOT NULL,
+    uri        character varying(200)   NOT NULL,
+    useragent  character varying(255),
+    header     json,
+    req        json,
+    resp       json,
     created_at timestamp with time zone NOT NULL
 );
 
 
-ALTER TABLE public.sys_log OWNER TO postgres;
+ALTER TABLE public.sys_log
+    OWNER TO postgres;
 
 --
 -- Name: TABLE sys_log; Type: COMMENT; Schema: public; Owner: postgres

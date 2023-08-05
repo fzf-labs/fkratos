@@ -11,8 +11,8 @@ import (
 )
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Bootstrap, logger log.Logger, adminService *service.AdminService) *http.Server {
+func NewHTTPServer(c *conf.Bootstrap, logger log.Logger, adminService *service.SysService) *http.Server {
 	srv := bootstrap.NewHttpServer(c, logger)
-	v1.RegisterAdminHTTPServer(srv, adminService)
+	v1.RegisterSysHTTPServer(srv, adminService)
 	return srv
 }

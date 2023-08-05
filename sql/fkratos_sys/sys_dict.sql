@@ -24,24 +24,26 @@ SET default_table_access_method = heap;
 -- Name: sys_dict; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_dict (
-    id uuid NOT NULL,
-    tenant_id uuid,
-    pid uuid NOT NULL,
-    name character varying(50) NOT NULL,
-    type smallint NOT NULL,
-    unique_key character varying(50) NOT NULL,
-    value character varying(2048) NOT NULL,
-    status smallint NOT NULL,
-    sort numeric(20,0) NOT NULL,
-    remark character varying(200) NOT NULL,
+CREATE TABLE public.sys_dict
+(
+    id         uuid                     NOT NULL,
+    tenant_id  uuid,
+    pid        uuid                     NOT NULL,
+    name       character varying(50)    NOT NULL,
+    type       smallint                 NOT NULL,
+    unique_key character varying(50)    NOT NULL,
+    value      character varying(2048)  NOT NULL,
+    status     smallint                 NOT NULL,
+    sort       numeric(20, 0)           NOT NULL,
+    remark     character varying(200)   NOT NULL,
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
     deleted_at timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_dict OWNER TO postgres;
+ALTER TABLE public.sys_dict
+    OWNER TO postgres;
 
 --
 -- Name: TABLE sys_dict; Type: COMMENT; Schema: public; Owner: postgres

@@ -52,6 +52,7 @@ func NewSysService(
 }
 
 func (s *SysService) DashboardSpeech(ctx context.Context, req *pb.DashboardSpeechReq) (*pb.DashboardSpeechReply, error) {
+	s.sysDashboardClient.DashboardSpeech(ctx, &sysV1.DashboardSpeechReq{})
 	return &pb.DashboardSpeechReply{}, nil
 }
 func (s *SysService) SysAuthLoginCaptcha(ctx context.Context, req *pb.SysAuthLoginCaptchaReq) (*pb.SysAuthLoginCaptchaReply, error) {

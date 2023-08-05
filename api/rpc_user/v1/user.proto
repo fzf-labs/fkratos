@@ -12,16 +12,16 @@ option java_package = "api.rpc_sys.v1";
 
 // 用户服务
 service User {
-	//创建用户
-	rpc CreateUser (CreateUserReq) returns (CreateUserReply);
-	//更新用户
-	rpc UpdateUser (UpdateUserReq) returns (UpdateUserReply);
-	//删除用户
-	rpc DeleteUser (DeleteUserReq) returns (DeleteUserReply);
-	//获取单个用户
-	rpc GetUser (GetUserReq) returns (GetUserReply);
-	//获取用户列表
-	rpc ListUser (ListUserReq) returns (ListUserReply);
+  //创建用户
+  rpc CreateUser (CreateUserReq) returns (CreateUserReply);
+  //更新用户
+  rpc UpdateUser (UpdateUserReq) returns (UpdateUserReply);
+  //删除用户
+  rpc DeleteUser (DeleteUserReq) returns (DeleteUserReply);
+  //获取单个用户
+  rpc GetUser (GetUserReq) returns (GetUserReply);
+  //获取用户列表
+  rpc ListUser (ListUserReq) returns (ListUserReply);
 }
 //请求-创建用户
 message CreateUserReq {}

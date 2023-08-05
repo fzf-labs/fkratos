@@ -24,10 +24,18 @@ import (
 
 // wireApp init kratos application.
 func wireApp(bootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
-	rpcUserGrpc := data.NewRpcUserGrpc(bootstrap, discovery)
-	userClient := data.NewUserServiceClient(rpcUserGrpc)
-	adminService := service.NewAdminService(logger, userClient)
-	httpServer := server.NewHTTPServer(bootstrap, logger, adminService)
+	rpcSysGrpc := data.NewRpcSysGrpc(bootstrap, discovery)
+	authClient := data.NewSysAuthServiceClient(rpcSysGrpc)
+	adminClient := data.NewSysAdminServiceClient(rpcSysGrpc)
+	roleClient := data.NewSysRoleServiceClient(rpcSysGrpc)
+	permissionClient := data.NewSysPermissionServiceClient(rpcSysGrpc)
+	jobClient := data.NewSysJobServiceClient(rpcSysGrpc)
+	deptClient := data.NewSysDeptServiceClient(rpcSysGrpc)
+	apiClient := data.NewSysApiServiceClient(rpcSysGrpc)
+	logClient := data.NewSysLogServiceClient(rpcSysGrpc)
+	dashboardClient := data.NewSysDashboardServiceClient(rpcSysGrpc)
+	sysService := service.NewSysService(logger, authClient, adminClient, roleClient, permissionClient, jobClient, deptClient, apiClient, logClient, dashboardClient)
+	httpServer := server.NewHTTPServer(bootstrap, logger, sysService)
 	app := newApp(logger, registrar, httpServer)
 	return app, func() {
 	}, nil

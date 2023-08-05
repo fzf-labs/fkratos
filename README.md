@@ -3,10 +3,13 @@
 kratos 微服务脚手架,采用大仓模式。
 
 ## 技术栈
+
 ### 框架：
+
 * [Kratos](https://go-kratos.dev/) -- B站微服务框架
 
 #### 中间件：
+
 * [Redis](https://redis.io/) -- 非关系型数据库
 * [PostgreSQL](https://www.postgresql.org/) -- 关系型数据库
 
@@ -21,26 +24,23 @@ kratos 微服务脚手架,采用大仓模式。
 ### 日志:
 
 ### 熔断器:
+
 * [sre breaker](https://github.com/go-kratos/aegis/tree/main/circuitbreaker/sre) -- 默认客户端熔断
 
 ### 限流器:
+
 * [bbr limiter](https://github.com/go-kratos/aegis/tree/main/ratelimit/bbr) -- 默认限流器
 
 ### 参数校验:
-* [protoc-gen-validate](https://github.com/bufbuild/protoc-gen-validate) -- proto验证器
 
+* [protoc-gen-validate](https://github.com/bufbuild/protoc-gen-validate) -- proto验证器
 
 ### 错误处理:
 
-
 ### 接口文档
+
 * [OpenAPI](https://www.openapis.org/) -- RESTful API 文档
 * [ApiFox](https://apifox.com/) -- ApiFox 接口文档
-
-
-
-
-
 
 ## Make构建
 
@@ -75,6 +75,8 @@ kratos 微服务脚手架,采用大仓模式。
    ```bash
    make wire
    ```
+
 致谢:
+
 - [zeromicro/go-zero](https://github.com/zeromicro/go-zero)
 - [tx7do/kratos-transport](https://github.com/tx7do/kratos-transport)

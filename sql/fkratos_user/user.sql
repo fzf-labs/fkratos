@@ -24,26 +24,28 @@ SET default_table_access_method = heap;
 -- Name: user; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public."user" (
-    id uuid NOT NULL,
-    username character varying,
-    phone character varying,
-    email character varying,
-    password character varying NOT NULL,
-    salt character varying NOT NULL,
-    nickname character varying DEFAULT ''::character varying,
-    sex smallint DEFAULT 0,
-    avatar character varying DEFAULT ''::character varying,
-    profile character varying,
-    other json,
-    status smallint DEFAULT 1 NOT NULL,
+CREATE TABLE public."user"
+(
+    id         uuid                        NOT NULL,
+    username   character varying,
+    phone      character varying,
+    email      character varying,
+    password   character varying           NOT NULL,
+    salt       character varying           NOT NULL,
+    nickname   character varying DEFAULT ''::character varying,
+    sex        smallint          DEFAULT 0,
+    avatar     character varying DEFAULT ''::character varying,
+    profile    character varying,
+    other      json,
+    status     smallint          DEFAULT 1 NOT NULL,
     created_at timestamp with time zone,
     updated_at timestamp with time zone,
     deleted_at timestamp with time zone
 );
 
 
-ALTER TABLE public."user" OWNER TO postgres;
+ALTER TABLE public."user"
+    OWNER TO postgres;
 
 --
 -- Name: COLUMN "user".id; Type: COMMENT; Schema: public; Owner: postgres

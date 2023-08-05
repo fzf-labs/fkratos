@@ -24,29 +24,31 @@ SET default_table_access_method = heap;
 -- Name: sys_admin; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_admin (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    tenant_id uuid NOT NULL,
-    username character varying(50) DEFAULT ''::character varying NOT NULL,
-    password character varying(128) NOT NULL,
-    nickname character varying(50) NOT NULL,
-    avatar character varying(255),
-    gender smallint DEFAULT 0 NOT NULL,
-    email character varying(50),
-    mobile character varying(15),
-    job_id uuid,
-    dept_id uuid,
-    role_ids json,
-    salt character varying(32) NOT NULL,
-    status smallint DEFAULT 1 NOT NULL,
-    motto character varying(255),
-    created_at timestamp with time zone NOT NULL,
-    updated_at timestamp with time zone NOT NULL,
+CREATE TABLE public.sys_admin
+(
+    id         uuid                  DEFAULT gen_random_uuid()     NOT NULL,
+    tenant_id  uuid                                                NOT NULL,
+    username   character varying(50) DEFAULT ''::character varying NOT NULL,
+    password   character varying(128)                              NOT NULL,
+    nickname   character varying(50)                               NOT NULL,
+    avatar     character varying(255),
+    gender     smallint              DEFAULT 0                     NOT NULL,
+    email      character varying(50),
+    mobile     character varying(15),
+    job_id     uuid,
+    dept_id    uuid,
+    role_ids   json,
+    salt       character varying(32)                               NOT NULL,
+    status     smallint              DEFAULT 1                     NOT NULL,
+    motto      character varying(255),
+    created_at timestamp with time zone                            NOT NULL,
+    updated_at timestamp with time zone                            NOT NULL,
     deleted_at timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_admin OWNER TO postgres;
+ALTER TABLE public.sys_admin
+    OWNER TO postgres;
 
 --
 -- Name: TABLE sys_admin; Type: COMMENT; Schema: public; Owner: postgres

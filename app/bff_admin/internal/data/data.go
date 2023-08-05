@@ -13,8 +13,17 @@ var ProviderSet = wire.NewSet(
 	NewData,
 	NewRpcSysGrpc,
 	NewSysAdminServiceClient,
-	NewUserServiceClient,
+	NewSysAuthServiceClient,
+	NewSysDashboardServiceClient,
+	NewSysRoleServiceClient,
+	NewSysPermissionServiceClient,
+	NewSysApiServiceClient,
+	NewSysLogServiceClient,
+	NewSysJobServiceClient,
+	NewSysDeptServiceClient,
+
 	NewRpcUserGrpc,
+	NewUserServiceClient,
 )
 
 // Data .
