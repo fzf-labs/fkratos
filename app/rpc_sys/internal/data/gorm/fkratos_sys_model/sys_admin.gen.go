@@ -16,7 +16,6 @@ const TableNameSysAdmin = "sys_admin"
 // SysAdmin mapped from table <sys_admin>
 type SysAdmin struct {
 	ID        string         `gorm:"column:id;primaryKey;default:gen_random_uuid();comment:编号" json:"id"` // 编号
-	TenantID  string         `gorm:"column:tenant_id;not null;comment:租户ID" json:"tenantId"`              // 租户ID
 	Username  string         `gorm:"column:username;not null;default;comment:用户名" json:"username"`        // 用户名
 	Password  string         `gorm:"column:password;not null;comment:密码" json:"password"`                 // 密码
 	Nickname  string         `gorm:"column:nickname;not null;comment:昵称" json:"nickname"`                 // 昵称

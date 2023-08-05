@@ -37,7 +37,7 @@ type SysDeptInfo struct {
 	Sort        int32          `protobuf:"varint,10,opt,name=sort,proto3" json:"sort,omitempty"`             // 排序值
 	CreatedAt   string         `protobuf:"bytes,11,opt,name=createdAt,proto3" json:"createdAt,omitempty"`    // 创建时间
 	UpdatedAt   string         `protobuf:"bytes,12,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"`    // 更新时间
-	Children    []*SysDeptInfo `protobuf:"bytes,13,rep,name=children,proto3" json:"children,omitempty"`
+	Children    []*SysDeptInfo `protobuf:"bytes,13,rep,name=children,proto3" json:"children,omitempty"`      //子集
 }
 
 func (x *SysDeptInfo) Reset() {
@@ -208,7 +208,7 @@ type SysDeptListReply struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	List []*SysDeptInfo `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	List []*SysDeptInfo `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"` //列表
 }
 
 func (x *SysDeptListReply) Reset() {
@@ -304,7 +304,7 @@ type SysDeptInfoReply struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Info *SysDeptInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
+	Info *SysDeptInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"` //部门信息
 }
 
 func (x *SysDeptInfoReply) Reset() {
@@ -511,7 +511,7 @@ type SysDeptDelReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
+	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"` //ID集合
 }
 
 func (x *SysDeptDelReq) Reset() {

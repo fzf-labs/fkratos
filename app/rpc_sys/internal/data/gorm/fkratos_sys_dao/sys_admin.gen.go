@@ -28,7 +28,6 @@ func newSysAdmin(db *gorm.DB, opts ...gen.DOOption) sysAdmin {
 	tableName := _sysAdmin.sysAdminDo.TableName()
 	_sysAdmin.ALL = field.NewAsterisk(tableName)
 	_sysAdmin.ID = field.NewString(tableName, "id")
-	_sysAdmin.TenantID = field.NewString(tableName, "tenant_id")
 	_sysAdmin.Username = field.NewString(tableName, "username")
 	_sysAdmin.Password = field.NewString(tableName, "password")
 	_sysAdmin.Nickname = field.NewString(tableName, "nickname")
@@ -56,7 +55,6 @@ type sysAdmin struct {
 
 	ALL       field.Asterisk
 	ID        field.String // 编号
-	TenantID  field.String // 租户ID
 	Username  field.String // 用户名
 	Password  field.String // 密码
 	Nickname  field.String // 昵称
@@ -90,7 +88,6 @@ func (s sysAdmin) As(alias string) *sysAdmin {
 func (s *sysAdmin) updateTableName(table string) *sysAdmin {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
-	s.TenantID = field.NewString(table, "tenant_id")
 	s.Username = field.NewString(table, "username")
 	s.Password = field.NewString(table, "password")
 	s.Nickname = field.NewString(table, "nickname")
@@ -131,9 +128,8 @@ func (s *sysAdmin) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysAdmin) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 18)
+	s.fieldMap = make(map[string]field.Expr, 17)
 	s.fieldMap["id"] = s.ID
-	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["username"] = s.Username
 	s.fieldMap["password"] = s.Password
 	s.fieldMap["nickname"] = s.Nickname

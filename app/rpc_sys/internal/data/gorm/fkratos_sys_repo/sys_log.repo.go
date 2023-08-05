@@ -7,6 +7,7 @@ package fkratos_sys_repo
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"time"
@@ -38,8 +39,6 @@ type (
 		DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error
 		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
 		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysLog) error
-		// FindMultiByTenantIDAdminID 根据TenantIDAdminID查询多条数据
-		FindMultiByTenantIDAdminID(ctx context.Context, tenantID string, adminID string) ([]*fkratos_sys_model.SysLog, error)
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysLog, error)
 		// FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
@@ -84,7 +83,7 @@ func (r *SysLogRepo) UpdateOne(ctx context.Context, data *fkratos_sys_model.SysL
 func (r *SysLogRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
 	dao := fkratos_sys_dao.Use(r.db).SysLog
 	first, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
 	if first == nil {
@@ -137,16 +136,6 @@ func (r *SysLogRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos
 	return nil
 }
 
-// FindMultiByTenantIDAdminID 根据TenantIDAdminID查询多条数据
-func (r *SysLogRepo) FindMultiByTenantIDAdminID(ctx context.Context, tenantID string, adminID string) ([]*fkratos_sys_model.SysLog, error) {
-	dao := fkratos_sys_dao.Use(r.db).SysLog
-	result, err := dao.WithContext(ctx).Where(dao.TenantID.Eq(tenantID), dao.AdminID.Eq(adminID)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (r *SysLogRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysLog, error) {
 	resp := new(fkratos_sys_model.SysLog)
@@ -154,7 +143,7 @@ func (r *SysLogRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_
 	cacheValue, err := cache.SingleCache(ctx, conv.String(ID), func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysLog
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
-		if err != nil && err != gorm.ErrRecordNotFound {
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return "", err
 		}
 		marshal, err := json.Marshal(result)
@@ -184,7 +173,7 @@ func (r *SysLogRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*
 	cacheValue, err := cacheKey.BatchKeyCache(ctx, batchKeys, func() (map[string]string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysLog
 		result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
-		if err != nil && err != gorm.ErrRecordNotFound {
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, err
 		}
 		value := make(map[string]string)

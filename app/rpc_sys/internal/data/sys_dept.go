@@ -6,6 +6,7 @@ import (
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 	"fkratos/internal/errorx"
 
 	"github.com/fzf-labs/fpkg/util/timeutil"
@@ -18,14 +19,16 @@ var _ biz.SysDeptRepo = (*SysDeptRepo)(nil)
 func NewSysDeptRepo(data *Data, logger log.Logger) biz.SysDeptRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_dept"))
 	return &SysDeptRepo{
-		data: data,
-		log:  l,
+		data:        data,
+		log:         l,
+		SysDeptRepo: fkratos_sys_repo.NewSysDeptRepo(data.gorm, data.redis),
 	}
 }
 
 type SysDeptRepo struct {
 	data *Data
 	log  *log.Helper
+	*fkratos_sys_repo.SysDeptRepo
 }
 
 func (s *SysDeptRepo) SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq) (*fkratos_sys_model.SysDept, error) {
@@ -54,38 +57,6 @@ func (s *SysDeptRepo) SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq)
 		}
 	}
 	return sysDept, nil
-}
-
-func (s *SysDeptRepo) SysDeptInfoById(ctx context.Context, id string) (*v1.SysDeptInfo, error) {
-	sysDeptDao := fkratos_sys_dao.Use(s.data.gorm).SysDept
-	sysDept, err := sysDeptDao.WithContext(ctx).Where(sysDeptDao.ID.Eq(id)).First()
-	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
-	}
-	return &v1.SysDeptInfo{
-		Id:          sysDept.ID,
-		Pid:         sysDept.Pid,
-		Name:        sysDept.Name,
-		FullName:    sysDept.FullName,
-		Responsible: sysDept.Responsible,
-		Phone:       sysDept.Phone,
-		Email:       sysDept.Email,
-		Type:        int32(sysDept.Type),
-		Status:      int32(sysDept.Status),
-		Sort:        int32(sysDept.Sort),
-		CreatedAt:   timeutil.ToDateTimeStringByTime(sysDept.CreatedAt),
-		UpdatedAt:   timeutil.ToDateTimeStringByTime(sysDept.UpdatedAt),
-		Children:    nil,
-	}, nil
-}
-
-func (s *SysDeptRepo) SysDeptDelByIds(ctx context.Context, ids []string) error {
-	sysDeptDao := fkratos_sys_dao.Use(s.data.gorm).SysDept
-	_, err := sysDeptDao.WithContext(ctx).Where(sysDeptDao.ID.In(ids...)).Delete()
-	if err != nil && err != gorm.ErrRecordNotFound {
-		return errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
-	}
-	return nil
 }
 
 func (s *SysDeptRepo) SysDeptList(ctx context.Context) ([]*v1.SysDeptInfo, error) {

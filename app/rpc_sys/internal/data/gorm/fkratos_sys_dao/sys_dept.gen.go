@@ -28,7 +28,6 @@ func newSysDept(db *gorm.DB, opts ...gen.DOOption) sysDept {
 	tableName := _sysDept.sysDeptDo.TableName()
 	_sysDept.ALL = field.NewAsterisk(tableName)
 	_sysDept.ID = field.NewString(tableName, "id")
-	_sysDept.TenantID = field.NewString(tableName, "tenant_id")
 	_sysDept.Pid = field.NewString(tableName, "pid")
 	_sysDept.Name = field.NewString(tableName, "name")
 	_sysDept.FullName = field.NewString(tableName, "full_name")
@@ -52,7 +51,6 @@ type sysDept struct {
 
 	ALL         field.Asterisk
 	ID          field.String // 编号
-	TenantID    field.String // 租户ID
 	Pid         field.String // 父级id
 	Name        field.String // 部门简称
 	FullName    field.String // 部门全称
@@ -82,7 +80,6 @@ func (s sysDept) As(alias string) *sysDept {
 func (s *sysDept) updateTableName(table string) *sysDept {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
-	s.TenantID = field.NewString(table, "tenant_id")
 	s.Pid = field.NewString(table, "pid")
 	s.Name = field.NewString(table, "name")
 	s.FullName = field.NewString(table, "full_name")
@@ -119,9 +116,8 @@ func (s *sysDept) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysDept) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 14)
+	s.fieldMap = make(map[string]field.Expr, 13)
 	s.fieldMap["id"] = s.ID
-	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["pid"] = s.Pid
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["full_name"] = s.FullName

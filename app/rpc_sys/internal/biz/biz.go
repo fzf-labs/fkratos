@@ -33,18 +33,15 @@ type SysAdminRepo interface {
 	GetAdminIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 }
 type SysRoleRepo interface {
+	fkratos_sys_repo.ISysRoleRepo
 	GetRoleIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 	SysRoleList(ctx context.Context) ([]*fkratos_sys_model.SysRole, error)
-	SysRoleInfoById(ctx context.Context, id string) (*fkratos_sys_model.SysRole, error)
-	SysRoleInfoByIds(ctx context.Context, ids []string) ([]*fkratos_sys_model.SysRole, error)
-	SysRoleDelByIds(ctx context.Context, ids []string) error
 	SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq) (*fkratos_sys_model.SysRole, error)
 }
 
 type SysPermissionRepo interface {
+	fkratos_sys_repo.ISysPermissionRepo
 	SysPermissionList(ctx context.Context) ([]*fkratos_sys_model.SysPermission, error)
-	SysPermissionInfoById(ctx context.Context, id string) (*fkratos_sys_model.SysPermission, error)
-	SysPermissionDelByIds(ctx context.Context, ids []string) error
 	SysPermissionStore(ctx context.Context, req *v1.SysPermissionStoreReq) (*fkratos_sys_model.SysPermission, error)
 	SysPermissionUpdateStatus(ctx context.Context, id string, status int32) error
 	SysPermissionByIdsAndStatus(ctx context.Context, ids []string, status int16) ([]*fkratos_sys_model.SysPermission, error)
@@ -52,31 +49,28 @@ type SysPermissionRepo interface {
 }
 
 type SysJobRepo interface {
+	fkratos_sys_repo.ISysJobRepo
 	GetJobIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 	SysJobListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysJob, *page.Page, error)
-	SysJobInfoById(ctx context.Context, id string) (*v1.SysJobInfo, error)
-	SysJobDelByIds(ctx context.Context, ids []string) error
 	SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*fkratos_sys_model.SysJob, error)
 }
 
 type SysDeptRepo interface {
+	fkratos_sys_repo.ISysDeptRepo
 	GetDeptIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 	SysDeptList(ctx context.Context) ([]*v1.SysDeptInfo, error)
-	SysDeptInfoById(ctx context.Context, id string) (*v1.SysDeptInfo, error)
-	SysDeptDelByIds(ctx context.Context, ids []string) error
 	SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq) (*fkratos_sys_model.SysDept, error)
 }
 
 type SysLogRepo interface {
+	fkratos_sys_repo.ISysLogRepo
 	SysLogListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysLog, *page.Page, error)
-	SysLogInfoById(ctx context.Context, id string) (*fkratos_sys_model.SysLog, error)
 	SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*fkratos_sys_model.SysLog, error)
 	SysLogStoreMQProducer(ctx context.Context, req *v1.SysLogStoreReq) error
 }
 
 type SysApiRepo interface {
+	fkratos_sys_repo.ISysAPIRepo
 	GetApiIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
-	SysApiList(ctx context.Context, permissionId string) ([]*fkratos_sys_model.SysAPI, error)
 	SysApiStore(ctx context.Context, model *fkratos_sys_model.SysAPI) (*fkratos_sys_model.SysAPI, error)
-	SysApiDel(ctx context.Context, ids []string) error
 }

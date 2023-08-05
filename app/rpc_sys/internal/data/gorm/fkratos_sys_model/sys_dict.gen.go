@@ -14,7 +14,6 @@ const TableNameSysDict = "sys_dict"
 // SysDict mapped from table <sys_dict>
 type SysDict struct {
 	ID        string       `gorm:"column:id;primaryKey;comment:编号" json:"id"`                                                     // 编号
-	TenantID  string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`                                                 // 租户ID
 	Pid       string       `gorm:"column:pid;not null;comment:0=配置集 !0=父级id" json:"pid"`                                          // 0=配置集 !0=父级id
 	Name      string       `gorm:"column:name;not null;comment:名称" json:"name"`                                                   // 名称
 	Type      int16        `gorm:"column:type;not null;comment:1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图 11单文件 12多文件" json:"type"` // 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图 11单文件 12多文件

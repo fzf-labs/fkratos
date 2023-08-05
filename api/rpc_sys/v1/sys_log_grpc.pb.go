@@ -29,11 +29,11 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LogClient interface {
-	// 日志列表
+	// 日志-列表
 	SysLogList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysLogListResp, error)
-	// 单条日志
+	// 日志-信息
 	SysLogInfo(ctx context.Context, in *SysLogInfoReq, opts ...grpc.CallOption) (*SysLogInfoResp, error)
-	// 日志记录
+	// 日志-保存
 	SysLogStore(ctx context.Context, in *SysLogStoreReq, opts ...grpc.CallOption) (*SysLogStoreResp, error)
 }
 
@@ -76,11 +76,11 @@ func (c *logClient) SysLogStore(ctx context.Context, in *SysLogStoreReq, opts ..
 // All implementations must embed UnimplementedLogServer
 // for forward compatibility
 type LogServer interface {
-	// 日志列表
+	// 日志-列表
 	SysLogList(context.Context, *paginator.PaginatorReq) (*SysLogListResp, error)
-	// 单条日志
+	// 日志-信息
 	SysLogInfo(context.Context, *SysLogInfoReq) (*SysLogInfoResp, error)
-	// 日志记录
+	// 日志-保存
 	SysLogStore(context.Context, *SysLogStoreReq) (*SysLogStoreResp, error)
 	mustEmbedUnimplementedLogServer()
 }

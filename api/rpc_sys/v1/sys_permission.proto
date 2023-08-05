@@ -9,17 +9,19 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 
 // 权限服务
 service Permission {
-  //权限列表
+  //权限-列表
   rpc SysPermissionList(SysPermissionListReq) returns (SysPermissionListResp);
-  //单个权限
+  //权限-单个权限信息
   rpc SysPermissionInfo(SysPermissionInfoReq) returns (SysPermissionInfoResp);
-  //保存权限
+  //权限-保存
   rpc SysPermissionStore(SysPermissionStoreReq) returns (SysPermissionStoreResp);
-  //删除权限
+  //权限-删除
   rpc SysPermissionDel(SysPermissionDelReq) returns (SysPermissionDelResp);
-  //修改权限状态
+  //权限-修改状态
   rpc SysPermissionStatus(SysPermissionStatusReq) returns (SysPermissionStatusResp);
 }
+
+//权限信息
 message SysPermissionInfo {
   string id = 1; // ID
   string pid = 2; // 上级菜单
@@ -41,18 +43,23 @@ message SysPermissionInfo {
   repeated SysPermissionInfo children = 18;
 }
 
+//请求-权限-列表
 message SysPermissionListReq {}
+//响应-权限-列表
 message SysPermissionListResp {
-  repeated SysPermissionInfo list = 1;
+  repeated SysPermissionInfo list = 1; //列表
 }
 
+//请求-权限-单个权限信息
 message SysPermissionInfoReq {
-  string id = 1;
+  string id = 1; //ID
 }
+//响应-权限-单个权限信息
 message SysPermissionInfoResp {
-  SysPermissionInfo info = 1;
+  SysPermissionInfo info = 1; //信息
 }
 
+//请求-权限-保存
 message SysPermissionStoreReq {
   string id = 1; // ID
   string pid = 2; // 上级菜单
@@ -70,15 +77,20 @@ message SysPermissionStoreReq {
   int32 sort = 14; // 权重(排序)
   int32 status = 15; // 状态:0=禁用,1=启用
 }
+//响应-权限-保存
 message SysPermissionStoreResp {}
 
+//请求-权限-删除
 message SysPermissionDelReq {
-  repeated string ids = 1;
+  repeated string ids = 1; //ID集合
 }
+//响应-权限-删除
 message SysPermissionDelResp {}
 
+//请求-权限-修改状态
 message SysPermissionStatusReq {
   string id = 1;
   int32 status = 2; // 状态:0=禁用,1=启用
 }
+//响应-权限-修改状态
 message SysPermissionStatusResp {}

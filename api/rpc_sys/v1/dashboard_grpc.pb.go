@@ -26,7 +26,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DashboardClient interface {
-	// 一言
+	// 仪表盘-一言
 	DashboardSpeech(ctx context.Context, in *DashboardSpeechReq, opts ...grpc.CallOption) (*DashboardSpeechReply, error)
 }
 
@@ -51,7 +51,7 @@ func (c *dashboardClient) DashboardSpeech(ctx context.Context, in *DashboardSpee
 // All implementations must embed UnimplementedDashboardServer
 // for forward compatibility
 type DashboardServer interface {
-	// 一言
+	// 仪表盘-一言
 	DashboardSpeech(context.Context, *DashboardSpeechReq) (*DashboardSpeechReply, error)
 	mustEmbedUnimplementedDashboardServer()
 }

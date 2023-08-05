@@ -7,6 +7,7 @@ package fkratos_sys_repo
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"time"
@@ -47,8 +48,6 @@ type (
 		FindOneCacheByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error)
 		// FindMultiCacheByUsernames 根据usernames查询多条数据并设置缓存
 		FindMultiCacheByUsernames(ctx context.Context, usernames []string) ([]*fkratos_sys_model.SysAdmin, error)
-		// FindMultiByTenantIDS 根据tenantIDS查询多条数据
-		FindMultiByTenantIDS(ctx context.Context, tenantIDS []string) ([]*fkratos_sys_model.SysAdmin, error)
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysAdmin, error)
 		// FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
@@ -93,7 +92,7 @@ func (r *SysAdminRepo) UpdateOne(ctx context.Context, data *fkratos_sys_model.Sy
 func (r *SysAdminRepo) DeleteOneCacheByUsername(ctx context.Context, username string) error {
 	dao := fkratos_sys_dao.Use(r.db).SysAdmin
 	first, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
 	if first == nil {
@@ -135,7 +134,7 @@ func (r *SysAdminRepo) DeleteMultiCacheByUsernames(ctx context.Context, username
 func (r *SysAdminRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
 	dao := fkratos_sys_dao.Use(r.db).SysAdmin
 	first, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
 	if first == nil {
@@ -200,7 +199,7 @@ func (r *SysAdminRepo) FindOneCacheByUsername(ctx context.Context, username stri
 	cacheValue, err := cache.SingleCache(ctx, conv.String(username), func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysAdmin
 		result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
-		if err != nil && err != gorm.ErrRecordNotFound {
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return "", err
 		}
 		marshal, err := json.Marshal(result)
@@ -230,7 +229,7 @@ func (r *SysAdminRepo) FindMultiCacheByUsernames(ctx context.Context, usernames 
 	cacheValue, err := cacheKey.BatchKeyCache(ctx, batchKeys, func() (map[string]string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysAdmin
 		result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
-		if err != nil && err != gorm.ErrRecordNotFound {
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, err
 		}
 		value := make(map[string]string)
@@ -257,16 +256,6 @@ func (r *SysAdminRepo) FindMultiCacheByUsernames(ctx context.Context, usernames 
 	return resp, nil
 }
 
-// FindMultiByTenantIDS 根据tenantIDS查询多条数据
-func (r *SysAdminRepo) FindMultiByTenantIDS(ctx context.Context, tenantIDS []string) ([]*fkratos_sys_model.SysAdmin, error) {
-	dao := fkratos_sys_dao.Use(r.db).SysAdmin
-	result, err := dao.WithContext(ctx).Where(dao.TenantID.In(tenantIDS...)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (r *SysAdminRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysAdmin, error) {
 	resp := new(fkratos_sys_model.SysAdmin)
@@ -274,7 +263,7 @@ func (r *SysAdminRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkrato
 	cacheValue, err := cache.SingleCache(ctx, conv.String(ID), func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysAdmin
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
-		if err != nil && err != gorm.ErrRecordNotFound {
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return "", err
 		}
 		marshal, err := json.Marshal(result)
@@ -304,7 +293,7 @@ func (r *SysAdminRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([
 	cacheValue, err := cacheKey.BatchKeyCache(ctx, batchKeys, func() (map[string]string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysAdmin
 		result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
-		if err != nil && err != gorm.ErrRecordNotFound {
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, err
 		}
 		value := make(map[string]string)

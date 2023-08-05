@@ -6,6 +6,7 @@ import (
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 	"fkratos/internal/errorx"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -16,14 +17,16 @@ var _ biz.SysPermissionRepo = (*SysPermissionRepo)(nil)
 func NewSysPermissionRepo(data *Data, logger log.Logger) biz.SysPermissionRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_permission"))
 	return &SysPermissionRepo{
-		data: data,
-		log:  l,
+		data:              data,
+		log:               l,
+		SysPermissionRepo: fkratos_sys_repo.NewSysPermissionRepo(data.gorm, data.redis),
 	}
 }
 
 type SysPermissionRepo struct {
 	data *Data
 	log  *log.Helper
+	*fkratos_sys_repo.SysPermissionRepo
 }
 
 func (s *SysPermissionRepo) SysPermissionByStatus(ctx context.Context, status int16) ([]*fkratos_sys_model.SysPermission, error) {

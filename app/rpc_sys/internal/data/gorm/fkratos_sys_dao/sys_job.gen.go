@@ -28,7 +28,6 @@ func newSysJob(db *gorm.DB, opts ...gen.DOOption) sysJob {
 	tableName := _sysJob.sysJobDo.TableName()
 	_sysJob.ALL = field.NewAsterisk(tableName)
 	_sysJob.ID = field.NewString(tableName, "id")
-	_sysJob.TenantID = field.NewString(tableName, "tenant_id")
 	_sysJob.Name = field.NewString(tableName, "name")
 	_sysJob.Code = field.NewString(tableName, "code")
 	_sysJob.Remark = field.NewString(tableName, "remark")
@@ -48,7 +47,6 @@ type sysJob struct {
 
 	ALL       field.Asterisk
 	ID        field.String // 编号
-	TenantID  field.String // 租户ID
 	Name      field.String // 岗位名称
 	Code      field.String // 岗位编码
 	Remark    field.String // 备注
@@ -74,7 +72,6 @@ func (s sysJob) As(alias string) *sysJob {
 func (s *sysJob) updateTableName(table string) *sysJob {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
-	s.TenantID = field.NewString(table, "tenant_id")
 	s.Name = field.NewString(table, "name")
 	s.Code = field.NewString(table, "code")
 	s.Remark = field.NewString(table, "remark")
@@ -107,9 +104,8 @@ func (s *sysJob) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysJob) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 10)
+	s.fieldMap = make(map[string]field.Expr, 9)
 	s.fieldMap["id"] = s.ID
-	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["code"] = s.Code
 	s.fieldMap["remark"] = s.Remark

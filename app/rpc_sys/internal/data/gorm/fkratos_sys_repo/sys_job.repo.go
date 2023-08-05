@@ -7,6 +7,7 @@ package fkratos_sys_repo
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"time"
@@ -38,8 +39,6 @@ type (
 		DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error
 		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
 		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysJob) error
-		// FindMultiByTenantIDS 根据tenantIDS查询多条数据
-		FindMultiByTenantIDS(ctx context.Context, tenantIDS []string) ([]*fkratos_sys_model.SysJob, error)
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error)
 		// FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
@@ -84,7 +83,7 @@ func (r *SysJobRepo) UpdateOne(ctx context.Context, data *fkratos_sys_model.SysJ
 func (r *SysJobRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
 	dao := fkratos_sys_dao.Use(r.db).SysJob
 	first, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
-	if err != nil && err != gorm.ErrRecordNotFound {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
 	if first == nil {
@@ -137,16 +136,6 @@ func (r *SysJobRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos
 	return nil
 }
 
-// FindMultiByTenantIDS 根据tenantIDS查询多条数据
-func (r *SysJobRepo) FindMultiByTenantIDS(ctx context.Context, tenantIDS []string) ([]*fkratos_sys_model.SysJob, error) {
-	dao := fkratos_sys_dao.Use(r.db).SysJob
-	result, err := dao.WithContext(ctx).Where(dao.TenantID.In(tenantIDS...)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (r *SysJobRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error) {
 	resp := new(fkratos_sys_model.SysJob)
@@ -154,7 +143,7 @@ func (r *SysJobRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_
 	cacheValue, err := cache.SingleCache(ctx, conv.String(ID), func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysJob
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
-		if err != nil && err != gorm.ErrRecordNotFound {
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return "", err
 		}
 		marshal, err := json.Marshal(result)
@@ -184,7 +173,7 @@ func (r *SysJobRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*
 	cacheValue, err := cacheKey.BatchKeyCache(ctx, batchKeys, func() (map[string]string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysJob
 		result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
-		if err != nil && err != gorm.ErrRecordNotFound {
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, err
 		}
 		value := make(map[string]string)

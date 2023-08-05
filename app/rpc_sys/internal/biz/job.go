@@ -52,11 +52,20 @@ func (d *JobUseCase) SysJobList(ctx context.Context, req *paginator.PaginatorReq
 
 func (d *JobUseCase) SysJobInfo(ctx context.Context, req *v1.SysJobInfoReq) (*v1.SysJobInfoReply, error) {
 	resp := new(v1.SysJobInfoReply)
-	info, err := d.sysJobRepo.SysJobInfoById(ctx, req.GetId())
+	sysJob, err := d.sysJobRepo.FindOneCacheByID(ctx, req.GetId())
 	if err != nil {
 		return nil, err
 	}
-	resp.Info = info
+	resp.Info = &v1.SysJobInfo{
+		Id:        sysJob.ID,
+		Name:      sysJob.Name,
+		Code:      sysJob.Code,
+		Remark:    sysJob.Remark,
+		Status:    int32(sysJob.Status),
+		Sort:      int32(sysJob.Sort),
+		CreatedAt: timeutil.ToDateTimeStringByTime(sysJob.CreatedAt),
+		UpdatedAt: timeutil.ToDateTimeStringByTime(sysJob.UpdatedAt),
+	}
 	return resp, nil
 }
 
@@ -71,7 +80,7 @@ func (d *JobUseCase) SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*
 
 func (d *JobUseCase) SysJobDel(ctx context.Context, req *v1.SysJobDelReq) (*v1.SysJobDelReply, error) {
 	resp := new(v1.SysJobDelReply)
-	err := d.sysJobRepo.SysJobDelByIds(ctx, req.GetIds())
+	err := d.sysJobRepo.DeleteMultiCacheByIDS(ctx, req.GetIds())
 	if err != nil {
 		return nil, err
 	}

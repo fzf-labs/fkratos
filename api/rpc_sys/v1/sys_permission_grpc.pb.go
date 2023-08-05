@@ -30,15 +30,15 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PermissionClient interface {
-	// 权限列表
+	// 权限-列表
 	SysPermissionList(ctx context.Context, in *SysPermissionListReq, opts ...grpc.CallOption) (*SysPermissionListResp, error)
-	// 单个权限
+	// 权限-单个权限信息
 	SysPermissionInfo(ctx context.Context, in *SysPermissionInfoReq, opts ...grpc.CallOption) (*SysPermissionInfoResp, error)
-	// 保存权限
+	// 权限-保存
 	SysPermissionStore(ctx context.Context, in *SysPermissionStoreReq, opts ...grpc.CallOption) (*SysPermissionStoreResp, error)
-	// 删除权限
+	// 权限-删除
 	SysPermissionDel(ctx context.Context, in *SysPermissionDelReq, opts ...grpc.CallOption) (*SysPermissionDelResp, error)
-	// 修改权限状态
+	// 权限-修改状态
 	SysPermissionStatus(ctx context.Context, in *SysPermissionStatusReq, opts ...grpc.CallOption) (*SysPermissionStatusResp, error)
 }
 
@@ -99,15 +99,15 @@ func (c *permissionClient) SysPermissionStatus(ctx context.Context, in *SysPermi
 // All implementations must embed UnimplementedPermissionServer
 // for forward compatibility
 type PermissionServer interface {
-	// 权限列表
+	// 权限-列表
 	SysPermissionList(context.Context, *SysPermissionListReq) (*SysPermissionListResp, error)
-	// 单个权限
+	// 权限-单个权限信息
 	SysPermissionInfo(context.Context, *SysPermissionInfoReq) (*SysPermissionInfoResp, error)
-	// 保存权限
+	// 权限-保存
 	SysPermissionStore(context.Context, *SysPermissionStoreReq) (*SysPermissionStoreResp, error)
-	// 删除权限
+	// 权限-删除
 	SysPermissionDel(context.Context, *SysPermissionDelReq) (*SysPermissionDelResp, error)
-	// 修改权限状态
+	// 权限-修改状态
 	SysPermissionStatus(context.Context, *SysPermissionStatusReq) (*SysPermissionStatusResp, error)
 	mustEmbedUnimplementedPermissionServer()
 }

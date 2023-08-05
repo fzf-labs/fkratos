@@ -101,7 +101,7 @@ func sysRoleRecursiveTree(tree *v1.SysRoleInfo, allNodes []*v1.SysRoleInfo) {
 }
 
 func (r *RoleUseCase) SysRoleInfo(ctx context.Context, req *v1.SysRoleInfoReq) (*v1.SysRoleInfoResp, error) {
-	sysRole, err := r.sysRoleRepo.SysRoleInfoById(ctx, req.GetId())
+	sysRole, err := r.sysRoleRepo.FindOneCacheByID(ctx, req.GetId())
 	if err != nil {
 		return nil, err
 	}
@@ -129,7 +129,7 @@ func (r *RoleUseCase) SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq)
 }
 
 func (r *RoleUseCase) SysRoleDel(ctx context.Context, req *v1.SysRoleDelReq) (*v1.SysRoleDelResp, error) {
-	err := r.sysRoleRepo.SysRoleDelByIds(ctx, req.GetIds())
+	err := r.sysRoleRepo.DeleteMultiCacheByIDS(ctx, req.GetIds())
 	if err != nil {
 		return nil, err
 	}

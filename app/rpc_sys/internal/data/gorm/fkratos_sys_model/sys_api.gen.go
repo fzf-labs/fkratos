@@ -14,7 +14,6 @@ const TableNameSysAPI = "sys_api"
 // SysAPI mapped from table <sys_api>
 type SysAPI struct {
 	ID           string       `gorm:"column:id;primaryKey;comment:编号" json:"id"`                      // 编号
-	TenantID     string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`                  // 租户ID
 	PermissionID string       `gorm:"column:permission_id;not null;comment:权限Id" json:"permissionId"` // 权限Id
 	Method       string       `gorm:"column:method;not null;comment:方法" json:"method"`                // 方法
 	Path         string       `gorm:"column:path;not null;comment:路径" json:"path"`                    // 路径

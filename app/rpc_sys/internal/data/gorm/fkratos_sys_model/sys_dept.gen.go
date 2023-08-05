@@ -14,7 +14,6 @@ const TableNameSysDept = "sys_dept"
 // SysDept mapped from table <sys_dept>
 type SysDept struct {
 	ID          string       `gorm:"column:id;primaryKey;comment:编号" json:"id"`                // 编号
-	TenantID    string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`            // 租户ID
 	Pid         string       `gorm:"column:pid;not null;comment:父级id" json:"pid"`              // 父级id
 	Name        string       `gorm:"column:name;not null;comment:部门简称" json:"name"`            // 部门简称
 	FullName    string       `gorm:"column:full_name;not null;comment:部门全称" json:"fullName"`   // 部门全称

@@ -252,7 +252,7 @@ func (a *AdminUseCase) SysManageDel(ctx context.Context, req *v1.SysManageDelReq
 func (a *AdminUseCase) SysAdminPermission(ctx context.Context, req *v1.SysAdminPermissionReq) (*v1.SysAdminPermissionReply, error) {
 	resp := new(v1.SysAdminPermissionReply)
 	cacheKey := cache.SysAdminPermission.NewHashKey(a.redis)
-	res, err := cacheKey.HashCache(ctx, req.GetAdminId(), "AdminPermission", func() (string, error) {
+	res, err := cacheKey.HashCache(ctx, "AdminPermission", req.GetAdminId(), func() (string, error) {
 		sysAdmin, err := a.sysAdminRepo.FindOneCacheByID(ctx, req.GetAdminId())
 		if err != nil {
 			return "", err
@@ -265,7 +265,7 @@ func (a *AdminUseCase) SysAdminPermission(ctx context.Context, req *v1.SysAdminP
 		if err != nil {
 			return "", err
 		}
-		sysRoles, err := a.sysRoleRepo.SysRoleInfoByIds(ctx, roleIds)
+		sysRoles, err := a.sysRoleRepo.FindMultiCacheByIDS(ctx, roleIds)
 		if err != nil {
 			return "", err
 		}

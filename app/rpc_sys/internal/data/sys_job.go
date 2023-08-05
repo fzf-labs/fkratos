@@ -7,6 +7,7 @@ import (
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 	"fkratos/internal/errorx"
 	"strings"
 
@@ -22,14 +23,16 @@ var _ biz.SysJobRepo = (*SysJobRepo)(nil)
 func NewSysJobRepo(data *Data, logger log.Logger) biz.SysJobRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_job"))
 	return &SysJobRepo{
-		data: data,
-		log:  l,
+		data:       data,
+		log:        l,
+		SysJobRepo: fkratos_sys_repo.NewSysJobRepo(data.gorm, data.redis),
 	}
 }
 
 type SysJobRepo struct {
 	data *Data
 	log  *log.Helper
+	*fkratos_sys_repo.SysJobRepo
 }
 
 func (s *SysJobRepo) SysJobInfoById(ctx context.Context, id string) (*v1.SysJobInfo, error) {

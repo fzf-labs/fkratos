@@ -21,6 +21,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 岗位信息
 type SysJobInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -186,7 +187,7 @@ type SysJobInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` //ID
 }
 
 func (x *SysJobInfoReq) Reset() {
@@ -234,7 +235,7 @@ type SysJobInfoReply struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Info *SysJobInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
+	Info *SysJobInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"` //岗位信息
 }
 
 func (x *SysJobInfoReply) Reset() {
@@ -409,7 +410,7 @@ type SysJobDelReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
+	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"` //ID集合
 }
 
 func (x *SysJobDelReq) Reset() {

@@ -20,6 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 请求-一言
 type DashboardSpeechReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -58,12 +59,13 @@ func (*DashboardSpeechReq) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_dashboard_proto_rawDescGZIP(), []int{0}
 }
 
+// 响应-一言
 type DashboardSpeechReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Word string `protobuf:"bytes,1,opt,name=word,proto3" json:"word,omitempty"`
+	Word string `protobuf:"bytes,1,opt,name=word,proto3" json:"word,omitempty"` //一言
 }
 
 func (x *DashboardSpeechReply) Reset() {

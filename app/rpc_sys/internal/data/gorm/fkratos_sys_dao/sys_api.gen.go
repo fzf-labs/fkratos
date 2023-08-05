@@ -28,7 +28,6 @@ func newSysAPI(db *gorm.DB, opts ...gen.DOOption) sysAPI {
 	tableName := _sysAPI.sysAPIDo.TableName()
 	_sysAPI.ALL = field.NewAsterisk(tableName)
 	_sysAPI.ID = field.NewString(tableName, "id")
-	_sysAPI.TenantID = field.NewString(tableName, "tenant_id")
 	_sysAPI.PermissionID = field.NewString(tableName, "permission_id")
 	_sysAPI.Method = field.NewString(tableName, "method")
 	_sysAPI.Path = field.NewString(tableName, "path")
@@ -47,7 +46,6 @@ type sysAPI struct {
 
 	ALL          field.Asterisk
 	ID           field.String // 编号
-	TenantID     field.String // 租户ID
 	PermissionID field.String // 权限Id
 	Method       field.String // 方法
 	Path         field.String // 路径
@@ -72,7 +70,6 @@ func (s sysAPI) As(alias string) *sysAPI {
 func (s *sysAPI) updateTableName(table string) *sysAPI {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
-	s.TenantID = field.NewString(table, "tenant_id")
 	s.PermissionID = field.NewString(table, "permission_id")
 	s.Method = field.NewString(table, "method")
 	s.Path = field.NewString(table, "path")
@@ -104,9 +101,8 @@ func (s *sysAPI) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysAPI) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 9)
+	s.fieldMap = make(map[string]field.Expr, 8)
 	s.fieldMap["id"] = s.ID
-	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["permission_id"] = s.PermissionID
 	s.fieldMap["method"] = s.Method
 	s.fieldMap["path"] = s.Path

@@ -7,46 +7,55 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
-// Api模块
+// Api
 service Api {
-  //api列表
+  //Api-列表
   rpc SysApiList(SysApiListReq) returns (SysApiListReply);
-  //保存api
+  //Api-保存
   rpc SysApiStore(SysApiStoreReq) returns (SysApiStoreReply);
-  //删除api
+  //Api-删除
   rpc SysApiDel(SysApiDelReq) returns (SysApiDelReply);
 }
 
-message SysApiInfo{
-  string id = 1;  // 编号
-  string permissionID = 2;  // 权限Id
-  string method = 3;  // 方法
-  string path = 4;  // 路径
-  string desc = 5;  // 描述
+// Api信息
+message SysApiInfo {
+  string id = 1; // 编号
+  string permissionID = 2; // 权限Id
+  string method = 3; // 方法
+  string path = 4; // 路径
+  string desc = 5; // 描述
   string createdAt = 6; // 创建时间
   string updatedAt = 7; // 更新时间
 }
 
-message SysApiListReq{
-  string permissionId = 1;
-}
-message SysApiListReply{
-  repeated SysApiInfo list = 1;
+//请求-Api-列表
+message SysApiListReq {
+  string permissionId = 1; //权限ID
 }
 
-message SysApiStoreReq{
-  string id = 1;  // 编号
-  string permissionID = 2;  // 权限Id
-  string method = 3;  // 方法
-  string path = 4;  // 路径
-  string desc = 5;  // 描述
-}
-message SysApiStoreReply{
-  string id = 1;
+//响应-Api-列表
+message SysApiListReply {
+  repeated SysApiInfo list = 1; //列表
 }
 
-message SysApiDelReq{
-  repeated string ids = 1;
+//请求-Api-保存
+message SysApiStoreReq {
+  string id = 1; // 编号
+  string permissionID = 2; // 权限Id
+  string method = 3; // 方法
+  string path = 4; // 路径
+  string desc = 5; // 描述
 }
-message SysApiDelReply{
+
+//响应-Api-保存
+message SysApiStoreReply {
+  string id = 1; //ID
 }
+
+//请求-Api-删除
+message SysApiDelReq {
+  repeated string ids = 1; //ID集合
+}
+
+//响应-Api-删除
+message SysApiDelReply {}

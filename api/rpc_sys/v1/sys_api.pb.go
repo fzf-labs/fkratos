@@ -20,6 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Api信息
 type SysApiInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -115,12 +116,13 @@ func (x *SysApiInfo) GetUpdatedAt() string {
 	return ""
 }
 
+// 请求-Api-列表
 type SysApiListReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	PermissionId string `protobuf:"bytes,1,opt,name=permissionId,proto3" json:"permissionId,omitempty"`
+	PermissionId string `protobuf:"bytes,1,opt,name=permissionId,proto3" json:"permissionId,omitempty"` //权限ID
 }
 
 func (x *SysApiListReq) Reset() {
@@ -162,12 +164,13 @@ func (x *SysApiListReq) GetPermissionId() string {
 	return ""
 }
 
+// 响应-Api-列表
 type SysApiListReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	List []*SysApiInfo `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	List []*SysApiInfo `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"` //列表
 }
 
 func (x *SysApiListReply) Reset() {
@@ -209,6 +212,7 @@ func (x *SysApiListReply) GetList() []*SysApiInfo {
 	return nil
 }
 
+// 请求-Api-保存
 type SysApiStoreReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -288,12 +292,13 @@ func (x *SysApiStoreReq) GetDesc() string {
 	return ""
 }
 
+// 响应-Api-保存
 type SysApiStoreReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` //ID
 }
 
 func (x *SysApiStoreReply) Reset() {
@@ -335,12 +340,13 @@ func (x *SysApiStoreReply) GetId() string {
 	return ""
 }
 
+// 请求-Api-删除
 type SysApiDelReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
+	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"` //ID集合
 }
 
 func (x *SysApiDelReq) Reset() {
@@ -382,6 +388,7 @@ func (x *SysApiDelReq) GetIds() []string {
 	return nil
 }
 
+// 响应-Api-删除
 type SysApiDelReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

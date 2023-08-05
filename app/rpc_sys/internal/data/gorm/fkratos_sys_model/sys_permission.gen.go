@@ -14,7 +14,6 @@ const TableNameSysPermission = "sys_permission"
 // SysPermission mapped from table <sys_permission>
 type SysPermission struct {
 	ID        string       `gorm:"column:id;primaryKey" json:"id"`
-	TenantID  string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`                                                       // 租户ID
 	Pid       string       `gorm:"column:pid;not null;comment:上级菜单" json:"pid"`                                                         // 上级菜单
 	Type      string       `gorm:"column:type;not null;comment:类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮" json:"type"`                      // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
 	Title     string       `gorm:"column:title;not null;comment:标题" json:"title"`                                                       // 标题

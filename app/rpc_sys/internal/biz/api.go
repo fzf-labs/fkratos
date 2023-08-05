@@ -38,7 +38,7 @@ func (a *ApiUseCase) SysApiStore(ctx context.Context, req *v1.SysApiStoreReq) (*
 
 func (a *ApiUseCase) SysApiDel(ctx context.Context, req *v1.SysApiDelReq) (*v1.SysApiDelReply, error) {
 	resp := new(v1.SysApiDelReply)
-	err := a.sysApiRepo.SysApiDel(ctx, req.GetIds())
+	err := a.sysApiRepo.DeleteMultiCacheByIDS(ctx, req.GetIds())
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (a *ApiUseCase) SysApiDel(ctx context.Context, req *v1.SysApiDelReq) (*v1.S
 
 func (a *ApiUseCase) SysApiList(ctx context.Context, req *v1.SysApiListReq) (*v1.SysApiListReply, error) {
 	resp := new(v1.SysApiListReply)
-	list, err := a.sysApiRepo.SysApiList(ctx, req.GetPermissionId())
+	list, err := a.sysApiRepo.FindMultiByPermissionID(ctx, req.GetPermissionId())
 	if err != nil {
 		return nil, err
 	}

@@ -2,52 +2,51 @@ syntax = "proto3";
 
 package api.rpc_sys.v1;
 
-option go_package = "fkratos/api/rpc_sys/v1;v1";
 import "validate/validate.proto";
+
+option go_package = "fkratos/api/rpc_sys/v1;v1";
 
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
-
 // Auth
 service Auth {
-  //验证码
-  rpc SysAuthLoginCaptcha (SysAuthLoginCaptchaReq) returns (SysAuthLoginCaptchaReply);
-  //登录
-  rpc SysAuthLogin (SysAuthLoginReq) returns (SysAuthLoginReply);
-  //退出
-  rpc SysAuthLogout (SysAuthLogoutReq) returns (SysAuthLogoutReply);
+  //Auth-验证码
+  rpc SysAuthLoginCaptcha(SysAuthLoginCaptchaReq) returns (SysAuthLoginCaptchaReply);
+  //Auth-登录
+  rpc SysAuthLogin(SysAuthLoginReq) returns (SysAuthLoginReply);
+  //Auth-退出
+  rpc SysAuthLogout(SysAuthLogoutReq) returns (SysAuthLogoutReply);
 }
 
 //请求-验证码
-message SysAuthLoginCaptchaReq {
+message SysAuthLoginCaptchaReq {}
 
-}
 //响应-验证码
 message SysAuthLoginCaptchaReply {
-  string  captchaId = 1;//验证码ID
-  string  captchaImg = 2;//验证码图片
+  string captchaId = 1; //验证码ID
+  string captchaImg = 2; //验证码图片
 }
-
 
 //请求-登录
 message SysAuthLoginReq {
-  string captchaId = 1;//验证码id
-  string verifyCode = 2;//验证码
-  string username = 3;//账号
-  string password = 4;//密码
+  string captchaId = 1; //验证码id
+  string verifyCode = 2; //验证码
+  string username = 3; //账号
+  string password = 4; //密码
 }
+
 //响应-登录
 message SysAuthLoginReply {
-  string token = 1;//token
-  int64 expiredAt = 2;//过期时间
-  int64 refreshAt = 3;//刷新时间
+  string token = 1; //token
+  int64 expiredAt = 2; //过期时间
+  int64 refreshAt = 3; //刷新时间
 }
+
 //请求-退出
 message SysAuthLogoutReq {
   string adminId = 1 [(validate.rules).string.uuid = true]; //ID
 }
-//响应-退出
-message SysAuthLogoutReply {
 
-}
+//响应-退出
+message SysAuthLogoutReply {}

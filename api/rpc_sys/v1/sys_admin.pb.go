@@ -22,6 +22,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 管理员个人信息
 type SysAdminInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -203,7 +204,7 @@ type SysAdminInfoReply struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Info *SysAdminInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
+	Info *SysAdminInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"` //管理员信息
 }
 
 func (x *SysAdminInfoReply) Reset() {
@@ -251,7 +252,7 @@ type SysAdminInfoUpdateReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	AdminId  string `protobuf:"bytes,1,opt,name=adminId,proto3" json:"adminId,omitempty"`
+	AdminId  string `protobuf:"bytes,1,opt,name=adminId,proto3" json:"adminId,omitempty"`   //管理员ID
 	Nickname string `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"` //昵称
 	Email    string `protobuf:"bytes,3,opt,name=email,proto3" json:"email,omitempty"`       //邮件
 	Mobile   string `protobuf:"bytes,4,opt,name=mobile,proto3" json:"mobile,omitempty"`     //手机号
@@ -378,7 +379,7 @@ type SysAdminGenerateAvatarReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	AdminId string `protobuf:"bytes,1,opt,name=adminId,proto3" json:"adminId,omitempty"`
+	AdminId string `protobuf:"bytes,1,opt,name=adminId,proto3" json:"adminId,omitempty"` //管理员ID
 }
 
 func (x *SysAdminGenerateAvatarReq) Reset() {
@@ -468,6 +469,7 @@ func (x *SysAdminGenerateAvatarReply) GetAvatarUrl() string {
 	return ""
 }
 
+// 管理员信息
 type SysManageInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -643,6 +645,7 @@ func (x *SysManageInfo) GetUpdatedAt() string {
 	return ""
 }
 
+// 管理员权限
 type SysAdminPermission struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -778,12 +781,13 @@ func (x *SysAdminPermission) GetChildren() []*SysAdminPermission {
 	return nil
 }
 
+// 请求-权限
 type SysAdminPermissionReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	AdminId string `protobuf:"bytes,1,opt,name=adminId,proto3" json:"adminId,omitempty"`
+	AdminId string `protobuf:"bytes,1,opt,name=adminId,proto3" json:"adminId,omitempty"` //管理员ID
 }
 
 func (x *SysAdminPermissionReq) Reset() {
@@ -825,12 +829,13 @@ func (x *SysAdminPermissionReq) GetAdminId() string {
 	return ""
 }
 
+// 响应-权限
 type SysAdminPermissionReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	List []*SysAdminPermission `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	List []*SysAdminPermission `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"` //列表
 }
 
 func (x *SysAdminPermissionReply) Reset() {
@@ -934,7 +939,7 @@ type SysManageInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	AdminId string `protobuf:"bytes,1,opt,name=adminId,proto3" json:"adminId,omitempty"`
+	AdminId string `protobuf:"bytes,1,opt,name=adminId,proto3" json:"adminId,omitempty"` //管理员ID
 }
 
 func (x *SysManageInfoReq) Reset() {
@@ -982,7 +987,7 @@ type SysManageInfoReply struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Info *SysManageInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
+	Info *SysManageInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"` //信息
 }
 
 func (x *SysManageInfoReply) Reset() {
@@ -1030,7 +1035,7 @@ type SysManageStoreReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id       string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id       string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`             //ID
 	Username string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"` // 账号
 	Nickname string   `protobuf:"bytes,3,opt,name=nickname,proto3" json:"nickname,omitempty"` // 昵称
 	Password string   `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"` // 昵称
@@ -1213,7 +1218,7 @@ type SysManageDelReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
+	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"` //ID集合
 }
 
 func (x *SysManageDelReq) Reset() {
@@ -1299,10 +1304,10 @@ var File_rpc_sys_v1_sys_admin_proto protoreflect.FileDescriptor
 var file_rpc_sys_v1_sys_admin_proto_rawDesc = []byte{
 	0x0a, 0x1a, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x73, 0x79, 0x73,
 	0x5f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0e, 0x61, 0x70,
-	0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x1a, 0x17, 0x76, 0x61,
-	0x6c, 0x69, 0x64, 0x61, 0x74, 0x65, 0x2f, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x65, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x19, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72,
-	0x2f, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x1a, 0x19, 0x70, 0x61,
+	0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x2f, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f,
+	0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x17, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74,
+	0x65, 0x2f, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x22, 0x92, 0x02, 0x0a, 0x0c, 0x53, 0x79, 0x73, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x49, 0x6e, 0x66,
 	0x6f, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69,
 	0x64, 0x12, 0x1a, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20,

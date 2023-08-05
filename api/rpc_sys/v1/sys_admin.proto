@@ -2,35 +2,36 @@ syntax = "proto3";
 
 package api.rpc_sys.v1;
 
-option go_package = "fkratos/api/rpc_sys/v1;v1";
-
-import "validate/validate.proto";
 import "paginator/paginator.proto";
+import "validate/validate.proto";
+
+option go_package = "fkratos/api/rpc_sys/v1;v1";
 
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
 // 管理员
 service Admin {
-  //管理员信息
+  //管理员-个人信息
   rpc SysAdminInfo(SysAdminInfoReq) returns (SysAdminInfoReply);
-  //管理员更新
+  //管理员-个人信息更新
   rpc SysAdminInfoUpdate(SysAdminInfoUpdateReq) returns (SysAdminInfoUpdateReply);
-  //生成头像
+  //管理员-生成头像
   rpc SysAdminGenerateAvatar(SysAdminGenerateAvatarReq) returns (SysAdminGenerateAvatarReply);
-  //查询权限
+  //管理员-查询权限
   rpc SysAdminPermission(SysAdminPermissionReq) returns (SysAdminPermissionReply);
 
-  //管理员列表
+  //管理员-列表
   rpc SysManageList(paginator.PaginatorReq) returns (SysManageListReply);
-  //单个管理员
+  //管理员-信息
   rpc SysManageInfo(SysManageInfoReq) returns (SysManageInfoReply);
-  //保存管理员
+  //管理员-保存
   rpc SysManageStore(SysManageStoreReq) returns (SysManageStoreReply);
-  //删除管理员
+  //管理员-删除
   rpc SysManageDel(SysManageDelReq) returns (SysManageDelReply);
 }
 
+//管理员个人信息
 message SysAdminInfo {
   string id = 1; // ID
   string username = 2; // 账号
@@ -52,17 +53,32 @@ message SysAdminInfoReq {
 
 //响应-管理员信息
 message SysAdminInfoReply {
-  SysAdminInfo info = 1;
+  SysAdminInfo info = 1; //管理员信息
 }
 
 //请求-管理员更新
 message SysAdminInfoUpdateReq {
-  string adminId = 1 [(validate.rules).string.uuid = true];
-  string nickname = 2 [(validate.rules).string = {min_len: 0,max_len: 50}]; //昵称
-  string email = 3 [(validate.rules).string = {min_len: 0,max_len: 50}]; //邮件
-  string mobile = 4 [(validate.rules).string = {min_len: 0,max_len: 15}]; //手机号
-  string motto = 5 [(validate.rules).string = {min_len: 0,max_len: 255}]; //个性签名
-  string password = 6 [(validate.rules).string = {min_len: 0,max_len: 128}]; //密码
+  string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
+  string nickname = 2 [(validate.rules).string = {
+    min_len: 0,
+    max_len: 50
+  }]; //昵称
+  string email = 3 [(validate.rules).string = {
+    min_len: 0,
+    max_len: 50
+  }]; //邮件
+  string mobile = 4 [(validate.rules).string = {
+    min_len: 0,
+    max_len: 15
+  }]; //手机号
+  string motto = 5 [(validate.rules).string = {
+    min_len: 0,
+    max_len: 255
+  }]; //个性签名
+  string password = 6 [(validate.rules).string = {
+    min_len: 0,
+    max_len: 128
+  }]; //密码
 }
 
 //响应-管理员更新
@@ -70,7 +86,7 @@ message SysAdminInfoUpdateReply {}
 
 //请求-生成头像
 message SysAdminGenerateAvatarReq {
-  string adminId = 1 [(validate.rules).string.uuid = true];
+  string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
 }
 
 //响应-生成头像
@@ -78,6 +94,7 @@ message SysAdminGenerateAvatarReply {
   string avatarUrl = 1; //头像地址
 }
 
+//管理员信息
 message SysManageInfo {
   string id = 1;
   string username = 2; // 账号
@@ -98,47 +115,51 @@ message SysManageInfo {
   string updatedAt = 17; //更新时间
 }
 
-message SysAdminPermission{
-  string ID = 1;                                                 // ID
-  string Pid = 2;                                                 // 上级菜单
-  string Type = 3;                                             // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
-  string Title = 4;                                           // 标题
-  string  Name = 5;                                                // 规则名称
-  string Path = 6;                                               // 路由路径
-  string  Icon = 7;                                         // 图标
-  string  MenuType = 8;                                // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
-  string  URL = 9;                                                  // Url
-  string  Component = 10;                                        // 组件路径
-  string  Extend = 11;                                              // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
+//管理员权限
+message SysAdminPermission {
+  string ID = 1; // ID
+  string Pid = 2; // 上级菜单
+  string Type = 3; // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
+  string Title = 4; // 标题
+  string Name = 5; // 规则名称
+  string Path = 6; // 路由路径
+  string Icon = 7; // 图标
+  string MenuType = 8; // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
+  string URL = 9; // Url
+  string Component = 10; // 组件路径
+  string Extend = 11; // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
   repeated SysAdminPermission children = 12;
 }
 
-message SysAdminPermissionReq{
-  string adminId = 1 [(validate.rules).string.uuid = true];
+//请求-权限
+message SysAdminPermissionReq {
+  string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
 }
-message SysAdminPermissionReply{
-  repeated SysAdminPermission list = 1;
+
+//响应-权限
+message SysAdminPermissionReply {
+  repeated SysAdminPermission list = 1; //列表
 }
 
 //响应-管理员列表
 message SysManageListReply {
-  repeated SysManageInfo list = 1;      //管理员列表
+  repeated SysManageInfo list = 1; //管理员列表
   paginator.PaginatorReply paginator = 2; //分页
 }
 
 //请求-管理员信息
 message SysManageInfoReq {
-  string adminId = 1 [(validate.rules).string.uuid = true];
+  string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
 }
 
 //响应-管理员信息
 message SysManageInfoReply {
-  SysManageInfo info = 1;
+  SysManageInfo info = 1; //信息
 }
 
 //请求-管理员保存
 message SysManageStoreReq {
-  string id = 1;
+  string id = 1; //ID
   string username = 2; // 账号
   string nickname = 3; // 昵称
   string password = 4; // 昵称
@@ -154,13 +175,11 @@ message SysManageStoreReq {
 }
 
 //响应-管理员保存
-message SysManageStoreReply {
-
-}
+message SysManageStoreReply {}
 
 //请求-管理员删除
 message SysManageDelReq {
-  repeated string ids = 1;
+  repeated string ids = 1; //ID集合
 }
 
 //响应-管理员删除

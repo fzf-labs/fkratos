@@ -26,7 +26,6 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		SysLog:        newSysLog(db, opts...),
 		SysPermission: newSysPermission(db, opts...),
 		SysRole:       newSysRole(db, opts...),
-		SysTenant:     newSysTenant(db, opts...),
 	}
 }
 
@@ -41,7 +40,6 @@ type Query struct {
 	SysLog        sysLog
 	SysPermission sysPermission
 	SysRole       sysRole
-	SysTenant     sysTenant
 }
 
 func (q *Query) Available() bool { return q.db != nil }
@@ -57,7 +55,6 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		SysLog:        q.SysLog.clone(db),
 		SysPermission: q.SysPermission.clone(db),
 		SysRole:       q.SysRole.clone(db),
-		SysTenant:     q.SysTenant.clone(db),
 	}
 }
 
@@ -80,7 +77,6 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		SysLog:        q.SysLog.replaceDB(db),
 		SysPermission: q.SysPermission.replaceDB(db),
 		SysRole:       q.SysRole.replaceDB(db),
-		SysTenant:     q.SysTenant.replaceDB(db),
 	}
 }
 
@@ -93,7 +89,6 @@ type queryCtx struct {
 	SysLog        *sysLogDo
 	SysPermission *sysPermissionDo
 	SysRole       *sysRoleDo
-	SysTenant     *sysTenantDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
@@ -106,7 +101,6 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		SysLog:        q.SysLog.WithContext(ctx),
 		SysPermission: q.SysPermission.WithContext(ctx),
 		SysRole:       q.SysRole.WithContext(ctx),
-		SysTenant:     q.SysTenant.WithContext(ctx),
 	}
 }
 

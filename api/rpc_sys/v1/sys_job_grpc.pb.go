@@ -30,13 +30,13 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type JobClient interface {
-	// 岗位列表
+	// 岗位-列表
 	SysJobList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysJobListReply, error)
-	// 单个岗位
+	// 岗位-单个岗位信息
 	SysJobInfo(ctx context.Context, in *SysJobInfoReq, opts ...grpc.CallOption) (*SysJobInfoReply, error)
-	// 保存岗位
+	// 岗位-保存
 	SysJobStore(ctx context.Context, in *SysJobStoreReq, opts ...grpc.CallOption) (*SysJobStoreReply, error)
-	// 删除岗位
+	// 岗位-删除
 	SysJobDel(ctx context.Context, in *SysJobDelReq, opts ...grpc.CallOption) (*SysJobDelReply, error)
 }
 
@@ -88,13 +88,13 @@ func (c *jobClient) SysJobDel(ctx context.Context, in *SysJobDelReq, opts ...grp
 // All implementations must embed UnimplementedJobServer
 // for forward compatibility
 type JobServer interface {
-	// 岗位列表
+	// 岗位-列表
 	SysJobList(context.Context, *paginator.PaginatorReq) (*SysJobListReply, error)
-	// 单个岗位
+	// 岗位-单个岗位信息
 	SysJobInfo(context.Context, *SysJobInfoReq) (*SysJobInfoReply, error)
-	// 保存岗位
+	// 岗位-保存
 	SysJobStore(context.Context, *SysJobStoreReq) (*SysJobStoreReply, error)
-	// 删除岗位
+	// 岗位-删除
 	SysJobDel(context.Context, *SysJobDelReq) (*SysJobDelReply, error)
 	mustEmbedUnimplementedJobServer()
 }

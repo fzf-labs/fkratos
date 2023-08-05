@@ -9,16 +9,17 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 
 // 角色
 service Role {
-  //角色列表
+  //角色-列表
   rpc SysRoleList(SysRoleListReq) returns (SysRoleListResp);
-  //单个角色
+  //角色-信息
   rpc SysRoleInfo(SysRoleInfoReq) returns (SysRoleInfoResp);
-  //保存角色
+  //角色-保存
   rpc SysRoleStore(SysRoleStoreReq) returns (SysRoleStoreResp);
-  //删除角色
+  //角色-删除
   rpc SysRoleDel(SysRoleDelReq) returns (SysRoleDelResp);
 }
 
+// 角色信息
 message SysRoleInfo {
   string id = 1; //角色id
   string pid = 2; //父级角色id
@@ -32,18 +33,25 @@ message SysRoleInfo {
   repeated SysRoleInfo children = 10;
 }
 
+//请求-角色-列表
 message SysRoleListReq {}
+
+//响应-角色-列表
 message SysRoleListResp {
-  repeated SysRoleInfo list = 1;
+  repeated SysRoleInfo list = 1; //列表
 }
 
+//请求-角色-信息
 message SysRoleInfoReq {
-  string id = 1;
-}
-message SysRoleInfoResp {
-  SysRoleInfo info = 1;
+  string id = 1; //ID
 }
 
+//响应-角色-信息
+message SysRoleInfoResp {
+  SysRoleInfo info = 1; //信息
+}
+
+//请求-角色-保存
 message SysRoleStoreReq {
   string id = 1; //角色id
   string pid = 2; //父级角色id
@@ -52,9 +60,14 @@ message SysRoleStoreReq {
   int32 status = 5; //状态
   repeated string permissionIds = 6; //菜单角色集合
 }
+
+//响应-角色-保存
 message SysRoleStoreResp {}
 
+//请求-角色-删除
 message SysRoleDelReq {
-  repeated string ids = 1;
+  repeated string ids = 1; //ID集合
 }
+
+//响应-角色-删除
 message SysRoleDelResp {}

@@ -31,15 +31,15 @@ service SensitiveWord {
 
 message SensitiveCategoryInfo{
   string id = 1;
-  string label = 2;                                                          //标签
-  string name = 3;                                                                  //分类
-  string createdAt = 4;                                                            //创建时间
-  string updatedAt = 5;                                                      //更新时间
+  string label = 2;//标签
+  string name = 3;//分类
+  string createdAt = 4;//创建时间
+  string updatedAt = 5;//更新时间
 }
 
 message SensitiveCategoryListReq{}
 message SensitiveCategoryListReply{
-  repeated SensitiveCategoryInfo list = 1;        //敏感词列表
+  repeated SensitiveCategoryInfo list = 1;//敏感词列表
   paginator.PaginatorReply paginator = 2; //分页
 }
 
@@ -54,9 +54,9 @@ message SensitiveCategoryInfoReply{
 
 
 message SensitiveCategoryStoreReq{
-  string id = 1;                                          //ID
-  string label = 2;                                    //标签
-  string name = 3;                                    //分类
+  string id = 1;//ID
+  string label = 2;//标签
+  string name = 3;//分类
 }
 message SensitiveCategoryStoreReply{
 }
@@ -79,7 +79,7 @@ message SensitiveWordInfo{
 
 message SensitiveWordListReq{}
 message SensitiveWordListReply{
-  repeated SensitiveWordInfo list = 1;        //敏感词列表
+  repeated SensitiveWordInfo list = 1;//敏感词列表
   paginator.PaginatorReply paginator = 2; //分页
 }
 
@@ -95,8 +95,8 @@ message SensitiveWordInfoReply{
 
 message SensitiveWordStoreReq{
   string id = 1;
-  string categoryID = 2;                          //分类ID
-  string word = 3;                                  //敏感词
+  string categoryID = 2;//分类ID
+  string word = 3;//敏感词
 }
 message SensitiveWordStoreReply{
 

@@ -28,7 +28,6 @@ func newSysPermission(db *gorm.DB, opts ...gen.DOOption) sysPermission {
 	tableName := _sysPermission.sysPermissionDo.TableName()
 	_sysPermission.ALL = field.NewAsterisk(tableName)
 	_sysPermission.ID = field.NewString(tableName, "id")
-	_sysPermission.TenantID = field.NewString(tableName, "tenant_id")
 	_sysPermission.Pid = field.NewString(tableName, "pid")
 	_sysPermission.Type = field.NewString(tableName, "type")
 	_sysPermission.Title = field.NewString(tableName, "title")
@@ -56,7 +55,6 @@ type sysPermission struct {
 
 	ALL       field.Asterisk
 	ID        field.String
-	TenantID  field.String // 租户ID
 	Pid       field.String // 上级菜单
 	Type      field.String // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
 	Title     field.String // 标题
@@ -90,7 +88,6 @@ func (s sysPermission) As(alias string) *sysPermission {
 func (s *sysPermission) updateTableName(table string) *sysPermission {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
-	s.TenantID = field.NewString(table, "tenant_id")
 	s.Pid = field.NewString(table, "pid")
 	s.Type = field.NewString(table, "type")
 	s.Title = field.NewString(table, "title")
@@ -135,9 +132,8 @@ func (s *sysPermission) GetFieldByName(fieldName string) (field.OrderExpr, bool)
 }
 
 func (s *sysPermission) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 18)
+	s.fieldMap = make(map[string]field.Expr, 17)
 	s.fieldMap["id"] = s.ID
-	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["pid"] = s.Pid
 	s.fieldMap["type"] = s.Type
 	s.fieldMap["title"] = s.Title

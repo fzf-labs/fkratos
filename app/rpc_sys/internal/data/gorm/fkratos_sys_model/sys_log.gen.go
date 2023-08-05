@@ -15,7 +15,6 @@ const TableNameSysLog = "sys_log"
 // SysLog mapped from table <sys_log>
 type SysLog struct {
 	ID        string         `gorm:"column:id;primaryKey;comment:编号" json:"id"`                // 编号
-	TenantID  string         `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`            // 租户ID
 	AdminID   string         `gorm:"column:admin_id;not null;comment:管理员ID" json:"adminId"`    // 管理员ID
 	IP        string         `gorm:"column:ip;not null;comment:ip" json:"ip"`                  // ip
 	URI       string         `gorm:"column:uri;not null;comment:请求路径" json:"uri"`              // 请求路径

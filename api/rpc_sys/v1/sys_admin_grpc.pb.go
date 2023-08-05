@@ -34,21 +34,21 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AdminClient interface {
-	// 管理员信息
+	// 管理员-个人信息
 	SysAdminInfo(ctx context.Context, in *SysAdminInfoReq, opts ...grpc.CallOption) (*SysAdminInfoReply, error)
-	// 管理员更新
+	// 管理员-个人信息更新
 	SysAdminInfoUpdate(ctx context.Context, in *SysAdminInfoUpdateReq, opts ...grpc.CallOption) (*SysAdminInfoUpdateReply, error)
-	// 生成头像
+	// 管理员-生成头像
 	SysAdminGenerateAvatar(ctx context.Context, in *SysAdminGenerateAvatarReq, opts ...grpc.CallOption) (*SysAdminGenerateAvatarReply, error)
-	// 查询权限
+	// 管理员-查询权限
 	SysAdminPermission(ctx context.Context, in *SysAdminPermissionReq, opts ...grpc.CallOption) (*SysAdminPermissionReply, error)
-	// 管理员列表
+	// 管理员-列表
 	SysManageList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysManageListReply, error)
-	// 单个管理员
+	// 管理员-信息
 	SysManageInfo(ctx context.Context, in *SysManageInfoReq, opts ...grpc.CallOption) (*SysManageInfoReply, error)
-	// 保存管理员
+	// 管理员-保存
 	SysManageStore(ctx context.Context, in *SysManageStoreReq, opts ...grpc.CallOption) (*SysManageStoreReply, error)
-	// 删除管理员
+	// 管理员-删除
 	SysManageDel(ctx context.Context, in *SysManageDelReq, opts ...grpc.CallOption) (*SysManageDelReply, error)
 }
 
@@ -136,21 +136,21 @@ func (c *adminClient) SysManageDel(ctx context.Context, in *SysManageDelReq, opt
 // All implementations must embed UnimplementedAdminServer
 // for forward compatibility
 type AdminServer interface {
-	// 管理员信息
+	// 管理员-个人信息
 	SysAdminInfo(context.Context, *SysAdminInfoReq) (*SysAdminInfoReply, error)
-	// 管理员更新
+	// 管理员-个人信息更新
 	SysAdminInfoUpdate(context.Context, *SysAdminInfoUpdateReq) (*SysAdminInfoUpdateReply, error)
-	// 生成头像
+	// 管理员-生成头像
 	SysAdminGenerateAvatar(context.Context, *SysAdminGenerateAvatarReq) (*SysAdminGenerateAvatarReply, error)
-	// 查询权限
+	// 管理员-查询权限
 	SysAdminPermission(context.Context, *SysAdminPermissionReq) (*SysAdminPermissionReply, error)
-	// 管理员列表
+	// 管理员-列表
 	SysManageList(context.Context, *paginator.PaginatorReq) (*SysManageListReply, error)
-	// 单个管理员
+	// 管理员-信息
 	SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error)
-	// 保存管理员
+	// 管理员-保存
 	SysManageStore(context.Context, *SysManageStoreReq) (*SysManageStoreReply, error)
-	// 删除管理员
+	// 管理员-删除
 	SysManageDel(context.Context, *SysManageDelReq) (*SysManageDelReply, error)
 	mustEmbedUnimplementedAdminServer()
 }

@@ -28,7 +28,6 @@ func newSysLog(db *gorm.DB, opts ...gen.DOOption) sysLog {
 	tableName := _sysLog.sysLogDo.TableName()
 	_sysLog.ALL = field.NewAsterisk(tableName)
 	_sysLog.ID = field.NewString(tableName, "id")
-	_sysLog.TenantID = field.NewString(tableName, "tenant_id")
 	_sysLog.AdminID = field.NewString(tableName, "admin_id")
 	_sysLog.IP = field.NewString(tableName, "ip")
 	_sysLog.URI = field.NewString(tableName, "uri")
@@ -48,7 +47,6 @@ type sysLog struct {
 
 	ALL       field.Asterisk
 	ID        field.String // 编号
-	TenantID  field.String // 租户ID
 	AdminID   field.String // 管理员ID
 	IP        field.String // ip
 	URI       field.String // 请求路径
@@ -74,7 +72,6 @@ func (s sysLog) As(alias string) *sysLog {
 func (s *sysLog) updateTableName(table string) *sysLog {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
-	s.TenantID = field.NewString(table, "tenant_id")
 	s.AdminID = field.NewString(table, "admin_id")
 	s.IP = field.NewString(table, "ip")
 	s.URI = field.NewString(table, "uri")
@@ -107,9 +104,8 @@ func (s *sysLog) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysLog) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 10)
+	s.fieldMap = make(map[string]field.Expr, 9)
 	s.fieldMap["id"] = s.ID
-	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["admin_id"] = s.AdminID
 	s.fieldMap["ip"] = s.IP
 	s.fieldMap["uri"] = s.URI

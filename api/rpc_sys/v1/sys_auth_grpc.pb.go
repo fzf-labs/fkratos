@@ -28,11 +28,11 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthClient interface {
-	// 验证码
+	// Auth-验证码
 	SysAuthLoginCaptcha(ctx context.Context, in *SysAuthLoginCaptchaReq, opts ...grpc.CallOption) (*SysAuthLoginCaptchaReply, error)
-	// 登录
+	// Auth-登录
 	SysAuthLogin(ctx context.Context, in *SysAuthLoginReq, opts ...grpc.CallOption) (*SysAuthLoginReply, error)
-	// 退出
+	// Auth-退出
 	SysAuthLogout(ctx context.Context, in *SysAuthLogoutReq, opts ...grpc.CallOption) (*SysAuthLogoutReply, error)
 }
 
@@ -75,11 +75,11 @@ func (c *authClient) SysAuthLogout(ctx context.Context, in *SysAuthLogoutReq, op
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility
 type AuthServer interface {
-	// 验证码
+	// Auth-验证码
 	SysAuthLoginCaptcha(context.Context, *SysAuthLoginCaptchaReq) (*SysAuthLoginCaptchaReply, error)
-	// 登录
+	// Auth-登录
 	SysAuthLogin(context.Context, *SysAuthLoginReq) (*SysAuthLoginReply, error)
-	// 退出
+	// Auth-退出
 	SysAuthLogout(context.Context, *SysAuthLogoutReq) (*SysAuthLogoutReply, error)
 	mustEmbedUnimplementedAuthServer()
 }

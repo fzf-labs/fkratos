@@ -1,0 +1,781 @@
+syntax = "proto3";
+
+package api.bff_admin.v1;
+
+import "google/api/annotations.proto";
+import "paginator/paginator.proto";
+import "validate/validate.proto";
+
+option go_package = "fkratos/api/bff_admin/v1;v1";
+// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
+// 后缀定义:请求req,响应reply
+
+// 系统服务
+service Sys {
+  //仪表盘-一言
+  rpc DashboardSpeech(DashboardSpeechReq) returns (DashboardSpeechReply){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/dashboard_speech"
+    };
+  };
+  //Auth-验证码
+  rpc SysAuthLoginCaptcha(SysAuthLoginCaptchaReq) returns (SysAuthLoginCaptchaReply){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_auth_login_captcha"
+    };
+  };
+  //Auth-登录
+  rpc SysAuthLogin(SysAuthLoginReq) returns (SysAuthLoginReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_auth_login"
+      body: "*"
+    };
+  };
+  //Auth-退出
+  rpc SysAuthLogout(SysAuthLogoutReq) returns (SysAuthLogoutReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_auth_logout"
+      body: "*"
+    };
+  };
+
+  //管理员-个人信息
+  rpc SysAdminInfo(SysAdminInfoReq) returns (SysAdminInfoReply){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_admin_info"
+    };
+  };
+  //管理员-个人信息更新
+  rpc SysAdminInfoUpdate(SysAdminInfoUpdateReq) returns (SysAdminInfoUpdateReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_admin_info_update"
+      body: "*"
+    };
+  };
+  //管理员-生成头像
+  rpc SysAdminGenerateAvatar(SysAdminGenerateAvatarReq) returns (SysAdminGenerateAvatarReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_admin_generate_avatar"
+      body: "*"
+    };
+  };
+  //管理员-查询权限
+  rpc SysAdminPermission(SysAdminPermissionReq) returns (SysAdminPermissionReply){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_admin_permission"
+    };
+  };
+
+  //管理员-列表
+  rpc SysManageList(paginator.PaginatorReq) returns (SysManageListReply){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_manage_list"
+    };
+  };
+  //管理员-信息
+  rpc SysManageInfo(SysManageInfoReq) returns (SysManageInfoReply){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_manage_info"
+    };
+  };
+  //管理员-保存
+  rpc SysManageStore(SysManageStoreReq) returns (SysManageStoreReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_manage_store"
+      body: "*"
+    };
+  };
+  //管理员-删除
+  rpc SysManageDel(SysManageDelReq) returns (SysManageDelReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_manage_del"
+      body: "*"
+    };
+  };
+
+  //Api-列表
+  rpc SysApiList(SysApiListReq) returns (SysApiListReply){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_api_list"
+    };
+  };
+  //Api-保存
+  rpc SysApiStore(SysApiStoreReq) returns (SysApiStoreReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_api_store"
+      body: "*"
+    };
+  };
+  //Api-删除
+  rpc SysApiDel(SysApiDelReq) returns (SysApiDelReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_api_del"
+      body: "*"
+    };
+  };
+
+  //部门-列表
+  rpc SysDeptList(SysDeptListReq) returns (SysDeptListReply){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_dept_list"
+    };
+  };
+  //部门-单个部门信息
+  rpc SysDeptInfo(SysDeptInfoReq) returns (SysDeptInfoReply){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_dept_info"
+    };
+  };
+  //部门-保存
+  rpc SysDeptStore(SysDeptStoreReq) returns (SysDeptStoreReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_dept_store"
+      body: "*"
+    };
+  };
+  //部门-删除
+  rpc SysDeptDel(SysDeptDelReq) returns (SysDeptDelReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_dept_del"
+      body: "*"
+    };
+  };
+
+  //岗位-列表
+  rpc SysJobList(paginator.PaginatorReq) returns (SysJobListReply){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_job_list"
+    };
+  };
+  //岗位-单个岗位信息
+  rpc SysJobInfo(SysJobInfoReq) returns (SysJobInfoReply){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_job_info"
+    };
+  };
+  //岗位-保存
+  rpc SysJobStore(SysJobStoreReq) returns (SysJobStoreReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_job_store"
+      body: "*"
+    };
+  };
+  //岗位-删除
+  rpc SysJobDel(SysJobDelReq) returns (SysJobDelReply){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_job_del"
+      body: "*"
+    };
+  };
+
+  //日志-列表
+  rpc SysLogList(paginator.PaginatorReq) returns (SysLogListResp){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_log_list"
+    };
+  };
+  //日志-信息
+  rpc SysLogInfo(SysLogInfoReq) returns (SysLogInfoResp){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_log_info"
+    };
+  };
+  //日志-保存
+  rpc SysLogStore(SysLogStoreReq) returns (SysLogStoreResp){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_log_store"
+      body: "*"
+    };
+  };
+
+  //权限-列表
+  rpc SysPermissionList(SysPermissionListReq) returns (SysPermissionListResp){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_permission_list"
+    };
+  };
+  //权限-单个权限信息
+  rpc SysPermissionInfo(SysPermissionInfoReq) returns (SysPermissionInfoResp){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_permission_info"
+    };
+  };
+  //权限-保存
+  rpc SysPermissionStore(SysPermissionStoreReq) returns (SysPermissionStoreResp){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_permission_store"
+      body: "*"
+    };
+  };
+  //权限-删除
+  rpc SysPermissionDel(SysPermissionDelReq) returns (SysPermissionDelResp){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_permission_del"
+      body: "*"
+    };
+  };
+  //权限-修改状态
+  rpc SysPermissionStatus(SysPermissionStatusReq) returns (SysPermissionStatusResp){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_permission_status"
+      body: "*"
+    };
+  };
+
+  //角色-列表
+  rpc SysRoleList(SysRoleListReq) returns (SysRoleListResp){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_role_list"
+    };
+  };
+  //角色-信息
+  rpc SysRoleInfo(SysRoleInfoReq) returns (SysRoleInfoResp){
+    option (google.api.http) = {
+      get: "/admin/v1/sys/sys_role_info"
+    };
+  };
+  //角色-保存
+  rpc SysRoleStore(SysRoleStoreReq) returns (SysRoleStoreResp){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_role_store"
+      body: "*"
+    };
+  };
+  //角色-删除
+  rpc SysRoleDel(SysRoleDelReq) returns (SysRoleDelResp){
+    option (google.api.http) = {
+      post: "/admin/v1/sys/sys_role_del"
+      body: "*"
+    };
+  };
+}
+
+//请求-一言
+message DashboardSpeechReq {}
+
+//响应-一言
+message DashboardSpeechReply {
+  string word = 1; //一言
+}
+
+//请求-验证码
+message SysAuthLoginCaptchaReq {}
+
+//响应-验证码
+message SysAuthLoginCaptchaReply {
+  string captchaId = 1; //验证码ID
+  string captchaImg = 2; //验证码图片
+}
+
+//请求-登录
+message SysAuthLoginReq {
+  string captchaId = 1; //验证码id
+  string verifyCode = 2; //验证码
+  string username = 3; //账号
+  string password = 4; //密码
+}
+
+//响应-登录
+message SysAuthLoginReply {
+  string token = 1; //token
+  int64 expiredAt = 2; //过期时间
+  int64 refreshAt = 3; //刷新时间
+}
+
+//请求-退出
+message SysAuthLogoutReq {
+  string adminId = 1 [(validate.rules).string.uuid = true]; //ID
+}
+
+//响应-退出
+message SysAuthLogoutReply {}
+
+//管理员个人信息
+message SysAdminInfo {
+  string id = 1; // ID
+  string username = 2; // 账号
+  string nickname = 3; // 昵称
+  string avatar = 4; // 头像
+  int32 gender = 5; // 0=保密 1=女 2=男
+  string email = 6; // 邮件
+  string mobile = 7; // 手机号
+  string jobID = 8; // 岗位
+  string deptID = 9; // 部门
+  repeated string roleIds = 10; // 角色集
+  string motto = 11; // 个性签名
+}
+
+//请求-管理员信息
+message SysAdminInfoReq {
+  string adminId = 1 [(validate.rules).string.uuid = true]; //ID
+}
+
+//响应-管理员信息
+message SysAdminInfoReply {
+  SysAdminInfo info = 1; //管理员信息
+}
+
+//请求-管理员更新
+message SysAdminInfoUpdateReq {
+  string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
+  string nickname = 2 [(validate.rules).string = {
+    min_len: 0,
+    max_len: 50
+  }]; //昵称
+  string email = 3 [(validate.rules).string = {
+    min_len: 0,
+    max_len: 50
+  }]; //邮件
+  string mobile = 4 [(validate.rules).string = {
+    min_len: 0,
+    max_len: 15
+  }]; //手机号
+  string motto = 5 [(validate.rules).string = {
+    min_len: 0,
+    max_len: 255
+  }]; //个性签名
+  string password = 6 [(validate.rules).string = {
+    min_len: 0,
+    max_len: 128
+  }]; //密码
+}
+
+//响应-管理员更新
+message SysAdminInfoUpdateReply {}
+
+//请求-生成头像
+message SysAdminGenerateAvatarReq {
+  string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
+}
+
+//响应-生成头像
+message SysAdminGenerateAvatarReply {
+  string avatarUrl = 1; //头像地址
+}
+
+//管理员信息
+message SysManageInfo {
+  string id = 1;
+  string username = 2; // 账号
+  string nickname = 3; // 昵称
+  string avatar = 4; // 头像
+  int32 gender = 5; // 0=保密 1=女 2=男
+  string email = 6; // 邮件
+  string mobile = 7; // 手机号
+  string jobID = 8; // 岗位
+  string deptID = 9; // 部门
+  repeated string roleIds = 10; // 角色集
+  string jobName = 11; // 岗位
+  string deptName = 12; // 部门
+  repeated string roleNames = 13; // 角色名称集
+  string motto = 14; // 个性签名
+  int32 status = 15; //状态
+  string createdAt = 16; //创建时间
+  string updatedAt = 17; //更新时间
+}
+
+//管理员权限
+message SysAdminPermission {
+  string ID = 1; // ID
+  string Pid = 2; // 上级菜单
+  string Type = 3; // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
+  string Title = 4; // 标题
+  string Name = 5; // 规则名称
+  string Path = 6; // 路由路径
+  string Icon = 7; // 图标
+  string MenuType = 8; // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
+  string URL = 9; // Url
+  string Component = 10; // 组件路径
+  string Extend = 11; // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
+  repeated SysAdminPermission children = 12;
+}
+
+//请求-权限
+message SysAdminPermissionReq {
+  string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
+}
+
+//响应-权限
+message SysAdminPermissionReply {
+  repeated SysAdminPermission list = 1; //列表
+}
+
+//响应-管理员列表
+message SysManageListReply {
+  repeated SysManageInfo list = 1; //管理员列表
+  paginator.PaginatorReply paginator = 2; //分页
+}
+
+//请求-管理员信息
+message SysManageInfoReq {
+  string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
+}
+
+//响应-管理员信息
+message SysManageInfoReply {
+  SysManageInfo info = 1; //信息
+}
+
+//请求-管理员保存
+message SysManageStoreReq {
+  string id = 1; //ID
+  string username = 2; // 账号
+  string nickname = 3; // 昵称
+  string password = 4; // 昵称
+  string avatar = 5; // 头像
+  int32 gender = 6; // 0=保密 1=女 2=男
+  string email = 7; // 邮件
+  string mobile = 8; // 手机号
+  string jobID = 9; // 岗位
+  string deptID = 10; // 部门
+  repeated string roleIds = 11; // 角色集
+  string motto = 12; // 个性签名
+  int32 status = 13; //状态
+}
+
+//响应-管理员保存
+message SysManageStoreReply {}
+
+//请求-管理员删除
+message SysManageDelReq {
+  repeated string ids = 1; //ID集合
+}
+
+//响应-管理员删除
+message SysManageDelReply {}
+
+// Api信息
+message SysApiInfo {
+  string id = 1; // 编号
+  string permissionID = 2; // 权限Id
+  string method = 3; // 方法
+  string path = 4; // 路径
+  string desc = 5; // 描述
+  string createdAt = 6; // 创建时间
+  string updatedAt = 7; // 更新时间
+}
+
+//请求-Api-列表
+message SysApiListReq {
+  string permissionId = 1; //权限ID
+}
+
+//响应-Api-列表
+message SysApiListReply {
+  repeated SysApiInfo list = 1; //列表
+}
+
+//请求-Api-保存
+message SysApiStoreReq {
+  string id = 1; // 编号
+  string permissionID = 2; // 权限Id
+  string method = 3; // 方法
+  string path = 4; // 路径
+  string desc = 5; // 描述
+}
+
+//响应-Api-保存
+message SysApiStoreReply {
+  string id = 1; //ID
+}
+
+//请求-Api-删除
+message SysApiDelReq {
+  repeated string ids = 1; //ID集合
+}
+
+//响应-Api-删除
+message SysApiDelReply {}
+
+message SysDeptInfo {
+  string id = 1; // id
+  string pid = 2; // 父级id
+  string name = 3; // 部门简称
+  string fullName = 4; // 部门全称
+  string responsible = 5; // 负责人
+  string phone = 6; //负责人电话
+  string email = 7; // 负责人邮箱
+  int32 type = 8; // 1=公司 2=子公司 3=部门
+  int32 status = 9; // 0=禁用 1=开启
+  int32 sort = 10; // 排序值
+  string createdAt = 11; // 创建时间
+  string updatedAt = 12; // 更新时间
+  repeated SysDeptInfo children = 13; //子集
+}
+
+//请求-部门列表
+message SysDeptListReq {}
+
+//响应-部门列表
+message SysDeptListReply {
+  repeated SysDeptInfo list = 1; //列表
+}
+
+//请求-部门信息
+message SysDeptInfoReq {
+  string id = 1; // id
+}
+
+//响应-部门信息
+message SysDeptInfoReply {
+  SysDeptInfo info = 1; //部门信息
+}
+
+//请求-部门保存
+message SysDeptStoreReq {
+  string id = 1; // id
+  string pid = 2; // 父级id
+  string name = 3; // 部门简称
+  string fullName = 4; // 部门全称
+  string responsible = 5; // 负责人
+  string phone = 6; // 负责人电话
+  string email = 7; // 负责人邮箱
+  int32 type = 8; // 1=公司 2=子公司 3=部门
+  int32 status = 9; // 0=禁用 1=开启
+  int32 sort = 10; // 排序值
+}
+
+//响应-部门保存
+message SysDeptStoreReply {}
+
+//请求-部门删除
+message SysDeptDelReq {
+  repeated string ids = 1; //ID集合
+}
+
+//响应-部门删除
+message SysDeptDelReply {}
+
+//岗位信息
+message SysJobInfo {
+  string id = 1; // 编号
+  string name = 2; // 岗位名称
+  string code = 3; //岗位编码
+  string remark = 4; //备注
+  int32 status = 5; // 0=禁用 1=开启
+  int32 sort = 6; // 排序值
+  string createdAt = 7; // 创建时间
+  string updatedAt = 8; // 更新时间
+}
+
+//响应-岗位列表
+message SysJobListReply {
+  repeated SysJobInfo list = 1; //列表
+  paginator.PaginatorReply paginator = 2; //分页
+}
+
+//请求-岗位信息
+message SysJobInfoReq {
+  string id = 1; //ID
+}
+
+//响应-岗位信息
+message SysJobInfoReply {
+  SysJobInfo info = 1; //岗位信息
+}
+
+//请求-岗位保存
+message SysJobStoreReq {
+  string id = 1; // 编号
+  string name = 2; // 岗位名称
+  string code = 3; //岗位编码
+  string remark = 4; //备注
+  int32 status = 5; // 0=禁用 1=开启
+  int32 sort = 6; // 排序值
+}
+
+//响应-岗位保存
+message SysJobStoreReply {}
+
+//请求-岗位删除
+message SysJobDelReq {
+  repeated string ids = 1; //ID集合
+}
+
+//响应-岗位删除
+message SysJobDelReply {}
+
+// 日志信息
+message SysLogInfo {
+  string id = 1; // 编号
+  string adminID = 2; // 管理员ID
+  string username = 3; // 账号
+  string ip = 4; // ip
+  string uri = 5; // 请求路径
+  string uriDesc = 6; // 请求描述
+  string useragent = 7; // 浏览器标识
+  string req = 8; // 请求数据
+  string resp = 9; // 响应数据
+  string createdAt = 10; // 创建时间
+}
+
+//请求-日志列表
+message SysLogListReq {
+  int32 page = 1; //页码
+  int32 pageSize = 2; //页数
+}
+
+//响应-日志列表
+message SysLogListResp {
+  repeated SysLogInfo list = 1; //管理员列表
+  paginator.PaginatorReply paginator = 2; //分页
+}
+
+//请求-单条日志
+message SysLogInfoReq {
+  string id = 1; //ID
+}
+
+//响应-单条日志
+message SysLogInfoResp {
+  SysLogInfo info = 1; //信息
+}
+
+//请求-日志存储
+message SysLogStoreReq {
+  string adminID = 1; // 管理员ID
+  string username = 2; // 账号
+  string ip = 3; // ip
+  string uri = 4; // 请求路径
+  string uriDesc = 5; // 请求描述
+  string useragent = 6; // 浏览器标识
+  string req = 7; // 请求数据
+  string resp = 8; // 响应数据
+}
+
+//响应-日志存储
+message SysLogStoreResp {
+  SysLogInfo info = 1; //信息
+}
+
+//权限信息
+message SysPermissionInfo {
+  string id = 1; // ID
+  string pid = 2; // 上级菜单
+  string type = 3; // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
+  string title = 4; // 标题
+  string name = 5; // 规则名称
+  string path = 6; // 路由路径
+  string icon = 7; // 图标
+  string menuType = 8; // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
+  string url = 9; // Url
+  string component = 10; // 组件路径
+  int32 keepalive = 11; // 缓存:0=关闭,1=开启
+  string extend = 12; // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
+  string remark = 13; // 备注
+  int32 sort = 14; // 权重(排序)
+  int32 status = 15; // 状态:0=禁用,1=启用
+  string createdAt = 16; // 创建时间
+  string updatedAt = 17; // 更新时间
+  repeated SysPermissionInfo children = 18;
+}
+
+//请求-权限-列表
+message SysPermissionListReq {}
+
+//响应-权限-列表
+message SysPermissionListResp {
+  repeated SysPermissionInfo list = 1; //列表
+}
+
+//请求-权限-单个权限信息
+message SysPermissionInfoReq {
+  string id = 1; //ID
+}
+
+//响应-权限-单个权限信息
+message SysPermissionInfoResp {
+  SysPermissionInfo info = 1; //信息
+}
+
+//请求-权限-保存
+message SysPermissionStoreReq {
+  string id = 1; // ID
+  string pid = 2; // 上级菜单
+  string type = 3; // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
+  string title = 4; // 标题
+  string name = 5; // 规则名称
+  string path = 6; // 路由路径
+  string icon = 7; // 图标
+  string menuType = 8; // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
+  string url = 9; // Url
+  string component = 10; // 组件路径
+  int32 keepalive = 11; // 缓存:0=关闭,1=开启
+  string extend = 12; // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
+  string remark = 13; // 备注
+  int32 sort = 14; // 权重(排序)
+  int32 status = 15; // 状态:0=禁用,1=启用
+}
+
+//响应-权限-保存
+message SysPermissionStoreResp {}
+
+//请求-权限-删除
+message SysPermissionDelReq {
+  repeated string ids = 1; //ID集合
+}
+
+//响应-权限-删除
+message SysPermissionDelResp {}
+
+//请求-权限-修改状态
+message SysPermissionStatusReq {
+  string id = 1;
+  int32 status = 2; // 状态:0=禁用,1=启用
+}
+
+//响应-权限-修改状态
+message SysPermissionStatusResp {}
+
+// 角色信息
+message SysRoleInfo {
+  string id = 1; //角色id
+  string pid = 2; //父级角色id
+  string name = 3; //角色名称
+  string remark = 4; //备注
+  int32 status = 5; //状态
+  int32 sort = 6; //排序
+  repeated string permissionIds = 7; //菜单角色集合
+  string createdAt = 8; //创建时间
+  string updatedAt = 9; //更新时间
+  repeated SysRoleInfo children = 10;
+}
+
+//请求-角色-列表
+message SysRoleListReq {}
+
+//响应-角色-列表
+message SysRoleListResp {
+  repeated SysRoleInfo list = 1; //列表
+}
+
+//请求-角色-信息
+message SysRoleInfoReq {
+  string id = 1; //ID
+}
+
+//响应-角色-信息
+message SysRoleInfoResp {
+  SysRoleInfo info = 1; //信息
+}
+
+//请求-角色-保存
+message SysRoleStoreReq {
+  string id = 1; //角色id
+  string pid = 2; //父级角色id
+  string name = 3; //角色名称
+  string remark = 4; //备注
+  int32 status = 5; //状态
+  repeated string permissionIds = 6; //菜单角色集合
+}
+
+//响应-角色-保存
+message SysRoleStoreResp {}
+
+//请求-角色-删除
+message SysRoleDelReq {
+  repeated string ids = 1; //ID集合
+}
+
+//响应-角色-删除
+message SysRoleDelResp {}

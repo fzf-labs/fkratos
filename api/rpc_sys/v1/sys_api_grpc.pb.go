@@ -28,11 +28,11 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ApiClient interface {
-	// api列表
+	// Api-列表
 	SysApiList(ctx context.Context, in *SysApiListReq, opts ...grpc.CallOption) (*SysApiListReply, error)
-	// 保存api
+	// Api-保存
 	SysApiStore(ctx context.Context, in *SysApiStoreReq, opts ...grpc.CallOption) (*SysApiStoreReply, error)
-	// 删除api
+	// Api-删除
 	SysApiDel(ctx context.Context, in *SysApiDelReq, opts ...grpc.CallOption) (*SysApiDelReply, error)
 }
 
@@ -75,11 +75,11 @@ func (c *apiClient) SysApiDel(ctx context.Context, in *SysApiDelReq, opts ...grp
 // All implementations must embed UnimplementedApiServer
 // for forward compatibility
 type ApiServer interface {
-	// api列表
+	// Api-列表
 	SysApiList(context.Context, *SysApiListReq) (*SysApiListReply, error)
-	// 保存api
+	// Api-保存
 	SysApiStore(context.Context, *SysApiStoreReq) (*SysApiStoreReply, error)
-	// 删除api
+	// Api-删除
 	SysApiDel(context.Context, *SysApiDelReq) (*SysApiDelReply, error)
 	mustEmbedUnimplementedApiServer()
 }

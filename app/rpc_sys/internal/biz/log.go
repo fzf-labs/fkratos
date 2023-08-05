@@ -72,7 +72,7 @@ func (l *LogUseCase) SysLogList(ctx context.Context, req *paginator.PaginatorReq
 
 func (l *LogUseCase) SysLogInfo(ctx context.Context, req *v1.SysLogInfoReq) (*v1.SysLogInfoResp, error) {
 	resp := new(v1.SysLogInfoResp)
-	sysLog, err := l.sysLogRepo.SysLogInfoById(ctx, req.GetId())
+	sysLog, err := l.sysLogRepo.FindOneCacheByID(ctx, req.GetId())
 	if err != nil {
 		return nil, err
 	}

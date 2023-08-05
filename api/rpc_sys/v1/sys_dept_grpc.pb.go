@@ -29,13 +29,13 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DeptClient interface {
-	// 部门列表
+	// 部门-列表
 	SysDeptList(ctx context.Context, in *SysDeptListReq, opts ...grpc.CallOption) (*SysDeptListReply, error)
-	// 单个部门
+	// 部门-单个部门信息
 	SysDeptInfo(ctx context.Context, in *SysDeptInfoReq, opts ...grpc.CallOption) (*SysDeptInfoReply, error)
-	// 保存部门
+	// 部门-保存
 	SysDeptStore(ctx context.Context, in *SysDeptStoreReq, opts ...grpc.CallOption) (*SysDeptStoreReply, error)
-	// 删除部门
+	// 部门-删除
 	SysDeptDel(ctx context.Context, in *SysDeptDelReq, opts ...grpc.CallOption) (*SysDeptDelReply, error)
 }
 
@@ -87,13 +87,13 @@ func (c *deptClient) SysDeptDel(ctx context.Context, in *SysDeptDelReq, opts ...
 // All implementations must embed UnimplementedDeptServer
 // for forward compatibility
 type DeptServer interface {
-	// 部门列表
+	// 部门-列表
 	SysDeptList(context.Context, *SysDeptListReq) (*SysDeptListReply, error)
-	// 单个部门
+	// 部门-单个部门信息
 	SysDeptInfo(context.Context, *SysDeptInfoReq) (*SysDeptInfoReply, error)
-	// 保存部门
+	// 部门-保存
 	SysDeptStore(context.Context, *SysDeptStoreReq) (*SysDeptStoreReply, error)
-	// 删除部门
+	// 部门-删除
 	SysDeptDel(context.Context, *SysDeptDelReq) (*SysDeptDelReply, error)
 	mustEmbedUnimplementedDeptServer()
 }

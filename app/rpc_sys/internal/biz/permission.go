@@ -126,7 +126,7 @@ func sysPermMenuRecursiveTree(tree *v1.SysPermissionInfo, allNodes []*v1.SysPerm
 }
 
 func (p *PermissionUseCase) SysPermissionInfo(ctx context.Context, req *v1.SysPermissionInfoReq) (*v1.SysPermissionInfoResp, error) {
-	_, err := p.sysPermissionRepo.SysPermissionInfoById(ctx, req.GetId())
+	_, err := p.sysPermissionRepo.FindOneCacheByID(ctx, req.GetId())
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +142,7 @@ func (p *PermissionUseCase) SysPermissionStore(ctx context.Context, req *v1.SysP
 }
 
 func (p *PermissionUseCase) SysPermissionDel(ctx context.Context, req *v1.SysPermissionDelReq) (*v1.SysPermissionDelResp, error) {
-	err := p.sysPermissionRepo.SysPermissionDelByIds(ctx, req.GetIds())
+	err := p.sysPermissionRepo.DeleteMultiCacheByIDS(ctx, req.GetIds())
 	if err != nil {
 		return nil, err
 	}

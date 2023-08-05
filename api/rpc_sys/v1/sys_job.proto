@@ -10,16 +10,16 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 
 // 岗位
 service Job {
-  //岗位列表
+  //岗位-列表
   rpc SysJobList(paginator.PaginatorReq) returns (SysJobListReply);
-  //单个岗位
+  //岗位-单个岗位信息
   rpc SysJobInfo(SysJobInfoReq) returns (SysJobInfoReply);
-  //保存岗位
+  //岗位-保存
   rpc SysJobStore(SysJobStoreReq) returns (SysJobStoreReply);
-  //删除岗位
+  //岗位-删除
   rpc SysJobDel(SysJobDelReq) returns (SysJobDelReply);
 }
-
+//岗位信息
 message SysJobInfo {
   string id = 1; // 编号
   string name = 2; // 岗位名称
@@ -39,12 +39,12 @@ message SysJobListReply {
 
 //请求-岗位信息
 message SysJobInfoReq {
-  string id = 1;
+  string id = 1; //ID
 }
 
 //响应-岗位信息
 message SysJobInfoReply {
-  SysJobInfo info = 1;
+  SysJobInfo info = 1; //岗位信息
 }
 
 //请求-岗位保存
@@ -62,7 +62,7 @@ message SysJobStoreReply {}
 
 //请求-岗位删除
 message SysJobDelReq {
-  repeated string ids = 1;
+  repeated string ids = 1; //ID集合
 }
 
 //响应-岗位删除

@@ -28,7 +28,6 @@ func newSysDict(db *gorm.DB, opts ...gen.DOOption) sysDict {
 	tableName := _sysDict.sysDictDo.TableName()
 	_sysDict.ALL = field.NewAsterisk(tableName)
 	_sysDict.ID = field.NewString(tableName, "id")
-	_sysDict.TenantID = field.NewString(tableName, "tenant_id")
 	_sysDict.Pid = field.NewString(tableName, "pid")
 	_sysDict.Name = field.NewString(tableName, "name")
 	_sysDict.Type = field.NewInt16(tableName, "type")
@@ -51,7 +50,6 @@ type sysDict struct {
 
 	ALL       field.Asterisk
 	ID        field.String  // 编号
-	TenantID  field.String  // 租户ID
 	Pid       field.String  // 0=配置集 !0=父级id
 	Name      field.String  // 名称
 	Type      field.Int16   // 1文本 2数字 3数组 4单选 5多选 6下拉 7日期 8时间 9单图 10多图 11单文件 12多文件
@@ -80,7 +78,6 @@ func (s sysDict) As(alias string) *sysDict {
 func (s *sysDict) updateTableName(table string) *sysDict {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewString(table, "id")
-	s.TenantID = field.NewString(table, "tenant_id")
 	s.Pid = field.NewString(table, "pid")
 	s.Name = field.NewString(table, "name")
 	s.Type = field.NewInt16(table, "type")
@@ -116,9 +113,8 @@ func (s *sysDict) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysDict) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 13)
+	s.fieldMap = make(map[string]field.Expr, 12)
 	s.fieldMap["id"] = s.ID
-	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["pid"] = s.Pid
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["type"] = s.Type

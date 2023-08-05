@@ -9,13 +9,13 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 
 // 部门
 service Dept {
-  //部门列表
+  //部门-列表
   rpc SysDeptList(SysDeptListReq) returns (SysDeptListReply);
-  //单个部门
+  //部门-单个部门信息
   rpc SysDeptInfo(SysDeptInfoReq) returns (SysDeptInfoReply);
-  //保存部门
+  //部门-保存
   rpc SysDeptStore(SysDeptStoreReq) returns (SysDeptStoreReply);
-  //删除部门
+  //部门-删除
   rpc SysDeptDel(SysDeptDelReq) returns (SysDeptDelReply);
 }
 
@@ -32,7 +32,7 @@ message SysDeptInfo {
   int32 sort = 10; // 排序值
   string createdAt = 11; // 创建时间
   string updatedAt = 12; // 更新时间
-  repeated SysDeptInfo children = 13;
+  repeated SysDeptInfo children = 13; //子集
 }
 
 //请求-部门列表
@@ -40,7 +40,7 @@ message SysDeptListReq {}
 
 //响应-部门列表
 message SysDeptListReply {
-  repeated SysDeptInfo list = 1;
+  repeated SysDeptInfo list = 1; //列表
 }
 
 //请求-部门信息
@@ -50,7 +50,7 @@ message SysDeptInfoReq {
 
 //响应-部门信息
 message SysDeptInfoReply {
-  SysDeptInfo info = 1;
+  SysDeptInfo info = 1; //部门信息
 }
 
 //请求-部门保存
@@ -72,7 +72,7 @@ message SysDeptStoreReply {}
 
 //请求-部门删除
 message SysDeptDelReq {
-  repeated string ids = 1;
+  repeated string ids = 1; //ID集合
 }
 
 //响应-部门删除

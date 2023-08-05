@@ -14,7 +14,6 @@ const TableNameSysJob = "sys_job"
 // SysJob mapped from table <sys_job>
 type SysJob struct {
 	ID        string       `gorm:"column:id;primaryKey;comment:编号" json:"id"`                // 编号
-	TenantID  string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`            // 租户ID
 	Name      string       `gorm:"column:name;not null;comment:岗位名称" json:"name"`            // 岗位名称
 	Code      string       `gorm:"column:code;comment:岗位编码" json:"code"`                     // 岗位编码
 	Remark    string       `gorm:"column:remark;comment:备注" json:"remark"`                   // 备注

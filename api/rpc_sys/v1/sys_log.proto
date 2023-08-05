@@ -11,14 +11,15 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 
 // 日志
 service Log {
-  //日志列表
+  //日志-列表
   rpc SysLogList(paginator.PaginatorReq) returns (SysLogListResp);
-  //单条日志
+  //日志-信息
   rpc SysLogInfo(SysLogInfoReq) returns (SysLogInfoResp);
-  //日志记录
+  //日志-保存
   rpc SysLogStore(SysLogStoreReq) returns (SysLogStoreResp);
 }
 
+// 日志信息
 message SysLogInfo {
   string id = 1; // 编号
   string adminID = 2; // 管理员ID
@@ -46,14 +47,13 @@ message SysLogListResp {
 
 //请求-单条日志
 message SysLogInfoReq {
-  string id = 1;
+  string id = 1; //ID
 }
 
 //响应-单条日志
 message SysLogInfoResp {
-  SysLogInfo info = 1;
+  SysLogInfo info = 1; //信息
 }
-
 
 //请求-日志存储
 message SysLogStoreReq {
@@ -69,5 +69,5 @@ message SysLogStoreReq {
 
 //响应-日志存储
 message SysLogStoreResp {
-  SysLogInfo info = 1;
+  SysLogInfo info = 1; //信息
 }

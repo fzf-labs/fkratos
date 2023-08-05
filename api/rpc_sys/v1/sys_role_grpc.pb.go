@@ -29,13 +29,13 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RoleClient interface {
-	// 角色列表
+	// 角色-列表
 	SysRoleList(ctx context.Context, in *SysRoleListReq, opts ...grpc.CallOption) (*SysRoleListResp, error)
-	// 单个角色
+	// 角色-信息
 	SysRoleInfo(ctx context.Context, in *SysRoleInfoReq, opts ...grpc.CallOption) (*SysRoleInfoResp, error)
-	// 保存角色
+	// 角色-保存
 	SysRoleStore(ctx context.Context, in *SysRoleStoreReq, opts ...grpc.CallOption) (*SysRoleStoreResp, error)
-	// 删除角色
+	// 角色-删除
 	SysRoleDel(ctx context.Context, in *SysRoleDelReq, opts ...grpc.CallOption) (*SysRoleDelResp, error)
 }
 
@@ -87,13 +87,13 @@ func (c *roleClient) SysRoleDel(ctx context.Context, in *SysRoleDelReq, opts ...
 // All implementations must embed UnimplementedRoleServer
 // for forward compatibility
 type RoleServer interface {
-	// 角色列表
+	// 角色-列表
 	SysRoleList(context.Context, *SysRoleListReq) (*SysRoleListResp, error)
-	// 单个角色
+	// 角色-信息
 	SysRoleInfo(context.Context, *SysRoleInfoReq) (*SysRoleInfoResp, error)
-	// 保存角色
+	// 角色-保存
 	SysRoleStore(context.Context, *SysRoleStoreReq) (*SysRoleStoreResp, error)
-	// 删除角色
+	// 角色-删除
 	SysRoleDel(context.Context, *SysRoleDelReq) (*SysRoleDelResp, error)
 	mustEmbedUnimplementedRoleServer()
 }

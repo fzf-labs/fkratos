@@ -8,6 +8,7 @@ import (
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 	"fkratos/app/rpc_sys/internal/data/mq"
 	"fkratos/internal/errorx"
 
@@ -21,14 +22,16 @@ var _ biz.SysLogRepo = (*SysLogRepo)(nil)
 func NewSysLogRepo(data *Data, logger log.Logger) biz.SysLogRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_log"))
 	return &SysLogRepo{
-		data: data,
-		log:  l,
+		data:       data,
+		log:        l,
+		SysLogRepo: fkratos_sys_repo.NewSysLogRepo(data.gorm, data.redis),
 	}
 }
 
 type SysLogRepo struct {
 	data *Data
 	log  *log.Helper
+	*fkratos_sys_repo.SysLogRepo
 }
 
 func (s *SysLogRepo) SysLogStoreMQProducer(ctx context.Context, req *v1.SysLogStoreReq) error {

@@ -2,21 +2,20 @@ syntax = "proto3";
 
 package api.rpc_sys.v1;
 
-
 option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
 // 仪表盘
 service Dashboard {
-  //一言
+  //仪表盘-一言
   rpc DashboardSpeech(DashboardSpeechReq) returns (DashboardSpeechReply);
 }
 
+//请求-一言
+message DashboardSpeechReq {}
 
-message DashboardSpeechReq{
-
-}
-message DashboardSpeechReply{
-  string word = 1;
+//响应-一言
+message DashboardSpeechReply {
+  string word = 1; //一言
 }

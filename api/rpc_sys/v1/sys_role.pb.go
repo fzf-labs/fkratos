@@ -20,6 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 角色信息
 type SysRoleInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -139,6 +140,7 @@ func (x *SysRoleInfo) GetChildren() []*SysRoleInfo {
 	return nil
 }
 
+// 请求-角色-列表
 type SysRoleListReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -177,12 +179,13 @@ func (*SysRoleListReq) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{1}
 }
 
+// 响应-角色-列表
 type SysRoleListResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	List []*SysRoleInfo `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	List []*SysRoleInfo `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"` //列表
 }
 
 func (x *SysRoleListResp) Reset() {
@@ -224,12 +227,13 @@ func (x *SysRoleListResp) GetList() []*SysRoleInfo {
 	return nil
 }
 
+// 请求-角色-信息
 type SysRoleInfoReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` //ID
 }
 
 func (x *SysRoleInfoReq) Reset() {
@@ -271,12 +275,13 @@ func (x *SysRoleInfoReq) GetId() string {
 	return ""
 }
 
+// 响应-角色-信息
 type SysRoleInfoResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Info *SysRoleInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
+	Info *SysRoleInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"` //信息
 }
 
 func (x *SysRoleInfoResp) Reset() {
@@ -318,6 +323,7 @@ func (x *SysRoleInfoResp) GetInfo() *SysRoleInfo {
 	return nil
 }
 
+// 请求-角色-保存
 type SysRoleStoreReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -405,6 +411,7 @@ func (x *SysRoleStoreReq) GetPermissionIds() []string {
 	return nil
 }
 
+// 响应-角色-保存
 type SysRoleStoreResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -443,12 +450,13 @@ func (*SysRoleStoreResp) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_role_proto_rawDescGZIP(), []int{6}
 }
 
+// 请求-角色-删除
 type SysRoleDelReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
+	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"` //ID集合
 }
 
 func (x *SysRoleDelReq) Reset() {
@@ -490,6 +498,7 @@ func (x *SysRoleDelReq) GetIds() []string {
 	return nil
 }
 
+// 响应-角色-删除
 type SysRoleDelResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

@@ -21,6 +21,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 日志信息
 type SysLogInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -258,7 +259,7 @@ type SysLogInfoReq struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` //ID
 }
 
 func (x *SysLogInfoReq) Reset() {
@@ -306,7 +307,7 @@ type SysLogInfoResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Info *SysLogInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
+	Info *SysLogInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"` //信息
 }
 
 func (x *SysLogInfoResp) Reset() {
@@ -458,7 +459,7 @@ type SysLogStoreResp struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Info *SysLogInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
+	Info *SysLogInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"` //信息
 }
 
 func (x *SysLogStoreResp) Reset() {

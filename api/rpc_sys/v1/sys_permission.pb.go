@@ -20,6 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// 权限信息
 type SysPermissionInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -203,6 +204,7 @@ func (x *SysPermissionInfo) GetChildren() []*SysPermissionInfo {
 	return nil
 }
 
+// 请求-权限-列表
 type SysPermissionListReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -241,12 +243,13 @@ func (*SysPermissionListReq) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{1}
 }
 
+// 响应-权限-列表
 type SysPermissionListResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	List []*SysPermissionInfo `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	List []*SysPermissionInfo `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"` //列表
 }
 
 func (x *SysPermissionListResp) Reset() {
@@ -288,12 +291,13 @@ func (x *SysPermissionListResp) GetList() []*SysPermissionInfo {
 	return nil
 }
 
+// 请求-权限-单个权限信息
 type SysPermissionInfoReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` //ID
 }
 
 func (x *SysPermissionInfoReq) Reset() {
@@ -335,12 +339,13 @@ func (x *SysPermissionInfoReq) GetId() string {
 	return ""
 }
 
+// 响应-权限-单个权限信息
 type SysPermissionInfoResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Info *SysPermissionInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
+	Info *SysPermissionInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"` //信息
 }
 
 func (x *SysPermissionInfoResp) Reset() {
@@ -382,6 +387,7 @@ func (x *SysPermissionInfoResp) GetInfo() *SysPermissionInfo {
 	return nil
 }
 
+// 请求-权限-保存
 type SysPermissionStoreReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -541,6 +547,7 @@ func (x *SysPermissionStoreReq) GetStatus() int32 {
 	return 0
 }
 
+// 响应-权限-保存
 type SysPermissionStoreResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -579,12 +586,13 @@ func (*SysPermissionStoreResp) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{6}
 }
 
+// 请求-权限-删除
 type SysPermissionDelReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
+	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"` //ID集合
 }
 
 func (x *SysPermissionDelReq) Reset() {
@@ -626,6 +634,7 @@ func (x *SysPermissionDelReq) GetIds() []string {
 	return nil
 }
 
+// 响应-权限-删除
 type SysPermissionDelResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -664,6 +673,7 @@ func (*SysPermissionDelResp) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_permission_proto_rawDescGZIP(), []int{8}
 }
 
+// 请求-权限-修改状态
 type SysPermissionStatusReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -719,6 +729,7 @@ func (x *SysPermissionStatusReq) GetStatus() int32 {
 	return 0
 }
 
+// 响应-权限-修改状态
 type SysPermissionStatusResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

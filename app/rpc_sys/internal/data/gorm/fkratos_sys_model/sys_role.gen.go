@@ -14,7 +14,6 @@ const TableNameSysRole = "sys_role"
 // SysRole mapped from table <sys_role>
 type SysRole struct {
 	ID            string       `gorm:"column:id;primaryKey;comment:编号" json:"id"`                 // 编号
-	TenantID      string       `gorm:"column:tenant_id;comment:租户ID" json:"tenantId"`             // 租户ID
 	Pid           string       `gorm:"column:pid;not null;comment:父级id" json:"pid"`               // 父级id
 	Name          string       `gorm:"column:name;not null;comment:名称" json:"name"`               // 名称
 	PermissionIds string       `gorm:"column:permission_ids;comment:菜单权限集合" json:"permissionIds"` // 菜单权限集合
