@@ -230,5 +230,5 @@ func (s *SysAdminRepo) SysAuthJwtTokenCheck(ctx context.Context, token string) (
 		}
 		return "", errorx.TokenInvalidErr
 	}
-	return conv.String(claims["adminId"]), nil
+	return conv.String(claims["uid"]), nil
 }

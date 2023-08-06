@@ -8,10 +8,10 @@ option go_package = "fkratos/bootstrap/conf;conf";
 message Business {
   // jwt
   message Jwt {
-    string AccessSecret = 1;//秘钥
-    int64 AccessExpire = 2;//过期时间
-    int64 RefreshAfter = 3;//刷新时间 (大于刷新时间,而小于过期时间,则刷新Token)
-    string Issuer = 4;//签发人
+    string accessSecret = 1;//秘钥
+    int64 accessExpire = 2;//过期时间
+    int64 refreshAfter = 3;//刷新时间 (大于刷新时间,而小于过期时间,则刷新Token)
+    string issuer = 4;//签发人
   }
   Jwt jwt = 1;
 }

@@ -50,3 +50,10 @@ registry:
     beatInterval: 1s
     notLoadCacheAtStart: true
     updateCacheWhenEmpty: true
+
+business:
+  jwt:
+    accessSecret: "SGO3lP58kDrKnq4tC0cyeVBEmQs02jIWHb2Aih97oZTfM6zgxLwRdJYXuF1apd"
+    refreshAfter: 86400
+    accessExpire: 604800
+    issuer: "user"

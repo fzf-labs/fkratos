@@ -35,7 +35,7 @@ func wireApp(bootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Re
 	logClient := data.NewSysLogServiceClient(rpcSysGrpc)
 	dashboardClient := data.NewSysDashboardServiceClient(rpcSysGrpc)
 	sysService := service.NewSysService(logger, authClient, adminClient, roleClient, permissionClient, jobClient, deptClient, apiClient, logClient, dashboardClient)
-	httpServer := server.NewHTTPServer(bootstrap, logger, sysService)
+	httpServer := server.NewHTTPServer(bootstrap, logger, authClient, sysService)
 	app := newApp(logger, registrar, httpServer)
 	return app, func() {
 	}, nil

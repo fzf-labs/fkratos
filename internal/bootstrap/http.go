@@ -27,9 +27,9 @@ func NewHttpServer(cfg *conf.Bootstrap, logger log.Logger, m ...middleware.Middl
 	}
 	var ms []middleware.Middleware
 	ms = append(ms,
+		tracing.Server(),
 		logging.Server(logger),
 		recovery.Recovery(),
-		tracing.Server(),
 		metadata.Server(),
 		validate.Validator(),
 		Metrics(),

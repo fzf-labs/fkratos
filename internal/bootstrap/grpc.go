@@ -3,14 +3,15 @@ package bootstrap
 import (
 	"context"
 	"fkratos/internal/bootstrap/conf"
+	"fkratos/internal/middleware/validate"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/circuitbreaker"
+	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/metadata"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
-	"github.com/go-kratos/kratos/v2/middleware/validate"
 	"github.com/go-kratos/kratos/v2/registry"
 	kGrpc "github.com/go-kratos/kratos/v2/transport/grpc"
 	"google.golang.org/grpc"
@@ -56,20 +57,19 @@ func NewGrpcClient(ctx context.Context, r registry.Discovery, discovery string, 
 }
 
 // NewGrpcServer 创建GRPC服务端
-func NewGrpcServer(cfg *conf.Bootstrap, m ...middleware.Middleware) *kGrpc.Server {
+func NewGrpcServer(cfg *conf.Bootstrap, logger log.Logger, m ...middleware.Middleware) *kGrpc.Server {
 	var opts []kGrpc.ServerOption
-
 	var ms []middleware.Middleware
 	ms = append(ms,
-		recovery.Recovery(),
 		tracing.Server(),
+		logging.Server(logger),
+		recovery.Recovery(),
 		metadata.Server(),
 		validate.Validator(),
 		Metrics(),
 	)
 	ms = append(ms, m...)
 	opts = append(opts, kGrpc.Middleware(ms...))
-
 	if cfg.Server.Grpc.Network != "" {
 		opts = append(opts, kGrpc.Network(cfg.Server.Grpc.Network))
 	}
@@ -79,6 +79,5 @@ func NewGrpcServer(cfg *conf.Bootstrap, m ...middleware.Middleware) *kGrpc.Serve
 	if cfg.Server.Grpc.Timeout != nil {
 		opts = append(opts, kGrpc.Timeout(cfg.Server.Grpc.Timeout.AsDuration()))
 	}
-
 	return kGrpc.NewServer(opts...)
 }

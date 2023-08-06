@@ -16,7 +16,7 @@ type RpcSysGrpc struct {
 }
 
 func NewRpcSysGrpc(c *conf.Bootstrap, r registry.Discovery) *RpcSysGrpc {
-	return &RpcSysGrpc{grpcClientConn: bootstrap.NewGrpcClient(context.Background(), r, c.Registry.Type, constant.RpcUser, c.Server.Grpc.GetTimeout())}
+	return &RpcSysGrpc{grpcClientConn: bootstrap.NewGrpcClient(context.Background(), r, c.Registry.Type, constant.RpcSys, c.Server.Grpc.GetTimeout())}
 }
 
 func NewSysAdminServiceClient(rpcSysGrpc *RpcSysGrpc) sysV1.AdminClient {

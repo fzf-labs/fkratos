@@ -49,7 +49,7 @@ func Auth(authClient sysV1.AuthClient) middleware.Middleware {
 				if err != nil {
 					return nil, errorx.TokenFormatErr
 				}
-				tokenClaims, err := authClient.SysAuthJwtTokenCheck(context.Background(), &sysV1.SysAuthJwtTokenCheckReq{Token: token})
+				tokenClaims, err := authClient.SysAuthJwtTokenCheck(ctx, &sysV1.SysAuthJwtTokenCheckReq{Token: token})
 				if err != nil {
 					return nil, err
 				}
