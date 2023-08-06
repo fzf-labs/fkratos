@@ -32,3 +32,6 @@ func (s *AuthService) SysAuthLogin(ctx context.Context, req *pb.SysAuthLoginReq)
 func (s *AuthService) SysAuthLogout(ctx context.Context, req *pb.SysAuthLogoutReq) (*pb.SysAuthLogoutReply, error) {
 	return s.authUseCase.SysAuthLogout(ctx, req)
 }
+func (s *AuthService) SysAuthJwtTokenCheck(ctx context.Context, req *pb.SysAuthJwtTokenCheckReq) (*pb.SysAuthJwtTokenCheckReply, error) {
+	return s.authUseCase.SysAuthJwtTokenCheck(ctx, req)
+}

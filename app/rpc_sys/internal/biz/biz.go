@@ -31,6 +31,7 @@ type SysAdminRepo interface {
 	SysManageListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysAdmin, *page.Page, error)
 	SysManageStore(ctx context.Context, req *v1.SysManageStoreReq) (*fkratos_sys_model.SysAdmin, error)
 	GetAdminIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	SysAuthJwtTokenCheck(ctx context.Context, token string) (string, error)
 }
 type SysRoleRepo interface {
 	fkratos_sys_repo.ISysRoleRepo

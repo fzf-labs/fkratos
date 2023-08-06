@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Auth_SysAuthLoginCaptcha_FullMethodName = "/api.rpc_sys.v1.Auth/SysAuthLoginCaptcha"
-	Auth_SysAuthLogin_FullMethodName        = "/api.rpc_sys.v1.Auth/SysAuthLogin"
-	Auth_SysAuthLogout_FullMethodName       = "/api.rpc_sys.v1.Auth/SysAuthLogout"
+	Auth_SysAuthLoginCaptcha_FullMethodName  = "/api.rpc_sys.v1.Auth/SysAuthLoginCaptcha"
+	Auth_SysAuthLogin_FullMethodName         = "/api.rpc_sys.v1.Auth/SysAuthLogin"
+	Auth_SysAuthLogout_FullMethodName        = "/api.rpc_sys.v1.Auth/SysAuthLogout"
+	Auth_SysAuthJwtTokenCheck_FullMethodName = "/api.rpc_sys.v1.Auth/SysAuthJwtTokenCheck"
 )
 
 // AuthClient is the client API for Auth service.
@@ -34,6 +35,8 @@ type AuthClient interface {
 	SysAuthLogin(ctx context.Context, in *SysAuthLoginReq, opts ...grpc.CallOption) (*SysAuthLoginReply, error)
 	// Auth-退出
 	SysAuthLogout(ctx context.Context, in *SysAuthLogoutReq, opts ...grpc.CallOption) (*SysAuthLogoutReply, error)
+	// Auth-Token校验
+	SysAuthJwtTokenCheck(ctx context.Context, in *SysAuthJwtTokenCheckReq, opts ...grpc.CallOption) (*SysAuthJwtTokenCheckReply, error)
 }
 
 type authClient struct {
@@ -71,6 +74,15 @@ func (c *authClient) SysAuthLogout(ctx context.Context, in *SysAuthLogoutReq, op
 	return out, nil
 }
 
+func (c *authClient) SysAuthJwtTokenCheck(ctx context.Context, in *SysAuthJwtTokenCheckReq, opts ...grpc.CallOption) (*SysAuthJwtTokenCheckReply, error) {
+	out := new(SysAuthJwtTokenCheckReply)
+	err := c.cc.Invoke(ctx, Auth_SysAuthJwtTokenCheck_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility
@@ -81,6 +93,8 @@ type AuthServer interface {
 	SysAuthLogin(context.Context, *SysAuthLoginReq) (*SysAuthLoginReply, error)
 	// Auth-退出
 	SysAuthLogout(context.Context, *SysAuthLogoutReq) (*SysAuthLogoutReply, error)
+	// Auth-Token校验
+	SysAuthJwtTokenCheck(context.Context, *SysAuthJwtTokenCheckReq) (*SysAuthJwtTokenCheckReply, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -96,6 +110,9 @@ func (UnimplementedAuthServer) SysAuthLogin(context.Context, *SysAuthLoginReq) (
 }
 func (UnimplementedAuthServer) SysAuthLogout(context.Context, *SysAuthLogoutReq) (*SysAuthLogoutReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAuthLogout not implemented")
+}
+func (UnimplementedAuthServer) SysAuthJwtTokenCheck(context.Context, *SysAuthJwtTokenCheckReq) (*SysAuthJwtTokenCheckReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysAuthJwtTokenCheck not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 
@@ -164,6 +181,24 @@ func _Auth_SysAuthLogout_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_SysAuthJwtTokenCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysAuthJwtTokenCheckReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).SysAuthJwtTokenCheck(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_SysAuthJwtTokenCheck_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).SysAuthJwtTokenCheck(ctx, req.(*SysAuthJwtTokenCheckReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -182,6 +217,10 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SysAuthLogout",
 			Handler:    _Auth_SysAuthLogout_Handler,
+		},
+		{
+			MethodName: "SysAuthJwtTokenCheck",
+			Handler:    _Auth_SysAuthJwtTokenCheck_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

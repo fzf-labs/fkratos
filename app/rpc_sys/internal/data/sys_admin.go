@@ -214,3 +214,21 @@ func (s *SysAdminRepo) GenerateJwTToken(ctx context.Context, kv map[string]inter
 	}
 	return token, nil
 }
+
+func (s *SysAdminRepo) SysAuthJwtTokenCheck(ctx context.Context, token string) (string, error) {
+	///token 解析
+	jwtClient := jwt.NewJwt(s.data.redis, &jwt.Config{
+		AccessSecret: s.config.Business.Jwt.AccessSecret,
+		AccessExpire: s.config.Business.Jwt.AccessExpire,
+		RefreshAfter: s.config.Business.Jwt.RefreshAfter,
+		Issuer:       s.config.Business.Jwt.Issuer,
+	})
+	claims, err := jwtClient.ParseToken(token)
+	if err != nil {
+		if errors.Is(err, jwt.TokenExpired) {
+			return "", errorx.TokenExpired
+		}
+		return "", errorx.TokenInvalidErr
+	}
+	return conv.String(claims["adminId"]), nil
+}

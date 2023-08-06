@@ -83,3 +83,14 @@ func (a *AuthUseCase) SysAuthLogout(ctx context.Context, req *v1.SysAuthLogoutRe
 	}
 	return resp, nil
 }
+
+// SysAuthJwtTokenCheck token校验
+func (a *AuthUseCase) SysAuthJwtTokenCheck(ctx context.Context, req *v1.SysAuthJwtTokenCheckReq) (*v1.SysAuthJwtTokenCheckReply, error) {
+	resp := new(v1.SysAuthJwtTokenCheckReply)
+	adminId, err := a.sysAdminRepo.SysAuthJwtTokenCheck(ctx, req.GetToken())
+	if err != nil {
+		return nil, err
+	}
+	resp.AdminId = adminId
+	return resp, nil
+}

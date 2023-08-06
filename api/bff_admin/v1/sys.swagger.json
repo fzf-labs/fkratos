@@ -90,15 +90,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "adminId",
-            "description": "ID",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
         "tags": [
           "Sys"
         ]
@@ -155,15 +146,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "adminId",
-            "description": "管理员ID",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
         "tags": [
           "Sys"
         ]
@@ -1284,12 +1266,6 @@
     },
     "v1SysAdminGenerateAvatarReq": {
       "type": "object",
-      "properties": {
-        "adminId": {
-          "type": "string",
-          "title": "管理员ID"
-        }
-      },
       "title": "请求-生成头像"
     },
     "v1SysAdminInfo": {
@@ -1363,10 +1339,6 @@
     "v1SysAdminInfoUpdateReq": {
       "type": "object",
       "properties": {
-        "adminId": {
-          "type": "string",
-          "title": "管理员ID"
-        },
         "nickname": {
           "type": "string",
           "title": "昵称"
@@ -1624,12 +1596,6 @@
     },
     "v1SysAuthLogoutReq": {
       "type": "object",
-      "properties": {
-        "adminId": {
-          "type": "string",
-          "title": "ID"
-        }
-      },
       "title": "请求-退出"
     },
     "v1SysDeptDelReply": {

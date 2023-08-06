@@ -284,7 +284,6 @@ message SysAuthLoginReply {
 
 //请求-退出
 message SysAuthLogoutReq {
-  string adminId = 1 [(validate.rules).string.uuid = true]; //ID
 }
 
 //响应-退出
@@ -307,7 +306,6 @@ message SysAdminInfo {
 
 //请求-管理员信息
 message SysAdminInfoReq {
-  string adminId = 1 [(validate.rules).string.uuid = true]; //ID
 }
 
 //响应-管理员信息
@@ -317,7 +315,6 @@ message SysAdminInfoReply {
 
 //请求-管理员更新
 message SysAdminInfoUpdateReq {
-  string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
   string nickname = 2 [(validate.rules).string = {
     min_len: 0,
     max_len: 50
@@ -345,7 +342,6 @@ message SysAdminInfoUpdateReply {}
 
 //请求-生成头像
 message SysAdminGenerateAvatarReq {
-  string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
 }
 
 //响应-生成头像
@@ -392,7 +388,6 @@ message SysAdminPermission {
 
 //请求-权限
 message SysAdminPermissionReq {
-  string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
 }
 
 //响应-权限

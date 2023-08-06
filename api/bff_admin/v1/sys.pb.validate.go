@@ -690,28 +690,8 @@ func (m *SysAuthLogoutReq) validate(all bool) error {
 
 	var errors []error
 
-	if err := m._validateUuid(m.GetAdminId()); err != nil {
-		err = SysAuthLogoutReqValidationError{
-			field:  "AdminId",
-			reason: "value must be a valid UUID",
-			cause:  err,
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if len(errors) > 0 {
 		return SysAuthLogoutReqMultiError(errors)
-	}
-
-	return nil
-}
-
-func (m *SysAuthLogoutReq) _validateUuid(uuid string) error {
-	if matched := _sys_uuidPattern.MatchString(uuid); !matched {
-		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -1031,28 +1011,8 @@ func (m *SysAdminInfoReq) validate(all bool) error {
 
 	var errors []error
 
-	if err := m._validateUuid(m.GetAdminId()); err != nil {
-		err = SysAdminInfoReqValidationError{
-			field:  "AdminId",
-			reason: "value must be a valid UUID",
-			cause:  err,
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if len(errors) > 0 {
 		return SysAdminInfoReqMultiError(errors)
-	}
-
-	return nil
-}
-
-func (m *SysAdminInfoReq) _validateUuid(uuid string) error {
-	if matched := _sys_uuidPattern.MatchString(uuid); !matched {
-		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -1282,18 +1242,6 @@ func (m *SysAdminInfoUpdateReq) validate(all bool) error {
 
 	var errors []error
 
-	if err := m._validateUuid(m.GetAdminId()); err != nil {
-		err = SysAdminInfoUpdateReqValidationError{
-			field:  "AdminId",
-			reason: "value must be a valid UUID",
-			cause:  err,
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if l := utf8.RuneCountInString(m.GetNickname()); l < 0 || l > 50 {
 		err := SysAdminInfoUpdateReqValidationError{
 			field:  "Nickname",
@@ -1351,14 +1299,6 @@ func (m *SysAdminInfoUpdateReq) validate(all bool) error {
 
 	if len(errors) > 0 {
 		return SysAdminInfoUpdateReqMultiError(errors)
-	}
-
-	return nil
-}
-
-func (m *SysAdminInfoUpdateReq) _validateUuid(uuid string) error {
-	if matched := _sys_uuidPattern.MatchString(uuid); !matched {
-		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -1561,28 +1501,8 @@ func (m *SysAdminGenerateAvatarReq) validate(all bool) error {
 
 	var errors []error
 
-	if err := m._validateUuid(m.GetAdminId()); err != nil {
-		err = SysAdminGenerateAvatarReqValidationError{
-			field:  "AdminId",
-			reason: "value must be a valid UUID",
-			cause:  err,
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if len(errors) > 0 {
 		return SysAdminGenerateAvatarReqMultiError(errors)
-	}
-
-	return nil
-}
-
-func (m *SysAdminGenerateAvatarReq) _validateUuid(uuid string) error {
-	if matched := _sys_uuidPattern.MatchString(uuid); !matched {
-		return errors.New("invalid uuid format")
 	}
 
 	return nil
@@ -2076,28 +1996,8 @@ func (m *SysAdminPermissionReq) validate(all bool) error {
 
 	var errors []error
 
-	if err := m._validateUuid(m.GetAdminId()); err != nil {
-		err = SysAdminPermissionReqValidationError{
-			field:  "AdminId",
-			reason: "value must be a valid UUID",
-			cause:  err,
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if len(errors) > 0 {
 		return SysAdminPermissionReqMultiError(errors)
-	}
-
-	return nil
-}
-
-func (m *SysAdminPermissionReq) _validateUuid(uuid string) error {
-	if matched := _sys_uuidPattern.MatchString(uuid); !matched {
-		return errors.New("invalid uuid format")
 	}
 
 	return nil

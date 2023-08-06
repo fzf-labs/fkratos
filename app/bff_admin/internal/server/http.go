@@ -2,6 +2,8 @@ package server
 
 import (
 	"fkratos/api/bff_admin/v1"
+	sysV1 "fkratos/api/rpc_sys/v1"
+	"fkratos/app/bff_admin/internal/middleware/auth"
 	"fkratos/app/bff_admin/internal/service"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
@@ -11,8 +13,8 @@ import (
 )
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Bootstrap, logger log.Logger, adminService *service.SysService) *http.Server {
-	srv := bootstrap.NewHttpServer(c, logger)
+func NewHTTPServer(c *conf.Bootstrap, logger log.Logger, authClient sysV1.AuthClient, adminService *service.SysService) *http.Server {
+	srv := bootstrap.NewHttpServer(c, logger, auth.SelectorMiddleware(authClient))
 	v1.RegisterSysHTTPServer(srv, adminService)
 	return srv
 }
