@@ -12,9 +12,9 @@ import (
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"time"
 
+	"github.com/dtm-labs/rockscache"
 	"github.com/fzf-labs/fpkg/cache/cachekey"
 	"github.com/fzf-labs/fpkg/conv"
-	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
@@ -50,13 +50,16 @@ type (
 	}
 
 	SysAPIRepo struct {
-		db    *gorm.DB
-		redis *redis.Client
+		db         *gorm.DB
+		rockscache *rockscache.Client
 	}
 )
 
-func NewSysAPIRepo(db *gorm.DB, redis *redis.Client) *SysAPIRepo {
-	return &SysAPIRepo{db: db, redis: redis}
+func NewSysAPIRepo(db *gorm.DB, rockscache *rockscache.Client) *SysAPIRepo {
+	return &SysAPIRepo{
+		db:         db,
+		rockscache: rockscache,
+	}
 }
 
 // CreateOne 创建一条数据
@@ -128,7 +131,7 @@ func (r *SysAPIRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) er
 // DeleteUniqueIndexCache 删除唯一索引存在的缓存
 func (r *SysAPIRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysAPI) error {
 	var err error
-	cacheSysAPIByID := CacheSysAPIByID.NewSingleKey(r.redis)
+	cacheSysAPIByID := CacheSysAPIByID.NewSingleKey(r.rockscache)
 
 	for _, v := range data {
 		err = cacheSysAPIByID.SingleCacheDel(ctx, cacheSysAPIByID.BuildKey(v.ID))
@@ -143,7 +146,7 @@ func (r *SysAPIRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (r *SysAPIRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysAPI, error) {
 	resp := new(fkratos_sys_model.SysAPI)
-	cache := CacheSysAPIByID.NewSingleKey(r.redis)
+	cache := CacheSysAPIByID.NewSingleKey(r.rockscache)
 	cacheValue, err := cache.SingleCache(ctx, conv.String(ID), func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysAPI
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
@@ -169,7 +172,7 @@ func (r *SysAPIRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_
 // FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
 func (r *SysAPIRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysAPI, error) {
 	resp := make([]*fkratos_sys_model.SysAPI, 0)
-	cacheKey := CacheSysAPIByID.NewBatchKey(r.redis)
+	cacheKey := CacheSysAPIByID.NewBatchKey(r.rockscache)
 	batchKeys := make([]string, 0)
 	for _, v := range IDS {
 		batchKeys = append(batchKeys, conv.String(v))

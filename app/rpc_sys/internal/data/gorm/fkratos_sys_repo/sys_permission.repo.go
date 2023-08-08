@@ -12,9 +12,9 @@ import (
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"time"
 
+	"github.com/dtm-labs/rockscache"
 	"github.com/fzf-labs/fpkg/cache/cachekey"
 	"github.com/fzf-labs/fpkg/conv"
-	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
@@ -46,13 +46,16 @@ type (
 	}
 
 	SysPermissionRepo struct {
-		db    *gorm.DB
-		redis *redis.Client
+		db         *gorm.DB
+		rockscache *rockscache.Client
 	}
 )
 
-func NewSysPermissionRepo(db *gorm.DB, redis *redis.Client) *SysPermissionRepo {
-	return &SysPermissionRepo{db: db, redis: redis}
+func NewSysPermissionRepo(db *gorm.DB, rockscache *rockscache.Client) *SysPermissionRepo {
+	return &SysPermissionRepo{
+		db:         db,
+		rockscache: rockscache,
+	}
 }
 
 // CreateOne 创建一条数据
@@ -124,7 +127,7 @@ func (r *SysPermissionRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []str
 // DeleteUniqueIndexCache 删除唯一索引存在的缓存
 func (r *SysPermissionRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysPermission) error {
 	var err error
-	cacheSysPermissionByID := CacheSysPermissionByID.NewSingleKey(r.redis)
+	cacheSysPermissionByID := CacheSysPermissionByID.NewSingleKey(r.rockscache)
 
 	for _, v := range data {
 		err = cacheSysPermissionByID.SingleCacheDel(ctx, cacheSysPermissionByID.BuildKey(v.ID))
@@ -139,7 +142,7 @@ func (r *SysPermissionRepo) DeleteUniqueIndexCache(ctx context.Context, data []*
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (r *SysPermissionRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysPermission, error) {
 	resp := new(fkratos_sys_model.SysPermission)
-	cache := CacheSysPermissionByID.NewSingleKey(r.redis)
+	cache := CacheSysPermissionByID.NewSingleKey(r.rockscache)
 	cacheValue, err := cache.SingleCache(ctx, conv.String(ID), func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysPermission
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
@@ -165,7 +168,7 @@ func (r *SysPermissionRepo) FindOneCacheByID(ctx context.Context, ID string) (*f
 // FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
 func (r *SysPermissionRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysPermission, error) {
 	resp := make([]*fkratos_sys_model.SysPermission, 0)
-	cacheKey := CacheSysPermissionByID.NewBatchKey(r.redis)
+	cacheKey := CacheSysPermissionByID.NewBatchKey(r.rockscache)
 	batchKeys := make([]string, 0)
 	for _, v := range IDS {
 		batchKeys = append(batchKeys, conv.String(v))

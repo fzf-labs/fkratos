@@ -2,12 +2,26 @@ package biz
 
 import (
 	"context"
+	"encoding/json"
+	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_common/v1"
+	"fkratos/app/rpc_common/internal/data/gorm/fkratos_common_model"
+	"fkratos/app/rpc_common/internal/data/gorm/fkratos_common_repo"
+	"fkratos/internal/errorx"
+	"sync"
+
+	"github.com/fzf-labs/fpkg/page"
+	"github.com/fzf-labs/fpkg/util/timeutil"
+	"github.com/importcjj/sensitive"
+	"github.com/jinzhu/copier"
 
 	"github.com/go-kratos/kratos/v2/log"
 )
 
 type SensitiveWordRepo interface {
+	fkratos_common_repo.ISensitiveWordRepo
+	SensitiveWordListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_common_model.SensitiveWord, *page.Page, error)
+	SensitiveWordStore(ctx context.Context, data *fkratos_common_model.SensitiveWord) (*fkratos_common_model.SensitiveWord, error)
 }
 
 func NewSensitiveWordUseCase(logger log.Logger, sensitiveWordRepo SensitiveWordRepo) *SensitiveWordUseCase {
@@ -23,42 +37,92 @@ type SensitiveWordUseCase struct {
 	sensitiveWordRepo SensitiveWordRepo
 }
 
-func (s *SensitiveWordUseCase) SensitiveCategoryList(ctx context.Context, req *v1.SensitiveCategoryListReq) (*v1.SensitiveCategoryListReply, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s *SensitiveWordUseCase) SensitiveCategoryInfo(ctx context.Context, req *v1.SensitiveCategoryInfoReq) (*v1.SensitiveCategoryInfoReply, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s *SensitiveWordUseCase) SensitiveCategoryStore(ctx context.Context, req *v1.SensitiveCategoryStoreReq) (*v1.SensitiveCategoryStoreReply, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s *SensitiveWordUseCase) SensitiveCategoryDel(ctx context.Context, req *v1.SensitiveCategoryDelReq) (*v1.SensitiveCategoryDelReply, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s *SensitiveWordUseCase) SensitiveWordList(ctx context.Context, req *v1.SensitiveWordListReq) (*v1.SensitiveWordListReply, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s *SensitiveWordUseCase) SensitiveWordInfo(ctx context.Context, req *v1.SensitiveWordInfoReq) (*v1.SensitiveWordInfoReply, error) {
-	//TODO implement me
-	panic("implement me")
+func (s *SensitiveWordUseCase) SensitiveWordList(ctx context.Context, req *paginator.PaginatorReq) (*v1.SensitiveWordListReply, error) {
+	resp := new(v1.SensitiveWordListReply)
+	result, p, err := s.sensitiveWordRepo.SensitiveWordListBySearch(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	for _, v := range result {
+		labs := make([]string, 0)
+		err := json.Unmarshal(v.Labs, &labs)
+		if err != nil {
+			return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		}
+		resp.List = append(resp.List, &v1.SensitiveWordInfo{
+			Id:        v.ID,
+			Word:      v.Word,
+			Labs:      labs,
+			Desc:      v.Desc,
+			CreatedAt: timeutil.ToDateTimeStringByTime(v.CreatedAt),
+			UpdatedAt: timeutil.ToDateTimeStringByTime(v.UpdatedAt),
+		})
+	}
+	err = copier.Copy(&resp.Paginator, p)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }
 
 func (s *SensitiveWordUseCase) SensitiveWordStore(ctx context.Context, req *v1.SensitiveWordStoreReq) (*v1.SensitiveWordStoreReply, error) {
-	//TODO implement me
-	panic("implement me")
+	resp := new(v1.SensitiveWordStoreReply)
+	labs, err := json.Marshal(req.GetLabs())
+	if err != nil {
+		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+	}
+	_, err = s.sensitiveWordRepo.SensitiveWordStore(ctx, &fkratos_common_model.SensitiveWord{
+		ID:   req.GetId(),
+		Word: req.GetWord(),
+		Labs: labs,
+		Desc: req.GetDesc(),
+	})
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }
 
 func (s *SensitiveWordUseCase) SensitiveWordDel(ctx context.Context, req *v1.SensitiveWordDelReq) (*v1.SensitiveWordDelReply, error) {
-	//TODO implement me
-	panic("implement me")
+	resp := new(v1.SensitiveWordDelReply)
+	err := s.sensitiveWordRepo.DeleteMultiCacheByIDS(ctx, req.GetIds())
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+type SensitiveCheck struct {
+	len    int
+	filter *sensitive.Filter
+}
+
+var lock sync.Mutex
+var sc = new(SensitiveCheck)
+
+func (s *SensitiveWordUseCase) SensitiveWordCheck(ctx context.Context, req *v1.SensitiveWordCheckReq) (*v1.SensitiveWordCheckResp, error) {
+	resp := new(v1.SensitiveWordCheckResp)
+
+	if sc.len != len(sensitiveWordCacheResp.Words) {
+		lock.Lock()
+		defer lock.Unlock()
+		sc = &SensitiveCheck{
+			len:    len(sensitiveWordCacheResp.Words),
+			filter: sensitive.New(),
+		}
+		sc.filter.AddWord(sensitiveWordCacheResp.Words...)
+		sc.filter.UpdateNoisePattern(`x`)
+	}
+	validate, _ := sc.filter.Validate(in.Word)
+	if validate {
+		resp.Result = false
+		return resp, nil
+	}
+	replace := sc.filter.Replace(in.Word, '*')
+	filterStr := sc.filter.Filter(in.Word)
+
+	resp.Result = false
+	resp.Replace = replace
+	resp.Filter = filterStr
+	return resp, nil
 }

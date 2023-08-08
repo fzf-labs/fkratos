@@ -2,108 +2,65 @@ syntax = "proto3";
 
 package api.rpc_common.v1;
 
-option go_package = "fkratos/api/rpc_common/v1;v1";
-
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 import "paginator/paginator.proto";
 
+option go_package = "fkratos/api/rpc_common/v1;v1";
+
 // 敏感词
 service SensitiveWord {
-  //敏感词分类列表
-  rpc SensitiveCategoryList(SensitiveCategoryListReq) returns (SensitiveCategoryListReply);
-  //单个敏感词分类
-  rpc SensitiveCategoryInfo(SensitiveCategoryInfoReq) returns (SensitiveCategoryInfoReply);
-  //保存敏感词分类
-  rpc SensitiveCategoryStore(SensitiveCategoryStoreReq) returns (SensitiveCategoryStoreReply);
-  //删除敏感词分类
-  rpc SensitiveCategoryDel(SensitiveCategoryDelReq) returns (SensitiveCategoryDelReply);
-
-  //敏感词列表
-  rpc SensitiveWordList(SensitiveWordListReq) returns (SensitiveWordListReply);
-  //单个敏感词
-  rpc SensitiveWordInfo(SensitiveWordInfoReq) returns (SensitiveWordInfoReply);
-  //保存敏感词
+  //敏感词-列表
+  rpc SensitiveWordList(paginator.PaginatorReq) returns (SensitiveWordListReply);
+  //敏感词-保存
   rpc SensitiveWordStore(SensitiveWordStoreReq) returns (SensitiveWordStoreReply);
-  //删除敏感词
+  //敏感词-删除
   rpc SensitiveWordDel(SensitiveWordDelReq) returns (SensitiveWordDelReply);
+  //敏感词-检测
+  rpc SensitiveWordCheck(SensitiveWordCheckReq) returns (SensitiveWordCheckResp);
 }
-
-message SensitiveCategoryInfo{
-  string id = 1;
-  string label = 2;//标签
-  string name = 3;//分类
-  string createdAt = 4;//创建时间
-  string updatedAt = 5;//更新时间
-}
-
-message SensitiveCategoryListReq{}
-message SensitiveCategoryListReply{
-  repeated SensitiveCategoryInfo list = 1;//敏感词列表
-  paginator.PaginatorReply paginator = 2; //分页
-}
-
-
-message SensitiveCategoryInfoReq{
-  string id = 1;
-}
-message SensitiveCategoryInfoReply{
-  SensitiveCategoryInfo info = 1;
-}
-
-
-
-message SensitiveCategoryStoreReq{
+message SensitiveWordInfo {
   string id = 1;//ID
-  string label = 2;//标签
-  string name = 3;//分类
-}
-message SensitiveCategoryStoreReply{
-}
-
-
-message SensitiveCategoryDelReq{
-  repeated string ids = 1;
-}
-message SensitiveCategoryDelReply{}
-
-
-
-message SensitiveWordInfo{
-  string id = 1;
-  string categoryID = 2;//分类ID
-  string word = 3;//敏感词
-  string createdAt = 4;//创建时间
-  string updatedAt = 5;//更新时间
+  string word = 2; //敏感词
+  repeated string labs = 3; //标签
+  string desc = 4; //描述
+  string createdAt = 5; //创建时间
+  string updatedAt = 6; //更新时间
 }
 
-message SensitiveWordListReq{}
-message SensitiveWordListReply{
-  repeated SensitiveWordInfo list = 1;//敏感词列表
+//响应-敏感词-列表
+message SensitiveWordListReply {
+  repeated SensitiveWordInfo list = 1; //敏感词列表
   paginator.PaginatorReply paginator = 2; //分页
 }
 
-
-message SensitiveWordInfoReq{
-  string id = 1;
-}
-message SensitiveWordInfoReply{
-  SensitiveWordInfo info = 1;
-}
-
-
-
-message SensitiveWordStoreReq{
-  string id = 1;
-  string categoryID = 2;//分类ID
-  string word = 3;//敏感词
-}
-message SensitiveWordStoreReply{
-
+//请求-敏感词-保存
+message SensitiveWordStoreReq {
+  string id = 1;//ID
+  string word = 2; //敏感词
+  repeated string labs = 3; //标签
+  string desc = 4; //描述
 }
 
+//响应-敏感词-保存
+message SensitiveWordStoreReply {}
 
-message SensitiveWordDelReq{
-  repeated string ids = 1;
+//请求-敏感词-删除
+message SensitiveWordDelReq {
+  repeated string ids = 1; //ID集合
 }
-message SensitiveWordDelReply{}
+
+//响应-敏感词-删除
+message SensitiveWordDelReply {}
+
+//请求-敏感词-检测
+message SensitiveWordCheckReq {
+  string Word = 1; //词语
+}
+
+//响应-敏感词-检测
+message SensitiveWordCheckResp {
+  bool Result = 1; //是否有敏感词
+  string Replace = 2; //替换后词语
+  string Filter = 3; //移除后词语
+}

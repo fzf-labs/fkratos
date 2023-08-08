@@ -3,8 +3,9 @@ module fkratos
 go 1.20
 
 require (
+	github.com/dtm-labs/rockscache v0.1.1
 	github.com/envoyproxy/protoc-gen-validate v0.10.1
-	github.com/fzf-labs/fpkg v1.3.6
+	github.com/fzf-labs/fpkg v1.3.9
 	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/config/etcd/v2 v2.0.0-20230410063538-3958f9d5c06e
@@ -21,11 +22,12 @@ require (
 	github.com/go-kratos/kratos/contrib/registry/kubernetes/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/registry/nacos/v2 v2.0.0-20230410063538-3958f9d5c06e
 	github.com/go-kratos/kratos/contrib/registry/polaris/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/v2 v2.6.3
+	github.com/go-kratos/kratos/v2 v2.7.0
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
 	github.com/hashicorp/consul/api v1.20.0
 	github.com/hibiken/asynq v0.24.1
+	github.com/importcjj/sensitive v0.0.0-20200106142752-42d1c505be7b
 	github.com/jinzhu/copier v0.3.5
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/nacos-group/nacos-sdk-go v1.1.4
@@ -41,14 +43,14 @@ require (
 	go.opentelemetry.io/otel/sdk v1.16.0
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/zap v1.23.0
-	google.golang.org/genproto/googleapis/api v0.0.0-20230530153820-e85fd2cbaebc
+	google.golang.org/genproto/googleapis/api v0.0.0-20230629202037-9506855d4529
 	google.golang.org/grpc v1.56.1
 	google.golang.org/protobuf v1.31.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gorm.io/datatypes v1.2.0
-	gorm.io/gen v0.3.23-0.20230607102635-21d0628d5f07
+	gorm.io/gen v0.3.23
 	gorm.io/gorm v1.25.2
-	gorm.io/plugin/dbresolver v1.4.1
+	gorm.io/plugin/dbresolver v1.4.2
 	k8s.io/client-go v0.27.0
 )
 
@@ -70,14 +72,13 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dlclark/regexp2 v1.7.0 // indirect
-	github.com/dtm-labs/rockscache v0.1.1 // indirect
 	github.com/emicklei/go-restful/v3 v3.9.0 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/felixge/httpsnoop v1.0.1 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.1 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
-	github.com/go-gorm/caches v1.0.1 // indirect
+	github.com/go-gorm/caches/v2 v2.0.1 // indirect
 	github.com/go-kit/kit v0.10.0 // indirect
 	github.com/go-kratos/aegis v0.2.0 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
@@ -86,7 +87,7 @@ require (
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect
 	github.com/go-openapi/jsonreference v0.20.1 // indirect
 	github.com/go-openapi/swag v0.22.3 // indirect
-	github.com/go-playground/form/v4 v4.2.0 // indirect
+	github.com/go-playground/form/v4 v4.2.1 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
@@ -110,7 +111,7 @@ require (
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/hashicorp/serf v0.10.1 // indirect
-	github.com/imdario/mergo v0.3.13 // indirect
+	github.com/imdario/mergo v0.3.16 // indirect
 	github.com/imroc/req/v3 v3.33.1 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
@@ -171,18 +172,18 @@ require (
 	golang.org/x/crypto v0.11.0 // indirect
 	golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53 // indirect
 	golang.org/x/image v0.0.0-20190802002840-cff245a6509b // indirect
-	golang.org/x/mod v0.11.0 // indirect
+	golang.org/x/mod v0.12.0 // indirect
 	golang.org/x/net v0.12.0 // indirect
 	golang.org/x/oauth2 v0.7.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/sys v0.10.0 // indirect
+	golang.org/x/sys v0.11.0 // indirect
 	golang.org/x/term v0.10.0 // indirect
 	golang.org/x/text v0.11.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
-	golang.org/x/tools v0.10.0 // indirect
+	golang.org/x/tools v0.11.1 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20230530153820-e85fd2cbaebc // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20230530153820-e85fd2cbaebc // indirect
+	google.golang.org/genproto v0.0.0-20230629202037-9506855d4529 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20230629202037-9506855d4529 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect

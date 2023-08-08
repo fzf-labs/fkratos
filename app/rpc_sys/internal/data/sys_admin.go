@@ -33,7 +33,7 @@ func NewSysAdminRepo(c *conf.Bootstrap, data *Data, logger log.Logger) biz.SysAd
 		config:       c,
 		data:         data,
 		log:          l,
-		SysAdminRepo: fkratos_sys_repo.NewSysAdminRepo(data.gorm, data.redis),
+		SysAdminRepo: fkratos_sys_repo.NewSysAdminRepo(data.gorm, data.rockscache),
 	}
 }
 

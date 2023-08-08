@@ -12,9 +12,9 @@ import (
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"time"
 
+	"github.com/dtm-labs/rockscache"
 	"github.com/fzf-labs/fpkg/cache/cachekey"
 	"github.com/fzf-labs/fpkg/conv"
-	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
@@ -46,13 +46,16 @@ type (
 	}
 
 	SysJobRepo struct {
-		db    *gorm.DB
-		redis *redis.Client
+		db         *gorm.DB
+		rockscache *rockscache.Client
 	}
 )
 
-func NewSysJobRepo(db *gorm.DB, redis *redis.Client) *SysJobRepo {
-	return &SysJobRepo{db: db, redis: redis}
+func NewSysJobRepo(db *gorm.DB, rockscache *rockscache.Client) *SysJobRepo {
+	return &SysJobRepo{
+		db:         db,
+		rockscache: rockscache,
+	}
 }
 
 // CreateOne 创建一条数据
@@ -124,7 +127,7 @@ func (r *SysJobRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) er
 // DeleteUniqueIndexCache 删除唯一索引存在的缓存
 func (r *SysJobRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysJob) error {
 	var err error
-	cacheSysJobByID := CacheSysJobByID.NewSingleKey(r.redis)
+	cacheSysJobByID := CacheSysJobByID.NewSingleKey(r.rockscache)
 
 	for _, v := range data {
 		err = cacheSysJobByID.SingleCacheDel(ctx, cacheSysJobByID.BuildKey(v.ID))
@@ -139,7 +142,7 @@ func (r *SysJobRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (r *SysJobRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error) {
 	resp := new(fkratos_sys_model.SysJob)
-	cache := CacheSysJobByID.NewSingleKey(r.redis)
+	cache := CacheSysJobByID.NewSingleKey(r.rockscache)
 	cacheValue, err := cache.SingleCache(ctx, conv.String(ID), func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysJob
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
@@ -165,7 +168,7 @@ func (r *SysJobRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_
 // FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
 func (r *SysJobRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysJob, error) {
 	resp := make([]*fkratos_sys_model.SysJob, 0)
-	cacheKey := CacheSysJobByID.NewBatchKey(r.redis)
+	cacheKey := CacheSysJobByID.NewBatchKey(r.rockscache)
 	batchKeys := make([]string, 0)
 	for _, v := range IDS {
 		batchKeys = append(batchKeys, conv.String(v))

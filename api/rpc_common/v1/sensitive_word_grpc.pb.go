@@ -8,6 +8,7 @@ package v1
 
 import (
 	context "context"
+	paginator "fkratos/api/paginator"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -19,36 +20,24 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	SensitiveWord_SensitiveCategoryList_FullMethodName  = "/api.rpc_common.v1.SensitiveWord/SensitiveCategoryList"
-	SensitiveWord_SensitiveCategoryInfo_FullMethodName  = "/api.rpc_common.v1.SensitiveWord/SensitiveCategoryInfo"
-	SensitiveWord_SensitiveCategoryStore_FullMethodName = "/api.rpc_common.v1.SensitiveWord/SensitiveCategoryStore"
-	SensitiveWord_SensitiveCategoryDel_FullMethodName   = "/api.rpc_common.v1.SensitiveWord/SensitiveCategoryDel"
-	SensitiveWord_SensitiveWordList_FullMethodName      = "/api.rpc_common.v1.SensitiveWord/SensitiveWordList"
-	SensitiveWord_SensitiveWordInfo_FullMethodName      = "/api.rpc_common.v1.SensitiveWord/SensitiveWordInfo"
-	SensitiveWord_SensitiveWordStore_FullMethodName     = "/api.rpc_common.v1.SensitiveWord/SensitiveWordStore"
-	SensitiveWord_SensitiveWordDel_FullMethodName       = "/api.rpc_common.v1.SensitiveWord/SensitiveWordDel"
+	SensitiveWord_SensitiveWordList_FullMethodName  = "/api.rpc_common.v1.SensitiveWord/SensitiveWordList"
+	SensitiveWord_SensitiveWordStore_FullMethodName = "/api.rpc_common.v1.SensitiveWord/SensitiveWordStore"
+	SensitiveWord_SensitiveWordDel_FullMethodName   = "/api.rpc_common.v1.SensitiveWord/SensitiveWordDel"
+	SensitiveWord_SensitiveWordCheck_FullMethodName = "/api.rpc_common.v1.SensitiveWord/SensitiveWordCheck"
 )
 
 // SensitiveWordClient is the client API for SensitiveWord service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SensitiveWordClient interface {
-	// 敏感词分类列表
-	SensitiveCategoryList(ctx context.Context, in *SensitiveCategoryListReq, opts ...grpc.CallOption) (*SensitiveCategoryListReply, error)
-	// 单个敏感词分类
-	SensitiveCategoryInfo(ctx context.Context, in *SensitiveCategoryInfoReq, opts ...grpc.CallOption) (*SensitiveCategoryInfoReply, error)
-	// 保存敏感词分类
-	SensitiveCategoryStore(ctx context.Context, in *SensitiveCategoryStoreReq, opts ...grpc.CallOption) (*SensitiveCategoryStoreReply, error)
-	// 删除敏感词分类
-	SensitiveCategoryDel(ctx context.Context, in *SensitiveCategoryDelReq, opts ...grpc.CallOption) (*SensitiveCategoryDelReply, error)
-	// 敏感词列表
-	SensitiveWordList(ctx context.Context, in *SensitiveWordListReq, opts ...grpc.CallOption) (*SensitiveWordListReply, error)
-	// 单个敏感词
-	SensitiveWordInfo(ctx context.Context, in *SensitiveWordInfoReq, opts ...grpc.CallOption) (*SensitiveWordInfoReply, error)
-	// 保存敏感词
+	// 敏感词-列表
+	SensitiveWordList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SensitiveWordListReply, error)
+	// 敏感词-保存
 	SensitiveWordStore(ctx context.Context, in *SensitiveWordStoreReq, opts ...grpc.CallOption) (*SensitiveWordStoreReply, error)
-	// 删除敏感词
+	// 敏感词-删除
 	SensitiveWordDel(ctx context.Context, in *SensitiveWordDelReq, opts ...grpc.CallOption) (*SensitiveWordDelReply, error)
+	// 敏感词-检测
+	SensitiveWordCheck(ctx context.Context, in *SensitiveWordCheckReq, opts ...grpc.CallOption) (*SensitiveWordCheckResp, error)
 }
 
 type sensitiveWordClient struct {
@@ -59,54 +48,9 @@ func NewSensitiveWordClient(cc grpc.ClientConnInterface) SensitiveWordClient {
 	return &sensitiveWordClient{cc}
 }
 
-func (c *sensitiveWordClient) SensitiveCategoryList(ctx context.Context, in *SensitiveCategoryListReq, opts ...grpc.CallOption) (*SensitiveCategoryListReply, error) {
-	out := new(SensitiveCategoryListReply)
-	err := c.cc.Invoke(ctx, SensitiveWord_SensitiveCategoryList_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *sensitiveWordClient) SensitiveCategoryInfo(ctx context.Context, in *SensitiveCategoryInfoReq, opts ...grpc.CallOption) (*SensitiveCategoryInfoReply, error) {
-	out := new(SensitiveCategoryInfoReply)
-	err := c.cc.Invoke(ctx, SensitiveWord_SensitiveCategoryInfo_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *sensitiveWordClient) SensitiveCategoryStore(ctx context.Context, in *SensitiveCategoryStoreReq, opts ...grpc.CallOption) (*SensitiveCategoryStoreReply, error) {
-	out := new(SensitiveCategoryStoreReply)
-	err := c.cc.Invoke(ctx, SensitiveWord_SensitiveCategoryStore_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *sensitiveWordClient) SensitiveCategoryDel(ctx context.Context, in *SensitiveCategoryDelReq, opts ...grpc.CallOption) (*SensitiveCategoryDelReply, error) {
-	out := new(SensitiveCategoryDelReply)
-	err := c.cc.Invoke(ctx, SensitiveWord_SensitiveCategoryDel_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *sensitiveWordClient) SensitiveWordList(ctx context.Context, in *SensitiveWordListReq, opts ...grpc.CallOption) (*SensitiveWordListReply, error) {
+func (c *sensitiveWordClient) SensitiveWordList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SensitiveWordListReply, error) {
 	out := new(SensitiveWordListReply)
 	err := c.cc.Invoke(ctx, SensitiveWord_SensitiveWordList_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *sensitiveWordClient) SensitiveWordInfo(ctx context.Context, in *SensitiveWordInfoReq, opts ...grpc.CallOption) (*SensitiveWordInfoReply, error) {
-	out := new(SensitiveWordInfoReply)
-	err := c.cc.Invoke(ctx, SensitiveWord_SensitiveWordInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -131,26 +75,27 @@ func (c *sensitiveWordClient) SensitiveWordDel(ctx context.Context, in *Sensitiv
 	return out, nil
 }
 
+func (c *sensitiveWordClient) SensitiveWordCheck(ctx context.Context, in *SensitiveWordCheckReq, opts ...grpc.CallOption) (*SensitiveWordCheckResp, error) {
+	out := new(SensitiveWordCheckResp)
+	err := c.cc.Invoke(ctx, SensitiveWord_SensitiveWordCheck_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SensitiveWordServer is the server API for SensitiveWord service.
 // All implementations must embed UnimplementedSensitiveWordServer
 // for forward compatibility
 type SensitiveWordServer interface {
-	// 敏感词分类列表
-	SensitiveCategoryList(context.Context, *SensitiveCategoryListReq) (*SensitiveCategoryListReply, error)
-	// 单个敏感词分类
-	SensitiveCategoryInfo(context.Context, *SensitiveCategoryInfoReq) (*SensitiveCategoryInfoReply, error)
-	// 保存敏感词分类
-	SensitiveCategoryStore(context.Context, *SensitiveCategoryStoreReq) (*SensitiveCategoryStoreReply, error)
-	// 删除敏感词分类
-	SensitiveCategoryDel(context.Context, *SensitiveCategoryDelReq) (*SensitiveCategoryDelReply, error)
-	// 敏感词列表
-	SensitiveWordList(context.Context, *SensitiveWordListReq) (*SensitiveWordListReply, error)
-	// 单个敏感词
-	SensitiveWordInfo(context.Context, *SensitiveWordInfoReq) (*SensitiveWordInfoReply, error)
-	// 保存敏感词
+	// 敏感词-列表
+	SensitiveWordList(context.Context, *paginator.PaginatorReq) (*SensitiveWordListReply, error)
+	// 敏感词-保存
 	SensitiveWordStore(context.Context, *SensitiveWordStoreReq) (*SensitiveWordStoreReply, error)
-	// 删除敏感词
+	// 敏感词-删除
 	SensitiveWordDel(context.Context, *SensitiveWordDelReq) (*SensitiveWordDelReply, error)
+	// 敏感词-检测
+	SensitiveWordCheck(context.Context, *SensitiveWordCheckReq) (*SensitiveWordCheckResp, error)
 	mustEmbedUnimplementedSensitiveWordServer()
 }
 
@@ -158,29 +103,17 @@ type SensitiveWordServer interface {
 type UnimplementedSensitiveWordServer struct {
 }
 
-func (UnimplementedSensitiveWordServer) SensitiveCategoryList(context.Context, *SensitiveCategoryListReq) (*SensitiveCategoryListReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SensitiveCategoryList not implemented")
-}
-func (UnimplementedSensitiveWordServer) SensitiveCategoryInfo(context.Context, *SensitiveCategoryInfoReq) (*SensitiveCategoryInfoReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SensitiveCategoryInfo not implemented")
-}
-func (UnimplementedSensitiveWordServer) SensitiveCategoryStore(context.Context, *SensitiveCategoryStoreReq) (*SensitiveCategoryStoreReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SensitiveCategoryStore not implemented")
-}
-func (UnimplementedSensitiveWordServer) SensitiveCategoryDel(context.Context, *SensitiveCategoryDelReq) (*SensitiveCategoryDelReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SensitiveCategoryDel not implemented")
-}
-func (UnimplementedSensitiveWordServer) SensitiveWordList(context.Context, *SensitiveWordListReq) (*SensitiveWordListReply, error) {
+func (UnimplementedSensitiveWordServer) SensitiveWordList(context.Context, *paginator.PaginatorReq) (*SensitiveWordListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SensitiveWordList not implemented")
-}
-func (UnimplementedSensitiveWordServer) SensitiveWordInfo(context.Context, *SensitiveWordInfoReq) (*SensitiveWordInfoReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SensitiveWordInfo not implemented")
 }
 func (UnimplementedSensitiveWordServer) SensitiveWordStore(context.Context, *SensitiveWordStoreReq) (*SensitiveWordStoreReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SensitiveWordStore not implemented")
 }
 func (UnimplementedSensitiveWordServer) SensitiveWordDel(context.Context, *SensitiveWordDelReq) (*SensitiveWordDelReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SensitiveWordDel not implemented")
+}
+func (UnimplementedSensitiveWordServer) SensitiveWordCheck(context.Context, *SensitiveWordCheckReq) (*SensitiveWordCheckResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SensitiveWordCheck not implemented")
 }
 func (UnimplementedSensitiveWordServer) mustEmbedUnimplementedSensitiveWordServer() {}
 
@@ -195,80 +128,8 @@ func RegisterSensitiveWordServer(s grpc.ServiceRegistrar, srv SensitiveWordServe
 	s.RegisterService(&SensitiveWord_ServiceDesc, srv)
 }
 
-func _SensitiveWord_SensitiveCategoryList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SensitiveCategoryListReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SensitiveWordServer).SensitiveCategoryList(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: SensitiveWord_SensitiveCategoryList_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SensitiveWordServer).SensitiveCategoryList(ctx, req.(*SensitiveCategoryListReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _SensitiveWord_SensitiveCategoryInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SensitiveCategoryInfoReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SensitiveWordServer).SensitiveCategoryInfo(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: SensitiveWord_SensitiveCategoryInfo_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SensitiveWordServer).SensitiveCategoryInfo(ctx, req.(*SensitiveCategoryInfoReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _SensitiveWord_SensitiveCategoryStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SensitiveCategoryStoreReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SensitiveWordServer).SensitiveCategoryStore(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: SensitiveWord_SensitiveCategoryStore_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SensitiveWordServer).SensitiveCategoryStore(ctx, req.(*SensitiveCategoryStoreReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _SensitiveWord_SensitiveCategoryDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SensitiveCategoryDelReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SensitiveWordServer).SensitiveCategoryDel(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: SensitiveWord_SensitiveCategoryDel_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SensitiveWordServer).SensitiveCategoryDel(ctx, req.(*SensitiveCategoryDelReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _SensitiveWord_SensitiveWordList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SensitiveWordListReq)
+	in := new(paginator.PaginatorReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -280,25 +141,7 @@ func _SensitiveWord_SensitiveWordList_Handler(srv interface{}, ctx context.Conte
 		FullMethod: SensitiveWord_SensitiveWordList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SensitiveWordServer).SensitiveWordList(ctx, req.(*SensitiveWordListReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _SensitiveWord_SensitiveWordInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SensitiveWordInfoReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SensitiveWordServer).SensitiveWordInfo(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: SensitiveWord_SensitiveWordInfo_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SensitiveWordServer).SensitiveWordInfo(ctx, req.(*SensitiveWordInfoReq))
+		return srv.(SensitiveWordServer).SensitiveWordList(ctx, req.(*paginator.PaginatorReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -339,6 +182,24 @@ func _SensitiveWord_SensitiveWordDel_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SensitiveWord_SensitiveWordCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SensitiveWordCheckReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SensitiveWordServer).SensitiveWordCheck(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SensitiveWord_SensitiveWordCheck_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SensitiveWordServer).SensitiveWordCheck(ctx, req.(*SensitiveWordCheckReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SensitiveWord_ServiceDesc is the grpc.ServiceDesc for SensitiveWord service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -347,28 +208,8 @@ var SensitiveWord_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*SensitiveWordServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SensitiveCategoryList",
-			Handler:    _SensitiveWord_SensitiveCategoryList_Handler,
-		},
-		{
-			MethodName: "SensitiveCategoryInfo",
-			Handler:    _SensitiveWord_SensitiveCategoryInfo_Handler,
-		},
-		{
-			MethodName: "SensitiveCategoryStore",
-			Handler:    _SensitiveWord_SensitiveCategoryStore_Handler,
-		},
-		{
-			MethodName: "SensitiveCategoryDel",
-			Handler:    _SensitiveWord_SensitiveCategoryDel_Handler,
-		},
-		{
 			MethodName: "SensitiveWordList",
 			Handler:    _SensitiveWord_SensitiveWordList_Handler,
-		},
-		{
-			MethodName: "SensitiveWordInfo",
-			Handler:    _SensitiveWord_SensitiveWordInfo_Handler,
 		},
 		{
 			MethodName: "SensitiveWordStore",
@@ -377,6 +218,10 @@ var SensitiveWord_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SensitiveWordDel",
 			Handler:    _SensitiveWord_SensitiveWordDel_Handler,
+		},
+		{
+			MethodName: "SensitiveWordCheck",
+			Handler:    _SensitiveWord_SensitiveWordCheck_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

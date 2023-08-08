@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fkratos/api/paginator"
 	"fkratos/app/rpc_common/internal/biz"
 
 	pb "fkratos/api/rpc_common/v1"
@@ -22,28 +23,17 @@ func NewSensitiveWordService(logger log.Logger, sensitiveWordUseCase *biz.Sensit
 		sensitiveWordUseCase: sensitiveWordUseCase,
 	}
 }
-
-func (s *SensitiveWordService) SensitiveCategoryList(ctx context.Context, req *pb.SensitiveCategoryListReq) (*pb.SensitiveCategoryListReply, error) {
-	return s.sensitiveWordUseCase.SensitiveCategoryList(ctx, req)
-}
-func (s *SensitiveWordService) SensitiveCategoryInfo(ctx context.Context, req *pb.SensitiveCategoryInfoReq) (*pb.SensitiveCategoryInfoReply, error) {
-	return s.sensitiveWordUseCase.SensitiveCategoryInfo(ctx, req)
-}
-func (s *SensitiveWordService) SensitiveCategoryStore(ctx context.Context, req *pb.SensitiveCategoryStoreReq) (*pb.SensitiveCategoryStoreReply, error) {
-	return s.sensitiveWordUseCase.SensitiveCategoryStore(ctx, req)
-}
-func (s *SensitiveWordService) SensitiveCategoryDel(ctx context.Context, req *pb.SensitiveCategoryDelReq) (*pb.SensitiveCategoryDelReply, error) {
-	return s.sensitiveWordUseCase.SensitiveCategoryDel(ctx, req)
-}
-func (s *SensitiveWordService) SensitiveWordList(ctx context.Context, req *pb.SensitiveWordListReq) (*pb.SensitiveWordListReply, error) {
+func (s *SensitiveWordService) SensitiveWordList(ctx context.Context, req *paginator.PaginatorReq) (*pb.SensitiveWordListReply, error) {
 	return s.sensitiveWordUseCase.SensitiveWordList(ctx, req)
-}
-func (s *SensitiveWordService) SensitiveWordInfo(ctx context.Context, req *pb.SensitiveWordInfoReq) (*pb.SensitiveWordInfoReply, error) {
-	return s.sensitiveWordUseCase.SensitiveWordInfo(ctx, req)
 }
 func (s *SensitiveWordService) SensitiveWordStore(ctx context.Context, req *pb.SensitiveWordStoreReq) (*pb.SensitiveWordStoreReply, error) {
 	return s.sensitiveWordUseCase.SensitiveWordStore(ctx, req)
 }
 func (s *SensitiveWordService) SensitiveWordDel(ctx context.Context, req *pb.SensitiveWordDelReq) (*pb.SensitiveWordDelReply, error) {
 	return s.sensitiveWordUseCase.SensitiveWordDel(ctx, req)
+}
+
+// SensitiveWordCheck 敏感词-检测
+func (s *SensitiveWordService) SensitiveWordCheck(ctx context.Context, req *pb.SensitiveWordCheckReq) (*pb.SensitiveWordCheckResp, error) {
+	return s.sensitiveWordUseCase.SensitiveWordCheck(ctx, req)
 }

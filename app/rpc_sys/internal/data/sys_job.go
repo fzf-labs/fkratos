@@ -25,7 +25,7 @@ func NewSysJobRepo(data *Data, logger log.Logger) biz.SysJobRepo {
 	return &SysJobRepo{
 		data:       data,
 		log:        l,
-		SysJobRepo: fkratos_sys_repo.NewSysJobRepo(data.gorm, data.redis),
+		SysJobRepo: fkratos_sys_repo.NewSysJobRepo(data.gorm, data.rockscache),
 	}
 }
 

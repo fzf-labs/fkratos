@@ -12,9 +12,9 @@ import (
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"time"
 
+	"github.com/dtm-labs/rockscache"
 	"github.com/fzf-labs/fpkg/cache/cachekey"
 	"github.com/fzf-labs/fpkg/conv"
-	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
@@ -46,13 +46,16 @@ type (
 	}
 
 	SysRoleRepo struct {
-		db    *gorm.DB
-		redis *redis.Client
+		db         *gorm.DB
+		rockscache *rockscache.Client
 	}
 )
 
-func NewSysRoleRepo(db *gorm.DB, redis *redis.Client) *SysRoleRepo {
-	return &SysRoleRepo{db: db, redis: redis}
+func NewSysRoleRepo(db *gorm.DB, rockscache *rockscache.Client) *SysRoleRepo {
+	return &SysRoleRepo{
+		db:         db,
+		rockscache: rockscache,
+	}
 }
 
 // CreateOne 创建一条数据
@@ -124,7 +127,7 @@ func (r *SysRoleRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) e
 // DeleteUniqueIndexCache 删除唯一索引存在的缓存
 func (r *SysRoleRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysRole) error {
 	var err error
-	cacheSysRoleByID := CacheSysRoleByID.NewSingleKey(r.redis)
+	cacheSysRoleByID := CacheSysRoleByID.NewSingleKey(r.rockscache)
 
 	for _, v := range data {
 		err = cacheSysRoleByID.SingleCacheDel(ctx, cacheSysRoleByID.BuildKey(v.ID))
@@ -139,7 +142,7 @@ func (r *SysRoleRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkrato
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (r *SysRoleRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysRole, error) {
 	resp := new(fkratos_sys_model.SysRole)
-	cache := CacheSysRoleByID.NewSingleKey(r.redis)
+	cache := CacheSysRoleByID.NewSingleKey(r.rockscache)
 	cacheValue, err := cache.SingleCache(ctx, conv.String(ID), func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysRole
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
@@ -165,7 +168,7 @@ func (r *SysRoleRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos
 // FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
 func (r *SysRoleRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysRole, error) {
 	resp := make([]*fkratos_sys_model.SysRole, 0)
-	cacheKey := CacheSysRoleByID.NewBatchKey(r.redis)
+	cacheKey := CacheSysRoleByID.NewBatchKey(r.rockscache)
 	batchKeys := make([]string, 0)
 	for _, v := range IDS {
 		batchKeys = append(batchKeys, conv.String(v))

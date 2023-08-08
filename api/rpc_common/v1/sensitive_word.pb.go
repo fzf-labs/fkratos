@@ -21,474 +21,23 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type SensitiveCategoryInfo struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id        string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Label     string `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"`         //标签
-	Name      string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`           //分类
-	CreatedAt string `protobuf:"bytes,4,opt,name=createdAt,proto3" json:"createdAt,omitempty"` //创建时间
-	UpdatedAt string `protobuf:"bytes,5,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"` //更新时间
-}
-
-func (x *SensitiveCategoryInfo) Reset() {
-	*x = SensitiveCategoryInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveCategoryInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveCategoryInfo) ProtoMessage() {}
-
-func (x *SensitiveCategoryInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveCategoryInfo.ProtoReflect.Descriptor instead.
-func (*SensitiveCategoryInfo) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *SensitiveCategoryInfo) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *SensitiveCategoryInfo) GetLabel() string {
-	if x != nil {
-		return x.Label
-	}
-	return ""
-}
-
-func (x *SensitiveCategoryInfo) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *SensitiveCategoryInfo) GetCreatedAt() string {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return ""
-}
-
-func (x *SensitiveCategoryInfo) GetUpdatedAt() string {
-	if x != nil {
-		return x.UpdatedAt
-	}
-	return ""
-}
-
-type SensitiveCategoryListReq struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *SensitiveCategoryListReq) Reset() {
-	*x = SensitiveCategoryListReq{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveCategoryListReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveCategoryListReq) ProtoMessage() {}
-
-func (x *SensitiveCategoryListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveCategoryListReq.ProtoReflect.Descriptor instead.
-func (*SensitiveCategoryListReq) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{1}
-}
-
-type SensitiveCategoryListReply struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	List      []*SensitiveCategoryInfo  `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`           //敏感词列表
-	Paginator *paginator.PaginatorReply `protobuf:"bytes,2,opt,name=paginator,proto3" json:"paginator,omitempty"` //分页
-}
-
-func (x *SensitiveCategoryListReply) Reset() {
-	*x = SensitiveCategoryListReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveCategoryListReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveCategoryListReply) ProtoMessage() {}
-
-func (x *SensitiveCategoryListReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveCategoryListReply.ProtoReflect.Descriptor instead.
-func (*SensitiveCategoryListReply) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *SensitiveCategoryListReply) GetList() []*SensitiveCategoryInfo {
-	if x != nil {
-		return x.List
-	}
-	return nil
-}
-
-func (x *SensitiveCategoryListReply) GetPaginator() *paginator.PaginatorReply {
-	if x != nil {
-		return x.Paginator
-	}
-	return nil
-}
-
-type SensitiveCategoryInfoReq struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-}
-
-func (x *SensitiveCategoryInfoReq) Reset() {
-	*x = SensitiveCategoryInfoReq{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveCategoryInfoReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveCategoryInfoReq) ProtoMessage() {}
-
-func (x *SensitiveCategoryInfoReq) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveCategoryInfoReq.ProtoReflect.Descriptor instead.
-func (*SensitiveCategoryInfoReq) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *SensitiveCategoryInfoReq) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-type SensitiveCategoryInfoReply struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Info *SensitiveCategoryInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
-}
-
-func (x *SensitiveCategoryInfoReply) Reset() {
-	*x = SensitiveCategoryInfoReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveCategoryInfoReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveCategoryInfoReply) ProtoMessage() {}
-
-func (x *SensitiveCategoryInfoReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveCategoryInfoReply.ProtoReflect.Descriptor instead.
-func (*SensitiveCategoryInfoReply) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *SensitiveCategoryInfoReply) GetInfo() *SensitiveCategoryInfo {
-	if x != nil {
-		return x.Info
-	}
-	return nil
-}
-
-type SensitiveCategoryStoreReq struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id    string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`       //ID
-	Label string `protobuf:"bytes,2,opt,name=label,proto3" json:"label,omitempty"` //标签
-	Name  string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`   //分类
-}
-
-func (x *SensitiveCategoryStoreReq) Reset() {
-	*x = SensitiveCategoryStoreReq{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveCategoryStoreReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveCategoryStoreReq) ProtoMessage() {}
-
-func (x *SensitiveCategoryStoreReq) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveCategoryStoreReq.ProtoReflect.Descriptor instead.
-func (*SensitiveCategoryStoreReq) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *SensitiveCategoryStoreReq) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *SensitiveCategoryStoreReq) GetLabel() string {
-	if x != nil {
-		return x.Label
-	}
-	return ""
-}
-
-func (x *SensitiveCategoryStoreReq) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-type SensitiveCategoryStoreReply struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *SensitiveCategoryStoreReply) Reset() {
-	*x = SensitiveCategoryStoreReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveCategoryStoreReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveCategoryStoreReply) ProtoMessage() {}
-
-func (x *SensitiveCategoryStoreReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveCategoryStoreReply.ProtoReflect.Descriptor instead.
-func (*SensitiveCategoryStoreReply) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{6}
-}
-
-type SensitiveCategoryDelReq struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
-}
-
-func (x *SensitiveCategoryDelReq) Reset() {
-	*x = SensitiveCategoryDelReq{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveCategoryDelReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveCategoryDelReq) ProtoMessage() {}
-
-func (x *SensitiveCategoryDelReq) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveCategoryDelReq.ProtoReflect.Descriptor instead.
-func (*SensitiveCategoryDelReq) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *SensitiveCategoryDelReq) GetIds() []string {
-	if x != nil {
-		return x.Ids
-	}
-	return nil
-}
-
-type SensitiveCategoryDelReply struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *SensitiveCategoryDelReply) Reset() {
-	*x = SensitiveCategoryDelReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveCategoryDelReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveCategoryDelReply) ProtoMessage() {}
-
-func (x *SensitiveCategoryDelReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveCategoryDelReply.ProtoReflect.Descriptor instead.
-func (*SensitiveCategoryDelReply) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{8}
-}
-
 type SensitiveWordInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id         string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	CategoryID string `protobuf:"bytes,2,opt,name=categoryID,proto3" json:"categoryID,omitempty"` //分类ID
-	Word       string `protobuf:"bytes,3,opt,name=word,proto3" json:"word,omitempty"`             //敏感词
-	CreatedAt  string `protobuf:"bytes,4,opt,name=createdAt,proto3" json:"createdAt,omitempty"`   //创建时间
-	UpdatedAt  string `protobuf:"bytes,5,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"`   //更新时间
+	Id        string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`               //ID
+	Word      string   `protobuf:"bytes,2,opt,name=word,proto3" json:"word,omitempty"`           //敏感词
+	Labs      []string `protobuf:"bytes,3,rep,name=labs,proto3" json:"labs,omitempty"`           //标签
+	Desc      string   `protobuf:"bytes,4,opt,name=desc,proto3" json:"desc,omitempty"`           //描述
+	CreatedAt string   `protobuf:"bytes,5,opt,name=createdAt,proto3" json:"createdAt,omitempty"` //创建时间
+	UpdatedAt string   `protobuf:"bytes,6,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"` //更新时间
 }
 
 func (x *SensitiveWordInfo) Reset() {
 	*x = SensitiveWordInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[9]
+		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -501,7 +50,7 @@ func (x *SensitiveWordInfo) String() string {
 func (*SensitiveWordInfo) ProtoMessage() {}
 
 func (x *SensitiveWordInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[9]
+	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -514,7 +63,7 @@ func (x *SensitiveWordInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SensitiveWordInfo.ProtoReflect.Descriptor instead.
 func (*SensitiveWordInfo) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{9}
+	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *SensitiveWordInfo) GetId() string {
@@ -524,16 +73,23 @@ func (x *SensitiveWordInfo) GetId() string {
 	return ""
 }
 
-func (x *SensitiveWordInfo) GetCategoryID() string {
+func (x *SensitiveWordInfo) GetWord() string {
 	if x != nil {
-		return x.CategoryID
+		return x.Word
 	}
 	return ""
 }
 
-func (x *SensitiveWordInfo) GetWord() string {
+func (x *SensitiveWordInfo) GetLabs() []string {
 	if x != nil {
-		return x.Word
+		return x.Labs
+	}
+	return nil
+}
+
+func (x *SensitiveWordInfo) GetDesc() string {
+	if x != nil {
+		return x.Desc
 	}
 	return ""
 }
@@ -552,44 +108,7 @@ func (x *SensitiveWordInfo) GetUpdatedAt() string {
 	return ""
 }
 
-type SensitiveWordListReq struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *SensitiveWordListReq) Reset() {
-	*x = SensitiveWordListReq{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[10]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveWordListReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveWordListReq) ProtoMessage() {}
-
-func (x *SensitiveWordListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[10]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveWordListReq.ProtoReflect.Descriptor instead.
-func (*SensitiveWordListReq) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{10}
-}
-
+// 响应-敏感词-列表
 type SensitiveWordListReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -602,7 +121,7 @@ type SensitiveWordListReply struct {
 func (x *SensitiveWordListReply) Reset() {
 	*x = SensitiveWordListReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[11]
+		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -615,7 +134,7 @@ func (x *SensitiveWordListReply) String() string {
 func (*SensitiveWordListReply) ProtoMessage() {}
 
 func (x *SensitiveWordListReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[11]
+	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -628,7 +147,7 @@ func (x *SensitiveWordListReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SensitiveWordListReply.ProtoReflect.Descriptor instead.
 func (*SensitiveWordListReply) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{11}
+	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *SensitiveWordListReply) GetList() []*SensitiveWordInfo {
@@ -645,114 +164,22 @@ func (x *SensitiveWordListReply) GetPaginator() *paginator.PaginatorReply {
 	return nil
 }
 
-type SensitiveWordInfoReq struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-}
-
-func (x *SensitiveWordInfoReq) Reset() {
-	*x = SensitiveWordInfoReq{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[12]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveWordInfoReq) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveWordInfoReq) ProtoMessage() {}
-
-func (x *SensitiveWordInfoReq) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[12]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveWordInfoReq.ProtoReflect.Descriptor instead.
-func (*SensitiveWordInfoReq) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *SensitiveWordInfoReq) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-type SensitiveWordInfoReply struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Info *SensitiveWordInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
-}
-
-func (x *SensitiveWordInfoReply) Reset() {
-	*x = SensitiveWordInfoReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[13]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SensitiveWordInfoReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SensitiveWordInfoReply) ProtoMessage() {}
-
-func (x *SensitiveWordInfoReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[13]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SensitiveWordInfoReply.ProtoReflect.Descriptor instead.
-func (*SensitiveWordInfoReply) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{13}
-}
-
-func (x *SensitiveWordInfoReply) GetInfo() *SensitiveWordInfo {
-	if x != nil {
-		return x.Info
-	}
-	return nil
-}
-
+// 请求-敏感词-保存
 type SensitiveWordStoreReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id         string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	CategoryID string `protobuf:"bytes,2,opt,name=categoryID,proto3" json:"categoryID,omitempty"` //分类ID
-	Word       string `protobuf:"bytes,3,opt,name=word,proto3" json:"word,omitempty"`             //敏感词
+	Id   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`     //ID
+	Word string   `protobuf:"bytes,2,opt,name=word,proto3" json:"word,omitempty"` //敏感词
+	Labs []string `protobuf:"bytes,3,rep,name=labs,proto3" json:"labs,omitempty"` //标签
+	Desc string   `protobuf:"bytes,4,opt,name=desc,proto3" json:"desc,omitempty"` //描述
 }
 
 func (x *SensitiveWordStoreReq) Reset() {
 	*x = SensitiveWordStoreReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[14]
+		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -765,7 +192,7 @@ func (x *SensitiveWordStoreReq) String() string {
 func (*SensitiveWordStoreReq) ProtoMessage() {}
 
 func (x *SensitiveWordStoreReq) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[14]
+	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -778,19 +205,12 @@ func (x *SensitiveWordStoreReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SensitiveWordStoreReq.ProtoReflect.Descriptor instead.
 func (*SensitiveWordStoreReq) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{14}
+	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *SensitiveWordStoreReq) GetId() string {
 	if x != nil {
 		return x.Id
-	}
-	return ""
-}
-
-func (x *SensitiveWordStoreReq) GetCategoryID() string {
-	if x != nil {
-		return x.CategoryID
 	}
 	return ""
 }
@@ -802,6 +222,21 @@ func (x *SensitiveWordStoreReq) GetWord() string {
 	return ""
 }
 
+func (x *SensitiveWordStoreReq) GetLabs() []string {
+	if x != nil {
+		return x.Labs
+	}
+	return nil
+}
+
+func (x *SensitiveWordStoreReq) GetDesc() string {
+	if x != nil {
+		return x.Desc
+	}
+	return ""
+}
+
+// 响应-敏感词-保存
 type SensitiveWordStoreReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -811,7 +246,7 @@ type SensitiveWordStoreReply struct {
 func (x *SensitiveWordStoreReply) Reset() {
 	*x = SensitiveWordStoreReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[15]
+		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -824,7 +259,7 @@ func (x *SensitiveWordStoreReply) String() string {
 func (*SensitiveWordStoreReply) ProtoMessage() {}
 
 func (x *SensitiveWordStoreReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[15]
+	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -837,21 +272,22 @@ func (x *SensitiveWordStoreReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SensitiveWordStoreReply.ProtoReflect.Descriptor instead.
 func (*SensitiveWordStoreReply) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{15}
+	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{3}
 }
 
+// 请求-敏感词-删除
 type SensitiveWordDelReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"`
+	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"` //ID集合
 }
 
 func (x *SensitiveWordDelReq) Reset() {
 	*x = SensitiveWordDelReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[16]
+		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -864,7 +300,7 @@ func (x *SensitiveWordDelReq) String() string {
 func (*SensitiveWordDelReq) ProtoMessage() {}
 
 func (x *SensitiveWordDelReq) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[16]
+	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -877,7 +313,7 @@ func (x *SensitiveWordDelReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SensitiveWordDelReq.ProtoReflect.Descriptor instead.
 func (*SensitiveWordDelReq) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{16}
+	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *SensitiveWordDelReq) GetIds() []string {
@@ -887,6 +323,7 @@ func (x *SensitiveWordDelReq) GetIds() []string {
 	return nil
 }
 
+// 响应-敏感词-删除
 type SensitiveWordDelReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -896,7 +333,7 @@ type SensitiveWordDelReply struct {
 func (x *SensitiveWordDelReply) Reset() {
 	*x = SensitiveWordDelReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[17]
+		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -909,7 +346,7 @@ func (x *SensitiveWordDelReply) String() string {
 func (*SensitiveWordDelReply) ProtoMessage() {}
 
 func (x *SensitiveWordDelReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[17]
+	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -922,7 +359,119 @@ func (x *SensitiveWordDelReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SensitiveWordDelReply.ProtoReflect.Descriptor instead.
 func (*SensitiveWordDelReply) Descriptor() ([]byte, []int) {
-	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{17}
+	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{5}
+}
+
+// 请求-敏感词-检测
+type SensitiveWordCheckReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Word string `protobuf:"bytes,1,opt,name=Word,proto3" json:"Word,omitempty"` //词语
+}
+
+func (x *SensitiveWordCheckReq) Reset() {
+	*x = SensitiveWordCheckReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SensitiveWordCheckReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SensitiveWordCheckReq) ProtoMessage() {}
+
+func (x *SensitiveWordCheckReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SensitiveWordCheckReq.ProtoReflect.Descriptor instead.
+func (*SensitiveWordCheckReq) Descriptor() ([]byte, []int) {
+	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *SensitiveWordCheckReq) GetWord() string {
+	if x != nil {
+		return x.Word
+	}
+	return ""
+}
+
+// 响应-敏感词-检测
+type SensitiveWordCheckResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Result  bool   `protobuf:"varint,1,opt,name=Result,proto3" json:"Result,omitempty"`  //是否有敏感词
+	Replace string `protobuf:"bytes,2,opt,name=Replace,proto3" json:"Replace,omitempty"` //替换后词语
+	Filter  string `protobuf:"bytes,3,opt,name=Filter,proto3" json:"Filter,omitempty"`   //移除后词语
+}
+
+func (x *SensitiveWordCheckResp) Reset() {
+	*x = SensitiveWordCheckResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SensitiveWordCheckResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SensitiveWordCheckResp) ProtoMessage() {}
+
+func (x *SensitiveWordCheckResp) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_common_v1_sensitive_word_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SensitiveWordCheckResp.ProtoReflect.Descriptor instead.
+func (*SensitiveWordCheckResp) Descriptor() ([]byte, []int) {
+	return file_rpc_common_v1_sensitive_word_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *SensitiveWordCheckResp) GetResult() bool {
+	if x != nil {
+		return x.Result
+	}
+	return false
+}
+
+func (x *SensitiveWordCheckResp) GetReplace() string {
+	if x != nil {
+		return x.Replace
+	}
+	return ""
+}
+
+func (x *SensitiveWordCheckResp) GetFilter() string {
+	if x != nil {
+		return x.Filter
+	}
+	return ""
 }
 
 var File_rpc_common_v1_sensitive_word_proto protoreflect.FileDescriptor
@@ -933,145 +482,76 @@ var file_rpc_common_v1_sensitive_word_proto_rawDesc = []byte{
 	0x72, 0x6f, 0x74, 0x6f, 0x12, 0x11, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f,
 	0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x1a, 0x19, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
 	0x6f, 0x72, 0x2f, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x22, 0x8d, 0x01, 0x0a, 0x15, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65,
-	0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02,
-	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05,
-	0x6c, 0x61, 0x62, 0x65, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6c, 0x61, 0x62,
-	0x65, 0x6c, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65,
-	0x64, 0x41, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x64, 0x41, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41,
-	0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64,
-	0x41, 0x74, 0x22, 0x1a, 0x0a, 0x18, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43,
-	0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x93,
-	0x01, 0x0a, 0x1a, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65,
-	0x67, 0x6f, 0x72, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x3c, 0x0a,
-	0x04, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x28, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e,
-	0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72,
-	0x79, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x12, 0x37, 0x0a, 0x09, 0x70,
-	0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19,
-	0x2e, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e,
-	0x61, 0x74, 0x6f, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x52, 0x09, 0x70, 0x61, 0x67, 0x69, 0x6e,
-	0x61, 0x74, 0x6f, 0x72, 0x22, 0x2a, 0x0a, 0x18, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76,
-	0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71,
-	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64,
-	0x22, 0x5a, 0x0a, 0x1a, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74,
-	0x65, 0x67, 0x6f, 0x72, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x3c,
-	0x0a, 0x04, 0x69, 0x6e, 0x66, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x28, 0x2e, 0x61,
-	0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31,
-	0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f,
-	0x72, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x69, 0x6e, 0x66, 0x6f, 0x22, 0x55, 0x0a, 0x19,
-	0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72,
-	0x79, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x61, 0x62,
-	0x65, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x12,
-	0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e,
-	0x61, 0x6d, 0x65, 0x22, 0x1d, 0x0a, 0x1b, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65,
-	0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70,
-	0x6c, 0x79, 0x22, 0x2b, 0x0a, 0x17, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43,
-	0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x12, 0x10, 0x0a,
-	0x03, 0x69, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x03, 0x69, 0x64, 0x73, 0x22,
-	0x1b, 0x0a, 0x19, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65,
-	0x67, 0x6f, 0x72, 0x79, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x93, 0x01, 0x0a,
-	0x11, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x49, 0x6e,
-	0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
-	0x69, 0x64, 0x12, 0x1e, 0x0a, 0x0a, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x49, 0x44,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79,
-	0x49, 0x44, 0x12, 0x12, 0x0a, 0x04, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x04, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65,
-	0x64, 0x41, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x64, 0x41, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41,
-	0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64,
-	0x41, 0x74, 0x22, 0x16, 0x0a, 0x14, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57,
-	0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x8b, 0x01, 0x0a, 0x16, 0x53,
-	0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74,
-	0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x38, 0x0a, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20,
-	0x03, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f,
-	0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76,
-	0x65, 0x57, 0x6f, 0x72, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x12,
-	0x37, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x19, 0x2e, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x50,
-	0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x52, 0x09, 0x70,
-	0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x26, 0x0a, 0x14, 0x53, 0x65, 0x6e, 0x73,
-	0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71,
-	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64,
-	0x22, 0x52, 0x0a, 0x16, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72,
-	0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x38, 0x0a, 0x04, 0x69, 0x6e,
-	0x66, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72,
-	0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e,
-	0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04,
-	0x69, 0x6e, 0x66, 0x6f, 0x22, 0x5b, 0x0a, 0x15, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76,
-	0x65, 0x57, 0x6f, 0x72, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a,
-	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1e, 0x0a,
-	0x0a, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x0a, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x49, 0x44, 0x12, 0x12, 0x0a,
-	0x04, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x77, 0x6f, 0x72,
-	0x64, 0x22, 0x19, 0x0a, 0x17, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f,
-	0x72, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x27, 0x0a, 0x13,
-	0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x44, 0x65, 0x6c,
-	0x52, 0x65, 0x71, 0x12, 0x10, 0x0a, 0x03, 0x69, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09,
-	0x52, 0x03, 0x69, 0x64, 0x73, 0x22, 0x17, 0x0a, 0x15, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69,
-	0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0x87,
-	0x07, 0x0a, 0x0d, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64,
-	0x12, 0x73, 0x0a, 0x15, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74,
-	0x65, 0x67, 0x6f, 0x72, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x2b, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x74, 0x6f, 0x22, 0x9b, 0x01, 0x0a, 0x11, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65,
+	0x57, 0x6f, 0x72, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x77, 0x6f, 0x72, 0x64,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x12, 0x0a, 0x04,
+	0x6c, 0x61, 0x62, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x04, 0x6c, 0x61, 0x62, 0x73,
+	0x12, 0x12, 0x0a, 0x04, 0x64, 0x65, 0x73, 0x63, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x64, 0x65, 0x73, 0x63, 0x12, 0x1c, 0x0a, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41,
+	0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64,
+	0x41, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18,
+	0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74,
+	0x22, 0x8b, 0x01, 0x0a, 0x16, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f,
+	0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x38, 0x0a, 0x04, 0x6c,
+	0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x61, 0x70, 0x69, 0x2e,
 	0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65,
-	0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x4c,
-	0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x2d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63,
-	0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69,
-	0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x4c, 0x69, 0x73, 0x74,
-	0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x73, 0x0a, 0x15, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69,
-	0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x2b,
-	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e,
-	0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65,
-	0x67, 0x6f, 0x72, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x1a, 0x2d, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e,
-	0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72,
-	0x79, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x76, 0x0a, 0x16, 0x53, 0x65,
-	0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x53,
-	0x74, 0x6f, 0x72, 0x65, 0x12, 0x2c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63,
-	0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69,
-	0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52,
-	0x65, 0x71, 0x1a, 0x2e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d,
+	0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52,
+	0x04, 0x6c, 0x69, 0x73, 0x74, 0x12, 0x37, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
+	0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x70, 0x61, 0x67, 0x69, 0x6e,
+	0x61, 0x74, 0x6f, 0x72, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x52, 0x65,
+	0x70, 0x6c, 0x79, 0x52, 0x09, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x63,
+	0x0a, 0x15, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x53,
+	0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x77, 0x6f, 0x72, 0x64, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6c,
+	0x61, 0x62, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09, 0x52, 0x04, 0x6c, 0x61, 0x62, 0x73, 0x12,
+	0x12, 0x0a, 0x04, 0x64, 0x65, 0x73, 0x63, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x64,
+	0x65, 0x73, 0x63, 0x22, 0x19, 0x0a, 0x17, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65,
+	0x57, 0x6f, 0x72, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x27,
+	0x0a, 0x13, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x44,
+	0x65, 0x6c, 0x52, 0x65, 0x71, 0x12, 0x10, 0x0a, 0x03, 0x69, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03,
+	0x28, 0x09, 0x52, 0x03, 0x69, 0x64, 0x73, 0x22, 0x17, 0x0a, 0x15, 0x53, 0x65, 0x6e, 0x73, 0x69,
+	0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x22, 0x2b, 0x0a, 0x15, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72,
+	0x64, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x57, 0x6f, 0x72,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x57, 0x6f, 0x72, 0x64, 0x22, 0x62, 0x0a,
+	0x16, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x43, 0x68,
+	0x65, 0x63, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x12, 0x16, 0x0a, 0x06, 0x52, 0x65, 0x73, 0x75, 0x6c,
+	0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x52, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x12,
+	0x18, 0x0a, 0x07, 0x52, 0x65, 0x70, 0x6c, 0x61, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x07, 0x52, 0x65, 0x70, 0x6c, 0x61, 0x63, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x46, 0x69, 0x6c,
+	0x74, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x46, 0x69, 0x6c, 0x74, 0x65,
+	0x72, 0x32, 0xa5, 0x03, 0x0a, 0x0d, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57,
+	0x6f, 0x72, 0x64, 0x12, 0x57, 0x0a, 0x11, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65,
+	0x57, 0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x17, 0x2e, 0x70, 0x61, 0x67, 0x69, 0x6e,
+	0x61, 0x74, 0x6f, 0x72, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x52, 0x65,
+	0x71, 0x1a, 0x29, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d,
+	0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57,
+	0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x6a, 0x0a, 0x12,
+	0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x53, 0x74, 0x6f,
+	0x72, 0x65, 0x12, 0x28, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d,
 	0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65,
-	0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70,
-	0x6c, 0x79, 0x12, 0x70, 0x0a, 0x14, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43,
-	0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x44, 0x65, 0x6c, 0x12, 0x2a, 0x2e, 0x61, 0x70, 0x69,
-	0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53,
-	0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79,
-	0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x1a, 0x2c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63,
-	0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69,
-	0x74, 0x69, 0x76, 0x65, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x44, 0x65, 0x6c, 0x52,
-	0x65, 0x70, 0x6c, 0x79, 0x12, 0x67, 0x0a, 0x11, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76,
-	0x65, 0x57, 0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x27, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65,
-	0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x52,
-	0x65, 0x71, 0x1a, 0x29, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d,
-	0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65,
-	0x57, 0x6f, 0x72, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x67, 0x0a,
-	0x11, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x49, 0x6e,
-	0x66, 0x6f, 0x12, 0x27, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d,
-	0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65,
-	0x57, 0x6f, 0x72, 0x64, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x1a, 0x29, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e,
-	0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x49, 0x6e, 0x66,
-	0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x6a, 0x0a, 0x12, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74,
-	0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x28, 0x2e, 0x61,
+	0x57, 0x6f, 0x72, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x2a, 0x2e, 0x61,
 	0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31,
 	0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x53, 0x74,
-	0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x2a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63,
-	0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69,
-	0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70,
-	0x6c, 0x79, 0x12, 0x64, 0x0a, 0x10, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57,
-	0x6f, 0x72, 0x64, 0x44, 0x65, 0x6c, 0x12, 0x26, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63,
-	0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69,
-	0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x1a, 0x28,
+	0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x64, 0x0a, 0x10, 0x53, 0x65, 0x6e, 0x73,
+	0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x44, 0x65, 0x6c, 0x12, 0x26, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31,
+	0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x44, 0x65,
+	0x6c, 0x52, 0x65, 0x71, 0x1a, 0x28, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63,
+	0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69,
+	0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x69,
+	0x0a, 0x12, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x43,
+	0x68, 0x65, 0x63, 0x6b, 0x12, 0x28, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63,
+	0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69,
+	0x76, 0x65, 0x57, 0x6f, 0x72, 0x64, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x1a, 0x29,
 	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e,
 	0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x76, 0x65, 0x57, 0x6f, 0x72, 0x64,
-	0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x42, 0x1e, 0x5a, 0x1c, 0x66, 0x6b, 0x72, 0x61,
-	0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d, 0x6d,
-	0x6f, 0x6e, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x42, 0x1e, 0x5a, 0x1c, 0x66, 0x6b, 0x72,
+	0x61, 0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x70, 0x63, 0x5f, 0x63, 0x6f, 0x6d,
+	0x6d, 0x6f, 0x6e, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -1086,56 +566,35 @@ func file_rpc_common_v1_sensitive_word_proto_rawDescGZIP() []byte {
 	return file_rpc_common_v1_sensitive_word_proto_rawDescData
 }
 
-var file_rpc_common_v1_sensitive_word_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_rpc_common_v1_sensitive_word_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_rpc_common_v1_sensitive_word_proto_goTypes = []interface{}{
-	(*SensitiveCategoryInfo)(nil),       // 0: api.rpc_common.v1.SensitiveCategoryInfo
-	(*SensitiveCategoryListReq)(nil),    // 1: api.rpc_common.v1.SensitiveCategoryListReq
-	(*SensitiveCategoryListReply)(nil),  // 2: api.rpc_common.v1.SensitiveCategoryListReply
-	(*SensitiveCategoryInfoReq)(nil),    // 3: api.rpc_common.v1.SensitiveCategoryInfoReq
-	(*SensitiveCategoryInfoReply)(nil),  // 4: api.rpc_common.v1.SensitiveCategoryInfoReply
-	(*SensitiveCategoryStoreReq)(nil),   // 5: api.rpc_common.v1.SensitiveCategoryStoreReq
-	(*SensitiveCategoryStoreReply)(nil), // 6: api.rpc_common.v1.SensitiveCategoryStoreReply
-	(*SensitiveCategoryDelReq)(nil),     // 7: api.rpc_common.v1.SensitiveCategoryDelReq
-	(*SensitiveCategoryDelReply)(nil),   // 8: api.rpc_common.v1.SensitiveCategoryDelReply
-	(*SensitiveWordInfo)(nil),           // 9: api.rpc_common.v1.SensitiveWordInfo
-	(*SensitiveWordListReq)(nil),        // 10: api.rpc_common.v1.SensitiveWordListReq
-	(*SensitiveWordListReply)(nil),      // 11: api.rpc_common.v1.SensitiveWordListReply
-	(*SensitiveWordInfoReq)(nil),        // 12: api.rpc_common.v1.SensitiveWordInfoReq
-	(*SensitiveWordInfoReply)(nil),      // 13: api.rpc_common.v1.SensitiveWordInfoReply
-	(*SensitiveWordStoreReq)(nil),       // 14: api.rpc_common.v1.SensitiveWordStoreReq
-	(*SensitiveWordStoreReply)(nil),     // 15: api.rpc_common.v1.SensitiveWordStoreReply
-	(*SensitiveWordDelReq)(nil),         // 16: api.rpc_common.v1.SensitiveWordDelReq
-	(*SensitiveWordDelReply)(nil),       // 17: api.rpc_common.v1.SensitiveWordDelReply
-	(*paginator.PaginatorReply)(nil),    // 18: paginator.PaginatorReply
+	(*SensitiveWordInfo)(nil),        // 0: api.rpc_common.v1.SensitiveWordInfo
+	(*SensitiveWordListReply)(nil),   // 1: api.rpc_common.v1.SensitiveWordListReply
+	(*SensitiveWordStoreReq)(nil),    // 2: api.rpc_common.v1.SensitiveWordStoreReq
+	(*SensitiveWordStoreReply)(nil),  // 3: api.rpc_common.v1.SensitiveWordStoreReply
+	(*SensitiveWordDelReq)(nil),      // 4: api.rpc_common.v1.SensitiveWordDelReq
+	(*SensitiveWordDelReply)(nil),    // 5: api.rpc_common.v1.SensitiveWordDelReply
+	(*SensitiveWordCheckReq)(nil),    // 6: api.rpc_common.v1.SensitiveWordCheckReq
+	(*SensitiveWordCheckResp)(nil),   // 7: api.rpc_common.v1.SensitiveWordCheckResp
+	(*paginator.PaginatorReply)(nil), // 8: paginator.PaginatorReply
+	(*paginator.PaginatorReq)(nil),   // 9: paginator.PaginatorReq
 }
 var file_rpc_common_v1_sensitive_word_proto_depIdxs = []int32{
-	0,  // 0: api.rpc_common.v1.SensitiveCategoryListReply.list:type_name -> api.rpc_common.v1.SensitiveCategoryInfo
-	18, // 1: api.rpc_common.v1.SensitiveCategoryListReply.paginator:type_name -> paginator.PaginatorReply
-	0,  // 2: api.rpc_common.v1.SensitiveCategoryInfoReply.info:type_name -> api.rpc_common.v1.SensitiveCategoryInfo
-	9,  // 3: api.rpc_common.v1.SensitiveWordListReply.list:type_name -> api.rpc_common.v1.SensitiveWordInfo
-	18, // 4: api.rpc_common.v1.SensitiveWordListReply.paginator:type_name -> paginator.PaginatorReply
-	9,  // 5: api.rpc_common.v1.SensitiveWordInfoReply.info:type_name -> api.rpc_common.v1.SensitiveWordInfo
-	1,  // 6: api.rpc_common.v1.SensitiveWord.SensitiveCategoryList:input_type -> api.rpc_common.v1.SensitiveCategoryListReq
-	3,  // 7: api.rpc_common.v1.SensitiveWord.SensitiveCategoryInfo:input_type -> api.rpc_common.v1.SensitiveCategoryInfoReq
-	5,  // 8: api.rpc_common.v1.SensitiveWord.SensitiveCategoryStore:input_type -> api.rpc_common.v1.SensitiveCategoryStoreReq
-	7,  // 9: api.rpc_common.v1.SensitiveWord.SensitiveCategoryDel:input_type -> api.rpc_common.v1.SensitiveCategoryDelReq
-	10, // 10: api.rpc_common.v1.SensitiveWord.SensitiveWordList:input_type -> api.rpc_common.v1.SensitiveWordListReq
-	12, // 11: api.rpc_common.v1.SensitiveWord.SensitiveWordInfo:input_type -> api.rpc_common.v1.SensitiveWordInfoReq
-	14, // 12: api.rpc_common.v1.SensitiveWord.SensitiveWordStore:input_type -> api.rpc_common.v1.SensitiveWordStoreReq
-	16, // 13: api.rpc_common.v1.SensitiveWord.SensitiveWordDel:input_type -> api.rpc_common.v1.SensitiveWordDelReq
-	2,  // 14: api.rpc_common.v1.SensitiveWord.SensitiveCategoryList:output_type -> api.rpc_common.v1.SensitiveCategoryListReply
-	4,  // 15: api.rpc_common.v1.SensitiveWord.SensitiveCategoryInfo:output_type -> api.rpc_common.v1.SensitiveCategoryInfoReply
-	6,  // 16: api.rpc_common.v1.SensitiveWord.SensitiveCategoryStore:output_type -> api.rpc_common.v1.SensitiveCategoryStoreReply
-	8,  // 17: api.rpc_common.v1.SensitiveWord.SensitiveCategoryDel:output_type -> api.rpc_common.v1.SensitiveCategoryDelReply
-	11, // 18: api.rpc_common.v1.SensitiveWord.SensitiveWordList:output_type -> api.rpc_common.v1.SensitiveWordListReply
-	13, // 19: api.rpc_common.v1.SensitiveWord.SensitiveWordInfo:output_type -> api.rpc_common.v1.SensitiveWordInfoReply
-	15, // 20: api.rpc_common.v1.SensitiveWord.SensitiveWordStore:output_type -> api.rpc_common.v1.SensitiveWordStoreReply
-	17, // 21: api.rpc_common.v1.SensitiveWord.SensitiveWordDel:output_type -> api.rpc_common.v1.SensitiveWordDelReply
-	14, // [14:22] is the sub-list for method output_type
-	6,  // [6:14] is the sub-list for method input_type
-	6,  // [6:6] is the sub-list for extension type_name
-	6,  // [6:6] is the sub-list for extension extendee
-	0,  // [0:6] is the sub-list for field type_name
+	0, // 0: api.rpc_common.v1.SensitiveWordListReply.list:type_name -> api.rpc_common.v1.SensitiveWordInfo
+	8, // 1: api.rpc_common.v1.SensitiveWordListReply.paginator:type_name -> paginator.PaginatorReply
+	9, // 2: api.rpc_common.v1.SensitiveWord.SensitiveWordList:input_type -> paginator.PaginatorReq
+	2, // 3: api.rpc_common.v1.SensitiveWord.SensitiveWordStore:input_type -> api.rpc_common.v1.SensitiveWordStoreReq
+	4, // 4: api.rpc_common.v1.SensitiveWord.SensitiveWordDel:input_type -> api.rpc_common.v1.SensitiveWordDelReq
+	6, // 5: api.rpc_common.v1.SensitiveWord.SensitiveWordCheck:input_type -> api.rpc_common.v1.SensitiveWordCheckReq
+	1, // 6: api.rpc_common.v1.SensitiveWord.SensitiveWordList:output_type -> api.rpc_common.v1.SensitiveWordListReply
+	3, // 7: api.rpc_common.v1.SensitiveWord.SensitiveWordStore:output_type -> api.rpc_common.v1.SensitiveWordStoreReply
+	5, // 8: api.rpc_common.v1.SensitiveWord.SensitiveWordDel:output_type -> api.rpc_common.v1.SensitiveWordDelReply
+	7, // 9: api.rpc_common.v1.SensitiveWord.SensitiveWordCheck:output_type -> api.rpc_common.v1.SensitiveWordCheckResp
+	6, // [6:10] is the sub-list for method output_type
+	2, // [2:6] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_rpc_common_v1_sensitive_word_proto_init() }
@@ -1145,114 +604,6 @@ func file_rpc_common_v1_sensitive_word_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_rpc_common_v1_sensitive_word_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveCategoryInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveCategoryListReq); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveCategoryListReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveCategoryInfoReq); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveCategoryInfoReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveCategoryStoreReq); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveCategoryStoreReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveCategoryDelReq); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveCategoryDelReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SensitiveWordInfo); i {
 			case 0:
 				return &v.state
@@ -1264,19 +615,7 @@ func file_rpc_common_v1_sensitive_word_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveWordListReq); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_common_v1_sensitive_word_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SensitiveWordListReply); i {
 			case 0:
 				return &v.state
@@ -1288,31 +627,7 @@ func file_rpc_common_v1_sensitive_word_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveWordInfoReq); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SensitiveWordInfoReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_common_v1_sensitive_word_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SensitiveWordStoreReq); i {
 			case 0:
 				return &v.state
@@ -1324,7 +639,7 @@ func file_rpc_common_v1_sensitive_word_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_common_v1_sensitive_word_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SensitiveWordStoreReply); i {
 			case 0:
 				return &v.state
@@ -1336,7 +651,7 @@ func file_rpc_common_v1_sensitive_word_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_common_v1_sensitive_word_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SensitiveWordDelReq); i {
 			case 0:
 				return &v.state
@@ -1348,8 +663,32 @@ func file_rpc_common_v1_sensitive_word_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_common_v1_sensitive_word_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_common_v1_sensitive_word_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SensitiveWordDelReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_common_v1_sensitive_word_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SensitiveWordCheckReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_common_v1_sensitive_word_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SensitiveWordCheckResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1367,7 +706,7 @@ func file_rpc_common_v1_sensitive_word_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_common_v1_sensitive_word_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   18,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

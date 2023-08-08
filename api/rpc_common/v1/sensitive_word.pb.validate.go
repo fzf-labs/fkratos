@@ -35,1035 +35,6 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on SensitiveCategoryInfo with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveCategoryInfo) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveCategoryInfo with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveCategoryInfoMultiError, or nil if none found.
-func (m *SensitiveCategoryInfo) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveCategoryInfo) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Id
-
-	// no validation rules for Label
-
-	// no validation rules for Name
-
-	// no validation rules for CreatedAt
-
-	// no validation rules for UpdatedAt
-
-	if len(errors) > 0 {
-		return SensitiveCategoryInfoMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveCategoryInfoMultiError is an error wrapping multiple validation
-// errors returned by SensitiveCategoryInfo.ValidateAll() if the designated
-// constraints aren't met.
-type SensitiveCategoryInfoMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveCategoryInfoMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveCategoryInfoMultiError) AllErrors() []error { return m }
-
-// SensitiveCategoryInfoValidationError is the validation error returned by
-// SensitiveCategoryInfo.Validate if the designated constraints aren't met.
-type SensitiveCategoryInfoValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveCategoryInfoValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveCategoryInfoValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveCategoryInfoValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveCategoryInfoValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveCategoryInfoValidationError) ErrorName() string {
-	return "SensitiveCategoryInfoValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveCategoryInfoValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveCategoryInfo.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveCategoryInfoValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveCategoryInfoValidationError{}
-
-// Validate checks the field values on SensitiveCategoryListReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveCategoryListReq) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveCategoryListReq with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveCategoryListReqMultiError, or nil if none found.
-func (m *SensitiveCategoryListReq) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveCategoryListReq) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if len(errors) > 0 {
-		return SensitiveCategoryListReqMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveCategoryListReqMultiError is an error wrapping multiple validation
-// errors returned by SensitiveCategoryListReq.ValidateAll() if the designated
-// constraints aren't met.
-type SensitiveCategoryListReqMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveCategoryListReqMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveCategoryListReqMultiError) AllErrors() []error { return m }
-
-// SensitiveCategoryListReqValidationError is the validation error returned by
-// SensitiveCategoryListReq.Validate if the designated constraints aren't met.
-type SensitiveCategoryListReqValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveCategoryListReqValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveCategoryListReqValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveCategoryListReqValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveCategoryListReqValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveCategoryListReqValidationError) ErrorName() string {
-	return "SensitiveCategoryListReqValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveCategoryListReqValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveCategoryListReq.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveCategoryListReqValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveCategoryListReqValidationError{}
-
-// Validate checks the field values on SensitiveCategoryListReply with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveCategoryListReply) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveCategoryListReply with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveCategoryListReplyMultiError, or nil if none found.
-func (m *SensitiveCategoryListReply) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveCategoryListReply) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	for idx, item := range m.GetList() {
-		_, _ = idx, item
-
-		if all {
-			switch v := interface{}(item).(type) {
-			case interface{ ValidateAll() error }:
-				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, SensitiveCategoryListReplyValidationError{
-						field:  fmt.Sprintf("List[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			case interface{ Validate() error }:
-				if err := v.Validate(); err != nil {
-					errors = append(errors, SensitiveCategoryListReplyValidationError{
-						field:  fmt.Sprintf("List[%v]", idx),
-						reason: "embedded message failed validation",
-						cause:  err,
-					})
-				}
-			}
-		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
-			if err := v.Validate(); err != nil {
-				return SensitiveCategoryListReplyValidationError{
-					field:  fmt.Sprintf("List[%v]", idx),
-					reason: "embedded message failed validation",
-					cause:  err,
-				}
-			}
-		}
-
-	}
-
-	if all {
-		switch v := interface{}(m.GetPaginator()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, SensitiveCategoryListReplyValidationError{
-					field:  "Paginator",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, SensitiveCategoryListReplyValidationError{
-					field:  "Paginator",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetPaginator()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SensitiveCategoryListReplyValidationError{
-				field:  "Paginator",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(errors) > 0 {
-		return SensitiveCategoryListReplyMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveCategoryListReplyMultiError is an error wrapping multiple
-// validation errors returned by SensitiveCategoryListReply.ValidateAll() if
-// the designated constraints aren't met.
-type SensitiveCategoryListReplyMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveCategoryListReplyMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveCategoryListReplyMultiError) AllErrors() []error { return m }
-
-// SensitiveCategoryListReplyValidationError is the validation error returned
-// by SensitiveCategoryListReply.Validate if the designated constraints aren't met.
-type SensitiveCategoryListReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveCategoryListReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveCategoryListReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveCategoryListReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveCategoryListReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveCategoryListReplyValidationError) ErrorName() string {
-	return "SensitiveCategoryListReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveCategoryListReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveCategoryListReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveCategoryListReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveCategoryListReplyValidationError{}
-
-// Validate checks the field values on SensitiveCategoryInfoReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveCategoryInfoReq) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveCategoryInfoReq with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveCategoryInfoReqMultiError, or nil if none found.
-func (m *SensitiveCategoryInfoReq) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveCategoryInfoReq) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Id
-
-	if len(errors) > 0 {
-		return SensitiveCategoryInfoReqMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveCategoryInfoReqMultiError is an error wrapping multiple validation
-// errors returned by SensitiveCategoryInfoReq.ValidateAll() if the designated
-// constraints aren't met.
-type SensitiveCategoryInfoReqMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveCategoryInfoReqMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveCategoryInfoReqMultiError) AllErrors() []error { return m }
-
-// SensitiveCategoryInfoReqValidationError is the validation error returned by
-// SensitiveCategoryInfoReq.Validate if the designated constraints aren't met.
-type SensitiveCategoryInfoReqValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveCategoryInfoReqValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveCategoryInfoReqValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveCategoryInfoReqValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveCategoryInfoReqValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveCategoryInfoReqValidationError) ErrorName() string {
-	return "SensitiveCategoryInfoReqValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveCategoryInfoReqValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveCategoryInfoReq.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveCategoryInfoReqValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveCategoryInfoReqValidationError{}
-
-// Validate checks the field values on SensitiveCategoryInfoReply with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveCategoryInfoReply) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveCategoryInfoReply with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveCategoryInfoReplyMultiError, or nil if none found.
-func (m *SensitiveCategoryInfoReply) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveCategoryInfoReply) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if all {
-		switch v := interface{}(m.GetInfo()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, SensitiveCategoryInfoReplyValidationError{
-					field:  "Info",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, SensitiveCategoryInfoReplyValidationError{
-					field:  "Info",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetInfo()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SensitiveCategoryInfoReplyValidationError{
-				field:  "Info",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(errors) > 0 {
-		return SensitiveCategoryInfoReplyMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveCategoryInfoReplyMultiError is an error wrapping multiple
-// validation errors returned by SensitiveCategoryInfoReply.ValidateAll() if
-// the designated constraints aren't met.
-type SensitiveCategoryInfoReplyMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveCategoryInfoReplyMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveCategoryInfoReplyMultiError) AllErrors() []error { return m }
-
-// SensitiveCategoryInfoReplyValidationError is the validation error returned
-// by SensitiveCategoryInfoReply.Validate if the designated constraints aren't met.
-type SensitiveCategoryInfoReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveCategoryInfoReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveCategoryInfoReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveCategoryInfoReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveCategoryInfoReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveCategoryInfoReplyValidationError) ErrorName() string {
-	return "SensitiveCategoryInfoReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveCategoryInfoReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveCategoryInfoReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveCategoryInfoReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveCategoryInfoReplyValidationError{}
-
-// Validate checks the field values on SensitiveCategoryStoreReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveCategoryStoreReq) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveCategoryStoreReq with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveCategoryStoreReqMultiError, or nil if none found.
-func (m *SensitiveCategoryStoreReq) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveCategoryStoreReq) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Id
-
-	// no validation rules for Label
-
-	// no validation rules for Name
-
-	if len(errors) > 0 {
-		return SensitiveCategoryStoreReqMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveCategoryStoreReqMultiError is an error wrapping multiple validation
-// errors returned by SensitiveCategoryStoreReq.ValidateAll() if the
-// designated constraints aren't met.
-type SensitiveCategoryStoreReqMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveCategoryStoreReqMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveCategoryStoreReqMultiError) AllErrors() []error { return m }
-
-// SensitiveCategoryStoreReqValidationError is the validation error returned by
-// SensitiveCategoryStoreReq.Validate if the designated constraints aren't met.
-type SensitiveCategoryStoreReqValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveCategoryStoreReqValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveCategoryStoreReqValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveCategoryStoreReqValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveCategoryStoreReqValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveCategoryStoreReqValidationError) ErrorName() string {
-	return "SensitiveCategoryStoreReqValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveCategoryStoreReqValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveCategoryStoreReq.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveCategoryStoreReqValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveCategoryStoreReqValidationError{}
-
-// Validate checks the field values on SensitiveCategoryStoreReply with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveCategoryStoreReply) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveCategoryStoreReply with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveCategoryStoreReplyMultiError, or nil if none found.
-func (m *SensitiveCategoryStoreReply) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveCategoryStoreReply) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if len(errors) > 0 {
-		return SensitiveCategoryStoreReplyMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveCategoryStoreReplyMultiError is an error wrapping multiple
-// validation errors returned by SensitiveCategoryStoreReply.ValidateAll() if
-// the designated constraints aren't met.
-type SensitiveCategoryStoreReplyMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveCategoryStoreReplyMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveCategoryStoreReplyMultiError) AllErrors() []error { return m }
-
-// SensitiveCategoryStoreReplyValidationError is the validation error returned
-// by SensitiveCategoryStoreReply.Validate if the designated constraints
-// aren't met.
-type SensitiveCategoryStoreReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveCategoryStoreReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveCategoryStoreReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveCategoryStoreReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveCategoryStoreReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveCategoryStoreReplyValidationError) ErrorName() string {
-	return "SensitiveCategoryStoreReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveCategoryStoreReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveCategoryStoreReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveCategoryStoreReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveCategoryStoreReplyValidationError{}
-
-// Validate checks the field values on SensitiveCategoryDelReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveCategoryDelReq) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveCategoryDelReq with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveCategoryDelReqMultiError, or nil if none found.
-func (m *SensitiveCategoryDelReq) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveCategoryDelReq) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if len(errors) > 0 {
-		return SensitiveCategoryDelReqMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveCategoryDelReqMultiError is an error wrapping multiple validation
-// errors returned by SensitiveCategoryDelReq.ValidateAll() if the designated
-// constraints aren't met.
-type SensitiveCategoryDelReqMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveCategoryDelReqMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveCategoryDelReqMultiError) AllErrors() []error { return m }
-
-// SensitiveCategoryDelReqValidationError is the validation error returned by
-// SensitiveCategoryDelReq.Validate if the designated constraints aren't met.
-type SensitiveCategoryDelReqValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveCategoryDelReqValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveCategoryDelReqValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveCategoryDelReqValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveCategoryDelReqValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveCategoryDelReqValidationError) ErrorName() string {
-	return "SensitiveCategoryDelReqValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveCategoryDelReqValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveCategoryDelReq.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveCategoryDelReqValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveCategoryDelReqValidationError{}
-
-// Validate checks the field values on SensitiveCategoryDelReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveCategoryDelReply) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveCategoryDelReply with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveCategoryDelReplyMultiError, or nil if none found.
-func (m *SensitiveCategoryDelReply) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveCategoryDelReply) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if len(errors) > 0 {
-		return SensitiveCategoryDelReplyMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveCategoryDelReplyMultiError is an error wrapping multiple validation
-// errors returned by SensitiveCategoryDelReply.ValidateAll() if the
-// designated constraints aren't met.
-type SensitiveCategoryDelReplyMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveCategoryDelReplyMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveCategoryDelReplyMultiError) AllErrors() []error { return m }
-
-// SensitiveCategoryDelReplyValidationError is the validation error returned by
-// SensitiveCategoryDelReply.Validate if the designated constraints aren't met.
-type SensitiveCategoryDelReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveCategoryDelReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveCategoryDelReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveCategoryDelReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveCategoryDelReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveCategoryDelReplyValidationError) ErrorName() string {
-	return "SensitiveCategoryDelReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveCategoryDelReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveCategoryDelReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveCategoryDelReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveCategoryDelReplyValidationError{}
-
 // Validate checks the field values on SensitiveWordInfo with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -1088,9 +59,9 @@ func (m *SensitiveWordInfo) validate(all bool) error {
 
 	// no validation rules for Id
 
-	// no validation rules for CategoryID
-
 	// no validation rules for Word
+
+	// no validation rules for Desc
 
 	// no validation rules for CreatedAt
 
@@ -1175,108 +146,6 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SensitiveWordInfoValidationError{}
-
-// Validate checks the field values on SensitiveWordListReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveWordListReq) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveWordListReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveWordListReqMultiError, or nil if none found.
-func (m *SensitiveWordListReq) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveWordListReq) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if len(errors) > 0 {
-		return SensitiveWordListReqMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveWordListReqMultiError is an error wrapping multiple validation
-// errors returned by SensitiveWordListReq.ValidateAll() if the designated
-// constraints aren't met.
-type SensitiveWordListReqMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveWordListReqMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveWordListReqMultiError) AllErrors() []error { return m }
-
-// SensitiveWordListReqValidationError is the validation error returned by
-// SensitiveWordListReq.Validate if the designated constraints aren't met.
-type SensitiveWordListReqValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveWordListReqValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveWordListReqValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveWordListReqValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveWordListReqValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveWordListReqValidationError) ErrorName() string {
-	return "SensitiveWordListReqValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveWordListReqValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveWordListReq.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveWordListReqValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveWordListReqValidationError{}
 
 // Validate checks the field values on SensitiveWordListReply with the rules
 // defined in the proto definition for this message. If any rules are
@@ -1443,241 +312,6 @@ var _ interface {
 	ErrorName() string
 } = SensitiveWordListReplyValidationError{}
 
-// Validate checks the field values on SensitiveWordInfoReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveWordInfoReq) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveWordInfoReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveWordInfoReqMultiError, or nil if none found.
-func (m *SensitiveWordInfoReq) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveWordInfoReq) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Id
-
-	if len(errors) > 0 {
-		return SensitiveWordInfoReqMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveWordInfoReqMultiError is an error wrapping multiple validation
-// errors returned by SensitiveWordInfoReq.ValidateAll() if the designated
-// constraints aren't met.
-type SensitiveWordInfoReqMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveWordInfoReqMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveWordInfoReqMultiError) AllErrors() []error { return m }
-
-// SensitiveWordInfoReqValidationError is the validation error returned by
-// SensitiveWordInfoReq.Validate if the designated constraints aren't met.
-type SensitiveWordInfoReqValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveWordInfoReqValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveWordInfoReqValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveWordInfoReqValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveWordInfoReqValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveWordInfoReqValidationError) ErrorName() string {
-	return "SensitiveWordInfoReqValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveWordInfoReqValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveWordInfoReq.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveWordInfoReqValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveWordInfoReqValidationError{}
-
-// Validate checks the field values on SensitiveWordInfoReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *SensitiveWordInfoReply) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on SensitiveWordInfoReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// SensitiveWordInfoReplyMultiError, or nil if none found.
-func (m *SensitiveWordInfoReply) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *SensitiveWordInfoReply) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if all {
-		switch v := interface{}(m.GetInfo()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, SensitiveWordInfoReplyValidationError{
-					field:  "Info",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, SensitiveWordInfoReplyValidationError{
-					field:  "Info",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetInfo()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SensitiveWordInfoReplyValidationError{
-				field:  "Info",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(errors) > 0 {
-		return SensitiveWordInfoReplyMultiError(errors)
-	}
-
-	return nil
-}
-
-// SensitiveWordInfoReplyMultiError is an error wrapping multiple validation
-// errors returned by SensitiveWordInfoReply.ValidateAll() if the designated
-// constraints aren't met.
-type SensitiveWordInfoReplyMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m SensitiveWordInfoReplyMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m SensitiveWordInfoReplyMultiError) AllErrors() []error { return m }
-
-// SensitiveWordInfoReplyValidationError is the validation error returned by
-// SensitiveWordInfoReply.Validate if the designated constraints aren't met.
-type SensitiveWordInfoReplyValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e SensitiveWordInfoReplyValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e SensitiveWordInfoReplyValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e SensitiveWordInfoReplyValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e SensitiveWordInfoReplyValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e SensitiveWordInfoReplyValidationError) ErrorName() string {
-	return "SensitiveWordInfoReplyValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e SensitiveWordInfoReplyValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sSensitiveWordInfoReply.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = SensitiveWordInfoReplyValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = SensitiveWordInfoReplyValidationError{}
-
 // Validate checks the field values on SensitiveWordStoreReq with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1702,9 +336,9 @@ func (m *SensitiveWordStoreReq) validate(all bool) error {
 
 	// no validation rules for Id
 
-	// no validation rules for CategoryID
-
 	// no validation rules for Word
+
+	// no validation rules for Desc
 
 	if len(errors) > 0 {
 		return SensitiveWordStoreReqMultiError(errors)
@@ -2091,3 +725,215 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SensitiveWordDelReplyValidationError{}
+
+// Validate checks the field values on SensitiveWordCheckReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SensitiveWordCheckReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SensitiveWordCheckReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SensitiveWordCheckReqMultiError, or nil if none found.
+func (m *SensitiveWordCheckReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SensitiveWordCheckReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Word
+
+	if len(errors) > 0 {
+		return SensitiveWordCheckReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SensitiveWordCheckReqMultiError is an error wrapping multiple validation
+// errors returned by SensitiveWordCheckReq.ValidateAll() if the designated
+// constraints aren't met.
+type SensitiveWordCheckReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SensitiveWordCheckReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SensitiveWordCheckReqMultiError) AllErrors() []error { return m }
+
+// SensitiveWordCheckReqValidationError is the validation error returned by
+// SensitiveWordCheckReq.Validate if the designated constraints aren't met.
+type SensitiveWordCheckReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SensitiveWordCheckReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SensitiveWordCheckReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SensitiveWordCheckReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SensitiveWordCheckReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SensitiveWordCheckReqValidationError) ErrorName() string {
+	return "SensitiveWordCheckReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SensitiveWordCheckReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSensitiveWordCheckReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SensitiveWordCheckReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SensitiveWordCheckReqValidationError{}
+
+// Validate checks the field values on SensitiveWordCheckResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SensitiveWordCheckResp) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SensitiveWordCheckResp with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SensitiveWordCheckRespMultiError, or nil if none found.
+func (m *SensitiveWordCheckResp) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SensitiveWordCheckResp) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Result
+
+	// no validation rules for Replace
+
+	// no validation rules for Filter
+
+	if len(errors) > 0 {
+		return SensitiveWordCheckRespMultiError(errors)
+	}
+
+	return nil
+}
+
+// SensitiveWordCheckRespMultiError is an error wrapping multiple validation
+// errors returned by SensitiveWordCheckResp.ValidateAll() if the designated
+// constraints aren't met.
+type SensitiveWordCheckRespMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SensitiveWordCheckRespMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SensitiveWordCheckRespMultiError) AllErrors() []error { return m }
+
+// SensitiveWordCheckRespValidationError is the validation error returned by
+// SensitiveWordCheckResp.Validate if the designated constraints aren't met.
+type SensitiveWordCheckRespValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SensitiveWordCheckRespValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SensitiveWordCheckRespValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SensitiveWordCheckRespValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SensitiveWordCheckRespValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SensitiveWordCheckRespValidationError) ErrorName() string {
+	return "SensitiveWordCheckRespValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SensitiveWordCheckRespValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSensitiveWordCheckResp.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SensitiveWordCheckRespValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SensitiveWordCheckRespValidationError{}
