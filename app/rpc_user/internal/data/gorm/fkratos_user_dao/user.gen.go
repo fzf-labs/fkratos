@@ -28,6 +28,7 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 	tableName := _user.userDo.TableName()
 	_user.ALL = field.NewAsterisk(tableName)
 	_user.ID = field.NewString(tableName, "id")
+	_user.UID = field.NewInt64(tableName, "uid")
 	_user.Username = field.NewString(tableName, "username")
 	_user.Phone = field.NewString(tableName, "phone")
 	_user.Email = field.NewString(tableName, "email")
@@ -53,6 +54,7 @@ type user struct {
 
 	ALL       field.Asterisk
 	ID        field.String // Id
+	UID       field.Int64  // uid
 	Username  field.String // 用户名
 	Phone     field.String // 手机
 	Email     field.String // 邮箱
@@ -84,6 +86,7 @@ func (u user) As(alias string) *user {
 func (u *user) updateTableName(table string) *user {
 	u.ALL = field.NewAsterisk(table)
 	u.ID = field.NewString(table, "id")
+	u.UID = field.NewInt64(table, "uid")
 	u.Username = field.NewString(table, "username")
 	u.Phone = field.NewString(table, "phone")
 	u.Email = field.NewString(table, "email")
@@ -122,8 +125,9 @@ func (u *user) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (u *user) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 15)
+	u.fieldMap = make(map[string]field.Expr, 16)
 	u.fieldMap["id"] = u.ID
+	u.fieldMap["uid"] = u.UID
 	u.fieldMap["username"] = u.Username
 	u.fieldMap["phone"] = u.Phone
 	u.fieldMap["email"] = u.Email

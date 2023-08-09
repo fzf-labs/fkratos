@@ -23,7 +23,7 @@ func NewSensitiveWordRepo(data *Data, logger log.Logger) biz.SensitiveWordRepo {
 	return &SensitiveWordRepo{
 		data:              data,
 		log:               l,
-		SensitiveWordRepo: fkratos_common_repo.NewSensitiveWordRepo(data.db, data.rockscache),
+		SensitiveWordRepo: fkratos_common_repo.NewSensitiveWordRepo(data.db, data.rocksCache),
 	}
 }
 

@@ -35,18 +35,18 @@ type Data struct {
 	logger      *log.Helper
 	gorm        *gorm.DB
 	redis       *redis.Client
-	rockscache  *rockscache.Client
+	rocksCache  *rockscache.Client
 	aysnqClient *asynq.Client
 }
 
 // NewData .
-func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redis *redis.Client, rockscache *rockscache.Client, aysnqClient *asynq.Client) (*Data, func(), error) {
+func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redis *redis.Client, rocksCache *rockscache.Client, aysnqClient *asynq.Client) (*Data, func(), error) {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data"))
 	d := &Data{
 		logger:      l,
 		gorm:        db,
 		redis:       redis,
-		rockscache:  rockscache,
+		rocksCache:  rocksCache,
 		aysnqClient: aysnqClient,
 	}
 	cleanup := func() {

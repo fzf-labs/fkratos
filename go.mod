@@ -4,24 +4,24 @@ go 1.20
 
 require (
 	github.com/dtm-labs/rockscache v0.1.1
-	github.com/envoyproxy/protoc-gen-validate v0.10.1
-	github.com/fzf-labs/fpkg v1.3.9
-	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/config/etcd/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/config/kubernetes/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/config/nacos/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/config/polaris/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/log/aliyun/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/log/logrus/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/log/tencent/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/log/zap/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/metrics/prometheus/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/registry/consul/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/registry/etcd/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/registry/kubernetes/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/registry/nacos/v2 v2.0.0-20230410063538-3958f9d5c06e
-	github.com/go-kratos/kratos/contrib/registry/polaris/v2 v2.0.0-20230410063538-3958f9d5c06e
+	github.com/envoyproxy/protoc-gen-validate v1.0.2
+	github.com/fzf-labs/fpkg v1.4.0
+	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/config/etcd/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/config/kubernetes/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/config/nacos/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/config/polaris/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/log/aliyun/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/log/logrus/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/log/tencent/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/log/zap/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/metrics/prometheus/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/registry/consul/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/registry/etcd/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/registry/kubernetes/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/registry/nacos/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/registry/polaris/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/v2 v2.7.0
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
@@ -35,16 +35,16 @@ require (
 	github.com/prometheus/client_golang v1.16.0
 	github.com/redis/go-redis/v9 v9.0.5
 	github.com/sirupsen/logrus v1.9.3
-	github.com/spf13/viper v1.15.0
-	go.etcd.io/etcd/client/v3 v3.5.6
+	github.com/spf13/viper v1.16.0
+	go.etcd.io/etcd/client/v3 v3.5.9
 	go.opentelemetry.io/otel v1.16.0
 	go.opentelemetry.io/otel/exporters/jaeger v1.15.1
 	go.opentelemetry.io/otel/exporters/zipkin v1.15.1
 	go.opentelemetry.io/otel/sdk v1.16.0
 	go.uber.org/automaxprocs v1.5.1
-	go.uber.org/zap v1.23.0
+	go.uber.org/zap v1.24.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20230629202037-9506855d4529
-	google.golang.org/grpc v1.56.1
+	google.golang.org/grpc v1.57.0
 	google.golang.org/protobuf v1.31.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gorm.io/datatypes v1.2.0
@@ -56,8 +56,8 @@ require (
 
 require (
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1716 // indirect
-	github.com/aliyun/aliyun-log-go-sdk v0.1.43 // indirect
-	github.com/apolloconfig/agollo/v4 v4.3.0 // indirect
+	github.com/aliyun/aliyun-log-go-sdk v0.1.44 // indirect
+	github.com/apolloconfig/agollo/v4 v4.3.1 // indirect
 	github.com/armon/go-metrics v0.4.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bsm/redislock v0.9.4 // indirect
@@ -139,11 +139,11 @@ require (
 	github.com/onsi/ginkgo/v2 v2.9.2 // indirect
 	github.com/onsi/gomega v1.27.6 // indirect
 	github.com/openzipkin/zipkin-go v0.4.1 // indirect
-	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
+	github.com/pelletier/go-toml/v2 v2.0.9 // indirect
 	github.com/pierrec/lz4 v2.6.1+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/prometheus/client_model v0.3.0 // indirect
-	github.com/prometheus/common v0.42.0 // indirect
+	github.com/prometheus/client_model v0.4.0 // indirect
+	github.com/prometheus/common v0.44.0 // indirect
 	github.com/prometheus/procfs v0.10.1 // indirect
 	github.com/quic-go/qpack v0.4.0 // indirect
 	github.com/quic-go/qtls-go1-18 v0.2.0 // indirect
@@ -155,18 +155,18 @@ require (
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/speps/go-hashids v2.0.0+incompatible // indirect
-	github.com/spf13/afero v1.9.3 // indirect
+	github.com/spf13/afero v1.9.5 // indirect
 	github.com/spf13/cast v1.5.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.4.2 // indirect
 	github.com/tencentcloud/tencentcloud-cls-sdk-go v1.0.2 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
-	go.etcd.io/etcd/api/v3 v3.5.6 // indirect
-	go.etcd.io/etcd/client/pkg/v3 v3.5.6 // indirect
+	go.etcd.io/etcd/api/v3 v3.5.9 // indirect
+	go.etcd.io/etcd/client/pkg/v3 v3.5.9 // indirect
 	go.opentelemetry.io/otel/metric v1.16.0 // indirect
 	go.opentelemetry.io/otel/trace v1.16.0 // indirect
-	go.uber.org/atomic v1.10.0 // indirect
+	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
 	golang.org/x/crypto v0.11.0 // indirect
@@ -174,11 +174,11 @@ require (
 	golang.org/x/image v0.0.0-20190802002840-cff245a6509b // indirect
 	golang.org/x/mod v0.12.0 // indirect
 	golang.org/x/net v0.12.0 // indirect
-	golang.org/x/oauth2 v0.7.0 // indirect
+	golang.org/x/oauth2 v0.8.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
 	golang.org/x/sys v0.11.0 // indirect
 	golang.org/x/term v0.10.0 // indirect
-	golang.org/x/text v0.11.0 // indirect
+	golang.org/x/text v0.12.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/tools v0.11.1 // indirect
 	google.golang.org/appengine v1.6.7 // indirect

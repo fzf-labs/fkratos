@@ -10,6 +10,7 @@ import (
 	"fkratos/internal/errorx"
 	"strings"
 
+	"github.com/dtm-labs/rockscache"
 	"github.com/fzf-labs/fpkg/crypt"
 	"github.com/fzf-labs/fpkg/third_api/avatar"
 	"github.com/fzf-labs/fpkg/util/jsonutil"
@@ -19,11 +20,12 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-func NewAdminUseCase(logger log.Logger, redis *redis.Client, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo, sysPermissionRepo SysPermissionRepo) *AdminUseCase {
+func NewAdminUseCase(logger log.Logger, redis *redis.Client, rocksCache *rockscache.Client, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo, sysPermissionRepo SysPermissionRepo) *AdminUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/admin"))
 	return &AdminUseCase{
 		log:               l,
 		redis:             redis,
+		rocksCache:        rocksCache,
 		sysAdminRepo:      sysAdminRepo,
 		sysRoleRepo:       sysRoleRepo,
 		sysJobRepo:        sysJobRepo,
@@ -35,6 +37,7 @@ func NewAdminUseCase(logger log.Logger, redis *redis.Client, sysAdminRepo SysAdm
 type AdminUseCase struct {
 	log               *log.Helper
 	redis             *redis.Client
+	rocksCache        *rockscache.Client
 	sysAdminRepo      SysAdminRepo
 	sysRoleRepo       SysRoleRepo
 	sysJobRepo        SysJobRepo
@@ -251,7 +254,7 @@ func (a *AdminUseCase) SysManageDel(ctx context.Context, req *v1.SysManageDelReq
 
 func (a *AdminUseCase) SysAdminPermission(ctx context.Context, req *v1.SysAdminPermissionReq) (*v1.SysAdminPermissionReply, error) {
 	resp := new(v1.SysAdminPermissionReply)
-	cacheKey := cache.SysAdminPermission.NewHashKey(a.redis)
+	cacheKey := cache.SysAdminPermission.NewHashKey(a.redis, a.rocksCache)
 	res, err := cacheKey.HashCache(ctx, "AdminPermission", req.GetAdminId(), func() (string, error) {
 		sysAdmin, err := a.sysAdminRepo.FindOneCacheByID(ctx, req.GetAdminId())
 		if err != nil {

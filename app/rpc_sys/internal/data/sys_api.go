@@ -18,7 +18,7 @@ func NewSysApiRepo(data *Data, logger log.Logger) biz.SysApiRepo {
 	return &SysApiRepo{
 		data:       data,
 		log:        l,
-		SysAPIRepo: fkratos_sys_repo.NewSysAPIRepo(data.gorm, data.rockscache),
+		SysAPIRepo: fkratos_sys_repo.NewSysAPIRepo(data.gorm, data.rocksCache),
 	}
 }
 

@@ -26,17 +26,17 @@ type Data struct {
 	logger     *log.Helper
 	db         *gorm.DB
 	redis      *redis.Client
-	rockscache *rockscache.Client
+	rocksCache *rockscache.Client
 }
 
 // NewData .
-func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redis *redis.Client, rockscache *rockscache.Client) (*Data, func(), error) {
+func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redis *redis.Client, rocksCache *rockscache.Client) (*Data, func(), error) {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/data"))
 	d := &Data{
 		logger:     l,
 		db:         db,
 		redis:      redis,
-		rockscache: rockscache,
+		rocksCache: rocksCache,
 	}
 	cleanup := func() {
 		log.Info("closing the data resources")

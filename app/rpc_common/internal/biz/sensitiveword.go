@@ -22,6 +22,7 @@ type SensitiveWordRepo interface {
 	fkratos_common_repo.ISensitiveWordRepo
 	SensitiveWordListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_common_model.SensitiveWord, *page.Page, error)
 	SensitiveWordStore(ctx context.Context, data *fkratos_common_model.SensitiveWord) (*fkratos_common_model.SensitiveWord, error)
+	SensitiveWordsCache(ctx context.Context) ([]string, error)
 }
 
 func NewSensitiveWordUseCase(logger log.Logger, sensitiveWordRepo SensitiveWordRepo) *SensitiveWordUseCase {
@@ -102,24 +103,27 @@ var sc = new(SensitiveCheck)
 
 func (s *SensitiveWordUseCase) SensitiveWordCheck(ctx context.Context, req *v1.SensitiveWordCheckReq) (*v1.SensitiveWordCheckResp, error) {
 	resp := new(v1.SensitiveWordCheckResp)
-
-	if sc.len != len(sensitiveWordCacheResp.Words) {
+	sensitiveWords, err := s.sensitiveWordRepo.SensitiveWordsCache(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if sc.len != len(sensitiveWords) {
 		lock.Lock()
 		defer lock.Unlock()
 		sc = &SensitiveCheck{
-			len:    len(sensitiveWordCacheResp.Words),
+			len:    len(sensitiveWords),
 			filter: sensitive.New(),
 		}
-		sc.filter.AddWord(sensitiveWordCacheResp.Words...)
+		sc.filter.AddWord(sensitiveWords...)
 		sc.filter.UpdateNoisePattern(`x`)
 	}
-	validate, _ := sc.filter.Validate(in.Word)
+	validate, _ := sc.filter.Validate(req.Word)
 	if validate {
 		resp.Result = false
 		return resp, nil
 	}
-	replace := sc.filter.Replace(in.Word, '*')
-	filterStr := sc.filter.Filter(in.Word)
+	replace := sc.filter.Replace(req.Word, '*')
+	filterStr := sc.filter.Filter(req.Word)
 
 	resp.Result = false
 	resp.Replace = replace
