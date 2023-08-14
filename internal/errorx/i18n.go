@@ -8,6 +8,10 @@ const (
 	EnUS = "en-US" // en_US 英文-美国
 )
 
+func Langs() []string {
+	return []string{ZhCN, EnUS}
+}
+
 func GetMessage(reason string, lang string) string {
 	var msg string
 	switch lang {

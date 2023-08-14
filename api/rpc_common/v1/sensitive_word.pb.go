@@ -418,7 +418,7 @@ type SensitiveWordCheckResp struct {
 
 	Result  bool   `protobuf:"varint,1,opt,name=Result,proto3" json:"Result,omitempty"`  //是否有敏感词
 	Replace string `protobuf:"bytes,2,opt,name=Replace,proto3" json:"Replace,omitempty"` //替换后词语
-	Filter  string `protobuf:"bytes,3,opt,name=Filter,proto3" json:"Filter,omitempty"`   //移除后词语
+	Filter  string `protobuf:"bytes,3,opt,name=Filter,proto3" json:"Filter,omitempty"`   //过滤后词语
 }
 
 func (x *SensitiveWordCheckResp) Reset() {

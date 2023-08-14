@@ -10,6 +10,7 @@ import (
 	http2 "github.com/go-kratos/kratos/v2/transport/http"
 )
 
+var reasons = make([]string, 0)
 var errs = make(map[string]*errors.Error)
 
 func New(code int, reason, message string) *errors.Error {
@@ -20,7 +21,7 @@ func New(code int, reason, message string) *errors.Error {
 	e := errors.New(code, reason, message)
 
 	errs[reason] = e
-
+	reasons = append(reasons, reason)
 	return e
 }
 

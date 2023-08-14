@@ -2,14 +2,10 @@ package bootstrap
 
 import (
 	"fkratos/internal/bootstrap/conf"
-	"fmt"
 	"path/filepath"
-	"time"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
-	"github.com/polarismesh/polaris-go/pkg/config"
-
 	// etcd
 	etcdKratos "github.com/go-kratos/kratos/contrib/registry/etcd/v2"
 	etcdClient "go.etcd.io/etcd/client/v3"
@@ -30,19 +26,15 @@ import (
 	k8sRest "k8s.io/client-go/rest"
 	k8sTools "k8s.io/client-go/tools/clientcmd"
 	k8sUtil "k8s.io/client-go/util/homedir"
-
-	// polaris
-	polarisKratos "github.com/go-kratos/kratos/contrib/registry/polaris/v2"
 )
 
 type RegistryType string
 
 const (
-	RegistryTypeConsul   RegistryType = "consul"
-	LoggerTypeEtcd       RegistryType = "etcd"
-	LoggerTypeNacos      RegistryType = "nacos"
-	LoggerTypeKubernetes RegistryType = "kubernetes"
-	LoggerTypePolaris    RegistryType = "polaris"
+	RegistryTypeConsul     RegistryType = "consul"
+	RegistryTypeEtcd       RegistryType = "etcd"
+	RegistryTypeNacos      RegistryType = "nacos"
+	RegistryTypeKubernetes RegistryType = "kubernetes"
 )
 
 // NewRegistryAndDiscovery 创建一个服务发现客户端
@@ -54,17 +46,14 @@ func NewRegistryAndDiscovery(cfg *conf.Registry) (registry.Registrar, registry.D
 	case RegistryTypeConsul:
 		res := NewConsulRegistry(cfg)
 		return res, res
-	case LoggerTypeEtcd:
+	case RegistryTypeEtcd:
 		res := NewEtcdRegistry(cfg)
 		return res, res
-	case LoggerTypeNacos:
+	case RegistryTypeNacos:
 		res := NewNacosRegistry(cfg)
 		return res, res
-	case LoggerTypeKubernetes:
+	case RegistryTypeKubernetes:
 		res := NewKubernetesRegistry(cfg)
-		return res, res
-	case LoggerTypePolaris:
-		res := NewPolarisRegistry(cfg)
 		return res, res
 	}
 	return nil, nil
@@ -78,17 +67,14 @@ func NewRegistry(cfg *conf.Registry) registry.Registrar {
 	case RegistryTypeConsul:
 		res := NewConsulRegistry(cfg)
 		return res
-	case LoggerTypeEtcd:
+	case RegistryTypeEtcd:
 		res := NewEtcdRegistry(cfg)
 		return res
-	case LoggerTypeNacos:
+	case RegistryTypeNacos:
 		res := NewNacosRegistry(cfg)
 		return res
-	case LoggerTypeKubernetes:
+	case RegistryTypeKubernetes:
 		res := NewKubernetesRegistry(cfg)
-		return res
-	case LoggerTypePolaris:
-		res := NewPolarisRegistry(cfg)
 		return res
 	}
 	return nil
@@ -182,22 +168,5 @@ func NewKubernetesRegistry(_ *conf.Registry) *k8sRegistry.Registry {
 
 	reg := k8sRegistry.NewRegistry(clientSet)
 
-	return reg
-}
-
-// NewPolarisRegistry 创建一个注册发现客户端 - Polaris
-func NewPolarisRegistry(c *conf.Registry) *polarisKratos.Registry {
-	address := fmt.Sprintf("%s:%d", c.Polaris.Address, c.Polaris.Port)
-	configuration := config.NewDefaultConfiguration([]string{address})
-	reg := polarisKratos.NewRegistryWithConfig(
-		configuration,
-		polarisKratos.WithNamespace(c.Polaris.Namespace),
-		polarisKratos.WithServiceToken(c.Polaris.Token),
-		polarisKratos.WithTimeout(time.Second),
-		polarisKratos.WithTTL(10),
-		polarisKratos.WithHeartbeat(true),
-		polarisKratos.WithHealthy(true),
-		polarisKratos.WithRetryCount(3),
-	)
 	return reg
 }

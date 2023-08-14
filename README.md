@@ -76,7 +76,17 @@ kratos 微服务脚手架,采用大仓模式。
    make wire
    ```
 
-致谢:
+### 业务
+
+- [x] 管理后台
+- [x] 敏感词
+- [ ] 数据字典
+- [ ] 素材中心
+- [ ] 短信发送
+- [ ] 邮件发送
+- [ ] 微信公众号
+
+### 致谢:
 
 - [zeromicro/go-zero](https://github.com/zeromicro/go-zero)
 - [tx7do/kratos-transport](https://github.com/tx7do/kratos-transport)

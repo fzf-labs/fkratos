@@ -52,6 +52,13 @@ api:
  	       --openapiv2_opt logtostderr=true \
  	       --openapiv2_opt json_names_for_fields=false \
 	       $$files
+
+.PHONY: buf
+# buf 格式化 proto
+buf:
+	@cd ../../api/${APP_NAME}  && \
+	buf format -w
+
 common:
 	@cd ../../ && files=`find api/paginator -name *.proto` && \
 	protoc --proto_path=./api \

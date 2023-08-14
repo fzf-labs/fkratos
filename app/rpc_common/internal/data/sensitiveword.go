@@ -121,3 +121,12 @@ func (s *SensitiveWordRepo) SensitiveWordsCache(ctx context.Context) ([]string, 
 	}
 	return result, nil
 }
+
+func (s *SensitiveWordRepo) SensitiveWordsCacheDel(ctx context.Context) error {
+	key := cache.SensitiveWordsCache.Key()
+	err := s.data.redis.Del(ctx, key).Err()
+	if err != nil {
+		return err
+	}
+	return nil
+}

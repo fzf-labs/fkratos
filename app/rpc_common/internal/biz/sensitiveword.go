@@ -23,6 +23,7 @@ type SensitiveWordRepo interface {
 	SensitiveWordListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_common_model.SensitiveWord, *page.Page, error)
 	SensitiveWordStore(ctx context.Context, data *fkratos_common_model.SensitiveWord) (*fkratos_common_model.SensitiveWord, error)
 	SensitiveWordsCache(ctx context.Context) ([]string, error)
+	SensitiveWordsCacheDel(ctx context.Context) error
 }
 
 func NewSensitiveWordUseCase(logger log.Logger, sensitiveWordRepo SensitiveWordRepo) *SensitiveWordUseCase {
@@ -78,6 +79,10 @@ func (s *SensitiveWordUseCase) SensitiveWordStore(ctx context.Context, req *v1.S
 		Labs: labs,
 		Desc: req.GetDesc(),
 	})
+	if err != nil {
+		return nil, err
+	}
+	err = s.sensitiveWordRepo.SensitiveWordsCacheDel(ctx)
 	if err != nil {
 		return nil, err
 	}

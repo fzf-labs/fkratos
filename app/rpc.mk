@@ -31,6 +31,11 @@ gorm:
 sqldump:
 	@go run ../../cmd/sqldump/main.go -f configs/config.yaml
 
+.PHONY: errcode
+# 导出错误码
+errcode:
+	@go run ../../cmd/errcode/main.go
+
 .PHONY: wire
 # 生成 wire 依赖注入代码
 wire:
@@ -43,7 +48,7 @@ proto:
 
 .PHONY: api
 # protobuf 生成 Go 代码
-api:
+api: buf
 	@cd ../../ && files=`find api/${APP_NAME} -name *.proto` && \
 	protoc --proto_path=./api \
 	       --proto_path=./third_party \
@@ -53,6 +58,13 @@ api:
  	       --go-errors_out=paths=source_relative:./api \
  	       --validate_out=paths=source_relative,lang=go:./api \
 	       $$files
+
+.PHONY: buf
+# buf 格式化 proto
+buf:
+	@cd ../../api/${APP_NAME}  && \
+	buf format -w
+
 # protobuf 生成common Go 代码
 common:
 	@cd ../../ && files=`find api/paginator -name *.proto` && \

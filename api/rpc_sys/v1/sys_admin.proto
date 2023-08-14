@@ -4,7 +4,7 @@ package api.rpc_sys.v1;
 
 import "paginator/paginator.proto";
 import "validate/validate.proto";
-
+import "rpc_sys/v1/sys_permission.proto";
 option go_package = "fkratos/api/rpc_sys/v1;v1";
 
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
@@ -115,22 +115,6 @@ message SysManageInfo {
   string updatedAt = 17; //更新时间
 }
 
-//管理员权限
-message SysAdminPermission {
-  string ID = 1; // ID
-  string Pid = 2; // 上级菜单
-  string Type = 3; // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
-  string Title = 4; // 标题
-  string Name = 5; // 规则名称
-  string Path = 6; // 路由路径
-  string Icon = 7; // 图标
-  string MenuType = 8; // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
-  string URL = 9; // Url
-  string Component = 10; // 组件路径
-  string Extend = 11; // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
-  repeated SysAdminPermission children = 12;
-}
-
 //请求-权限
 message SysAdminPermissionReq {
   string adminId = 1 [(validate.rules).string.uuid = true]; //管理员ID
@@ -138,7 +122,7 @@ message SysAdminPermissionReq {
 
 //响应-权限
 message SysAdminPermissionReply {
-  repeated SysAdminPermission list = 1; //列表
+  repeated SysPermissionInfo list = 1; //列表
 }
 
 //响应-管理员列表

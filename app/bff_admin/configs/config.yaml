@@ -25,11 +25,6 @@ registry:
   etcd:
     endpoints:
       - 0.0.0.0:2379
-  polaris:
-    address: 127.0.0.1
-    port: 8091
-    namespace: fkratos
-    token: Nb+iiDm+z58f+P9wvqle5aysh7QkAtz6ELUp4oW80hlC6/zrFgFftvU056G6B9WE0D2hfY2/rrd/8KtyC9U=
   nacos:
     address: 0.0.0.0
     port: 8848

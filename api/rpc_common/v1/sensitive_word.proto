@@ -20,7 +20,7 @@ service SensitiveWord {
   rpc SensitiveWordCheck(SensitiveWordCheckReq) returns (SensitiveWordCheckResp);
 }
 message SensitiveWordInfo {
-  string id = 1;//ID
+  string id = 1; //ID
   string word = 2; //敏感词
   repeated string labs = 3; //标签
   string desc = 4; //描述
@@ -36,7 +36,7 @@ message SensitiveWordListReply {
 
 //请求-敏感词-保存
 message SensitiveWordStoreReq {
-  string id = 1;//ID
+  string id = 1; //ID
   string word = 2; //敏感词
   repeated string labs = 3; //标签
   string desc = 4; //描述
@@ -62,5 +62,5 @@ message SensitiveWordCheckReq {
 message SensitiveWordCheckResp {
   bool Result = 1; //是否有敏感词
   string Replace = 2; //替换后词语
-  string Filter = 3; //移除后词语
+  string Filter = 3; //过滤后词语
 }

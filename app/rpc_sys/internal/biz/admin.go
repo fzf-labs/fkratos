@@ -4,7 +4,6 @@ import (
 	"context"
 	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
-	"fkratos/app/rpc_sys/internal/data/cache"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"fkratos/internal/constant"
 	"fkratos/internal/errorx"
@@ -254,85 +253,71 @@ func (a *AdminUseCase) SysManageDel(ctx context.Context, req *v1.SysManageDelReq
 
 func (a *AdminUseCase) SysAdminPermission(ctx context.Context, req *v1.SysAdminPermissionReq) (*v1.SysAdminPermissionReply, error) {
 	resp := new(v1.SysAdminPermissionReply)
-	cacheKey := cache.SysAdminPermission.NewHashKey(a.redis, a.rocksCache)
-	res, err := cacheKey.HashCache(ctx, "AdminPermission", req.GetAdminId(), func() (string, error) {
-		sysAdmin, err := a.sysAdminRepo.FindOneCacheByID(ctx, req.GetAdminId())
-		if err != nil {
-			return "", err
-		}
-		if sysAdmin.RoleIds == nil {
-			return "", errorx.AccountNotBoundRole
-		}
-		roleIds := make([]string, 0)
-		err = jsonutil.Decode(sysAdmin.RoleIds, &roleIds)
-		if err != nil {
-			return "", err
-		}
-		sysRoles, err := a.sysRoleRepo.FindMultiCacheByIDS(ctx, roleIds)
-		if err != nil {
-			return "", err
-		}
-		if len(sysRoles) == 0 {
-			return "", errorx.AccountNotBoundRole
-		}
-		var super bool
-		permissionIds := make([]string, 0)
-		for _, role := range sysRoles {
-			if role.PermissionIds == "" {
-				continue
-			}
-			if role.PermissionIds == "*" {
-				super = true
-				break
-			}
-			int64s := strings.Split(role.PermissionIds, ",")
-			permissionIds = append(permissionIds, int64s...)
-		}
-		var permissions []*fkratos_sys_model.SysPermission
-		if super {
-			permissions, err = a.sysPermissionRepo.SysPermissionByStatus(ctx, constant.StatusEnable)
-			if err != nil {
-				return "", err
-			}
-		} else {
-			permissions, err = a.sysPermissionRepo.SysPermissionByIdsAndStatus(ctx, permissionIds, constant.StatusEnable)
-			if err != nil {
-				return "", err
-			}
-		}
-		if len(permissions) == 0 {
-			return "", errorx.AccountNotBoundRole
-		}
-		menus := make([]*v1.SysPermissionInfo, 0)
-		for _, v := range permissions {
-			menus = append(menus, &v1.SysPermissionInfo{
-				Id:        v.ID,
-				Pid:       v.Pid,
-				Type:      v.Type,
-				Title:     v.Title,
-				Name:      v.Name,
-				Path:      v.Path,
-				Icon:      v.Icon,
-				MenuType:  v.MenuType,
-				Url:       v.URL,
-				Component: v.Component,
-				Extend:    v.Extend,
-			})
-		}
-		menus = sysAdminPermissionGenerateTree(menus)
-		toString, err := jsonutil.EncodeToString(menus)
-		if err != nil {
-			return "", err
-		}
-		return toString, nil
-	})
+	sysAdmin, err := a.sysAdminRepo.FindOneCacheByID(ctx, req.GetAdminId())
 	if err != nil {
 		return nil, err
 	}
-	err = jsonutil.DecodeString(res, resp.List)
+	if sysAdmin.RoleIds == nil {
+		return nil, errorx.AccountNotBoundRole
+	}
+	roleIds := make([]string, 0)
+	err = jsonutil.Decode(sysAdmin.RoleIds, &roleIds)
 	if err != nil {
 		return nil, err
 	}
+	sysRoles, err := a.sysRoleRepo.FindMultiCacheByIDS(ctx, roleIds)
+	if err != nil {
+		return nil, err
+	}
+	if len(sysRoles) == 0 {
+		return nil, errorx.AccountNotBoundRole
+	}
+	var super bool
+	permissionIds := make([]string, 0)
+	for _, role := range sysRoles {
+		if role.PermissionIds == "" {
+			continue
+		}
+		if role.PermissionIds == "*" {
+			super = true
+			break
+		}
+		int64s := strings.Split(role.PermissionIds, ",")
+		permissionIds = append(permissionIds, int64s...)
+	}
+	var permissions []*fkratos_sys_model.SysPermission
+	if super {
+		permissions, err = a.sysPermissionRepo.SysPermissionByStatus(ctx, constant.StatusEnable)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		permissions, err = a.sysPermissionRepo.SysPermissionByIdsAndStatus(ctx, permissionIds, constant.StatusEnable)
+		if err != nil {
+			return nil, err
+		}
+	}
+	if len(permissions) == 0 {
+		return nil, errorx.AccountNotBoundRole
+	}
+	menus := make([]*v1.SysPermissionInfo, 0)
+	for _, v := range permissions {
+		menus = append(menus, &v1.SysPermissionInfo{
+			Id:        v.ID,
+			Pid:       v.Pid,
+			Type:      v.Type,
+			Title:     v.Title,
+			Name:      v.Name,
+			Path:      v.Path,
+			Icon:      v.Icon,
+			MenuType:  v.MenuType,
+			Url:       v.URL,
+			Component: v.Component,
+			Extend:    v.Extend,
+		})
+	}
+	menus = sysAdminPermissionGenerateTree(menus)
+	resp.List = menus
 	return resp, nil
 }
 func sysAdminPermissionGenerateTree(list []*v1.SysPermissionInfo) []*v1.SysPermissionInfo {
