@@ -8,7 +8,7 @@ const (
 	EnUS = "en-US" // en_US 英文-美国
 )
 
-func Langs() []string {
+func GetLanguages() []string {
 	return []string{ZhCN, EnUS}
 }
 

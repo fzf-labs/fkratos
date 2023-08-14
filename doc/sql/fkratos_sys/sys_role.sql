@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
--- Dumped by pg_dump version 15.3 (Homebrew)
+-- Dumped by pg_dump version 15.4 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,24 +24,21 @@ SET default_table_access_method = heap;
 -- Name: sys_role; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_role
-(
-    id             uuid                     NOT NULL,
-    tenant_id      uuid,
-    pid            uuid                     NOT NULL,
-    name           character varying(50)    NOT NULL,
+CREATE TABLE public.sys_role (
+    id uuid NOT NULL,
+    pid uuid NOT NULL,
+    name character varying(50) NOT NULL,
     permission_ids text,
-    remark         character varying(200),
-    status         smallint                 NOT NULL,
-    sort           bigint                   NOT NULL,
-    created_at     timestamp with time zone NOT NULL,
-    updated_at     timestamp with time zone NOT NULL,
-    deleted_at     timestamp with time zone
+    remark character varying(200),
+    status smallint NOT NULL,
+    sort bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    deleted_at timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_role
-    OWNER TO postgres;
+ALTER TABLE public.sys_role OWNER TO postgres;
 
 --
 -- Name: TABLE sys_role; Type: COMMENT; Schema: public; Owner: postgres
@@ -55,13 +52,6 @@ COMMENT ON TABLE public.sys_role IS '系统-角色';
 --
 
 COMMENT ON COLUMN public.sys_role.id IS '编号';
-
-
---
--- Name: COLUMN sys_role.tenant_id; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN public.sys_role.tenant_id IS '租户ID';
 
 
 --

@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
--- Dumped by pg_dump version 15.3 (Homebrew)
+-- Dumped by pg_dump version 15.4 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,22 +24,19 @@ SET default_table_access_method = heap;
 -- Name: sys_api; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_api
-(
-    id            uuid                     NOT NULL,
-    tenant_id     uuid,
-    permission_id uuid                     NOT NULL,
-    method        character varying(32)    NOT NULL,
-    path          character varying(255)   NOT NULL,
-    "desc"        character varying(255)   NOT NULL,
-    created_at    timestamp with time zone NOT NULL,
-    updated_at    timestamp with time zone NOT NULL,
-    deleted_at    timestamp with time zone
+CREATE TABLE public.sys_api (
+    id uuid NOT NULL,
+    permission_id uuid NOT NULL,
+    method character varying(32) NOT NULL,
+    path character varying(255) NOT NULL,
+    "desc" character varying(255) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    deleted_at timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_api
-    OWNER TO postgres;
+ALTER TABLE public.sys_api OWNER TO postgres;
 
 --
 -- Name: TABLE sys_api; Type: COMMENT; Schema: public; Owner: postgres
@@ -53,13 +50,6 @@ COMMENT ON TABLE public.sys_api IS '系统-接口';
 --
 
 COMMENT ON COLUMN public.sys_api.id IS '编号';
-
-
---
--- Name: COLUMN sys_api.tenant_id; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN public.sys_api.tenant_id IS '租户ID';
 
 
 --
@@ -124,13 +114,6 @@ ALTER TABLE ONLY public.sys_api
 --
 
 CREATE INDEX sys_api_permission_id_idx ON public.sys_api USING btree (permission_id);
-
-
---
--- Name: sys_api_tenant_id_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX sys_api_tenant_id_idx ON public.sys_api USING btree (tenant_id);
 
 
 --

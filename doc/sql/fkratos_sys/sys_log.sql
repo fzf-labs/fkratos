@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
--- Dumped by pg_dump version 15.3 (Homebrew)
+-- Dumped by pg_dump version 15.4 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,23 +24,20 @@ SET default_table_access_method = heap;
 -- Name: sys_log; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_log
-(
-    id         uuid                     NOT NULL,
-    tenant_id  uuid,
-    admin_id   uuid                     NOT NULL,
-    ip         character varying(32)    NOT NULL,
-    uri        character varying(200)   NOT NULL,
-    useragent  character varying(255),
-    header     json,
-    req        json,
-    resp       json,
+CREATE TABLE public.sys_log (
+    id uuid NOT NULL,
+    admin_id uuid NOT NULL,
+    ip character varying(32) NOT NULL,
+    uri character varying(200) NOT NULL,
+    useragent character varying(255),
+    header json,
+    req json,
+    resp json,
     created_at timestamp with time zone NOT NULL
 );
 
 
-ALTER TABLE public.sys_log
-    OWNER TO postgres;
+ALTER TABLE public.sys_log OWNER TO postgres;
 
 --
 -- Name: TABLE sys_log; Type: COMMENT; Schema: public; Owner: postgres
@@ -54,13 +51,6 @@ COMMENT ON TABLE public.sys_log IS '系统-日志';
 --
 
 COMMENT ON COLUMN public.sys_log.id IS '编号';
-
-
---
--- Name: COLUMN sys_log.tenant_id; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN public.sys_log.tenant_id IS '租户ID';
 
 
 --
@@ -125,13 +115,6 @@ COMMENT ON COLUMN public.sys_log.created_at IS '创建时间';
 
 ALTER TABLE ONLY public.sys_log
     ADD CONSTRAINT sys_log_pkey PRIMARY KEY (id);
-
-
---
--- Name: sys_log_tenant_id_admin_id_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX sys_log_tenant_id_admin_id_idx ON public.sys_log USING btree (tenant_id, admin_id);
 
 
 --

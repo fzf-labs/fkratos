@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
--- Dumped by pg_dump version 15.3 (Homebrew)
+-- Dumped by pg_dump version 15.4 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -26,11 +26,11 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.sensitive_word (
     id uuid NOT NULL,
-    word character varying,
+    word character varying NOT NULL,
     labs json,
     "desc" character varying,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
     deleted_at timestamp with time zone
 );
 

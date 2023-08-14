@@ -16,7 +16,7 @@ func main() {
 	flag.Parse()
 	dsn := GetDsn(*configFile)
 	connectDB := gen.ConnectDB("postgres", dsn)
-	db.DumpPostgres(connectDB, dsn, "../../sql")
+	db.DumpPostgres(connectDB, dsn, "../../doc/sql")
 }
 
 func GetDsn(configFile string) string {

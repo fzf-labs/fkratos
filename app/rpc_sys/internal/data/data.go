@@ -3,7 +3,7 @@ package data
 import (
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
-	"fkratos/pkg/asynq"
+	"fkratos/internal/pkg/asynq"
 
 	"github.com/dtm-labs/rockscache"
 	rc "github.com/fzf-labs/fpkg/cache/rockscache"

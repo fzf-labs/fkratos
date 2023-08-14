@@ -6,7 +6,7 @@ import (
 	"fkratos/app/rpc_sys/internal/service"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
-	asynq2 "fkratos/pkg/asynq"
+	asynq2 "fkratos/internal/pkg/asynq"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/hibiken/asynq"

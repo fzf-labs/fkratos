@@ -22,7 +22,7 @@ func exportData() []map[string]string {
 		m["http_code"] = strconv.Itoa(int(errs[v].GetCode()))
 		m["reason"] = errs[v].GetReason()
 		m["message"] = errs[v].GetMessage()
-		for _, lang := range Langs() {
+		for _, lang := range GetLanguages() {
 			m[lang] = GetMessage(errs[v].GetReason(), lang)
 		}
 		list = append(list, m)
@@ -47,7 +47,7 @@ func exportJson(list []map[string]string) {
 func exportMarkdown(list []map[string]string) {
 	first := `|http_code|reason|message|`
 	second := `|--|--|--|`
-	for _, v := range Langs() {
+	for _, v := range GetLanguages() {
 		first += v + `|`
 		second += `--|`
 	}
@@ -55,7 +55,7 @@ func exportMarkdown(list []map[string]string) {
 	if len(list) > 0 {
 		for _, m := range list {
 			tmpStr := `|` + m["http_code"] + `|` + m["reason"] + `|` + m["message"] + `|`
-			for _, v := range Langs() {
+			for _, v := range GetLanguages() {
 				tmpStr += m[v] + `|`
 			}
 			str += NewLine(tmpStr)

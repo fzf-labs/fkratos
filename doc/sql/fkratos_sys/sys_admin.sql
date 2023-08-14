@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
--- Dumped by pg_dump version 15.3 (Homebrew)
+-- Dumped by pg_dump version 15.4 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,31 +24,28 @@ SET default_table_access_method = heap;
 -- Name: sys_admin; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_admin
-(
-    id         uuid                  DEFAULT gen_random_uuid()     NOT NULL,
-    tenant_id  uuid                                                NOT NULL,
-    username   character varying(50) DEFAULT ''::character varying NOT NULL,
-    password   character varying(128)                              NOT NULL,
-    nickname   character varying(50)                               NOT NULL,
-    avatar     character varying(255),
-    gender     smallint              DEFAULT 0                     NOT NULL,
-    email      character varying(50),
-    mobile     character varying(15),
-    job_id     uuid,
-    dept_id    uuid,
-    role_ids   json,
-    salt       character varying(32)                               NOT NULL,
-    status     smallint              DEFAULT 1                     NOT NULL,
-    motto      character varying(255),
-    created_at timestamp with time zone                            NOT NULL,
-    updated_at timestamp with time zone                            NOT NULL,
+CREATE TABLE public.sys_admin (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    username character varying(50) DEFAULT ''::character varying NOT NULL,
+    password character varying(128) NOT NULL,
+    nickname character varying(50) NOT NULL,
+    avatar character varying(255),
+    gender smallint DEFAULT 0 NOT NULL,
+    email character varying(50),
+    mobile character varying(15),
+    job_id uuid,
+    dept_id uuid,
+    role_ids json,
+    salt character varying(32) NOT NULL,
+    status smallint DEFAULT 1 NOT NULL,
+    motto character varying(255),
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
     deleted_at timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_admin
-    OWNER TO postgres;
+ALTER TABLE public.sys_admin OWNER TO postgres;
 
 --
 -- Name: TABLE sys_admin; Type: COMMENT; Schema: public; Owner: postgres
@@ -62,13 +59,6 @@ COMMENT ON TABLE public.sys_admin IS '系统-用户';
 --
 
 COMMENT ON COLUMN public.sys_admin.id IS '编号';
-
-
---
--- Name: COLUMN sys_admin.tenant_id; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN public.sys_admin.tenant_id IS '租户ID';
 
 
 --
@@ -192,10 +182,10 @@ ALTER TABLE ONLY public.sys_admin
 
 
 --
--- Name: sys_admin_tenant_id_idx; Type: INDEX; Schema: public; Owner: postgres
+-- Name: sys_admin_username_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX sys_admin_tenant_id_idx ON public.sys_admin USING btree (tenant_id);
+CREATE UNIQUE INDEX sys_admin_username_idx ON public.sys_admin USING btree (username);
 
 
 --

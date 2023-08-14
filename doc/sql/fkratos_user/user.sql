@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
--- Dumped by pg_dump version 15.3 (Homebrew)
+-- Dumped by pg_dump version 15.4 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -26,7 +26,7 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public."user" (
     id uuid NOT NULL,
-    uid bigint,
+    uid bigint NOT NULL,
     username character varying,
     phone character varying,
     email character varying,
@@ -40,7 +40,7 @@ CREATE TABLE public."user" (
     status smallint DEFAULT 1 NOT NULL,
     created_at timestamp with time zone,
     updated_at timestamp with time zone,
-    deleted_at timestamp with time zone,
+    deleted_at timestamp with time zone
 );
 
 
@@ -51,6 +51,13 @@ ALTER TABLE public."user" OWNER TO postgres;
 --
 
 COMMENT ON COLUMN public."user".id IS 'Id';
+
+
+--
+-- Name: COLUMN "user".uid; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public."user".uid IS 'uid';
 
 
 --
@@ -149,13 +156,6 @@ COMMENT ON COLUMN public."user".updated_at IS '更新时间';
 --
 
 COMMENT ON COLUMN public."user".deleted_at IS '删除时间';
-
-
---
--- Name: COLUMN "user".uid; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN public."user".uid IS 'uid';
 
 
 --

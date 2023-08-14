@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
--- Dumped by pg_dump version 15.3 (Homebrew)
+-- Dumped by pg_dump version 15.4 (Homebrew)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,26 +24,23 @@ SET default_table_access_method = heap;
 -- Name: sys_dict; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.sys_dict
-(
-    id         uuid                     NOT NULL,
-    tenant_id  uuid,
-    pid        uuid                     NOT NULL,
-    name       character varying(50)    NOT NULL,
-    type       smallint                 NOT NULL,
-    unique_key character varying(50)    NOT NULL,
-    value      character varying(2048)  NOT NULL,
-    status     smallint                 NOT NULL,
-    sort       numeric(20, 0)           NOT NULL,
-    remark     character varying(200)   NOT NULL,
+CREATE TABLE public.sys_dict (
+    id uuid NOT NULL,
+    pid uuid NOT NULL,
+    name character varying(50) NOT NULL,
+    type smallint NOT NULL,
+    unique_key character varying(50) NOT NULL,
+    value character varying(2048) NOT NULL,
+    status smallint NOT NULL,
+    sort numeric(20,0) NOT NULL,
+    remark character varying(200) NOT NULL,
     created_at timestamp with time zone NOT NULL,
     updated_at timestamp with time zone NOT NULL,
     deleted_at timestamp with time zone
 );
 
 
-ALTER TABLE public.sys_dict
-    OWNER TO postgres;
+ALTER TABLE public.sys_dict OWNER TO postgres;
 
 --
 -- Name: TABLE sys_dict; Type: COMMENT; Schema: public; Owner: postgres
@@ -57,13 +54,6 @@ COMMENT ON TABLE public.sys_dict IS '系统-参数';
 --
 
 COMMENT ON COLUMN public.sys_dict.id IS '编号';
-
-
---
--- Name: COLUMN sys_dict.tenant_id; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN public.sys_dict.tenant_id IS '租户ID';
 
 
 --
@@ -149,13 +139,6 @@ COMMENT ON COLUMN public.sys_dict.deleted_at IS '删除时间';
 
 ALTER TABLE ONLY public.sys_dict
     ADD CONSTRAINT sys_dict_pkey PRIMARY KEY (id);
-
-
---
--- Name: sys_dict_tenant_id_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX sys_dict_tenant_id_idx ON public.sys_dict USING btree (tenant_id);
 
 
 --
