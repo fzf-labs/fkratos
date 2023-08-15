@@ -20,9 +20,9 @@ APP_VERSION=$(shell git describe --tags --always)
 APP_RELATIVE_PATH=$(shell a=`basename $$PWD` && cd .. && b=`basename $$PWD` && echo $$b/$$a)
 APP_NAME=$(shell echo $(APP_RELATIVE_PATH) | rev |cut -d '/' -f 1 | rev)
 APP_DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "fkratos/" $$0 ":0.1.0"}')
+BUF_INSTALLED := $(shell command -v buf 2> /dev/null)
 
-.PHONY: conf wire proto api common service run app help
-
+.PHONY: conf
 # 生成配置文件
 conf:
 	protoc --proto_path=./internal/conf/ \
@@ -30,14 +30,17 @@ conf:
 	       --go_out=paths=source_relative:./internal/conf/ \
 	       ./internal/conf/conf.proto
 
+.PHONY: wire
 # 生成 wire 依赖注入代码
 wire:
 	@go run -mod=mod github.com/google/wire/cmd/wire ./cmd/${APP_NAME}
 
+.PHONY: proto
 # 新增 protobuf 文件 make proto PROTO_NAME=demo
 proto:
 	@cd ../../ && kratos proto add api/${APP_NAME}/v1/${PROTO_NAME}.proto
 
+.PHONY: api
 # protobuf 生成 Go 代码
 api:
 	@cd ../../ && files=`find api/${APP_NAME} -name *.proto` && \
@@ -56,9 +59,15 @@ api:
 .PHONY: buf
 # buf 格式化 proto
 buf:
-	@cd ../../api/${APP_NAME}  && \
-	buf format -w
+	@if [ -n "$(BUF_INSTALLED)" ]; then \
+        cd ../../api/${APP_NAME}  && \
+        buf format -w \
+        echo "proto format finish"; \
+    else \
+        echo "please installation buf: https://buf.build/docs/installation"; \
+    fi
 
+.PHONY: common
 common:
 	@cd ../../ && files=`find api/paginator -name *.proto` && \
 	protoc --proto_path=./api \
@@ -66,17 +75,22 @@ common:
  	       --go_out=paths=source_relative:./api \
  	       --validate_out=paths=source_relative,lang=go:./api \
 	       $$files
+
+.PHONY: service
 # 通过 proto 文件，生成对应的 Service 实现代码 make service PROTO_NAME=demo
 service:
 	@kratos proto server ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
 
+.PHONY: run
 # run
 run:
 	@kratos run
 
+.PHONY: app
 # 多个命令同时执行
 app: conf api wire
 
+.PHONY: help
 # show help
 help:
 	@echo ""

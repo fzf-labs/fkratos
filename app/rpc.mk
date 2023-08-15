@@ -20,6 +20,7 @@ APP_VERSION=$(shell git describe --tags --always)
 APP_RELATIVE_PATH=$(shell a=`basename $$PWD` && cd .. && b=`basename $$PWD` && echo $$b/$$a)
 APP_NAME=$(shell echo $(APP_RELATIVE_PATH) | rev |cut -d '/' -f 1 | rev)
 APP_DOCKER_IMAGE=$(shell echo $(APP_NAME) |awk -F '@' '{print "fkratos/" $$0 ":0.1.0"}')
+BUF_INSTALLED := $(shell command -v buf 2> /dev/null)
 
 .PHONY: gorm
 # 生成 GORM 数据库代码
@@ -62,9 +63,15 @@ api: buf
 .PHONY: buf
 # buf 格式化 proto
 buf:
-	@cd ../../api/${APP_NAME}  && \
-	buf format -w
+	@if [ -n "$(BUF_INSTALLED)" ]; then \
+        cd ../../api/${APP_NAME}  && \
+        buf format -w && \
+        echo "proto format finish"; \
+    else \
+        echo "please installation buf: https://buf.build/docs/installation"; \
+    fi
 
+.PHONY: common
 # protobuf 生成common Go 代码
 common:
 	@cd ../../ && files=`find api/paginator -name *.proto` && \
@@ -73,6 +80,7 @@ common:
  	       --go_out=paths=source_relative:./api \
  	       --validate_out=paths=source_relative,lang=go:./api \
 	       $$files
+
 .PHONY: service
 # 通过 proto 文件，生成对应的 Service 实现代码 make service PROTO_NAME=demo
 service:
@@ -87,6 +95,7 @@ run:
 # 多个命令同时执行
 app: conf api  wire gorm
 
+.PHONY: help
 # show help
 help:
 	@echo ""
