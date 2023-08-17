@@ -29,6 +29,9 @@ func New(code int, reason, message string) *errors.Error {
 func ErrorEncoder(w http.ResponseWriter, r *http.Request, err error) {
 	se := errors.FromError(err)
 	if se != nil {
+		if se.Code == http.StatusInternalServerError && se.Reason == "" {
+			se = InternalServerError.WithCause(err).WithMetadata(SetErrMetadata(err))
+		}
 		lang := r.Header.Get(HeaderLang)
 		if lang != "" {
 			message := GetMessage(se.GetReason(), lang)

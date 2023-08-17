@@ -2,6 +2,10 @@ package errorx
 
 import "net/http"
 
+var (
+	InternalServerError = New(http.StatusInternalServerError, "InternalServerError", "服务崩溃了,请稍后再试")
+)
+
 // 参数相关
 var (
 	ParamBindErr        = New(http.StatusBadRequest, "ParamBindErr", "Param Exception")
