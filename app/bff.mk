@@ -60,8 +60,8 @@ api:
 # buf 格式化 proto
 buf:
 	@if [ -n "$(BUF_INSTALLED)" ]; then \
-        cd ../../api/${APP_NAME}  && \
-        buf format -w \
+        cd ../../api/${APP_NAME} && \
+        buf format -w && \
         echo "proto format finish"; \
     else \
         echo "please installation buf: https://buf.build/docs/installation"; \
