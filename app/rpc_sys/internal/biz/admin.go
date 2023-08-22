@@ -107,7 +107,7 @@ func (a *AdminUseCase) SysAdminInfoUpdate(ctx context.Context, req *v1.SysAdminI
 }
 
 func (a *AdminUseCase) SysAdminGenerateAvatar(ctx context.Context, req *v1.SysAdminGenerateAvatarReq) (*v1.SysAdminGenerateAvatarReply, error) {
-	return &v1.SysAdminGenerateAvatarReply{AvatarUrl: avatar.Url()}, nil
+	return &v1.SysAdminGenerateAvatarReply{AvatarUrl: avatar.URL()}, nil
 }
 
 func (a *AdminUseCase) SysManageList(ctx context.Context, req *paginator.PaginatorReq) (*v1.SysManageListReply, error) {

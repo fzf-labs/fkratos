@@ -75,7 +75,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStor
 	var sysAdmin *fkratos_sys_model.SysAdmin
 	if req.Id == "" {
 		if req.Avatar == "" {
-			req.Avatar = avatar.Url()
+			req.Avatar = avatar.URL()
 		}
 		salt := strutil.Random(16)
 		pwd, err := crypt.Encrypt(req.Password + salt)
