@@ -11,38 +11,38 @@ import (
 	"google.golang.org/grpc"
 )
 
-type RpcSysGrpc struct {
+type RPCSysGrpc struct {
 	grpcClientConn *grpc.ClientConn
 }
 
-func NewRpcSysGrpc(c *conf.Bootstrap, r registry.Discovery) *RpcSysGrpc {
-	return &RpcSysGrpc{grpcClientConn: bootstrap.NewGrpcClient(context.Background(), r, c.Registry.Type, constant.RpcSys, c.Server.Grpc.GetTimeout())}
+func NewRPCSysGrpc(c *conf.Bootstrap, r registry.Discovery) *RPCSysGrpc {
+	return &RPCSysGrpc{grpcClientConn: bootstrap.NewGrpcClient(context.Background(), r, c.Registry.Type, constant.RPCSys, c.Server.Grpc.GetTimeout())}
 }
 
-func NewSysAdminServiceClient(rpcSysGrpc *RpcSysGrpc) sysV1.AdminClient {
+func NewSysAdminServiceClient(rpcSysGrpc *RPCSysGrpc) sysV1.AdminClient {
 	return sysV1.NewAdminClient(rpcSysGrpc.grpcClientConn)
 }
-func NewSysAuthServiceClient(rpcSysGrpc *RpcSysGrpc) sysV1.AuthClient {
+func NewSysAuthServiceClient(rpcSysGrpc *RPCSysGrpc) sysV1.AuthClient {
 	return sysV1.NewAuthClient(rpcSysGrpc.grpcClientConn)
 }
-func NewSysDashboardServiceClient(rpcSysGrpc *RpcSysGrpc) sysV1.DashboardClient {
+func NewSysDashboardServiceClient(rpcSysGrpc *RPCSysGrpc) sysV1.DashboardClient {
 	return sysV1.NewDashboardClient(rpcSysGrpc.grpcClientConn)
 }
-func NewSysRoleServiceClient(rpcSysGrpc *RpcSysGrpc) sysV1.RoleClient {
+func NewSysRoleServiceClient(rpcSysGrpc *RPCSysGrpc) sysV1.RoleClient {
 	return sysV1.NewRoleClient(rpcSysGrpc.grpcClientConn)
 }
-func NewSysPermissionServiceClient(rpcSysGrpc *RpcSysGrpc) sysV1.PermissionClient {
+func NewSysPermissionServiceClient(rpcSysGrpc *RPCSysGrpc) sysV1.PermissionClient {
 	return sysV1.NewPermissionClient(rpcSysGrpc.grpcClientConn)
 }
-func NewSysApiServiceClient(rpcSysGrpc *RpcSysGrpc) sysV1.ApiClient {
-	return sysV1.NewApiClient(rpcSysGrpc.grpcClientConn)
+func NewSysAPIServiceClient(rpcSysGrpc *RPCSysGrpc) sysV1.APIClient {
+	return sysV1.NewAPIClient(rpcSysGrpc.grpcClientConn)
 }
-func NewSysLogServiceClient(rpcSysGrpc *RpcSysGrpc) sysV1.LogClient {
+func NewSysLogServiceClient(rpcSysGrpc *RPCSysGrpc) sysV1.LogClient {
 	return sysV1.NewLogClient(rpcSysGrpc.grpcClientConn)
 }
-func NewSysJobServiceClient(rpcSysGrpc *RpcSysGrpc) sysV1.JobClient {
+func NewSysJobServiceClient(rpcSysGrpc *RPCSysGrpc) sysV1.JobClient {
 	return sysV1.NewJobClient(rpcSysGrpc.grpcClientConn)
 }
-func NewSysDeptServiceClient(rpcSysGrpc *RpcSysGrpc) sysV1.DeptClient {
+func NewSysDeptServiceClient(rpcSysGrpc *RPCSysGrpc) sysV1.DeptClient {
 	return sysV1.NewDeptClient(rpcSysGrpc.grpcClientConn)
 }

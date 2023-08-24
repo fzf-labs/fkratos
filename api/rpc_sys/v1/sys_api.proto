@@ -7,18 +7,18 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
-// Api
-service Api {
-  //Api-列表
-  rpc SysApiList(SysApiListReq) returns (SysApiListReply);
-  //Api-保存
-  rpc SysApiStore(SysApiStoreReq) returns (SysApiStoreReply);
-  //Api-删除
-  rpc SysApiDel(SysApiDelReq) returns (SysApiDelReply);
+// API
+service API {
+  //API-列表
+  rpc SysAPIList(SysAPIListReq) returns (SysAPIListReply);
+  //API-保存
+  rpc SysAPIStore(SysAPIStoreReq) returns (SysAPIStoreReply);
+  //API-删除
+  rpc SysAPIDel(SysAPIDelReq) returns (SysAPIDelReply);
 }
 
-// Api信息
-message SysApiInfo {
+// API信息
+message SysAPIInfo {
   string id = 1; // 编号
   string permissionID = 2; // 权限Id
   string method = 3; // 方法
@@ -28,18 +28,18 @@ message SysApiInfo {
   string updatedAt = 7; // 更新时间
 }
 
-//请求-Api-列表
-message SysApiListReq {
+//请求-API-列表
+message SysAPIListReq {
   string permissionId = 1; //权限ID
 }
 
-//响应-Api-列表
-message SysApiListReply {
-  repeated SysApiInfo list = 1; //列表
+//响应-API-列表
+message SysAPIListReply {
+  repeated SysAPIInfo list = 1; //列表
 }
 
-//请求-Api-保存
-message SysApiStoreReq {
+//请求-API-保存
+message SysAPIStoreReq {
   string id = 1; // 编号
   string permissionID = 2; // 权限Id
   string method = 3; // 方法
@@ -47,15 +47,15 @@ message SysApiStoreReq {
   string desc = 5; // 描述
 }
 
-//响应-Api-保存
-message SysApiStoreReply {
+//响应-API-保存
+message SysAPIStoreReply {
   string id = 1; //ID
 }
 
-//请求-Api-删除
-message SysApiDelReq {
+//请求-API-删除
+message SysAPIDelReq {
   repeated string ids = 1; //ID集合
 }
 
-//响应-Api-删除
-message SysApiDelReply {}
+//响应-API-删除
+message SysAPIDelReply {}

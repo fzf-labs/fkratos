@@ -21,13 +21,13 @@ var _ = binding.EncodeURL
 const _ = http.SupportPackageIsVersion1
 
 const OperationSysDashboardSpeech = "/api.bff_admin.v1.Sys/DashboardSpeech"
+const OperationSysSysAPIDel = "/api.bff_admin.v1.Sys/SysAPIDel"
+const OperationSysSysAPIList = "/api.bff_admin.v1.Sys/SysAPIList"
+const OperationSysSysAPIStore = "/api.bff_admin.v1.Sys/SysAPIStore"
 const OperationSysSysAdminGenerateAvatar = "/api.bff_admin.v1.Sys/SysAdminGenerateAvatar"
 const OperationSysSysAdminInfo = "/api.bff_admin.v1.Sys/SysAdminInfo"
 const OperationSysSysAdminInfoUpdate = "/api.bff_admin.v1.Sys/SysAdminInfoUpdate"
 const OperationSysSysAdminPermission = "/api.bff_admin.v1.Sys/SysAdminPermission"
-const OperationSysSysApiDel = "/api.bff_admin.v1.Sys/SysApiDel"
-const OperationSysSysApiList = "/api.bff_admin.v1.Sys/SysApiList"
-const OperationSysSysApiStore = "/api.bff_admin.v1.Sys/SysApiStore"
 const OperationSysSysAuthLogin = "/api.bff_admin.v1.Sys/SysAuthLogin"
 const OperationSysSysAuthLoginCaptcha = "/api.bff_admin.v1.Sys/SysAuthLoginCaptcha"
 const OperationSysSysAuthLogout = "/api.bff_admin.v1.Sys/SysAuthLogout"
@@ -59,6 +59,12 @@ const OperationSysSysRoleStore = "/api.bff_admin.v1.Sys/SysRoleStore"
 type SysHTTPServer interface {
 	// DashboardSpeech仪表盘-一言
 	DashboardSpeech(context.Context, *DashboardSpeechReq) (*DashboardSpeechReply, error)
+	// SysAPIDelAPI-删除
+	SysAPIDel(context.Context, *SysAPIDelReq) (*SysAPIDelReply, error)
+	// SysAPIListAPI-列表
+	SysAPIList(context.Context, *SysAPIListReq) (*SysAPIListReply, error)
+	// SysAPIStoreAPI-保存
+	SysAPIStore(context.Context, *SysAPIStoreReq) (*SysAPIStoreReply, error)
 	// SysAdminGenerateAvatar管理员-生成头像
 	SysAdminGenerateAvatar(context.Context, *SysAdminGenerateAvatarReq) (*SysAdminGenerateAvatarReply, error)
 	// SysAdminInfo管理员-个人信息
@@ -67,12 +73,6 @@ type SysHTTPServer interface {
 	SysAdminInfoUpdate(context.Context, *SysAdminInfoUpdateReq) (*SysAdminInfoUpdateReply, error)
 	// SysAdminPermission管理员-查询权限
 	SysAdminPermission(context.Context, *SysAdminPermissionReq) (*SysAdminPermissionReply, error)
-	// SysApiDelApi-删除
-	SysApiDel(context.Context, *SysApiDelReq) (*SysApiDelReply, error)
-	// SysApiListApi-列表
-	SysApiList(context.Context, *SysApiListReq) (*SysApiListReply, error)
-	// SysApiStoreApi-保存
-	SysApiStore(context.Context, *SysApiStoreReq) (*SysApiStoreReply, error)
 	// SysAuthLoginAuth-登录
 	SysAuthLogin(context.Context, *SysAuthLoginReq) (*SysAuthLoginReply, error)
 	// SysAuthLoginCaptchaAuth-验证码
@@ -143,9 +143,9 @@ func RegisterSysHTTPServer(s *http.Server, srv SysHTTPServer) {
 	r.GET("/admin/v1/sys/sys_manage_info", _Sys_SysManageInfo0_HTTP_Handler(srv))
 	r.POST("/admin/v1/sys/sys_manage_store", _Sys_SysManageStore0_HTTP_Handler(srv))
 	r.POST("/admin/v1/sys/sys_manage_del", _Sys_SysManageDel0_HTTP_Handler(srv))
-	r.GET("/admin/v1/sys/sys_api_list", _Sys_SysApiList0_HTTP_Handler(srv))
-	r.POST("/admin/v1/sys/sys_api_store", _Sys_SysApiStore0_HTTP_Handler(srv))
-	r.POST("/admin/v1/sys/sys_api_del", _Sys_SysApiDel0_HTTP_Handler(srv))
+	r.GET("/admin/v1/sys/sys_api_list", _Sys_SysAPIList0_HTTP_Handler(srv))
+	r.POST("/admin/v1/sys/sys_api_store", _Sys_SysAPIStore0_HTTP_Handler(srv))
+	r.POST("/admin/v1/sys/sys_api_del", _Sys_SysAPIDel0_HTTP_Handler(srv))
 	r.GET("/admin/v1/sys/sys_dept_list", _Sys_SysDeptList0_HTTP_Handler(srv))
 	r.GET("/admin/v1/sys/sys_dept_info", _Sys_SysDeptInfo0_HTTP_Handler(srv))
 	r.POST("/admin/v1/sys/sys_dept_store", _Sys_SysDeptStore0_HTTP_Handler(srv))
@@ -396,59 +396,59 @@ func _Sys_SysManageDel0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) e
 	}
 }
 
-func _Sys_SysApiList0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) error {
+func _Sys_SysAPIList0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in SysApiListReq
+		var in SysAPIListReq
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationSysSysApiList)
+		http.SetOperation(ctx, OperationSysSysAPIList)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.SysApiList(ctx, req.(*SysApiListReq))
+			return srv.SysAPIList(ctx, req.(*SysAPIListReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*SysApiListReply)
+		reply := out.(*SysAPIListReply)
 		return ctx.Result(200, reply)
 	}
 }
 
-func _Sys_SysApiStore0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) error {
+func _Sys_SysAPIStore0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in SysApiStoreReq
+		var in SysAPIStoreReq
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationSysSysApiStore)
+		http.SetOperation(ctx, OperationSysSysAPIStore)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.SysApiStore(ctx, req.(*SysApiStoreReq))
+			return srv.SysAPIStore(ctx, req.(*SysAPIStoreReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*SysApiStoreReply)
+		reply := out.(*SysAPIStoreReply)
 		return ctx.Result(200, reply)
 	}
 }
 
-func _Sys_SysApiDel0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) error {
+func _Sys_SysAPIDel0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in SysApiDelReq
+		var in SysAPIDelReq
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationSysSysApiDel)
+		http.SetOperation(ctx, OperationSysSysAPIDel)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.SysApiDel(ctx, req.(*SysApiDelReq))
+			return srv.SysAPIDel(ctx, req.(*SysAPIDelReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*SysApiDelReply)
+		reply := out.(*SysAPIDelReply)
 		return ctx.Result(200, reply)
 	}
 }
@@ -835,13 +835,13 @@ func _Sys_SysRoleDel0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) err
 
 type SysHTTPClient interface {
 	DashboardSpeech(ctx context.Context, req *DashboardSpeechReq, opts ...http.CallOption) (rsp *DashboardSpeechReply, err error)
+	SysAPIDel(ctx context.Context, req *SysAPIDelReq, opts ...http.CallOption) (rsp *SysAPIDelReply, err error)
+	SysAPIList(ctx context.Context, req *SysAPIListReq, opts ...http.CallOption) (rsp *SysAPIListReply, err error)
+	SysAPIStore(ctx context.Context, req *SysAPIStoreReq, opts ...http.CallOption) (rsp *SysAPIStoreReply, err error)
 	SysAdminGenerateAvatar(ctx context.Context, req *SysAdminGenerateAvatarReq, opts ...http.CallOption) (rsp *SysAdminGenerateAvatarReply, err error)
 	SysAdminInfo(ctx context.Context, req *SysAdminInfoReq, opts ...http.CallOption) (rsp *SysAdminInfoReply, err error)
 	SysAdminInfoUpdate(ctx context.Context, req *SysAdminInfoUpdateReq, opts ...http.CallOption) (rsp *SysAdminInfoUpdateReply, err error)
 	SysAdminPermission(ctx context.Context, req *SysAdminPermissionReq, opts ...http.CallOption) (rsp *SysAdminPermissionReply, err error)
-	SysApiDel(ctx context.Context, req *SysApiDelReq, opts ...http.CallOption) (rsp *SysApiDelReply, err error)
-	SysApiList(ctx context.Context, req *SysApiListReq, opts ...http.CallOption) (rsp *SysApiListReply, err error)
-	SysApiStore(ctx context.Context, req *SysApiStoreReq, opts ...http.CallOption) (rsp *SysApiStoreReply, err error)
 	SysAuthLogin(ctx context.Context, req *SysAuthLoginReq, opts ...http.CallOption) (rsp *SysAuthLoginReply, err error)
 	SysAuthLoginCaptcha(ctx context.Context, req *SysAuthLoginCaptchaReq, opts ...http.CallOption) (rsp *SysAuthLoginCaptchaReply, err error)
 	SysAuthLogout(ctx context.Context, req *SysAuthLogoutReq, opts ...http.CallOption) (rsp *SysAuthLogoutReply, err error)
@@ -886,6 +886,45 @@ func (c *SysHTTPClientImpl) DashboardSpeech(ctx context.Context, in *DashboardSp
 	opts = append(opts, http.Operation(OperationSysDashboardSpeech))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *SysHTTPClientImpl) SysAPIDel(ctx context.Context, in *SysAPIDelReq, opts ...http.CallOption) (*SysAPIDelReply, error) {
+	var out SysAPIDelReply
+	pattern := "/admin/v1/sys/sys_api_del"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationSysSysAPIDel))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *SysHTTPClientImpl) SysAPIList(ctx context.Context, in *SysAPIListReq, opts ...http.CallOption) (*SysAPIListReply, error) {
+	var out SysAPIListReply
+	pattern := "/admin/v1/sys/sys_api_list"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationSysSysAPIList))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *SysHTTPClientImpl) SysAPIStore(ctx context.Context, in *SysAPIStoreReq, opts ...http.CallOption) (*SysAPIStoreReply, error) {
+	var out SysAPIStoreReply
+	pattern := "/admin/v1/sys/sys_api_store"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationSysSysAPIStore))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -938,45 +977,6 @@ func (c *SysHTTPClientImpl) SysAdminPermission(ctx context.Context, in *SysAdmin
 	opts = append(opts, http.Operation(OperationSysSysAdminPermission))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &out, err
-}
-
-func (c *SysHTTPClientImpl) SysApiDel(ctx context.Context, in *SysApiDelReq, opts ...http.CallOption) (*SysApiDelReply, error) {
-	var out SysApiDelReply
-	pattern := "/admin/v1/sys/sys_api_del"
-	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationSysSysApiDel))
-	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &out, err
-}
-
-func (c *SysHTTPClientImpl) SysApiList(ctx context.Context, in *SysApiListReq, opts ...http.CallOption) (*SysApiListReply, error) {
-	var out SysApiListReply
-	pattern := "/admin/v1/sys/sys_api_list"
-	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationSysSysApiList))
-	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &out, err
-}
-
-func (c *SysHTTPClientImpl) SysApiStore(ctx context.Context, in *SysApiStoreReq, opts ...http.CallOption) (*SysApiStoreReply, error) {
-	var out SysApiStoreReply
-	pattern := "/admin/v1/sys/sys_api_store"
-	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationSysSysApiStore))
-	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

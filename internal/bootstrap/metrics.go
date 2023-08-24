@@ -7,6 +7,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
+//nolint:gochecknoinits
 func init() {
 	prometheus.MustRegister(_metricSeconds, _metricRequests)
 }

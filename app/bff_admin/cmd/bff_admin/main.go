@@ -20,14 +20,14 @@ var (
 	)
 )
 
-func newApp(logger log.Logger, registry registry.Registrar, hs *http.Server) *kratos.App {
+func newApp(logger log.Logger, r registry.Registrar, hs *http.Server) *kratos.App {
 	return kratos.New(
-		kratos.ID(Service.GetInstanceId()),
+		kratos.ID(Service.GetInstanceID()),
 		kratos.Name(Service.Name),
 		kratos.Version(Service.Version),
 		kratos.Metadata(Service.Metadata),
 		kratos.Logger(logger),
-		kratos.Registrar(registry),
+		kratos.Registrar(r),
 		kratos.Server(
 			hs,
 		),

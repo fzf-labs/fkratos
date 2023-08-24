@@ -153,13 +153,13 @@
     },
     "/admin/v1/sys/sys_api_del": {
       "post": {
-        "summary": "Api-删除",
-        "operationId": "Sys_SysApiDel",
+        "summary": "API-删除",
+        "operationId": "Sys_SysAPIDel",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1SysApiDelReply"
+              "$ref": "#/definitions/v1SysAPIDelReply"
             }
           },
           "default": {
@@ -175,7 +175,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1SysApiDelReq"
+              "$ref": "#/definitions/v1SysAPIDelReq"
             }
           }
         ],
@@ -186,13 +186,13 @@
     },
     "/admin/v1/sys/sys_api_list": {
       "get": {
-        "summary": "Api-列表",
-        "operationId": "Sys_SysApiList",
+        "summary": "API-列表",
+        "operationId": "Sys_SysAPIList",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1SysApiListReply"
+              "$ref": "#/definitions/v1SysAPIListReply"
             }
           },
           "default": {
@@ -218,13 +218,13 @@
     },
     "/admin/v1/sys/sys_api_store": {
       "post": {
-        "summary": "Api-保存",
-        "operationId": "Sys_SysApiStore",
+        "summary": "API-保存",
+        "operationId": "Sys_SysAPIStore",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1SysApiStoreReply"
+              "$ref": "#/definitions/v1SysAPIStoreReply"
             }
           },
           "default": {
@@ -240,7 +240,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1SysApiStoreReq"
+              "$ref": "#/definitions/v1SysAPIStoreReq"
             }
           }
         ],
@@ -1254,6 +1254,107 @@
       },
       "title": "响应-一言"
     },
+    "v1SysAPIDelReply": {
+      "type": "object",
+      "title": "响应-API-删除"
+    },
+    "v1SysAPIDelReq": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "ID集合"
+        }
+      },
+      "title": "请求-API-删除"
+    },
+    "v1SysAPIInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "编号"
+        },
+        "permissionID": {
+          "type": "string",
+          "title": "权限Id"
+        },
+        "method": {
+          "type": "string",
+          "title": "方法"
+        },
+        "path": {
+          "type": "string",
+          "title": "路径"
+        },
+        "desc": {
+          "type": "string",
+          "title": "描述"
+        },
+        "createdAt": {
+          "type": "string",
+          "title": "创建时间"
+        },
+        "updatedAt": {
+          "type": "string",
+          "title": "更新时间"
+        }
+      },
+      "title": "API信息"
+    },
+    "v1SysAPIListReply": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1SysAPIInfo"
+          },
+          "title": "列表"
+        }
+      },
+      "title": "响应-API-列表"
+    },
+    "v1SysAPIStoreReply": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "ID"
+        }
+      },
+      "title": "响应-API-保存"
+    },
+    "v1SysAPIStoreReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "编号"
+        },
+        "permissionID": {
+          "type": "string",
+          "title": "权限Id"
+        },
+        "method": {
+          "type": "string",
+          "title": "方法"
+        },
+        "path": {
+          "type": "string",
+          "title": "路径"
+        },
+        "desc": {
+          "type": "string",
+          "title": "描述"
+        }
+      },
+      "title": "请求-API-保存"
+    },
     "v1SysAdminGenerateAvatarReply": {
       "type": "object",
       "properties": {
@@ -1432,107 +1533,6 @@
         }
       },
       "title": "响应-权限"
-    },
-    "v1SysApiDelReply": {
-      "type": "object",
-      "title": "响应-Api-删除"
-    },
-    "v1SysApiDelReq": {
-      "type": "object",
-      "properties": {
-        "ids": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "title": "ID集合"
-        }
-      },
-      "title": "请求-Api-删除"
-    },
-    "v1SysApiInfo": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "title": "编号"
-        },
-        "permissionID": {
-          "type": "string",
-          "title": "权限Id"
-        },
-        "method": {
-          "type": "string",
-          "title": "方法"
-        },
-        "path": {
-          "type": "string",
-          "title": "路径"
-        },
-        "desc": {
-          "type": "string",
-          "title": "描述"
-        },
-        "createdAt": {
-          "type": "string",
-          "title": "创建时间"
-        },
-        "updatedAt": {
-          "type": "string",
-          "title": "更新时间"
-        }
-      },
-      "title": "Api信息"
-    },
-    "v1SysApiListReply": {
-      "type": "object",
-      "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1SysApiInfo"
-          },
-          "title": "列表"
-        }
-      },
-      "title": "响应-Api-列表"
-    },
-    "v1SysApiStoreReply": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "title": "ID"
-        }
-      },
-      "title": "响应-Api-保存"
-    },
-    "v1SysApiStoreReq": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "title": "编号"
-        },
-        "permissionID": {
-          "type": "string",
-          "title": "权限Id"
-        },
-        "method": {
-          "type": "string",
-          "title": "方法"
-        },
-        "path": {
-          "type": "string",
-          "title": "路径"
-        },
-        "desc": {
-          "type": "string",
-          "title": "描述"
-        }
-      },
-      "title": "请求-Api-保存"
     },
     "v1SysAuthLoginCaptchaReply": {
       "type": "object",

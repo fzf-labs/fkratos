@@ -21,7 +21,7 @@ type DeptUseCase struct {
 	sysDeptRepo SysDeptRepo
 }
 
-func (d *DeptUseCase) SysDeptList(ctx context.Context, req *v1.SysDeptListReq) (*v1.SysDeptListReply, error) {
+func (d *DeptUseCase) SysDeptList(ctx context.Context, _ *v1.SysDeptListReq) (*v1.SysDeptListReply, error) {
 	resp := new(v1.SysDeptListReply)
 	list, err := d.sysDeptRepo.SysDeptList(ctx)
 	if err != nil {

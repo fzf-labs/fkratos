@@ -21,10 +21,10 @@ func main() {
 
 func GetDsn(configFile string) string {
 	config := viper.New()
-	config.AddConfigPath(filepath.Dir(configFile)) //设置读取的文件路径
-	config.SetConfigName("config")                 //设置读取的文件名
-	config.SetConfigType("yaml")                   //设置文件的类型
-	//尝试进行配置读取
+	config.AddConfigPath(filepath.Dir(configFile)) // 设置读取的文件路径
+	config.SetConfigName("config")                 // 设置读取的文件名
+	config.SetConfigType("yaml")                   // 设置文件的类型
+	// 尝试进行配置读取
 	if err := config.ReadInConfig(); err != nil {
 		panic(err)
 	}

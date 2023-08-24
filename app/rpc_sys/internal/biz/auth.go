@@ -25,15 +25,15 @@ type AuthUseCase struct {
 }
 
 // SysAuthLoginCaptcha 验证码
-func (a *AuthUseCase) SysAuthLoginCaptcha(ctx context.Context, req *v1.SysAuthLoginCaptchaReq) (*v1.SysAuthLoginCaptchaReply, error) {
+func (a *AuthUseCase) SysAuthLoginCaptcha(_ context.Context, _ *v1.SysAuthLoginCaptchaReq) (*v1.SysAuthLoginCaptchaReply, error) {
 	resp := new(v1.SysAuthLoginCaptchaReply)
 	driver := base64Captcha.NewDriverDigit(80, 240, 6, 0.7, 80)
 	cp := base64Captcha.NewCaptcha(driver, base64Captcha.DefaultMemStore)
-	captchaId, picPath, err := cp.Generate()
+	captchaID, picPath, err := cp.Generate()
 	if err != nil {
 		return nil, err
 	}
-	resp.CaptchaId = captchaId
+	resp.CaptchaId = captchaID
 	resp.CaptchaImg = picPath
 	return resp, nil
 }
@@ -41,19 +41,18 @@ func (a *AuthUseCase) SysAuthLoginCaptcha(ctx context.Context, req *v1.SysAuthLo
 // SysAuthLogin 登录
 func (a *AuthUseCase) SysAuthLogin(ctx context.Context, req *v1.SysAuthLoginReq) (*v1.SysAuthLoginReply, error) {
 	resp := new(v1.SysAuthLoginReply)
-	//验证码
+	// 验证码
 	verify := base64Captcha.DefaultMemStore.Verify(req.CaptchaId, req.VerifyCode, true)
 	if !verify {
 		return nil, errorx.AccountVerificationCodeErr
 	}
-	//用户校验
+	// 用户校验
 	sysAdmin, err := a.sysAdminRepo.FindOneCacheByUsername(ctx, req.GetUsername())
 	if err != nil {
 		return nil, err
 	}
 	if sysAdmin == nil {
 		return nil, errorx.AccountNotExist
-
 	}
 	if crypt.Compare(sysAdmin.Password, req.Password+sysAdmin.Salt) != nil {
 		return nil, errorx.AccountWrongPassword
@@ -61,7 +60,7 @@ func (a *AuthUseCase) SysAuthLogin(ctx context.Context, req *v1.SysAuthLoginReq)
 	if sysAdmin.Status != constant.StatusEnable {
 		return nil, errorx.AccountAbnormalStatus
 	}
-	//颁发token
+	// 颁发token
 	kv := make(map[string]interface{})
 	kv["uid"] = sysAdmin.ID
 	token, err := a.sysAdminRepo.GenerateJwTToken(ctx, kv)
@@ -87,10 +86,10 @@ func (a *AuthUseCase) SysAuthLogout(ctx context.Context, req *v1.SysAuthLogoutRe
 // SysAuthJwtTokenCheck token校验
 func (a *AuthUseCase) SysAuthJwtTokenCheck(ctx context.Context, req *v1.SysAuthJwtTokenCheckReq) (*v1.SysAuthJwtTokenCheckReply, error) {
 	resp := new(v1.SysAuthJwtTokenCheckReply)
-	adminId, err := a.sysAdminRepo.SysAuthJwtTokenCheck(ctx, req.GetToken())
+	adminID, err := a.sysAdminRepo.SysAuthJwtTokenCheck(ctx, req.GetToken())
 	if err != nil {
 		return nil, err
 	}
-	resp.AdminId = adminId
+	resp.AdminId = adminID
 	return resp, nil
 }

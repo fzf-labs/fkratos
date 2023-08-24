@@ -3,8 +3,9 @@ syntax = "proto3";
 package api.rpc_sys.v1;
 
 import "paginator/paginator.proto";
-import "validate/validate.proto";
 import "rpc_sys/v1/sys_permission.proto";
+import "validate/validate.proto";
+
 option go_package = "fkratos/api/rpc_sys/v1;v1";
 
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。

@@ -20,3 +20,7 @@ type UserRepo struct {
 	data *Data
 	log  *log.Helper
 }
+
+func (u UserRepo) CreateUSer() {
+
+}

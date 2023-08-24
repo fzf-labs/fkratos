@@ -21,7 +21,7 @@ type PermissionUseCase struct {
 	sysPermissionRepo SysPermissionRepo
 }
 
-func (p *PermissionUseCase) SysPermissionList(ctx context.Context, req *v1.SysPermissionListReq) (*v1.SysPermissionListResp, error) {
+func (p *PermissionUseCase) SysPermissionList(ctx context.Context, _ *v1.SysPermissionListReq) (*v1.SysPermissionListResp, error) {
 	resp := new(v1.SysPermissionListResp)
 	list, err := p.sysPermissionRepo.SysPermissionList(ctx)
 	if err != nil {

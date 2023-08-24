@@ -20,21 +20,21 @@ func NewGRPCServer(
 	permissionService *service.PermissionService,
 	jobService *service.JobService,
 	deptService *service.DeptService,
-	apiService *service.ApiService,
+	apiService *service.APIService,
 	logService *service.LogService,
 	dashboardService *service.DashboardService,
 ) *grpc.Server {
-	//创建grpc服务
+	// 创建grpc服务
 	srv := bootstrap.NewGrpcServer(c, logger)
 
-	//注册服务
+	// 注册服务
 	v1.RegisterAuthServer(srv, authService)
 	v1.RegisterAdminServer(srv, adminService)
 	v1.RegisterRoleServer(srv, roleService)
 	v1.RegisterPermissionServer(srv, permissionService)
 	v1.RegisterJobServer(srv, jobService)
 	v1.RegisterDeptServer(srv, deptService)
-	v1.RegisterApiServer(srv, apiService)
+	v1.RegisterAPIServer(srv, apiService)
 	v1.RegisterLogServer(srv, logService)
 	v1.RegisterDashboardServer(srv, dashboardService)
 	return srv

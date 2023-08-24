@@ -24,14 +24,14 @@ import (
 
 // wireApp init kratos application.
 func wireApp(bootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
-	rpcSysGrpc := data.NewRpcSysGrpc(bootstrap, discovery)
+	rpcSysGrpc := data.NewRPCSysGrpc(bootstrap, discovery)
 	authClient := data.NewSysAuthServiceClient(rpcSysGrpc)
 	adminClient := data.NewSysAdminServiceClient(rpcSysGrpc)
 	roleClient := data.NewSysRoleServiceClient(rpcSysGrpc)
 	permissionClient := data.NewSysPermissionServiceClient(rpcSysGrpc)
 	jobClient := data.NewSysJobServiceClient(rpcSysGrpc)
 	deptClient := data.NewSysDeptServiceClient(rpcSysGrpc)
-	apiClient := data.NewSysApiServiceClient(rpcSysGrpc)
+	apiClient := data.NewSysAPIServiceClient(rpcSysGrpc)
 	logClient := data.NewSysLogServiceClient(rpcSysGrpc)
 	dashboardClient := data.NewSysDashboardServiceClient(rpcSysGrpc)
 	sysService := service.NewSysService(logger, authClient, adminClient, roleClient, permissionClient, jobClient, deptClient, apiClient, logClient, dashboardClient)

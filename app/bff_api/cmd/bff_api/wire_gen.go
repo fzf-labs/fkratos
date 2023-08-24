@@ -7,6 +7,7 @@
 package main
 
 import (
+	"fkratos/app/bff_api/internal/data"
 	"fkratos/app/bff_api/internal/server"
 	"fkratos/app/bff_api/internal/service"
 	"fkratos/internal/bootstrap/conf"
@@ -23,8 +24,10 @@ import (
 
 // wireApp init kratos application.
 func wireApp(bootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
-	apiService := service.NewApiService()
-	httpServer := server.NewHTTPServer(bootstrap, logger, apiService)
+	rpcUserGrpc := data.NewRPCUserGrpc(bootstrap, discovery)
+	userClient := data.NewUserServiceClient(rpcUserGrpc)
+	userService := service.NewUserService(logger, userClient)
+	httpServer := server.NewHTTPServer(bootstrap, logger, userService)
 	app := newApp(logger, registrar, httpServer)
 	return app, func() {
 	}, nil

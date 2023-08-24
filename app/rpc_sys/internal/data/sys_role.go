@@ -36,7 +36,7 @@ func (s *SysRoleRepo) SysRoleInfoByIds(ctx context.Context, ids []string) ([]*fk
 	sysRoleDao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	sysRoles, err := sysRoleDao.WithContext(ctx).Where(sysRoleDao.ID.In(ids...)).Find()
 	if err != nil {
-		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return sysRoles, nil
 }
@@ -45,7 +45,7 @@ func (s *SysRoleRepo) SysRoleList(ctx context.Context) ([]*fkratos_sys_model.Sys
 	sysRoleDao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	sysRoles, err := sysRoleDao.WithContext(ctx).Find()
 	if err != nil {
-		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return sysRoles, nil
 }
@@ -63,24 +63,24 @@ func (s *SysRoleRepo) SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq)
 	if req.Id != "" {
 		_, err := sysRoleDao.WithContext(ctx).Where(sysRoleDao.ID.Eq(req.Id)).Select(sysRoleDao.Pid, sysRoleDao.Name, sysRoleDao.PermissionIds, sysRoleDao.Remark, sysRoleDao.Status).Updates(model)
 		if err != nil {
-			return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 	} else {
 		err := sysRoleDao.WithContext(ctx).Create(model)
 		if err != nil {
-			return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 	}
 
 	return model, nil
 }
 
-func (s *SysRoleRepo) GetRoleIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {
+func (s *SysRoleRepo) GetRoleIDToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {
 	resp := make(map[string]string)
 	dao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	results, err := dao.WithContext(ctx).Where(dao.ID.In(ids...)).Find()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	for _, v := range results {
 		resp[v.ID] = v.Name

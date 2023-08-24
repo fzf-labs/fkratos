@@ -48,6 +48,7 @@ func stripSlice(slice []string, element string) []string {
 	return slice
 }
 
+//nolint:gosec
 func subProcess(args []string) *exec.Cmd {
 	cmd := exec.Command(args[0], args[1:]...)
 	cmd.Stdin = os.Stdin

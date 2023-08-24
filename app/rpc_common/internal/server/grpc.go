@@ -12,9 +12,7 @@ import (
 
 // NewGRPCServer new a gRPC server.
 func NewGRPCServer(c *conf.Bootstrap, logger log.Logger, sensitiveWordService *service.SensitiveWordService) *grpc.Server {
-	//创建grpc服务
 	srv := bootstrap.NewGrpcServer(c, logger)
-	//注册服务
 	v1.RegisterSensitiveWordServer(srv, sensitiveWordService)
 	return srv
 }

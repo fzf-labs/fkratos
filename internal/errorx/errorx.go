@@ -3,7 +3,6 @@ package errorx
 import (
 	"fmt"
 	"net/http"
-	"strings"
 
 	"github.com/go-kratos/kratos/v2/errors"
 
@@ -53,7 +52,7 @@ func ErrorEncoder(w http.ResponseWriter, r *http.Request, err error) {
 
 // ContentType returns the content-type with base prefix.
 func ContentType(subtype string) string {
-	return strings.Join([]string{"application", subtype}, "/")
+	return "application" + "/" + subtype
 }
 
 // SetErrMetadata 设置错误元数据

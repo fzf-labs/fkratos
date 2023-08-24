@@ -2,7 +2,7 @@ package auth
 
 import (
 	"context"
-	"fkratos/api/bff_admin/v1"
+	bffAdminV1 "fkratos/api/bff_admin/v1"
 	sysV1 "fkratos/api/rpc_sys/v1"
 	"fkratos/internal/errorx"
 	"fkratos/internal/meta"
@@ -16,8 +16,8 @@ import (
 // WhiteListMatcher 路由白名单
 func WhiteListMatcher() selector.MatchFunc {
 	whiteList := make(map[string]bool)
-	whiteList[v1.Sys_SysAuthLoginCaptcha_FullMethodName] = true
-	whiteList[v1.Sys_SysAuthLogin_FullMethodName] = true
+	whiteList[bffAdminV1.Sys_SysAuthLoginCaptcha_FullMethodName] = true
+	whiteList[bffAdminV1.Sys_SysAuthLogin_FullMethodName] = true
 	return func(ctx context.Context, operation string) bool {
 		if _, ok := whiteList[operation]; ok {
 			return false
@@ -37,13 +37,13 @@ func Auth(authClient sysV1.AuthClient) middleware.Middleware {
 		return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
 			if tr, ok := http.RequestFromServerContext(ctx); ok {
 				// Do something on entering
-				//获取header头部中的Authorization的值
+				// 获取header头部中的Authorization的值
 				authorization := tr.Header.Get("Authorization")
-				//不存在则报错
-				if len(authorization) == 0 {
+				// 不存在则报错
+				if authorization == "" {
 					return nil, errorx.TokenNotRequest
 				}
-				//token截取
+				// token截取
 				var token string
 				_, err := fmt.Sscanf(authorization, "Bearer %s", &token)
 				if err != nil {
@@ -53,10 +53,9 @@ func Auth(authClient sysV1.AuthClient) middleware.Middleware {
 				if err != nil {
 					return nil, err
 				}
-				adminId := tokenClaims.AdminId
-				//将JwtUID参数写进context中
-				ctx = meta.SetAdminId(ctx, adminId)
-				ctx = meta.SetMetadata(ctx, meta.XMdAdminId, adminId)
+				adminID := tokenClaims.AdminId
+				// 将JwtUID参数写进context中
+				ctx = meta.SetMetadata(ctx, meta.XMdAdminID, adminID)
 			}
 			return handler(ctx, req)
 		}

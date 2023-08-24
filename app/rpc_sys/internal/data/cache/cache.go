@@ -7,7 +7,7 @@ import (
 	"github.com/fzf-labs/fpkg/cache/cachekey"
 )
 
-var cache = cachekey.NewKeyManage(constant.RpcSys)
+var cache = cachekey.NewKeyManage(constant.RPCSys)
 
 // 缓存key前缀
 var (
@@ -16,7 +16,7 @@ var (
 	Sms           = cache.AddKey("sms", time.Minute*5, "短信验证")
 	SmsDayNum     = cache.AddKey("sms_day_num", time.Minute*5, "短信发送次数")
 	SensitiveWord = cache.AddKey("sensitive_word", time.Hour*24, "敏感词")
-	TinyUrl       = cache.AddKey("tiny_url", time.Hour*24, "短连接")
+	TinyURL       = cache.AddKey("tiny_url", time.Hour*24, "短连接")
 )
 
 // admin

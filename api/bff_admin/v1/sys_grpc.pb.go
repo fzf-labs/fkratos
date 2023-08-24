@@ -32,9 +32,9 @@ const (
 	Sys_SysManageInfo_FullMethodName          = "/api.bff_admin.v1.Sys/SysManageInfo"
 	Sys_SysManageStore_FullMethodName         = "/api.bff_admin.v1.Sys/SysManageStore"
 	Sys_SysManageDel_FullMethodName           = "/api.bff_admin.v1.Sys/SysManageDel"
-	Sys_SysApiList_FullMethodName             = "/api.bff_admin.v1.Sys/SysApiList"
-	Sys_SysApiStore_FullMethodName            = "/api.bff_admin.v1.Sys/SysApiStore"
-	Sys_SysApiDel_FullMethodName              = "/api.bff_admin.v1.Sys/SysApiDel"
+	Sys_SysAPIList_FullMethodName             = "/api.bff_admin.v1.Sys/SysAPIList"
+	Sys_SysAPIStore_FullMethodName            = "/api.bff_admin.v1.Sys/SysAPIStore"
+	Sys_SysAPIDel_FullMethodName              = "/api.bff_admin.v1.Sys/SysAPIDel"
 	Sys_SysDeptList_FullMethodName            = "/api.bff_admin.v1.Sys/SysDeptList"
 	Sys_SysDeptInfo_FullMethodName            = "/api.bff_admin.v1.Sys/SysDeptInfo"
 	Sys_SysDeptStore_FullMethodName           = "/api.bff_admin.v1.Sys/SysDeptStore"
@@ -85,12 +85,12 @@ type SysClient interface {
 	SysManageStore(ctx context.Context, in *SysManageStoreReq, opts ...grpc.CallOption) (*SysManageStoreReply, error)
 	// 管理员-删除
 	SysManageDel(ctx context.Context, in *SysManageDelReq, opts ...grpc.CallOption) (*SysManageDelReply, error)
-	// Api-列表
-	SysApiList(ctx context.Context, in *SysApiListReq, opts ...grpc.CallOption) (*SysApiListReply, error)
-	// Api-保存
-	SysApiStore(ctx context.Context, in *SysApiStoreReq, opts ...grpc.CallOption) (*SysApiStoreReply, error)
-	// Api-删除
-	SysApiDel(ctx context.Context, in *SysApiDelReq, opts ...grpc.CallOption) (*SysApiDelReply, error)
+	// API-列表
+	SysAPIList(ctx context.Context, in *SysAPIListReq, opts ...grpc.CallOption) (*SysAPIListReply, error)
+	// API-保存
+	SysAPIStore(ctx context.Context, in *SysAPIStoreReq, opts ...grpc.CallOption) (*SysAPIStoreReply, error)
+	// API-删除
+	SysAPIDel(ctx context.Context, in *SysAPIDelReq, opts ...grpc.CallOption) (*SysAPIDelReply, error)
 	// 部门-列表
 	SysDeptList(ctx context.Context, in *SysDeptListReq, opts ...grpc.CallOption) (*SysDeptListReply, error)
 	// 部门-单个部门信息
@@ -249,27 +249,27 @@ func (c *sysClient) SysManageDel(ctx context.Context, in *SysManageDelReq, opts 
 	return out, nil
 }
 
-func (c *sysClient) SysApiList(ctx context.Context, in *SysApiListReq, opts ...grpc.CallOption) (*SysApiListReply, error) {
-	out := new(SysApiListReply)
-	err := c.cc.Invoke(ctx, Sys_SysApiList_FullMethodName, in, out, opts...)
+func (c *sysClient) SysAPIList(ctx context.Context, in *SysAPIListReq, opts ...grpc.CallOption) (*SysAPIListReply, error) {
+	out := new(SysAPIListReply)
+	err := c.cc.Invoke(ctx, Sys_SysAPIList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *sysClient) SysApiStore(ctx context.Context, in *SysApiStoreReq, opts ...grpc.CallOption) (*SysApiStoreReply, error) {
-	out := new(SysApiStoreReply)
-	err := c.cc.Invoke(ctx, Sys_SysApiStore_FullMethodName, in, out, opts...)
+func (c *sysClient) SysAPIStore(ctx context.Context, in *SysAPIStoreReq, opts ...grpc.CallOption) (*SysAPIStoreReply, error) {
+	out := new(SysAPIStoreReply)
+	err := c.cc.Invoke(ctx, Sys_SysAPIStore_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *sysClient) SysApiDel(ctx context.Context, in *SysApiDelReq, opts ...grpc.CallOption) (*SysApiDelReply, error) {
-	out := new(SysApiDelReply)
-	err := c.cc.Invoke(ctx, Sys_SysApiDel_FullMethodName, in, out, opts...)
+func (c *sysClient) SysAPIDel(ctx context.Context, in *SysAPIDelReq, opts ...grpc.CallOption) (*SysAPIDelReply, error) {
+	out := new(SysAPIDelReply)
+	err := c.cc.Invoke(ctx, Sys_SysAPIDel_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -484,12 +484,12 @@ type SysServer interface {
 	SysManageStore(context.Context, *SysManageStoreReq) (*SysManageStoreReply, error)
 	// 管理员-删除
 	SysManageDel(context.Context, *SysManageDelReq) (*SysManageDelReply, error)
-	// Api-列表
-	SysApiList(context.Context, *SysApiListReq) (*SysApiListReply, error)
-	// Api-保存
-	SysApiStore(context.Context, *SysApiStoreReq) (*SysApiStoreReply, error)
-	// Api-删除
-	SysApiDel(context.Context, *SysApiDelReq) (*SysApiDelReply, error)
+	// API-列表
+	SysAPIList(context.Context, *SysAPIListReq) (*SysAPIListReply, error)
+	// API-保存
+	SysAPIStore(context.Context, *SysAPIStoreReq) (*SysAPIStoreReply, error)
+	// API-删除
+	SysAPIDel(context.Context, *SysAPIDelReq) (*SysAPIDelReply, error)
 	// 部门-列表
 	SysDeptList(context.Context, *SysDeptListReq) (*SysDeptListReply, error)
 	// 部门-单个部门信息
@@ -573,14 +573,14 @@ func (UnimplementedSysServer) SysManageStore(context.Context, *SysManageStoreReq
 func (UnimplementedSysServer) SysManageDel(context.Context, *SysManageDelReq) (*SysManageDelReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysManageDel not implemented")
 }
-func (UnimplementedSysServer) SysApiList(context.Context, *SysApiListReq) (*SysApiListReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SysApiList not implemented")
+func (UnimplementedSysServer) SysAPIList(context.Context, *SysAPIListReq) (*SysAPIListReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysAPIList not implemented")
 }
-func (UnimplementedSysServer) SysApiStore(context.Context, *SysApiStoreReq) (*SysApiStoreReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SysApiStore not implemented")
+func (UnimplementedSysServer) SysAPIStore(context.Context, *SysAPIStoreReq) (*SysAPIStoreReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysAPIStore not implemented")
 }
-func (UnimplementedSysServer) SysApiDel(context.Context, *SysApiDelReq) (*SysApiDelReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SysApiDel not implemented")
+func (UnimplementedSysServer) SysAPIDel(context.Context, *SysAPIDelReq) (*SysAPIDelReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysAPIDel not implemented")
 }
 func (UnimplementedSysServer) SysDeptList(context.Context, *SysDeptListReq) (*SysDeptListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysDeptList not implemented")
@@ -871,56 +871,56 @@ func _Sys_SysManageDel_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Sys_SysApiList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SysApiListReq)
+func _Sys_SysAPIList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysAPIListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SysServer).SysApiList(ctx, in)
+		return srv.(SysServer).SysAPIList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Sys_SysApiList_FullMethodName,
+		FullMethod: Sys_SysAPIList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SysServer).SysApiList(ctx, req.(*SysApiListReq))
+		return srv.(SysServer).SysAPIList(ctx, req.(*SysAPIListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Sys_SysApiStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SysApiStoreReq)
+func _Sys_SysAPIStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysAPIStoreReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SysServer).SysApiStore(ctx, in)
+		return srv.(SysServer).SysAPIStore(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Sys_SysApiStore_FullMethodName,
+		FullMethod: Sys_SysAPIStore_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SysServer).SysApiStore(ctx, req.(*SysApiStoreReq))
+		return srv.(SysServer).SysAPIStore(ctx, req.(*SysAPIStoreReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Sys_SysApiDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SysApiDelReq)
+func _Sys_SysAPIDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysAPIDelReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SysServer).SysApiDel(ctx, in)
+		return srv.(SysServer).SysAPIDel(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Sys_SysApiDel_FullMethodName,
+		FullMethod: Sys_SysAPIDel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SysServer).SysApiDel(ctx, req.(*SysApiDelReq))
+		return srv.(SysServer).SysAPIDel(ctx, req.(*SysAPIDelReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1341,16 +1341,16 @@ var Sys_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Sys_SysManageDel_Handler,
 		},
 		{
-			MethodName: "SysApiList",
-			Handler:    _Sys_SysApiList_Handler,
+			MethodName: "SysAPIList",
+			Handler:    _Sys_SysAPIList_Handler,
 		},
 		{
-			MethodName: "SysApiStore",
-			Handler:    _Sys_SysApiStore_Handler,
+			MethodName: "SysAPIStore",
+			Handler:    _Sys_SysAPIStore_Handler,
 		},
 		{
-			MethodName: "SysApiDel",
-			Handler:    _Sys_SysApiDel_Handler,
+			MethodName: "SysAPIDel",
+			Handler:    _Sys_SysAPIDel_Handler,
 		},
 		{
 			MethodName: "SysDeptList",

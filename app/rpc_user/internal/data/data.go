@@ -3,6 +3,7 @@ package data
 import (
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
+	"fmt"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
@@ -18,20 +19,18 @@ var ProviderSet = wire.NewSet(
 	bootstrap.NewRedis,
 )
 
-// Data .
 type Data struct {
 	logger *log.Helper
 	db     *gorm.DB
 	redis  *redis.Client
 }
 
-// NewData .
-func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redis *redis.Client) (*Data, func(), error) {
-	l := log.NewHelper(log.With(logger, "module", "rpc_user/data"))
+func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redisClient *redis.Client) (*Data, func(), error) {
+	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.ServiceName)))
 	d := &Data{
 		logger: l,
 		db:     db,
-		redis:  redis,
+		redis:  redisClient,
 	}
 	cleanup := func() {
 		log.Info("closing the data resources")

@@ -14,15 +14,15 @@ import (
 
 var (
 	Service = bootstrap.NewService(
-		constant.BffApi,
+		constant.BffAPI,
 		"1.0.0",
 		"",
 	)
 )
 
-func newApp(logger log.Logger, registry registry.Registrar, hs *http.Server) *kratos.App {
+func newApp(logger log.Logger, r registry.Registrar, hs *http.Server) *kratos.App {
 	return kratos.New(
-		kratos.ID(Service.GetInstanceId()),
+		kratos.ID(Service.GetInstanceID()),
 		kratos.Name(Service.Name),
 		kratos.Version(Service.Version),
 		kratos.Metadata(Service.Metadata),
@@ -30,7 +30,7 @@ func newApp(logger log.Logger, registry registry.Registrar, hs *http.Server) *kr
 		kratos.Server(
 			hs,
 		),
-		kratos.Registrar(registry),
+		kratos.Registrar(r),
 	)
 }
 

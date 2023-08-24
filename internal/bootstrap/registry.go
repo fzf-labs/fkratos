@@ -4,24 +4,19 @@ import (
 	"fkratos/internal/bootstrap/conf"
 	"path/filepath"
 
+	etcdKratos "github.com/go-kratos/kratos/contrib/registry/etcd/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
-	// etcd
-	etcdKratos "github.com/go-kratos/kratos/contrib/registry/etcd/v2"
 	etcdClient "go.etcd.io/etcd/client/v3"
 
-	// consul
 	consulKratos "github.com/go-kratos/kratos/contrib/registry/consul/v2"
 	consulClient "github.com/hashicorp/consul/api"
 
-	// nacos
+	k8sRegistry "github.com/go-kratos/kratos/contrib/registry/kubernetes/v2"
 	nacosKratos "github.com/go-kratos/kratos/contrib/registry/nacos/v2"
 	nacosClients "github.com/nacos-group/nacos-sdk-go/clients"
 	nacosConstant "github.com/nacos-group/nacos-sdk-go/common/constant"
 	nacosVo "github.com/nacos-group/nacos-sdk-go/vo"
-
-	// kubernetes
-	k8sRegistry "github.com/go-kratos/kratos/contrib/registry/kubernetes/v2"
 	k8s "k8s.io/client-go/kubernetes"
 	k8sRest "k8s.io/client-go/rest"
 	k8sTools "k8s.io/client-go/tools/clientcmd"

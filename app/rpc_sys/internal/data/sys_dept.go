@@ -47,13 +47,12 @@ func (s *SysDeptRepo) SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq)
 	if req.Id != "" {
 		_, err := sysDeptDao.WithContext(ctx).Select(sysDeptDao.Pid, sysDeptDao.Name, sysDeptDao.FullName, sysDeptDao.Responsible, sysDeptDao.Phone, sysDeptDao.Email, sysDeptDao.Type, sysDeptDao.Status, sysDeptDao.Sort).Where(sysDeptDao.ID.Eq(req.Id)).Updates(sysDept)
 		if err != nil {
-			return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
-
 	} else {
 		err := sysDeptDao.WithContext(ctx).Create(sysDept)
 		if err != nil {
-			return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 	}
 	return sysDept, nil
@@ -64,7 +63,7 @@ func (s *SysDeptRepo) SysDeptList(ctx context.Context) ([]*v1.SysDeptInfo, error
 	sysDeptDao := fkratos_sys_dao.Use(s.data.gorm).SysDept
 	results, err := sysDeptDao.WithContext(ctx).Find()
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	for _, role := range results {
 		resp = append(resp, &v1.SysDeptInfo{
@@ -149,12 +148,12 @@ func sysDeptRecursiveTree(tree *v1.SysDeptInfo, allNodes []*v1.SysDeptInfo) {
 	}
 }
 
-func (s *SysDeptRepo) GetDeptIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {
+func (s *SysDeptRepo) GetDeptIDToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {
 	resp := make(map[string]string)
 	dao := fkratos_sys_dao.Use(s.data.gorm).SysDept
 	results, err := dao.WithContext(ctx).Where(dao.ID.In(ids...)).Find()
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	for _, v := range results {
 		resp[v.ID] = v.Name

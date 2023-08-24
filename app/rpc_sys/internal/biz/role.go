@@ -22,7 +22,7 @@ type RoleUseCase struct {
 	sysRoleRepo SysRoleRepo
 }
 
-func (r *RoleUseCase) SysRoleList(ctx context.Context, req *v1.SysRoleListReq) (*v1.SysRoleListResp, error) {
+func (r *RoleUseCase) SysRoleList(ctx context.Context, _ *v1.SysRoleListReq) (*v1.SysRoleListResp, error) {
 	resp := new(v1.SysRoleListResp)
 	list, err := r.sysRoleRepo.SysRoleList(ctx)
 	if err != nil {

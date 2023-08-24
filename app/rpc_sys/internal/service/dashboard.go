@@ -20,7 +20,7 @@ func NewDashboardService(logger log.Logger) *DashboardService {
 		log: l,
 	}
 }
-func (s *DashboardService) DashboardSpeech(ctx context.Context, req *pb.DashboardSpeechReq) (*pb.DashboardSpeechReply, error) {
+func (s *DashboardService) DashboardSpeech(_ context.Context, _ *pb.DashboardSpeechReq) (*pb.DashboardSpeechReply, error) {
 	resp := new(pb.DashboardSpeechReply)
 	word, _ := speech.GetWord()
 	resp.Word = word

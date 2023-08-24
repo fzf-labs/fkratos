@@ -1,7 +1,7 @@
 package errorx
 
 const (
-	HeaderLang = "lang" //语言类型
+	HeaderLang = "lang" // 语言类型
 )
 const (
 	ZhCN = "zh-CN" // zh_CN 简体中文-中国
@@ -12,7 +12,7 @@ func GetLanguages() []string {
 	return []string{ZhCN, EnUS}
 }
 
-func GetMessage(reason string, lang string) string {
+func GetMessage(reason, lang string) string {
 	var msg string
 	switch lang {
 	case ZhCN:

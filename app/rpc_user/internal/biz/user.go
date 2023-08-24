@@ -5,6 +5,7 @@ import (
 )
 
 type UserRepo interface {
+	CreateUSer()
 }
 
 func NewUserUseCase(repo UserRepo, logger log.Logger) *UserUseCase {

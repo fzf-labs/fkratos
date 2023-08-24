@@ -15,7 +15,7 @@ import (
 // ProviderSet is biz providers.
 var ProviderSet = wire.NewSet(
 	NewAdminUseCase,
-	NewApiUseCase,
+	NewAPIUseCase,
 	NewAuthUseCase,
 	NewJobUseCase,
 	NewDeptUseCase,
@@ -27,15 +27,15 @@ var ProviderSet = wire.NewSet(
 type SysAdminRepo interface {
 	fkratos_sys_repo.ISysAdminRepo
 	GenerateJwTToken(ctx context.Context, kv map[string]interface{}) (*jwt.Token, error)
-	ClearJwTToken(ctx context.Context, jwtUId string) error
+	ClearJwTToken(ctx context.Context, jwtUID string) error
 	SysManageListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysAdmin, *page.Page, error)
 	SysManageStore(ctx context.Context, req *v1.SysManageStoreReq) (*fkratos_sys_model.SysAdmin, error)
-	GetAdminIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	GetAdminIDToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 	SysAuthJwtTokenCheck(ctx context.Context, token string) (string, error)
 }
 type SysRoleRepo interface {
 	fkratos_sys_repo.ISysRoleRepo
-	GetRoleIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	GetRoleIDToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 	SysRoleList(ctx context.Context) ([]*fkratos_sys_model.SysRole, error)
 	SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq) (*fkratos_sys_model.SysRole, error)
 }
@@ -51,14 +51,14 @@ type SysPermissionRepo interface {
 
 type SysJobRepo interface {
 	fkratos_sys_repo.ISysJobRepo
-	GetJobIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	GetJobIDToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 	SysJobListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysJob, *page.Page, error)
 	SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*fkratos_sys_model.SysJob, error)
 }
 
 type SysDeptRepo interface {
 	fkratos_sys_repo.ISysDeptRepo
-	GetDeptIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	GetDeptIDToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
 	SysDeptList(ctx context.Context) ([]*v1.SysDeptInfo, error)
 	SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq) (*fkratos_sys_model.SysDept, error)
 }
@@ -70,8 +70,8 @@ type SysLogRepo interface {
 	SysLogStoreMQProducer(ctx context.Context, req *v1.SysLogStoreReq) error
 }
 
-type SysApiRepo interface {
+type SysAPIRepo interface {
 	fkratos_sys_repo.ISysAPIRepo
-	GetApiIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
-	SysApiStore(ctx context.Context, model *fkratos_sys_model.SysAPI) (*fkratos_sys_model.SysAPI, error)
+	GetAPIIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	SysAPIStore(ctx context.Context, model *fkratos_sys_model.SysAPI) (*fkratos_sys_model.SysAPI, error)
 }

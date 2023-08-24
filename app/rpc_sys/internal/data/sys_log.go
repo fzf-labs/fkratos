@@ -3,6 +3,7 @@ package data
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
@@ -34,7 +35,7 @@ type SysLogRepo struct {
 	*fkratos_sys_repo.SysLogRepo
 }
 
-func (s *SysLogRepo) SysLogStoreMQProducer(ctx context.Context, req *v1.SysLogStoreReq) error {
+func (s *SysLogRepo) SysLogStoreMQProducer(_ context.Context, req *v1.SysLogStoreReq) error {
 	marshal, err := json.Marshal(req)
 	if err != nil {
 		return err
@@ -48,11 +49,11 @@ func (s *SysLogRepo) SysLogStoreMQProducer(ctx context.Context, req *v1.SysLogSt
 
 func (s *SysLogRepo) SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*fkratos_sys_model.SysLog, error) {
 	sysLogDao := fkratos_sys_dao.Use(s.data.gorm).SysLog
-	reqJson, err := json.Marshal(req.Req)
+	reqJSON, err := json.Marshal(req.Req)
 	if err != nil {
 		return nil, err
 	}
-	respJson, err := json.Marshal(req.Resp)
+	respJSON, err := json.Marshal(req.Resp)
 	if err != nil {
 		return nil, err
 	}
@@ -62,12 +63,12 @@ func (s *SysLogRepo) SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*
 		URI:       req.Uri,
 		Useragent: req.Useragent,
 		Header:    nil,
-		Req:       reqJson,
-		Resp:      respJson,
+		Req:       reqJSON,
+		Resp:      respJSON,
 	}
 	err = sysLogDao.WithContext(ctx).Create(model)
 	if err != nil {
-		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return model, nil
 }
@@ -75,18 +76,18 @@ func (s *SysLogRepo) SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*
 func (s *SysLogRepo) SysLogListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysLog, *page.Page, error) {
 	sysLogDao := fkratos_sys_dao.Use(s.data.gorm).SysLog
 	count, err := sysLogDao.WithContext(ctx).Count()
-	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
-	paginator := page.Paginator(int(req.Page), int(req.PageSize), int(count))
-	sysLogs, err := sysLogDao.WithContext(ctx).Offset(paginator.Offset).Limit(paginator.Limit).Find()
-	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+	p := page.Paginator(int(req.Page), int(req.PageSize), int(count))
+	sysLogs, err := sysLogDao.WithContext(ctx).Offset(p.Offset).Limit(p.Limit).Find()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
-	return sysLogs, paginator, nil
+	return sysLogs, p, nil
 }
 
-func (s *SysLogRepo) SysLogInfoById(ctx context.Context, id string) (*fkratos_sys_model.SysLog, error) {
+func (s *SysLogRepo) SysLogInfoByID(ctx context.Context, id string) (*fkratos_sys_model.SysLog, error) {
 	sysLogDao := fkratos_sys_dao.Use(s.data.gorm).SysLog
 	sysLog, err := sysLogDao.WithContext(ctx).Where(sysLogDao.ID.Eq(id)).First()
 	if err != nil {

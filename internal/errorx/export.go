@@ -10,7 +10,7 @@ import (
 
 func Export() {
 	list := exportData()
-	exportJson(list)
+	exportJSON(list)
 	exportMarkdown(list)
 }
 
@@ -31,7 +31,7 @@ func exportData() []map[string]string {
 }
 
 // 导出json
-func exportJson(list []map[string]string) {
+func exportJSON(list []map[string]string) {
 	marshal, err := json.Marshal(list)
 	if err != nil {
 		return

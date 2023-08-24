@@ -7,7 +7,7 @@ import (
 	"github.com/fzf-labs/fpkg/cache/cachekey"
 )
 
-var cache = cachekey.NewKeyManage(constant.RpcCommon)
+var cache = cachekey.NewKeyManage(constant.RPCCommon)
 
 // 缓存key前缀
 

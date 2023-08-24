@@ -5,10 +5,8 @@ import (
 	"os"
 
 	aliyunLogger "github.com/go-kratos/kratos/contrib/log/aliyun/v2"
-	logrusLogger "github.com/go-kratos/kratos/contrib/log/logrus/v2"
 	tencentLogger "github.com/go-kratos/kratos/contrib/log/tencent/v2"
 	zapLogger "github.com/go-kratos/kratos/contrib/log/zap/v2"
-	"github.com/sirupsen/logrus"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -21,7 +19,6 @@ type LoggerType string
 
 const (
 	LoggerTypeStd     LoggerType = "std"
-	LoggerTypeLogrus  LoggerType = "logrus"
 	LoggerTypeZap     LoggerType = "zap"
 	LoggerTypeAliyun  LoggerType = "aliyun"
 	LoggerTypeTencent LoggerType = "tencent"
@@ -32,7 +29,7 @@ func NewLoggerProvider(cfg *conf.Logger, service *Service) log.Logger {
 	l := NewLogger(cfg)
 	return log.With(
 		l,
-		"service.id", service.Id,
+		"service.id", service.ID,
 		"service.name", service.Name,
 		"service.version", service.Version,
 		"ts", log.DefaultTimestamp,
@@ -55,8 +52,6 @@ func NewLogger(cfg *conf.Logger) log.Logger {
 		return NewStdLogger()
 	case LoggerTypeZap:
 		return NewZapLogger(cfg)
-	case LoggerTypeLogrus:
-		return NewLogrusLogger(cfg)
 	case LoggerTypeAliyun:
 		return NewAliyunLogger(cfg)
 	case LoggerTypeTencent:
@@ -98,38 +93,6 @@ func NewZapLogger(cfg *conf.Logger) log.Logger {
 
 	wrapped := zapLogger.NewLogger(logger)
 
-	return wrapped
-}
-
-// NewLogrusLogger 创建一个新的日志记录器 - Logrus
-func NewLogrusLogger(cfg *conf.Logger) log.Logger {
-	loggerLevel, err := logrus.ParseLevel(cfg.Logrus.Level)
-	if err != nil {
-		loggerLevel = logrus.InfoLevel
-	}
-
-	var loggerFormatter logrus.Formatter
-	switch cfg.Logrus.Formatter {
-	default:
-		fallthrough
-	case "text":
-		loggerFormatter = &logrus.TextFormatter{
-			DisableColors:    cfg.Logrus.DisableColors,
-			DisableTimestamp: cfg.Logrus.DisableTimestamp,
-			TimestampFormat:  cfg.Logrus.TimestampFormat,
-		}
-	case "json":
-		loggerFormatter = &logrus.JSONFormatter{
-			DisableTimestamp: cfg.Logrus.DisableTimestamp,
-			TimestampFormat:  cfg.Logrus.TimestampFormat,
-		}
-	}
-
-	logger := logrus.New()
-	logger.Level = loggerLevel
-	logger.Formatter = loggerFormatter
-
-	wrapped := logrusLogger.NewLogger(logger)
 	return wrapped
 }
 

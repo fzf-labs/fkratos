@@ -16,8 +16,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-// NewHttpServer 创建Http服务端
-func NewHttpServer(cfg *conf.Bootstrap, logger log.Logger, m ...middleware.Middleware) *http.Server {
+// NewHTTPServer 创建Http服务端
+func NewHTTPServer(cfg *conf.Bootstrap, logger log.Logger, m ...middleware.Middleware) *http.Server {
 	var opts = []http.ServerOption{
 		http.Filter(handlers.CORS(
 			handlers.AllowedHeaders(cfg.Server.Http.Headers),

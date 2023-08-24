@@ -10,64 +10,64 @@ import "google/api/annotations.proto";
 
 
 // 用户服务
-service Api {
+service User {
   //创建用户
-  rpc CreateApi (CreateApiReq) returns (CreateApiReply){
+  rpc CreateUser (CreateUserReq) returns (CreateUserReply){
     option (google.api.http) = {
-      post: "/api/v1/createApi"
+      post: "/api/v1/createUser"
       body: "*"
     };
   };
   //更新用户
-  rpc UpdateApi (UpdateApiReq) returns (UpdateApiReply){
+  rpc UpdateUser (UpdateUserReq) returns (UpdateUserReply){
     option (google.api.http) = {
-      put: "/api/v1/updateApi"
+      put: "/api/v1/updateUser"
       body: "apiInfo"
     };
   };
   //删除用户
-  rpc DeleteApi (DeleteApiReq) returns (DeleteApiReply){
+  rpc DeleteUser (DeleteUserReq) returns (DeleteUserReply){
     option (google.api.http) = {
-      delete: "/api/v1/deleteApi"
+      delete: "/api/v1/deleteUser"
     };
   };
   //获取单个用户
-  rpc GetApi (GetApiReq) returns (GetApiReply){
+  rpc GetUser (GetUserReq) returns (GetUserReply){
     option (google.api.http) = {
-      get: "/api/v1/getApi"
+      get: "/api/v1/getUser"
     };
   };
   //获取用户列表
-  rpc ListApi (ListApiReq) returns (ListApiReply){
+  rpc ListUser (ListUserReq) returns (ListUserReply){
     option (google.api.http) = {
-      get: "/api/v1/listApi"
+      get: "/api/v1/listUser"
     };
   };
 }
-message ApiInfo{
+message UserInfo{
 
 }
 //请求-创建用户
-message CreateApiReq {}
+message CreateUserReq {}
 //响应-创建用户
-message CreateApiReply {}
+message CreateUserReply {}
 //请求-更新用户
-message UpdateApiReq {
-  ApiInfo apiInfo = 1;
+message UpdateUserReq {
+  UserInfo apiInfo = 1;
 }
 //响应-更新用户
-message UpdateApiReply {
+message UpdateUserReply {
 
 }
 //请求-删除用户
-message DeleteApiReq {}
+message DeleteUserReq {}
 //响应-删除用户
-message DeleteApiReply {}
+message DeleteUserReply {}
 //请求-获取单个用户
-message GetApiReq {}
+message GetUserReq {}
 //响应-获取单个用户
-message GetApiReply {}
+message GetUserReply {}
 //请求-获取用户列表
-message ListApiReq {}
+message ListUserReq {}
 //响应-获取用户列表
-message ListApiReply {}
+message ListUserReply {}

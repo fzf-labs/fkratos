@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "bff_api/v1/api.proto",
+    "title": "bff_api/v1/user.proto",
     "version": "version not set"
   },
   "tags": [
     {
-      "name": "Api"
+      "name": "User"
     }
   ],
   "consumes": [
@@ -16,15 +16,15 @@
     "application/json"
   ],
   "paths": {
-    "/api/v1/createApi": {
+    "/api/v1/createUser": {
       "post": {
         "summary": "创建用户",
-        "operationId": "Api_CreateApi",
+        "operationId": "User_CreateUser",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1CreateApiReply"
+              "$ref": "#/definitions/v1CreateUserReply"
             }
           },
           "default": {
@@ -40,24 +40,24 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1CreateApiReq"
+              "$ref": "#/definitions/v1CreateUserReq"
             }
           }
         ],
         "tags": [
-          "Api"
+          "User"
         ]
       }
     },
-    "/api/v1/deleteApi": {
+    "/api/v1/deleteUser": {
       "delete": {
         "summary": "删除用户",
-        "operationId": "Api_DeleteApi",
+        "operationId": "User_DeleteUser",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1DeleteApiReply"
+              "$ref": "#/definitions/v1DeleteUserReply"
             }
           },
           "default": {
@@ -68,19 +68,19 @@
           }
         },
         "tags": [
-          "Api"
+          "User"
         ]
       }
     },
-    "/api/v1/getApi": {
+    "/api/v1/getUser": {
       "get": {
         "summary": "获取单个用户",
-        "operationId": "Api_GetApi",
+        "operationId": "User_GetUser",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetApiReply"
+              "$ref": "#/definitions/v1GetUserReply"
             }
           },
           "default": {
@@ -91,19 +91,19 @@
           }
         },
         "tags": [
-          "Api"
+          "User"
         ]
       }
     },
-    "/api/v1/listApi": {
+    "/api/v1/listUser": {
       "get": {
         "summary": "获取用户列表",
-        "operationId": "Api_ListApi",
+        "operationId": "User_ListUser",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1ListApiReply"
+              "$ref": "#/definitions/v1ListUserReply"
             }
           },
           "default": {
@@ -114,19 +114,19 @@
           }
         },
         "tags": [
-          "Api"
+          "User"
         ]
       }
     },
-    "/api/v1/updateApi": {
+    "/api/v1/updateUser": {
       "put": {
         "summary": "更新用户",
-        "operationId": "Api_UpdateApi",
+        "operationId": "User_UpdateUser",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1UpdateApiReply"
+              "$ref": "#/definitions/v1UpdateUserReply"
             }
           },
           "default": {
@@ -142,12 +142,12 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1ApiInfo"
+              "$ref": "#/definitions/v1UserInfo"
             }
           }
         ],
         "tags": [
-          "Api"
+          "User"
         ]
       }
     }
@@ -181,32 +181,32 @@
         }
       }
     },
-    "v1ApiInfo": {
-      "type": "object"
-    },
-    "v1CreateApiReply": {
+    "v1CreateUserReply": {
       "type": "object",
       "title": "响应-创建用户"
     },
-    "v1CreateApiReq": {
+    "v1CreateUserReq": {
       "type": "object",
       "title": "请求-创建用户"
     },
-    "v1DeleteApiReply": {
+    "v1DeleteUserReply": {
       "type": "object",
       "title": "响应-删除用户"
     },
-    "v1GetApiReply": {
+    "v1GetUserReply": {
       "type": "object",
       "title": "响应-获取单个用户"
     },
-    "v1ListApiReply": {
+    "v1ListUserReply": {
       "type": "object",
       "title": "响应-获取用户列表"
     },
-    "v1UpdateApiReply": {
+    "v1UpdateUserReply": {
       "type": "object",
       "title": "响应-更新用户"
+    },
+    "v1UserInfo": {
+      "type": "object"
     }
   }
 }

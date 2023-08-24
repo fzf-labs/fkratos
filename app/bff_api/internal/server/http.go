@@ -1,7 +1,7 @@
 package server
 
 import (
-	"fkratos/api/bff_api/v1"
+	bffAPIV1 "fkratos/api/bff_api/v1"
 	"fkratos/app/bff_api/internal/service"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
@@ -11,8 +11,8 @@ import (
 )
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Bootstrap, logger log.Logger, apiService *service.ApiService) *http.Server {
-	srv := bootstrap.NewHttpServer(c, logger)
-	v1.RegisterApiHTTPServer(srv, apiService)
+func NewHTTPServer(c *conf.Bootstrap, logger log.Logger, userService *service.UserService) *http.Server {
+	srv := bootstrap.NewHTTPServer(c, logger)
+	bffAPIV1.RegisterUserHTTPServer(srv, userService)
 	return srv
 }

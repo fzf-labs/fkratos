@@ -19,11 +19,11 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-func NewAdminUseCase(logger log.Logger, redis *redis.Client, rocksCache *rockscache.Client, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo, sysPermissionRepo SysPermissionRepo) *AdminUseCase {
+func NewAdminUseCase(logger log.Logger, redisClient *redis.Client, rocksCache *rockscache.Client, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo, sysPermissionRepo SysPermissionRepo) *AdminUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/admin"))
 	return &AdminUseCase{
 		log:               l,
-		redis:             redis,
+		redis:             redisClient,
 		rocksCache:        rocksCache,
 		sysAdminRepo:      sysAdminRepo,
 		sysRoleRepo:       sysRoleRepo,
@@ -82,7 +82,7 @@ func (a *AdminUseCase) SysAdminInfoUpdate(ctx context.Context, req *v1.SysAdminI
 	resp := new(v1.SysAdminInfoUpdateReply)
 	sysAdminInfo, err := a.sysAdminRepo.FindOneCacheByID(ctx, req.GetAdminId())
 	if err != nil {
-		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	if sysAdminInfo == nil {
 		return nil, errorx.AccountNotExist
@@ -101,12 +101,12 @@ func (a *AdminUseCase) SysAdminInfoUpdate(ctx context.Context, req *v1.SysAdminI
 	sysAdminInfo.Motto = req.Motto
 	err = a.sysAdminRepo.UpdateOne(ctx, sysAdminInfo)
 	if err != nil {
-		return nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return resp, nil
 }
 
-func (a *AdminUseCase) SysAdminGenerateAvatar(ctx context.Context, req *v1.SysAdminGenerateAvatarReq) (*v1.SysAdminGenerateAvatarReply, error) {
+func (a *AdminUseCase) SysAdminGenerateAvatar(_ context.Context, _ *v1.SysAdminGenerateAvatarReq) (*v1.SysAdminGenerateAvatarReply, error) {
 	return &v1.SysAdminGenerateAvatarReply{AvatarUrl: avatar.URL()}, nil
 }
 
@@ -123,9 +123,9 @@ func (a *AdminUseCase) SysManageList(ctx context.Context, req *paginator.Paginat
 		deptIds := make([]string, 0)
 		for _, v := range sysAdmins {
 			tmpRoleIds := make([]string, 0)
-			err := jsonutil.Decode(v.RoleIds, &tmpRoleIds)
-			if err != nil {
-				return nil, err
+			err2 := jsonutil.Decode(v.RoleIds, &tmpRoleIds)
+			if err2 != nil {
+				return nil, err2
 			}
 			list = append(list, &v1.SysManageInfo{
 				Id:        v.ID,
@@ -150,30 +150,29 @@ func (a *AdminUseCase) SysManageList(ctx context.Context, req *paginator.Paginat
 			jobIds = append(jobIds, v.JobID)
 			deptIds = append(deptIds, v.DeptID)
 		}
-		roleIdToNameByIds, err := a.sysRoleRepo.GetRoleIdToNameByIds(ctx, roleIds)
-		if err != nil {
-			return nil, err
+		roleIDToNameByIds, err2 := a.sysRoleRepo.GetRoleIDToNameByIds(ctx, roleIds)
+		if err2 != nil {
+			return nil, err2
 		}
 
-		jobIdToNameByIds, err := a.sysJobRepo.GetJobIdToNameByIds(ctx, jobIds)
-		if err != nil {
-			return nil, err
+		jobIDToNameByIds, err2 := a.sysJobRepo.GetJobIDToNameByIds(ctx, jobIds)
+		if err2 != nil {
+			return nil, err2
 		}
-		deptIdToNameByIds, err := a.sysDeptRepo.GetDeptIdToNameByIds(ctx, deptIds)
-		if err != nil {
-			return nil, err
+		deptIDToNameByIds, err2 := a.sysDeptRepo.GetDeptIDToNameByIds(ctx, deptIds)
+		if err2 != nil {
+			return nil, err2
 		}
 		for k := range list {
-			list[k].JobName = jobIdToNameByIds[list[k].JobID]
-			list[k].DeptName = deptIdToNameByIds[list[k].DeptID]
+			list[k].JobName = jobIDToNameByIds[list[k].JobID]
+			list[k].DeptName = deptIDToNameByIds[list[k].DeptID]
 			if len(list[k].RoleIds) > 0 {
 				for _, id := range list[k].RoleIds {
-					list[k].RoleNames = append(list[k].RoleNames, roleIdToNameByIds[id])
+					list[k].RoleNames = append(list[k].RoleNames, roleIDToNameByIds[id])
 				}
 			}
 		}
 		resp.List = list
-
 	}
 	err = copier.Copy(&resp.Paginator, p)
 	if err != nil {
@@ -190,25 +189,25 @@ func (a *AdminUseCase) SysManageInfo(ctx context.Context, req *v1.SysManageInfoR
 	}
 	if sysAdmin != nil {
 		tmpRoleIds := make([]string, 0)
-		err := jsonutil.Decode(sysAdmin.RoleIds, &tmpRoleIds)
-		if err != nil {
-			return nil, err
+		err2 := jsonutil.Decode(sysAdmin.RoleIds, &tmpRoleIds)
+		if err2 != nil {
+			return nil, err2
 		}
-		roleIdToNameByIds, err := a.sysRoleRepo.GetRoleIdToNameByIds(ctx, tmpRoleIds)
-		if err != nil {
-			return nil, err
+		roleIDToNameByIds, err2 := a.sysRoleRepo.GetRoleIDToNameByIds(ctx, tmpRoleIds)
+		if err2 != nil {
+			return nil, err2
 		}
-		jobIdToNameByIds, err := a.sysJobRepo.GetJobIdToNameByIds(ctx, []string{sysAdmin.JobID})
-		if err != nil {
-			return nil, err
+		jobIDToNameByIds, err2 := a.sysJobRepo.GetJobIDToNameByIds(ctx, []string{sysAdmin.JobID})
+		if err2 != nil {
+			return nil, err2
 		}
-		deptIdToNameByIds, err := a.sysDeptRepo.GetDeptIdToNameByIds(ctx, []string{sysAdmin.DeptID})
-		if err != nil {
-			return nil, err
+		deptIDToNameByIds, err2 := a.sysDeptRepo.GetDeptIDToNameByIds(ctx, []string{sysAdmin.DeptID})
+		if err2 != nil {
+			return nil, err2
 		}
 		roleNames := make([]string, 0)
 		for _, v := range tmpRoleIds {
-			roleNames = append(roleNames, roleIdToNameByIds[v])
+			roleNames = append(roleNames, roleIDToNameByIds[v])
 		}
 		resp.Info = &v1.SysManageInfo{
 			Id:        sysAdmin.ID,
@@ -221,8 +220,8 @@ func (a *AdminUseCase) SysManageInfo(ctx context.Context, req *v1.SysManageInfoR
 			JobID:     sysAdmin.JobID,
 			DeptID:    sysAdmin.DeptID,
 			RoleIds:   tmpRoleIds,
-			JobName:   jobIdToNameByIds[sysAdmin.JobID],
-			DeptName:  deptIdToNameByIds[sysAdmin.JobID],
+			JobName:   jobIDToNameByIds[sysAdmin.JobID],
+			DeptName:  deptIDToNameByIds[sysAdmin.JobID],
 			RoleNames: roleNames,
 			Motto:     sysAdmin.Motto,
 			Status:    int32(sysAdmin.Status),

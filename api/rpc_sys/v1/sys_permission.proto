@@ -45,6 +45,7 @@ message SysPermissionInfo {
 
 //请求-权限-列表
 message SysPermissionListReq {}
+
 //响应-权限-列表
 message SysPermissionListResp {
   repeated SysPermissionInfo list = 1; //列表
@@ -54,6 +55,7 @@ message SysPermissionListResp {
 message SysPermissionInfoReq {
   string id = 1; //ID
 }
+
 //响应-权限-单个权限信息
 message SysPermissionInfoResp {
   SysPermissionInfo info = 1; //信息
@@ -77,6 +79,7 @@ message SysPermissionStoreReq {
   int32 sort = 14; // 权重(排序)
   int32 status = 15; // 状态:0=禁用,1=启用
 }
+
 //响应-权限-保存
 message SysPermissionStoreResp {}
 
@@ -84,6 +87,7 @@ message SysPermissionStoreResp {}
 message SysPermissionDelReq {
   repeated string ids = 1; //ID集合
 }
+
 //响应-权限-删除
 message SysPermissionDelResp {}
 
@@ -92,5 +96,6 @@ message SysPermissionStatusReq {
   string id = 1;
   int32 status = 2; // 状态:0=禁用,1=启用
 }
+
 //响应-权限-修改状态
 message SysPermissionStatusResp {}

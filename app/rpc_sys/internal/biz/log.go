@@ -10,13 +10,13 @@ import (
 	"github.com/jinzhu/copier"
 )
 
-func NewLogUseCase(logger log.Logger, sysLogRepo SysLogRepo, sysAdminRepo SysAdminRepo, sysApiRepo SysApiRepo) *LogUseCase {
+func NewLogUseCase(logger log.Logger, sysLogRepo SysLogRepo, sysAdminRepo SysAdminRepo, sysAPIRepo SysAPIRepo) *LogUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/log"))
 	return &LogUseCase{
 		log:          l,
 		sysLogRepo:   sysLogRepo,
 		sysAdminRepo: sysAdminRepo,
-		sysApiRepo:   sysApiRepo,
+		sysAPIRepo:   sysAPIRepo,
 	}
 }
 
@@ -24,12 +24,12 @@ type LogUseCase struct {
 	log          *log.Helper
 	sysLogRepo   SysLogRepo
 	sysAdminRepo SysAdminRepo
-	sysApiRepo   SysApiRepo
+	sysAPIRepo   SysAPIRepo
 }
 
 func (l *LogUseCase) SysLogList(ctx context.Context, req *paginator.PaginatorReq) (*v1.SysLogListResp, error) {
 	resp := new(v1.SysLogListResp)
-	sysLogs, paginator, err := l.sysLogRepo.SysLogListBySearch(ctx, req)
+	sysLogs, p, err := l.sysLogRepo.SysLogListBySearch(ctx, req)
 	if err != nil {
 		return nil, err
 	}
@@ -40,22 +40,22 @@ func (l *LogUseCase) SysLogList(ctx context.Context, req *paginator.PaginatorReq
 			adminIds = append(adminIds, v.AdminID)
 			paths = append(paths, v.URI)
 		}
-		adminIdToNameByIds, err := l.sysAdminRepo.GetAdminIdToNameByIds(ctx, adminIds)
-		if err != nil {
-			return nil, err
+		adminIDToNameByIds, err2 := l.sysAdminRepo.GetAdminIDToNameByIds(ctx, adminIds)
+		if err2 != nil {
+			return nil, err2
 		}
-		apiIdToNameByIds, err := l.sysApiRepo.GetApiIdToNameByIds(ctx, paths)
-		if err != nil {
-			return nil, err
+		apiIDToNameByIds, err2 := l.sysAPIRepo.GetAPIIdToNameByIds(ctx, paths)
+		if err2 != nil {
+			return nil, err2
 		}
 		for _, v := range sysLogs {
 			resp.List = append(resp.List, &v1.SysLogInfo{
 				Id:        v.ID,
 				AdminID:   v.AdminID,
-				Username:  adminIdToNameByIds[v.AdminID],
+				Username:  adminIDToNameByIds[v.AdminID],
 				Ip:        v.IP,
 				Uri:       v.URI,
-				UriDesc:   apiIdToNameByIds[v.URI],
+				UriDesc:   apiIDToNameByIds[v.URI],
 				Useragent: v.Useragent,
 				Req:       v.Req.String(),
 				Resp:      v.Resp.String(),
@@ -63,7 +63,7 @@ func (l *LogUseCase) SysLogList(ctx context.Context, req *paginator.PaginatorReq
 			})
 		}
 	}
-	err = copier.Copy(&resp.Paginator, paginator)
+	err = copier.Copy(&resp.Paginator, p)
 	if err != nil {
 		return nil, err
 	}
@@ -79,21 +79,21 @@ func (l *LogUseCase) SysLogInfo(ctx context.Context, req *v1.SysLogInfoReq) (*v1
 	if sysLog == nil {
 		return resp, nil
 	}
-	adminIdToNameByIds, err := l.sysAdminRepo.GetAdminIdToNameByIds(ctx, []string{req.GetId()})
+	adminIDToNameByIds, err := l.sysAdminRepo.GetAdminIDToNameByIds(ctx, []string{req.GetId()})
 	if err != nil {
 		return nil, err
 	}
-	apiIdToNameByIds, err := l.sysApiRepo.GetApiIdToNameByIds(ctx, []string{sysLog.URI})
+	apiIDToNameByIds, err := l.sysAPIRepo.GetAPIIdToNameByIds(ctx, []string{sysLog.URI})
 	if err != nil {
 		return nil, err
 	}
 	resp.Info = &v1.SysLogInfo{
 		Id:        sysLog.ID,
-		AdminID:   adminIdToNameByIds[sysLog.AdminID],
+		AdminID:   adminIDToNameByIds[sysLog.AdminID],
 		Username:  sysLog.AdminID,
 		Ip:        sysLog.IP,
 		Uri:       sysLog.URI,
-		UriDesc:   apiIdToNameByIds[sysLog.URI],
+		UriDesc:   apiIDToNameByIds[sysLog.URI],
 		Useragent: sysLog.Useragent,
 		Req:       sysLog.Req.String(),
 		Resp:      sysLog.Resp.String(),

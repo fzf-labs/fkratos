@@ -20,8 +20,8 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Api信息
-type SysApiInfo struct {
+// API信息
+type SysAPIInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -35,8 +35,8 @@ type SysApiInfo struct {
 	UpdatedAt    string `protobuf:"bytes,7,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"`       // 更新时间
 }
 
-func (x *SysApiInfo) Reset() {
-	*x = SysApiInfo{}
+func (x *SysAPIInfo) Reset() {
+	*x = SysAPIInfo{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -44,13 +44,13 @@ func (x *SysApiInfo) Reset() {
 	}
 }
 
-func (x *SysApiInfo) String() string {
+func (x *SysAPIInfo) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SysApiInfo) ProtoMessage() {}
+func (*SysAPIInfo) ProtoMessage() {}
 
-func (x *SysApiInfo) ProtoReflect() protoreflect.Message {
+func (x *SysAPIInfo) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -62,62 +62,62 @@ func (x *SysApiInfo) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SysApiInfo.ProtoReflect.Descriptor instead.
-func (*SysApiInfo) Descriptor() ([]byte, []int) {
+// Deprecated: Use SysAPIInfo.ProtoReflect.Descriptor instead.
+func (*SysAPIInfo) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_api_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *SysApiInfo) GetId() string {
+func (x *SysAPIInfo) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *SysApiInfo) GetPermissionID() string {
+func (x *SysAPIInfo) GetPermissionID() string {
 	if x != nil {
 		return x.PermissionID
 	}
 	return ""
 }
 
-func (x *SysApiInfo) GetMethod() string {
+func (x *SysAPIInfo) GetMethod() string {
 	if x != nil {
 		return x.Method
 	}
 	return ""
 }
 
-func (x *SysApiInfo) GetPath() string {
+func (x *SysAPIInfo) GetPath() string {
 	if x != nil {
 		return x.Path
 	}
 	return ""
 }
 
-func (x *SysApiInfo) GetDesc() string {
+func (x *SysAPIInfo) GetDesc() string {
 	if x != nil {
 		return x.Desc
 	}
 	return ""
 }
 
-func (x *SysApiInfo) GetCreatedAt() string {
+func (x *SysAPIInfo) GetCreatedAt() string {
 	if x != nil {
 		return x.CreatedAt
 	}
 	return ""
 }
 
-func (x *SysApiInfo) GetUpdatedAt() string {
+func (x *SysAPIInfo) GetUpdatedAt() string {
 	if x != nil {
 		return x.UpdatedAt
 	}
 	return ""
 }
 
-// 请求-Api-列表
-type SysApiListReq struct {
+// 请求-API-列表
+type SysAPIListReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -125,8 +125,8 @@ type SysApiListReq struct {
 	PermissionId string `protobuf:"bytes,1,opt,name=permissionId,proto3" json:"permissionId,omitempty"` //权限ID
 }
 
-func (x *SysApiListReq) Reset() {
-	*x = SysApiListReq{}
+func (x *SysAPIListReq) Reset() {
+	*x = SysAPIListReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -134,13 +134,13 @@ func (x *SysApiListReq) Reset() {
 	}
 }
 
-func (x *SysApiListReq) String() string {
+func (x *SysAPIListReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SysApiListReq) ProtoMessage() {}
+func (*SysAPIListReq) ProtoMessage() {}
 
-func (x *SysApiListReq) ProtoReflect() protoreflect.Message {
+func (x *SysAPIListReq) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -152,29 +152,29 @@ func (x *SysApiListReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SysApiListReq.ProtoReflect.Descriptor instead.
-func (*SysApiListReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use SysAPIListReq.ProtoReflect.Descriptor instead.
+func (*SysAPIListReq) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_api_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *SysApiListReq) GetPermissionId() string {
+func (x *SysAPIListReq) GetPermissionId() string {
 	if x != nil {
 		return x.PermissionId
 	}
 	return ""
 }
 
-// 响应-Api-列表
-type SysApiListReply struct {
+// 响应-API-列表
+type SysAPIListReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	List []*SysApiInfo `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"` //列表
+	List []*SysAPIInfo `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"` //列表
 }
 
-func (x *SysApiListReply) Reset() {
-	*x = SysApiListReply{}
+func (x *SysAPIListReply) Reset() {
+	*x = SysAPIListReply{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -182,13 +182,13 @@ func (x *SysApiListReply) Reset() {
 	}
 }
 
-func (x *SysApiListReply) String() string {
+func (x *SysAPIListReply) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SysApiListReply) ProtoMessage() {}
+func (*SysAPIListReply) ProtoMessage() {}
 
-func (x *SysApiListReply) ProtoReflect() protoreflect.Message {
+func (x *SysAPIListReply) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -200,20 +200,20 @@ func (x *SysApiListReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SysApiListReply.ProtoReflect.Descriptor instead.
-func (*SysApiListReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use SysAPIListReply.ProtoReflect.Descriptor instead.
+func (*SysAPIListReply) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_api_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *SysApiListReply) GetList() []*SysApiInfo {
+func (x *SysAPIListReply) GetList() []*SysAPIInfo {
 	if x != nil {
 		return x.List
 	}
 	return nil
 }
 
-// 请求-Api-保存
-type SysApiStoreReq struct {
+// 请求-API-保存
+type SysAPIStoreReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -225,8 +225,8 @@ type SysApiStoreReq struct {
 	Desc         string `protobuf:"bytes,5,opt,name=desc,proto3" json:"desc,omitempty"`                 // 描述
 }
 
-func (x *SysApiStoreReq) Reset() {
-	*x = SysApiStoreReq{}
+func (x *SysAPIStoreReq) Reset() {
+	*x = SysAPIStoreReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -234,13 +234,13 @@ func (x *SysApiStoreReq) Reset() {
 	}
 }
 
-func (x *SysApiStoreReq) String() string {
+func (x *SysAPIStoreReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SysApiStoreReq) ProtoMessage() {}
+func (*SysAPIStoreReq) ProtoMessage() {}
 
-func (x *SysApiStoreReq) ProtoReflect() protoreflect.Message {
+func (x *SysAPIStoreReq) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -252,48 +252,48 @@ func (x *SysApiStoreReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SysApiStoreReq.ProtoReflect.Descriptor instead.
-func (*SysApiStoreReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use SysAPIStoreReq.ProtoReflect.Descriptor instead.
+func (*SysAPIStoreReq) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_api_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *SysApiStoreReq) GetId() string {
+func (x *SysAPIStoreReq) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *SysApiStoreReq) GetPermissionID() string {
+func (x *SysAPIStoreReq) GetPermissionID() string {
 	if x != nil {
 		return x.PermissionID
 	}
 	return ""
 }
 
-func (x *SysApiStoreReq) GetMethod() string {
+func (x *SysAPIStoreReq) GetMethod() string {
 	if x != nil {
 		return x.Method
 	}
 	return ""
 }
 
-func (x *SysApiStoreReq) GetPath() string {
+func (x *SysAPIStoreReq) GetPath() string {
 	if x != nil {
 		return x.Path
 	}
 	return ""
 }
 
-func (x *SysApiStoreReq) GetDesc() string {
+func (x *SysAPIStoreReq) GetDesc() string {
 	if x != nil {
 		return x.Desc
 	}
 	return ""
 }
 
-// 响应-Api-保存
-type SysApiStoreReply struct {
+// 响应-API-保存
+type SysAPIStoreReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -301,8 +301,8 @@ type SysApiStoreReply struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` //ID
 }
 
-func (x *SysApiStoreReply) Reset() {
-	*x = SysApiStoreReply{}
+func (x *SysAPIStoreReply) Reset() {
+	*x = SysAPIStoreReply{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -310,13 +310,13 @@ func (x *SysApiStoreReply) Reset() {
 	}
 }
 
-func (x *SysApiStoreReply) String() string {
+func (x *SysAPIStoreReply) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SysApiStoreReply) ProtoMessage() {}
+func (*SysAPIStoreReply) ProtoMessage() {}
 
-func (x *SysApiStoreReply) ProtoReflect() protoreflect.Message {
+func (x *SysAPIStoreReply) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -328,20 +328,20 @@ func (x *SysApiStoreReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SysApiStoreReply.ProtoReflect.Descriptor instead.
-func (*SysApiStoreReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use SysAPIStoreReply.ProtoReflect.Descriptor instead.
+func (*SysAPIStoreReply) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_api_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *SysApiStoreReply) GetId() string {
+func (x *SysAPIStoreReply) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-// 请求-Api-删除
-type SysApiDelReq struct {
+// 请求-API-删除
+type SysAPIDelReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -349,8 +349,8 @@ type SysApiDelReq struct {
 	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"` //ID集合
 }
 
-func (x *SysApiDelReq) Reset() {
-	*x = SysApiDelReq{}
+func (x *SysAPIDelReq) Reset() {
+	*x = SysAPIDelReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -358,13 +358,13 @@ func (x *SysApiDelReq) Reset() {
 	}
 }
 
-func (x *SysApiDelReq) String() string {
+func (x *SysAPIDelReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SysApiDelReq) ProtoMessage() {}
+func (*SysAPIDelReq) ProtoMessage() {}
 
-func (x *SysApiDelReq) ProtoReflect() protoreflect.Message {
+func (x *SysAPIDelReq) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -376,27 +376,27 @@ func (x *SysApiDelReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SysApiDelReq.ProtoReflect.Descriptor instead.
-func (*SysApiDelReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use SysAPIDelReq.ProtoReflect.Descriptor instead.
+func (*SysAPIDelReq) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_api_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *SysApiDelReq) GetIds() []string {
+func (x *SysAPIDelReq) GetIds() []string {
 	if x != nil {
 		return x.Ids
 	}
 	return nil
 }
 
-// 响应-Api-删除
-type SysApiDelReply struct {
+// 响应-API-删除
+type SysAPIDelReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *SysApiDelReply) Reset() {
-	*x = SysApiDelReply{}
+func (x *SysAPIDelReply) Reset() {
+	*x = SysAPIDelReply{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -404,13 +404,13 @@ func (x *SysApiDelReply) Reset() {
 	}
 }
 
-func (x *SysApiDelReply) String() string {
+func (x *SysAPIDelReply) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SysApiDelReply) ProtoMessage() {}
+func (*SysAPIDelReply) ProtoMessage() {}
 
-func (x *SysApiDelReply) ProtoReflect() protoreflect.Message {
+func (x *SysAPIDelReply) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_sys_v1_sys_api_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -422,8 +422,8 @@ func (x *SysApiDelReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SysApiDelReply.ProtoReflect.Descriptor instead.
-func (*SysApiDelReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use SysAPIDelReply.ProtoReflect.Descriptor instead.
+func (*SysAPIDelReply) Descriptor() ([]byte, []int) {
 	return file_rpc_sys_v1_sys_api_proto_rawDescGZIP(), []int{6}
 }
 
@@ -433,7 +433,7 @@ var file_rpc_sys_v1_sys_api_proto_rawDesc = []byte{
 	0x0a, 0x18, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x2f, 0x73, 0x79, 0x73,
 	0x5f, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0e, 0x61, 0x70, 0x69, 0x2e,
 	0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x22, 0xbc, 0x01, 0x0a, 0x0a, 0x53,
-	0x79, 0x73, 0x41, 0x70, 0x69, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
+	0x79, 0x73, 0x41, 0x50, 0x49, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x22, 0x0a, 0x0c, 0x70, 0x65, 0x72,
 	0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
 	0x0c, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x16, 0x0a,
@@ -445,14 +445,14 @@ var file_rpc_sys_v1_sys_api_proto_rawDesc = []byte{
 	0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x75,
 	0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09,
 	0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0x33, 0x0a, 0x0d, 0x53, 0x79, 0x73,
-	0x41, 0x70, 0x69, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x22, 0x0a, 0x0c, 0x70, 0x65,
+	0x41, 0x50, 0x49, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x22, 0x0a, 0x0c, 0x70, 0x65,
 	0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x0c, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x22, 0x41,
-	0x0a, 0x0f, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c,
+	0x0a, 0x0f, 0x53, 0x79, 0x73, 0x41, 0x50, 0x49, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c,
 	0x79, 0x12, 0x2e, 0x0a, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
 	0x1a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2e, 0x76, 0x31,
-	0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x6c, 0x69, 0x73,
-	0x74, 0x22, 0x84, 0x01, 0x0a, 0x0e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x53, 0x74, 0x6f, 0x72,
+	0x2e, 0x53, 0x79, 0x73, 0x41, 0x50, 0x49, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x6c, 0x69, 0x73,
+	0x74, 0x22, 0x84, 0x01, 0x0a, 0x0e, 0x53, 0x79, 0x73, 0x41, 0x50, 0x49, 0x53, 0x74, 0x6f, 0x72,
 	0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x02, 0x69, 0x64, 0x12, 0x22, 0x0a, 0x0c, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69,
 	0x6f, 0x6e, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x70, 0x65, 0x72, 0x6d,
@@ -461,26 +461,26 @@ var file_rpc_sys_v1_sys_api_proto_rawDesc = []byte{
 	0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x74, 0x68, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
 	0x70, 0x61, 0x74, 0x68, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x65, 0x73, 0x63, 0x18, 0x05, 0x20, 0x01,
 	0x28, 0x09, 0x52, 0x04, 0x64, 0x65, 0x73, 0x63, 0x22, 0x22, 0x0a, 0x10, 0x53, 0x79, 0x73, 0x41,
-	0x70, 0x69, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02,
+	0x50, 0x49, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02,
 	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x20, 0x0a, 0x0c,
-	0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x12, 0x10, 0x0a, 0x03,
+	0x53, 0x79, 0x73, 0x41, 0x50, 0x49, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x12, 0x10, 0x0a, 0x03,
 	0x69, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x03, 0x69, 0x64, 0x73, 0x22, 0x10,
-	0x0a, 0x0e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79,
-	0x32, 0xef, 0x01, 0x0a, 0x03, 0x41, 0x70, 0x69, 0x12, 0x4c, 0x0a, 0x0a, 0x53, 0x79, 0x73, 0x41,
-	0x70, 0x69, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63,
-	0x5f, 0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x4c, 0x69,
+	0x0a, 0x0e, 0x53, 0x79, 0x73, 0x41, 0x50, 0x49, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x32, 0xef, 0x01, 0x0a, 0x03, 0x41, 0x50, 0x49, 0x12, 0x4c, 0x0a, 0x0a, 0x53, 0x79, 0x73, 0x41,
+	0x50, 0x49, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63,
+	0x5f, 0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x50, 0x49, 0x4c, 0x69,
 	0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x1f, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f,
-	0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x4c, 0x69, 0x73,
-	0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x4f, 0x0a, 0x0b, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69,
+	0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x50, 0x49, 0x4c, 0x69, 0x73,
+	0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x4f, 0x0a, 0x0b, 0x53, 0x79, 0x73, 0x41, 0x50, 0x49,
 	0x53, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f,
-	0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x53, 0x74, 0x6f,
+	0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x50, 0x49, 0x53, 0x74, 0x6f,
 	0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x20, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f,
-	0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x53, 0x74, 0x6f,
-	0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x49, 0x0a, 0x09, 0x53, 0x79, 0x73, 0x41, 0x70,
-	0x69, 0x44, 0x65, 0x6c, 0x12, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x73,
-	0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x44, 0x65, 0x6c, 0x52,
+	0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x50, 0x49, 0x53, 0x74, 0x6f,
+	0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x49, 0x0a, 0x09, 0x53, 0x79, 0x73, 0x41, 0x50,
+	0x49, 0x44, 0x65, 0x6c, 0x12, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x73,
+	0x79, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x50, 0x49, 0x44, 0x65, 0x6c, 0x52,
 	0x65, 0x71, 0x1a, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73,
-	0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x70, 0x69, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70,
+	0x2e, 0x76, 0x31, 0x2e, 0x53, 0x79, 0x73, 0x41, 0x50, 0x49, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70,
 	0x6c, 0x79, 0x42, 0x1b, 0x5a, 0x19, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70,
 	0x69, 0x2f, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62,
 	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
@@ -500,22 +500,22 @@ func file_rpc_sys_v1_sys_api_proto_rawDescGZIP() []byte {
 
 var file_rpc_sys_v1_sys_api_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_rpc_sys_v1_sys_api_proto_goTypes = []interface{}{
-	(*SysApiInfo)(nil),       // 0: api.rpc_sys.v1.SysApiInfo
-	(*SysApiListReq)(nil),    // 1: api.rpc_sys.v1.SysApiListReq
-	(*SysApiListReply)(nil),  // 2: api.rpc_sys.v1.SysApiListReply
-	(*SysApiStoreReq)(nil),   // 3: api.rpc_sys.v1.SysApiStoreReq
-	(*SysApiStoreReply)(nil), // 4: api.rpc_sys.v1.SysApiStoreReply
-	(*SysApiDelReq)(nil),     // 5: api.rpc_sys.v1.SysApiDelReq
-	(*SysApiDelReply)(nil),   // 6: api.rpc_sys.v1.SysApiDelReply
+	(*SysAPIInfo)(nil),       // 0: api.rpc_sys.v1.SysAPIInfo
+	(*SysAPIListReq)(nil),    // 1: api.rpc_sys.v1.SysAPIListReq
+	(*SysAPIListReply)(nil),  // 2: api.rpc_sys.v1.SysAPIListReply
+	(*SysAPIStoreReq)(nil),   // 3: api.rpc_sys.v1.SysAPIStoreReq
+	(*SysAPIStoreReply)(nil), // 4: api.rpc_sys.v1.SysAPIStoreReply
+	(*SysAPIDelReq)(nil),     // 5: api.rpc_sys.v1.SysAPIDelReq
+	(*SysAPIDelReply)(nil),   // 6: api.rpc_sys.v1.SysAPIDelReply
 }
 var file_rpc_sys_v1_sys_api_proto_depIdxs = []int32{
-	0, // 0: api.rpc_sys.v1.SysApiListReply.list:type_name -> api.rpc_sys.v1.SysApiInfo
-	1, // 1: api.rpc_sys.v1.Api.SysApiList:input_type -> api.rpc_sys.v1.SysApiListReq
-	3, // 2: api.rpc_sys.v1.Api.SysApiStore:input_type -> api.rpc_sys.v1.SysApiStoreReq
-	5, // 3: api.rpc_sys.v1.Api.SysApiDel:input_type -> api.rpc_sys.v1.SysApiDelReq
-	2, // 4: api.rpc_sys.v1.Api.SysApiList:output_type -> api.rpc_sys.v1.SysApiListReply
-	4, // 5: api.rpc_sys.v1.Api.SysApiStore:output_type -> api.rpc_sys.v1.SysApiStoreReply
-	6, // 6: api.rpc_sys.v1.Api.SysApiDel:output_type -> api.rpc_sys.v1.SysApiDelReply
+	0, // 0: api.rpc_sys.v1.SysAPIListReply.list:type_name -> api.rpc_sys.v1.SysAPIInfo
+	1, // 1: api.rpc_sys.v1.API.SysAPIList:input_type -> api.rpc_sys.v1.SysAPIListReq
+	3, // 2: api.rpc_sys.v1.API.SysAPIStore:input_type -> api.rpc_sys.v1.SysAPIStoreReq
+	5, // 3: api.rpc_sys.v1.API.SysAPIDel:input_type -> api.rpc_sys.v1.SysAPIDelReq
+	2, // 4: api.rpc_sys.v1.API.SysAPIList:output_type -> api.rpc_sys.v1.SysAPIListReply
+	4, // 5: api.rpc_sys.v1.API.SysAPIStore:output_type -> api.rpc_sys.v1.SysAPIStoreReply
+	6, // 6: api.rpc_sys.v1.API.SysAPIDel:output_type -> api.rpc_sys.v1.SysAPIDelReply
 	4, // [4:7] is the sub-list for method output_type
 	1, // [1:4] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -530,7 +530,7 @@ func file_rpc_sys_v1_sys_api_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_rpc_sys_v1_sys_api_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SysApiInfo); i {
+			switch v := v.(*SysAPIInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -542,7 +542,7 @@ func file_rpc_sys_v1_sys_api_proto_init() {
 			}
 		}
 		file_rpc_sys_v1_sys_api_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SysApiListReq); i {
+			switch v := v.(*SysAPIListReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -554,7 +554,7 @@ func file_rpc_sys_v1_sys_api_proto_init() {
 			}
 		}
 		file_rpc_sys_v1_sys_api_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SysApiListReply); i {
+			switch v := v.(*SysAPIListReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -566,7 +566,7 @@ func file_rpc_sys_v1_sys_api_proto_init() {
 			}
 		}
 		file_rpc_sys_v1_sys_api_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SysApiStoreReq); i {
+			switch v := v.(*SysAPIStoreReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -578,7 +578,7 @@ func file_rpc_sys_v1_sys_api_proto_init() {
 			}
 		}
 		file_rpc_sys_v1_sys_api_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SysApiStoreReply); i {
+			switch v := v.(*SysAPIStoreReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -590,7 +590,7 @@ func file_rpc_sys_v1_sys_api_proto_init() {
 			}
 		}
 		file_rpc_sys_v1_sys_api_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SysApiDelReq); i {
+			switch v := v.(*SysAPIDelReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -602,7 +602,7 @@ func file_rpc_sys_v1_sys_api_proto_init() {
 			}
 		}
 		file_rpc_sys_v1_sys_api_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SysApiDelReply); i {
+			switch v := v.(*SysAPIDelReply); i {
 			case 0:
 				return &v.state
 			case 1:

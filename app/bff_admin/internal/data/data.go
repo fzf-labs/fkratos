@@ -3,6 +3,7 @@ package data
 import (
 	userV1 "fkratos/api/rpc_user/v1"
 	"fkratos/internal/bootstrap/conf"
+	"fmt"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
@@ -11,30 +12,27 @@ import (
 // ProviderSet is data providers.
 var ProviderSet = wire.NewSet(
 	NewData,
-	NewRpcSysGrpc,
+	NewRPCSysGrpc,
 	NewSysAdminServiceClient,
 	NewSysAuthServiceClient,
 	NewSysDashboardServiceClient,
 	NewSysRoleServiceClient,
 	NewSysPermissionServiceClient,
-	NewSysApiServiceClient,
+	NewSysAPIServiceClient,
 	NewSysLogServiceClient,
 	NewSysJobServiceClient,
 	NewSysDeptServiceClient,
-
-	NewRpcUserGrpc,
+	NewRPCUserGrpc,
 	NewUserServiceClient,
 )
 
-// Data .
 type Data struct {
 	log        *log.Helper
 	userClient userV1.UserClient
 }
 
-// NewData .
 func NewData(c *conf.Bootstrap, logger log.Logger, userClient userV1.UserClient) (*Data, func(), error) {
-	l := log.NewHelper(log.With(logger, "module", "data/bff-admin"))
+	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.ServiceName)))
 	d := &Data{
 		log:        l,
 		userClient: userClient,

@@ -18,7 +18,7 @@ service Auth {
   //Auth-退出
   rpc SysAuthLogout(SysAuthLogoutReq) returns (SysAuthLogoutReply);
   //Auth-Token校验
-  rpc SysAuthJwtTokenCheck (SysAuthJwtTokenCheckReq) returns (SysAuthJwtTokenCheckReply){};
+  rpc SysAuthJwtTokenCheck(SysAuthJwtTokenCheckReq) returns (SysAuthJwtTokenCheckReply) {}
 }
 
 //请求-验证码
@@ -54,10 +54,11 @@ message SysAuthLogoutReq {
 message SysAuthLogoutReply {}
 
 //请求-Auth-Token校验
-message SysAuthJwtTokenCheckReq{
-  string token = 1;//token
+message SysAuthJwtTokenCheckReq {
+  string token = 1; //token
 }
+
 //响应-Auth-Token校验
-message SysAuthJwtTokenCheckReply{
+message SysAuthJwtTokenCheckReply {
   string adminId = 1; //管理员Id
 }

@@ -56,7 +56,7 @@ func NewTracerProvider(cfg *conf.Tracer, serviceInfo *Service) error {
 		traceSdk.WithResource(resource.NewSchemaless(
 			semConv.ServiceNameKey.String(serviceInfo.Name),
 			semConv.ServiceVersionKey.String(serviceInfo.Version),
-			semConv.ServiceInstanceIDKey.String(serviceInfo.Id),
+			semConv.ServiceInstanceIDKey.String(serviceInfo.ID),
 			attribute.String("env", cfg.Env),
 		)),
 	}

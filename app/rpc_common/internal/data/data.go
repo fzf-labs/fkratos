@@ -3,6 +3,7 @@ package data
 import (
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
+	"fmt"
 
 	"github.com/dtm-labs/rockscache"
 	rc "github.com/fzf-labs/fpkg/cache/rockscache"
@@ -21,7 +22,6 @@ var ProviderSet = wire.NewSet(
 	NewSensitiveWordRepo,
 )
 
-// Data .
 type Data struct {
 	logger     *log.Helper
 	db         *gorm.DB
@@ -29,13 +29,12 @@ type Data struct {
 	rocksCache *rockscache.Client
 }
 
-// NewData .
-func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redis *redis.Client, rocksCache *rockscache.Client) (*Data, func(), error) {
-	l := log.NewHelper(log.With(logger, "module", "rpc_user/data"))
+func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redisClient *redis.Client, rocksCache *rockscache.Client) (*Data, func(), error) {
+	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.ServiceName)))
 	d := &Data{
 		logger:     l,
 		db:         db,
-		redis:      redis,
+		redis:      redisClient,
 		rocksCache: rocksCache,
 	}
 	cleanup := func() {

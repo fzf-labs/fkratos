@@ -23,7 +23,7 @@ import (
 const defaultTimeout = 5 * time.Second
 
 // NewGrpcClient 创建GRPC客户端
-func NewGrpcClient(ctx context.Context, r registry.Discovery, discovery string, serviceName string, timeoutDuration *durationpb.Duration) *grpc.ClientConn {
+func NewGrpcClient(ctx context.Context, r registry.Discovery, discovery, serviceName string, timeoutDuration *durationpb.Duration) *grpc.ClientConn {
 	timeout := defaultTimeout
 	if timeoutDuration != nil {
 		timeout = timeoutDuration.AsDuration()
@@ -35,7 +35,6 @@ func NewGrpcClient(ctx context.Context, r registry.Discovery, discovery string, 
 	case "polaris":
 		serviceName += "grpc"
 	default:
-
 	}
 	endpoint += serviceName
 	conn, err := kGrpc.DialInsecure(

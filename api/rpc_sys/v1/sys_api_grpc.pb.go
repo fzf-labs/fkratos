@@ -19,169 +19,169 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Api_SysApiList_FullMethodName  = "/api.rpc_sys.v1.Api/SysApiList"
-	Api_SysApiStore_FullMethodName = "/api.rpc_sys.v1.Api/SysApiStore"
-	Api_SysApiDel_FullMethodName   = "/api.rpc_sys.v1.Api/SysApiDel"
+	API_SysAPIList_FullMethodName  = "/api.rpc_sys.v1.API/SysAPIList"
+	API_SysAPIStore_FullMethodName = "/api.rpc_sys.v1.API/SysAPIStore"
+	API_SysAPIDel_FullMethodName   = "/api.rpc_sys.v1.API/SysAPIDel"
 )
 
-// ApiClient is the client API for Api service.
+// APIClient is the client API for API service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ApiClient interface {
-	// Api-列表
-	SysApiList(ctx context.Context, in *SysApiListReq, opts ...grpc.CallOption) (*SysApiListReply, error)
-	// Api-保存
-	SysApiStore(ctx context.Context, in *SysApiStoreReq, opts ...grpc.CallOption) (*SysApiStoreReply, error)
-	// Api-删除
-	SysApiDel(ctx context.Context, in *SysApiDelReq, opts ...grpc.CallOption) (*SysApiDelReply, error)
+type APIClient interface {
+	// API-列表
+	SysAPIList(ctx context.Context, in *SysAPIListReq, opts ...grpc.CallOption) (*SysAPIListReply, error)
+	// API-保存
+	SysAPIStore(ctx context.Context, in *SysAPIStoreReq, opts ...grpc.CallOption) (*SysAPIStoreReply, error)
+	// API-删除
+	SysAPIDel(ctx context.Context, in *SysAPIDelReq, opts ...grpc.CallOption) (*SysAPIDelReply, error)
 }
 
-type apiClient struct {
+type aPIClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewApiClient(cc grpc.ClientConnInterface) ApiClient {
-	return &apiClient{cc}
+func NewAPIClient(cc grpc.ClientConnInterface) APIClient {
+	return &aPIClient{cc}
 }
 
-func (c *apiClient) SysApiList(ctx context.Context, in *SysApiListReq, opts ...grpc.CallOption) (*SysApiListReply, error) {
-	out := new(SysApiListReply)
-	err := c.cc.Invoke(ctx, Api_SysApiList_FullMethodName, in, out, opts...)
+func (c *aPIClient) SysAPIList(ctx context.Context, in *SysAPIListReq, opts ...grpc.CallOption) (*SysAPIListReply, error) {
+	out := new(SysAPIListReply)
+	err := c.cc.Invoke(ctx, API_SysAPIList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *apiClient) SysApiStore(ctx context.Context, in *SysApiStoreReq, opts ...grpc.CallOption) (*SysApiStoreReply, error) {
-	out := new(SysApiStoreReply)
-	err := c.cc.Invoke(ctx, Api_SysApiStore_FullMethodName, in, out, opts...)
+func (c *aPIClient) SysAPIStore(ctx context.Context, in *SysAPIStoreReq, opts ...grpc.CallOption) (*SysAPIStoreReply, error) {
+	out := new(SysAPIStoreReply)
+	err := c.cc.Invoke(ctx, API_SysAPIStore_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *apiClient) SysApiDel(ctx context.Context, in *SysApiDelReq, opts ...grpc.CallOption) (*SysApiDelReply, error) {
-	out := new(SysApiDelReply)
-	err := c.cc.Invoke(ctx, Api_SysApiDel_FullMethodName, in, out, opts...)
+func (c *aPIClient) SysAPIDel(ctx context.Context, in *SysAPIDelReq, opts ...grpc.CallOption) (*SysAPIDelReply, error) {
+	out := new(SysAPIDelReply)
+	err := c.cc.Invoke(ctx, API_SysAPIDel_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ApiServer is the server API for Api service.
-// All implementations must embed UnimplementedApiServer
+// APIServer is the server API for API service.
+// All implementations must embed UnimplementedAPIServer
 // for forward compatibility
-type ApiServer interface {
-	// Api-列表
-	SysApiList(context.Context, *SysApiListReq) (*SysApiListReply, error)
-	// Api-保存
-	SysApiStore(context.Context, *SysApiStoreReq) (*SysApiStoreReply, error)
-	// Api-删除
-	SysApiDel(context.Context, *SysApiDelReq) (*SysApiDelReply, error)
-	mustEmbedUnimplementedApiServer()
+type APIServer interface {
+	// API-列表
+	SysAPIList(context.Context, *SysAPIListReq) (*SysAPIListReply, error)
+	// API-保存
+	SysAPIStore(context.Context, *SysAPIStoreReq) (*SysAPIStoreReply, error)
+	// API-删除
+	SysAPIDel(context.Context, *SysAPIDelReq) (*SysAPIDelReply, error)
+	mustEmbedUnimplementedAPIServer()
 }
 
-// UnimplementedApiServer must be embedded to have forward compatible implementations.
-type UnimplementedApiServer struct {
+// UnimplementedAPIServer must be embedded to have forward compatible implementations.
+type UnimplementedAPIServer struct {
 }
 
-func (UnimplementedApiServer) SysApiList(context.Context, *SysApiListReq) (*SysApiListReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SysApiList not implemented")
+func (UnimplementedAPIServer) SysAPIList(context.Context, *SysAPIListReq) (*SysAPIListReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysAPIList not implemented")
 }
-func (UnimplementedApiServer) SysApiStore(context.Context, *SysApiStoreReq) (*SysApiStoreReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SysApiStore not implemented")
+func (UnimplementedAPIServer) SysAPIStore(context.Context, *SysAPIStoreReq) (*SysAPIStoreReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysAPIStore not implemented")
 }
-func (UnimplementedApiServer) SysApiDel(context.Context, *SysApiDelReq) (*SysApiDelReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SysApiDel not implemented")
+func (UnimplementedAPIServer) SysAPIDel(context.Context, *SysAPIDelReq) (*SysAPIDelReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SysAPIDel not implemented")
 }
-func (UnimplementedApiServer) mustEmbedUnimplementedApiServer() {}
+func (UnimplementedAPIServer) mustEmbedUnimplementedAPIServer() {}
 
-// UnsafeApiServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ApiServer will
+// UnsafeAPIServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to APIServer will
 // result in compilation errors.
-type UnsafeApiServer interface {
-	mustEmbedUnimplementedApiServer()
+type UnsafeAPIServer interface {
+	mustEmbedUnimplementedAPIServer()
 }
 
-func RegisterApiServer(s grpc.ServiceRegistrar, srv ApiServer) {
-	s.RegisterService(&Api_ServiceDesc, srv)
+func RegisterAPIServer(s grpc.ServiceRegistrar, srv APIServer) {
+	s.RegisterService(&API_ServiceDesc, srv)
 }
 
-func _Api_SysApiList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SysApiListReq)
+func _API_SysAPIList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysAPIListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ApiServer).SysApiList(ctx, in)
+		return srv.(APIServer).SysAPIList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Api_SysApiList_FullMethodName,
+		FullMethod: API_SysAPIList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ApiServer).SysApiList(ctx, req.(*SysApiListReq))
+		return srv.(APIServer).SysAPIList(ctx, req.(*SysAPIListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Api_SysApiStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SysApiStoreReq)
+func _API_SysAPIStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysAPIStoreReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ApiServer).SysApiStore(ctx, in)
+		return srv.(APIServer).SysAPIStore(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Api_SysApiStore_FullMethodName,
+		FullMethod: API_SysAPIStore_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ApiServer).SysApiStore(ctx, req.(*SysApiStoreReq))
+		return srv.(APIServer).SysAPIStore(ctx, req.(*SysAPIStoreReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Api_SysApiDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SysApiDelReq)
+func _API_SysAPIDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysAPIDelReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ApiServer).SysApiDel(ctx, in)
+		return srv.(APIServer).SysAPIDel(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Api_SysApiDel_FullMethodName,
+		FullMethod: API_SysAPIDel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ApiServer).SysApiDel(ctx, req.(*SysApiDelReq))
+		return srv.(APIServer).SysAPIDel(ctx, req.(*SysAPIDelReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Api_ServiceDesc is the grpc.ServiceDesc for Api service.
+// API_ServiceDesc is the grpc.ServiceDesc for API service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Api_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.rpc_sys.v1.Api",
-	HandlerType: (*ApiServer)(nil),
+var API_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "api.rpc_sys.v1.API",
+	HandlerType: (*APIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "SysApiList",
-			Handler:    _Api_SysApiList_Handler,
+			MethodName: "SysAPIList",
+			Handler:    _API_SysAPIList_Handler,
 		},
 		{
-			MethodName: "SysApiStore",
-			Handler:    _Api_SysApiStore_Handler,
+			MethodName: "SysAPIStore",
+			Handler:    _API_SysAPIStore_Handler,
 		},
 		{
-			MethodName: "SysApiDel",
-			Handler:    _Api_SysApiDel_Handler,
+			MethodName: "SysAPIDel",
+			Handler:    _API_SysAPIDel_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

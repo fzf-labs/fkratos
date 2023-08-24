@@ -11,13 +11,13 @@ var (
 	ParamBindErr        = New(http.StatusBadRequest, "ParamBindErr", "Param Exception")
 	ParamErr            = New(http.StatusBadRequest, "ParamErr", "Param Exception")
 	ParamValidationErr  = New(http.StatusBadRequest, "ParamValidationErr", "Param Exception")
-	ParamNotJsonRequest = New(http.StatusBadRequest, "ParamNotJsonRequest", "Param Exception")
+	ParamNotJSONRequest = New(http.StatusBadRequest, "ParamNotJSONRequest", "Param Exception")
 	ParamHeaderErr      = New(http.StatusBadRequest, "ParamHeaderErr", "Param Exception")
 )
 
 // Data数据相关
 var (
-	DataSqlErr           = New(http.StatusInternalServerError, "DataSqlErr", "Data Exception")
+	DataSQLErr           = New(http.StatusInternalServerError, "DataSQLErr", "Data Exception")
 	DataRedisErr         = New(http.StatusInternalServerError, "DataRedisErr", "Data Exception")
 	DataRecordNotFound   = New(http.StatusInternalServerError, "DataRecordNotFound", "Data Exception")
 	DataDuplicateRecords = New(http.StatusInternalServerError, "DataDuplicateRecords", "Data Exception")

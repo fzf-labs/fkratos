@@ -47,8 +47,7 @@ func (s *SensitiveWordUseCase) SensitiveWordList(ctx context.Context, req *pagin
 	}
 	for _, v := range result {
 		labs := make([]string, 0)
-		err := json.Unmarshal(v.Labs, &labs)
-		if err != nil {
+		if err = json.Unmarshal(v.Labs, &labs); err != nil {
 			return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
 		resp.List = append(resp.List, &v1.SensitiveWordInfo{

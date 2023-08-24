@@ -21,7 +21,7 @@ type SysService struct {
 	sysPermissionClient sysV1.PermissionClient
 	sysJobClient        sysV1.JobClient
 	sysDeptClient       sysV1.DeptClient
-	sysApiClient        sysV1.ApiClient
+	sysAPIClient        sysV1.APIClient
 	sysLogClient        sysV1.LogClient
 	sysDashboardClient  sysV1.DashboardClient
 }
@@ -34,7 +34,7 @@ func NewSysService(
 	sysPermissionClient sysV1.PermissionClient,
 	sysJobClient sysV1.JobClient,
 	sysDeptClient sysV1.DeptClient,
-	sysApiClient sysV1.ApiClient,
+	sysAPIClient sysV1.APIClient,
 	sysLogClient sysV1.LogClient,
 	sysDashboardClient sysV1.DashboardClient,
 ) *SysService {
@@ -47,13 +47,13 @@ func NewSysService(
 		sysPermissionClient: sysPermissionClient,
 		sysJobClient:        sysJobClient,
 		sysDeptClient:       sysDeptClient,
-		sysApiClient:        sysApiClient,
+		sysAPIClient:        sysAPIClient,
 		sysLogClient:        sysLogClient,
 		sysDashboardClient:  sysDashboardClient,
 	}
 }
 
-func (s *SysService) DashboardSpeech(ctx context.Context, req *pb.DashboardSpeechReq) (*pb.DashboardSpeechReply, error) {
+func (s *SysService) DashboardSpeech(ctx context.Context, _ *pb.DashboardSpeechReq) (*pb.DashboardSpeechReply, error) {
 	resp := new(pb.DashboardSpeechReply)
 	result, err := s.sysDashboardClient.DashboardSpeech(ctx, &sysV1.DashboardSpeechReq{})
 	if err != nil {
@@ -65,7 +65,7 @@ func (s *SysService) DashboardSpeech(ctx context.Context, req *pb.DashboardSpeec
 	}
 	return resp, nil
 }
-func (s *SysService) SysAuthLoginCaptcha(ctx context.Context, req *pb.SysAuthLoginCaptchaReq) (*pb.SysAuthLoginCaptchaReply, error) {
+func (s *SysService) SysAuthLoginCaptcha(ctx context.Context, _ *pb.SysAuthLoginCaptchaReq) (*pb.SysAuthLoginCaptchaReply, error) {
 	resp := new(pb.SysAuthLoginCaptchaReply)
 	result, err := s.sysAuthClient.SysAuthLoginCaptcha(ctx, &sysV1.SysAuthLoginCaptchaReq{})
 	if err != nil {
@@ -94,10 +94,10 @@ func (s *SysService) SysAuthLogin(ctx context.Context, req *pb.SysAuthLoginReq) 
 	}
 	return resp, nil
 }
-func (s *SysService) SysAuthLogout(ctx context.Context, req *pb.SysAuthLogoutReq) (*pb.SysAuthLogoutReply, error) {
+func (s *SysService) SysAuthLogout(ctx context.Context, _ *pb.SysAuthLogoutReq) (*pb.SysAuthLogoutReply, error) {
 	resp := new(pb.SysAuthLogoutReply)
 	result, err := s.sysAuthClient.SysAuthLogout(ctx, &sysV1.SysAuthLogoutReq{
-		AdminId: meta.GetAdminId(ctx),
+		AdminId: meta.GetAdminID(ctx),
 	})
 	if err != nil {
 		return nil, err
@@ -108,10 +108,10 @@ func (s *SysService) SysAuthLogout(ctx context.Context, req *pb.SysAuthLogoutReq
 	}
 	return resp, nil
 }
-func (s *SysService) SysAdminInfo(ctx context.Context, req *pb.SysAdminInfoReq) (*pb.SysAdminInfoReply, error) {
+func (s *SysService) SysAdminInfo(ctx context.Context, _ *pb.SysAdminInfoReq) (*pb.SysAdminInfoReply, error) {
 	resp := new(pb.SysAdminInfoReply)
 	result, err := s.sysAdminClient.SysAdminInfo(ctx, &sysV1.SysAdminInfoReq{
-		AdminId: meta.GetAdminId(ctx),
+		AdminId: meta.GetAdminID(ctx),
 	})
 	if err != nil {
 		return nil, err
@@ -125,7 +125,7 @@ func (s *SysService) SysAdminInfo(ctx context.Context, req *pb.SysAdminInfoReq) 
 func (s *SysService) SysAdminInfoUpdate(ctx context.Context, req *pb.SysAdminInfoUpdateReq) (*pb.SysAdminInfoUpdateReply, error) {
 	resp := new(pb.SysAdminInfoUpdateReply)
 	result, err := s.sysAdminClient.SysAdminInfoUpdate(ctx, &sysV1.SysAdminInfoUpdateReq{
-		AdminId:  meta.GetAdminId(ctx),
+		AdminId:  meta.GetAdminID(ctx),
 		Nickname: req.GetNickname(),
 		Email:    req.GetEmail(),
 		Mobile:   req.GetMobile(),
@@ -141,10 +141,10 @@ func (s *SysService) SysAdminInfoUpdate(ctx context.Context, req *pb.SysAdminInf
 	}
 	return resp, nil
 }
-func (s *SysService) SysAdminGenerateAvatar(ctx context.Context, req *pb.SysAdminGenerateAvatarReq) (*pb.SysAdminGenerateAvatarReply, error) {
+func (s *SysService) SysAdminGenerateAvatar(ctx context.Context, _ *pb.SysAdminGenerateAvatarReq) (*pb.SysAdminGenerateAvatarReply, error) {
 	resp := new(pb.SysAdminGenerateAvatarReply)
 	result, err := s.sysAdminClient.SysAdminGenerateAvatar(ctx, &sysV1.SysAdminGenerateAvatarReq{
-		AdminId: meta.GetAdminId(ctx),
+		AdminId: meta.GetAdminID(ctx),
 	})
 	if err != nil {
 		return nil, err
@@ -155,10 +155,10 @@ func (s *SysService) SysAdminGenerateAvatar(ctx context.Context, req *pb.SysAdmi
 	}
 	return resp, nil
 }
-func (s *SysService) SysAdminPermission(ctx context.Context, req *pb.SysAdminPermissionReq) (*pb.SysAdminPermissionReply, error) {
+func (s *SysService) SysAdminPermission(ctx context.Context, _ *pb.SysAdminPermissionReq) (*pb.SysAdminPermissionReply, error) {
 	resp := new(pb.SysAdminPermissionReply)
 	result, err := s.sysAdminClient.SysAdminPermission(ctx, &sysV1.SysAdminPermissionReq{
-		AdminId: meta.GetAdminId(ctx),
+		AdminId: meta.GetAdminID(ctx),
 	})
 	if err != nil {
 		return nil, err
@@ -187,10 +187,10 @@ func (s *SysService) SysManageList(ctx context.Context, req *paginator.Paginator
 	}
 	return resp, nil
 }
-func (s *SysService) SysManageInfo(ctx context.Context, req *pb.SysManageInfoReq) (*pb.SysManageInfoReply, error) {
+func (s *SysService) SysManageInfo(ctx context.Context, _ *pb.SysManageInfoReq) (*pb.SysManageInfoReply, error) {
 	resp := new(pb.SysManageInfoReply)
 	result, err := s.sysAdminClient.SysManageInfo(ctx, &sysV1.SysManageInfoReq{
-		AdminId: meta.GetAdminId(ctx),
+		AdminId: meta.GetAdminID(ctx),
 	})
 	if err != nil {
 		return nil, err
@@ -241,9 +241,9 @@ func (s *SysService) SysManageDel(ctx context.Context, req *pb.SysManageDelReq) 
 	}
 	return resp, nil
 }
-func (s *SysService) SysApiList(ctx context.Context, req *pb.SysApiListReq) (*pb.SysApiListReply, error) {
-	resp := new(pb.SysApiListReply)
-	result, err := s.sysApiClient.SysApiList(ctx, &sysV1.SysApiListReq{
+func (s *SysService) SysAPIList(ctx context.Context, req *pb.SysAPIListReq) (*pb.SysAPIListReply, error) {
+	resp := new(pb.SysAPIListReply)
+	result, err := s.sysAPIClient.SysAPIList(ctx, &sysV1.SysAPIListReq{
 		PermissionId: req.GetPermissionId(),
 	})
 	if err != nil {
@@ -255,9 +255,9 @@ func (s *SysService) SysApiList(ctx context.Context, req *pb.SysApiListReq) (*pb
 	}
 	return resp, nil
 }
-func (s *SysService) SysApiStore(ctx context.Context, req *pb.SysApiStoreReq) (*pb.SysApiStoreReply, error) {
-	resp := new(pb.SysApiStoreReply)
-	result, err := s.sysApiClient.SysApiStore(ctx, &sysV1.SysApiStoreReq{
+func (s *SysService) SysAPIStore(ctx context.Context, req *pb.SysAPIStoreReq) (*pb.SysAPIStoreReply, error) {
+	resp := new(pb.SysAPIStoreReply)
+	result, err := s.sysAPIClient.SysAPIStore(ctx, &sysV1.SysAPIStoreReq{
 		Id:           req.GetId(),
 		PermissionID: req.GetPermissionID(),
 		Method:       req.GetMethod(),
@@ -273,9 +273,9 @@ func (s *SysService) SysApiStore(ctx context.Context, req *pb.SysApiStoreReq) (*
 	}
 	return resp, nil
 }
-func (s *SysService) SysApiDel(ctx context.Context, req *pb.SysApiDelReq) (*pb.SysApiDelReply, error) {
-	resp := new(pb.SysApiDelReply)
-	result, err := s.sysApiClient.SysApiDel(ctx, &sysV1.SysApiDelReq{
+func (s *SysService) SysAPIDel(ctx context.Context, req *pb.SysAPIDelReq) (*pb.SysAPIDelReply, error) {
+	resp := new(pb.SysAPIDelReply)
+	result, err := s.sysAPIClient.SysAPIDel(ctx, &sysV1.SysAPIDelReq{
 		Ids: req.GetIds(),
 	})
 	if err != nil {
@@ -287,7 +287,7 @@ func (s *SysService) SysApiDel(ctx context.Context, req *pb.SysApiDelReq) (*pb.S
 	}
 	return resp, nil
 }
-func (s *SysService) SysDeptList(ctx context.Context, req *pb.SysDeptListReq) (*pb.SysDeptListReply, error) {
+func (s *SysService) SysDeptList(ctx context.Context, _ *pb.SysDeptListReq) (*pb.SysDeptListReply, error) {
 	resp := new(pb.SysDeptListReply)
 	result, err := s.sysDeptClient.SysDeptList(ctx, &sysV1.SysDeptListReq{})
 	if err != nil {
@@ -468,7 +468,7 @@ func (s *SysService) SysLogStore(ctx context.Context, req *pb.SysLogStoreReq) (*
 	}
 	return resp, nil
 }
-func (s *SysService) SysPermissionList(ctx context.Context, req *pb.SysPermissionListReq) (*pb.SysPermissionListResp, error) {
+func (s *SysService) SysPermissionList(ctx context.Context, _ *pb.SysPermissionListReq) (*pb.SysPermissionListResp, error) {
 	resp := new(pb.SysPermissionListResp)
 	result, err := s.sysPermissionClient.SysPermissionList(ctx, &sysV1.SysPermissionListReq{})
 	if err != nil {
@@ -551,7 +551,7 @@ func (s *SysService) SysPermissionStatus(ctx context.Context, req *pb.SysPermiss
 	}
 	return resp, nil
 }
-func (s *SysService) SysRoleList(ctx context.Context, req *pb.SysRoleListReq) (*pb.SysRoleListResp, error) {
+func (s *SysService) SysRoleList(ctx context.Context, _ *pb.SysRoleListReq) (*pb.SysRoleListResp, error) {
 	resp := new(pb.SysRoleListResp)
 	result, err := s.sysRoleClient.SysRoleList(ctx, &sysV1.SysRoleListReq{})
 	if err != nil {

@@ -56,12 +56,12 @@ func (s *SensitiveWordRepo) SensitiveWordListBySearch(ctx context.Context, req *
 	queryCount := query
 	total, err := queryCount.Count()
 	if err != nil {
-		return nil, nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	p := page.Paginator(int(req.Page), int(req.PageSize), int(total))
 	result, err := query.Offset(p.Offset).Limit(p.Limit).Find()
 	if err != nil {
-		return nil, nil, errorx.DataSqlErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	return result, p, nil
 }
@@ -98,11 +98,11 @@ func (s *SensitiveWordRepo) SensitiveWordsCache(ctx context.Context) ([]string, 
 	if err != nil {
 		return nil, err
 	}
-	//存在
+	// 存在
 	if exists == 1 {
-		result, err := s.data.redis.HKeys(ctx, key).Result()
-		if err != nil {
-			return nil, err
+		result, err2 := s.data.redis.HKeys(ctx, key).Result()
+		if err2 != nil {
+			return nil, err2
 		}
 		return result, nil
 	}
@@ -110,10 +110,9 @@ func (s *SensitiveWordRepo) SensitiveWordsCache(ctx context.Context) ([]string, 
 	if err != nil {
 		return nil, err
 	}
-	values := make([]interface{}, 0)
+	values := make([]any, 0)
 	for _, v := range result {
-		values = append(values, v)
-		values = append(values, "1")
+		values = append(values, v, "1")
 	}
 	err = s.data.redis.HSet(ctx, key, values...).Err()
 	if err != nil {

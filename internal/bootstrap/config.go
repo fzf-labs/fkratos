@@ -39,7 +39,7 @@ const remoteConfigSourceConfigFile = "remote.yaml"
 
 // NewConfigProvider 创建一个配置
 func NewConfigProvider(configPath string) config.Config {
-	err, rc := LoadRemoteConfigSourceConfigs(configPath)
+	rc, err := LoadRemoteConfigSourceConfigs(configPath)
 	if err != nil {
 		log.Error("LoadRemoteConfigSourceConfigs: ", err.Error())
 	}
@@ -109,7 +109,7 @@ func pathExists(path string) bool {
 }
 
 // LoadRemoteConfigSourceConfigs 加载远程配置源的本地配置
-func LoadRemoteConfigSourceConfigs(configPath string) (error, *conf.RemoteConfig) {
+func LoadRemoteConfigSourceConfigs(configPath string) (*conf.RemoteConfig, error) {
 	configPath = configPath + "/" + remoteConfigSourceConfigFile
 	if !pathExists(configPath) {
 		return nil, nil
@@ -127,18 +127,16 @@ func LoadRemoteConfigSourceConfigs(configPath string) (error, *conf.RemoteConfig
 		}
 	}(cfg)
 
-	var err error
-
-	if err = cfg.Load(); err != nil {
-		return err, nil
+	if err := cfg.Load(); err != nil {
+		return nil, err
 	}
 
 	var rc conf.Bootstrap
-	if err = cfg.Scan(&rc); err != nil {
-		return err, nil
+	if err := cfg.Scan(&rc); err != nil {
+		return nil, err
 	}
 
-	return nil, rc.Config
+	return rc.Config, nil
 }
 
 type ConfigType string
@@ -175,7 +173,7 @@ func NewRemoteConfigSource(c *conf.RemoteConfig) config.Source {
 // getConfigKey 获取合法的配置名
 func getConfigKey(configKey string, useBackslash bool) string {
 	if useBackslash {
-		return strings.Replace(configKey, `.`, `/`, -1)
+		return strings.ReplaceAll(configKey, `.`, `/`)
 	} else {
 		return configKey
 	}

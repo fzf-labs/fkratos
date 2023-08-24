@@ -9,22 +9,22 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 )
 
-func NewApiUseCase(logger log.Logger, sysApiRepo SysApiRepo) *ApiUseCase {
+func NewAPIUseCase(logger log.Logger, sysAPIRepo SysAPIRepo) *APIUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/api"))
-	return &ApiUseCase{
+	return &APIUseCase{
 		log:        l,
-		sysApiRepo: sysApiRepo,
+		sysAPIRepo: sysAPIRepo,
 	}
 }
 
-type ApiUseCase struct {
+type APIUseCase struct {
 	log        *log.Helper
-	sysApiRepo SysApiRepo
+	sysAPIRepo SysAPIRepo
 }
 
-func (a *ApiUseCase) SysApiStore(ctx context.Context, req *v1.SysApiStoreReq) (*v1.SysApiStoreReply, error) {
-	resp := new(v1.SysApiStoreReply)
-	_, err := a.sysApiRepo.SysApiStore(ctx, &fkratos_sys_model.SysAPI{
+func (a *APIUseCase) SysAPIStore(ctx context.Context, req *v1.SysAPIStoreReq) (*v1.SysAPIStoreReply, error) {
+	resp := new(v1.SysAPIStoreReply)
+	_, err := a.sysAPIRepo.SysAPIStore(ctx, &fkratos_sys_model.SysAPI{
 		PermissionID: req.GetPermissionID(),
 		Method:       req.GetMethod(),
 		Path:         req.GetPath(),
@@ -36,23 +36,23 @@ func (a *ApiUseCase) SysApiStore(ctx context.Context, req *v1.SysApiStoreReq) (*
 	return resp, nil
 }
 
-func (a *ApiUseCase) SysApiDel(ctx context.Context, req *v1.SysApiDelReq) (*v1.SysApiDelReply, error) {
-	resp := new(v1.SysApiDelReply)
-	err := a.sysApiRepo.DeleteMultiCacheByIDS(ctx, req.GetIds())
+func (a *APIUseCase) SysAPIDel(ctx context.Context, req *v1.SysAPIDelReq) (*v1.SysAPIDelReply, error) {
+	resp := new(v1.SysAPIDelReply)
+	err := a.sysAPIRepo.DeleteMultiCacheByIDS(ctx, req.GetIds())
 	if err != nil {
 		return nil, err
 	}
 	return resp, nil
 }
 
-func (a *ApiUseCase) SysApiList(ctx context.Context, req *v1.SysApiListReq) (*v1.SysApiListReply, error) {
-	resp := new(v1.SysApiListReply)
-	list, err := a.sysApiRepo.FindMultiByPermissionID(ctx, req.GetPermissionId())
+func (a *APIUseCase) SysAPIList(ctx context.Context, req *v1.SysAPIListReq) (*v1.SysAPIListReply, error) {
+	resp := new(v1.SysAPIListReply)
+	list, err := a.sysAPIRepo.FindMultiByPermissionID(ctx, req.GetPermissionId())
 	if err != nil {
 		return nil, err
 	}
 	for _, v := range list {
-		resp.List = append(resp.List, &v1.SysApiInfo{
+		resp.List = append(resp.List, &v1.SysAPIInfo{
 			Id:           v.ID,
 			PermissionID: v.PermissionID,
 			Method:       v.Method,

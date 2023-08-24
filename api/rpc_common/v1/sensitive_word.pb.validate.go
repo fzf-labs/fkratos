@@ -57,7 +57,7 @@ func (m *SensitiveWordInfo) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	// no validation rules for ID
 
 	// no validation rules for Word
 
@@ -334,7 +334,7 @@ func (m *SensitiveWordStoreReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Id
+	// no validation rules for ID
 
 	// no validation rules for Word
 
