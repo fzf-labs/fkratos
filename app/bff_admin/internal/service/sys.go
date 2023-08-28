@@ -97,7 +97,7 @@ func (s *SysService) SysAuthLogin(ctx context.Context, req *pb.SysAuthLoginReq) 
 func (s *SysService) SysAuthLogout(ctx context.Context, _ *pb.SysAuthLogoutReq) (*pb.SysAuthLogoutReply, error) {
 	resp := new(pb.SysAuthLogoutReply)
 	result, err := s.sysAuthClient.SysAuthLogout(ctx, &sysV1.SysAuthLogoutReq{
-		AdminId: meta.GetAdminID(ctx),
+		AdminId: meta.GetAdminIDFromClient(ctx),
 	})
 	if err != nil {
 		return nil, err
@@ -111,7 +111,7 @@ func (s *SysService) SysAuthLogout(ctx context.Context, _ *pb.SysAuthLogoutReq) 
 func (s *SysService) SysAdminInfo(ctx context.Context, _ *pb.SysAdminInfoReq) (*pb.SysAdminInfoReply, error) {
 	resp := new(pb.SysAdminInfoReply)
 	result, err := s.sysAdminClient.SysAdminInfo(ctx, &sysV1.SysAdminInfoReq{
-		AdminId: meta.GetAdminID(ctx),
+		AdminId: meta.GetAdminIDFromClient(ctx),
 	})
 	if err != nil {
 		return nil, err
@@ -125,7 +125,7 @@ func (s *SysService) SysAdminInfo(ctx context.Context, _ *pb.SysAdminInfoReq) (*
 func (s *SysService) SysAdminInfoUpdate(ctx context.Context, req *pb.SysAdminInfoUpdateReq) (*pb.SysAdminInfoUpdateReply, error) {
 	resp := new(pb.SysAdminInfoUpdateReply)
 	result, err := s.sysAdminClient.SysAdminInfoUpdate(ctx, &sysV1.SysAdminInfoUpdateReq{
-		AdminId:  meta.GetAdminID(ctx),
+		AdminId:  meta.GetAdminIDFromClient(ctx),
 		Nickname: req.GetNickname(),
 		Email:    req.GetEmail(),
 		Mobile:   req.GetMobile(),
@@ -144,7 +144,7 @@ func (s *SysService) SysAdminInfoUpdate(ctx context.Context, req *pb.SysAdminInf
 func (s *SysService) SysAdminGenerateAvatar(ctx context.Context, _ *pb.SysAdminGenerateAvatarReq) (*pb.SysAdminGenerateAvatarReply, error) {
 	resp := new(pb.SysAdminGenerateAvatarReply)
 	result, err := s.sysAdminClient.SysAdminGenerateAvatar(ctx, &sysV1.SysAdminGenerateAvatarReq{
-		AdminId: meta.GetAdminID(ctx),
+		AdminId: meta.GetAdminIDFromClient(ctx),
 	})
 	if err != nil {
 		return nil, err
@@ -158,7 +158,7 @@ func (s *SysService) SysAdminGenerateAvatar(ctx context.Context, _ *pb.SysAdminG
 func (s *SysService) SysAdminPermission(ctx context.Context, _ *pb.SysAdminPermissionReq) (*pb.SysAdminPermissionReply, error) {
 	resp := new(pb.SysAdminPermissionReply)
 	result, err := s.sysAdminClient.SysAdminPermission(ctx, &sysV1.SysAdminPermissionReq{
-		AdminId: meta.GetAdminID(ctx),
+		AdminId: meta.GetAdminIDFromClient(ctx),
 	})
 	if err != nil {
 		return nil, err
@@ -187,10 +187,10 @@ func (s *SysService) SysManageList(ctx context.Context, req *paginator.Paginator
 	}
 	return resp, nil
 }
-func (s *SysService) SysManageInfo(ctx context.Context, _ *pb.SysManageInfoReq) (*pb.SysManageInfoReply, error) {
+func (s *SysService) SysManageInfo(ctx context.Context, req *pb.SysManageInfoReq) (*pb.SysManageInfoReply, error) {
 	resp := new(pb.SysManageInfoReply)
 	result, err := s.sysAdminClient.SysManageInfo(ctx, &sysV1.SysManageInfoReq{
-		AdminId: meta.GetAdminID(ctx),
+		AdminId: req.GetAdminId(),
 	})
 	if err != nil {
 		return nil, err
