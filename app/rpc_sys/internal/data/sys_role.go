@@ -22,7 +22,7 @@ func NewSysRoleRepo(data *Data, logger log.Logger) biz.SysRoleRepo {
 	return &SysRoleRepo{
 		log:         l,
 		data:        data,
-		SysRoleRepo: fkratos_sys_repo.NewSysRoleRepo(data.gorm, data.rocksCache),
+		SysRoleRepo: fkratos_sys_repo.NewSysRoleRepo(data.gorm, data.dbCache),
 	}
 }
 

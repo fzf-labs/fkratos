@@ -32,16 +32,18 @@ func NewSysAdminRepo(c *conf.Bootstrap, data *Data, logger log.Logger) biz.SysAd
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_admin"))
 	return &SysAdminRepo{
 		config:       c,
-		data:         data,
 		log:          l,
-		SysAdminRepo: fkratos_sys_repo.NewSysAdminRepo(data.gorm, data.rocksCache),
+		data:         data,
+		jwtCache:     NewJwtCache(data.rueidis),
+		SysAdminRepo: fkratos_sys_repo.NewSysAdminRepo(data.gorm, data.dbCache),
 	}
 }
 
 type SysAdminRepo struct {
-	config *conf.Bootstrap
-	log    *log.Helper
-	data   *Data
+	config   *conf.Bootstrap
+	log      *log.Helper
+	data     *Data
+	jwtCache *JwtCache
 	*fkratos_sys_repo.SysAdminRepo
 }
 
@@ -184,12 +186,12 @@ func (s *SysAdminRepo) SysManageListBySearch(ctx context.Context, req *paginator
 
 // ClearJwTToken 清除jwtToken
 func (s *SysAdminRepo) ClearJwTToken(_ context.Context, jwtUID string) error {
-	jwtClient := jwt.NewJwt(s.data.redis, &jwt.Config{
+	jwtClient := jwt.NewJwt(&jwt.Config{
 		AccessSecret: s.config.Business.Jwt.AccessSecret,
 		AccessExpire: s.config.Business.Jwt.AccessExpire,
 		RefreshAfter: s.config.Business.Jwt.RefreshAfter,
 		Issuer:       s.config.Business.Jwt.Issuer,
-	})
+	}, s.jwtCache)
 	err := jwtClient.JwtTokenClear(jwtUID)
 	if err != nil {
 		return err
@@ -199,12 +201,12 @@ func (s *SysAdminRepo) ClearJwTToken(_ context.Context, jwtUID string) error {
 
 // GenerateJwTToken 生成jwtToken
 func (s *SysAdminRepo) GenerateJwTToken(_ context.Context, kv map[string]interface{}) (*jwt.Token, error) {
-	jwtClient := jwt.NewJwt(s.data.redis, &jwt.Config{
+	jwtClient := jwt.NewJwt(&jwt.Config{
 		AccessSecret: s.config.Business.Jwt.AccessSecret,
 		AccessExpire: s.config.Business.Jwt.AccessExpire,
 		RefreshAfter: s.config.Business.Jwt.RefreshAfter,
 		Issuer:       s.config.Business.Jwt.Issuer,
-	})
+	}, s.jwtCache)
 	token, claims, err := jwtClient.GenerateToken(kv)
 	if err != nil {
 		return nil, errorx.TokenGenerationFailed.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
@@ -218,12 +220,12 @@ func (s *SysAdminRepo) GenerateJwTToken(_ context.Context, kv map[string]interfa
 
 func (s *SysAdminRepo) SysAuthJwtTokenCheck(_ context.Context, token string) (string, error) {
 	///token 解析
-	jwtClient := jwt.NewJwt(s.data.redis, &jwt.Config{
+	jwtClient := jwt.NewJwt(&jwt.Config{
 		AccessSecret: s.config.Business.Jwt.AccessSecret,
 		AccessExpire: s.config.Business.Jwt.AccessExpire,
 		RefreshAfter: s.config.Business.Jwt.RefreshAfter,
 		Issuer:       s.config.Business.Jwt.Issuer,
-	})
+	}, s.jwtCache)
 	claims, err := jwtClient.ParseToken(token)
 	if err != nil {
 		if errors.Is(err, jwt.TokenExpired) {

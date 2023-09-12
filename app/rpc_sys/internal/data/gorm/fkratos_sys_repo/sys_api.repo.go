@@ -10,55 +10,64 @@ import (
 	"errors"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
-	"time"
 
-	"github.com/dtm-labs/rockscache"
-	"github.com/fzf-labs/fpkg/cache/cachekey"
-	"github.com/fzf-labs/fpkg/conv"
 	"gorm.io/gorm"
 )
 
 var _ ISysAPIRepo = (*SysAPIRepo)(nil)
 
 var (
-	// 缓存管理器
-	cacheKeySysAPIManage = cachekey.NewKeyManage("SysAPIRepo")
-	// 只针对唯一索引做缓存
-	CacheSysAPIByID = cacheKeySysAPIManage.AddKey("CacheSysAPIByID", time.Hour*24, "CacheSysAPIByID")
+	cacheSysAPIByIDPrefix = "DBCache:fkratos_sys:SysAPIByID"
 )
 
 type (
 	ISysAPIRepo interface {
 		// CreateOne 创建一条数据
 		CreateOne(ctx context.Context, data *fkratos_sys_model.SysAPI) error
+		// CreateBatch 批量创建数据
+		CreateBatch(ctx context.Context, data []*fkratos_sys_model.SysAPI, batchSize int) error
 		// UpdateOne 更新一条数据
 		UpdateOne(ctx context.Context, data *fkratos_sys_model.SysAPI) error
-		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
-		DeleteOneCacheByID(ctx context.Context, ID string) error
-		// DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
-		DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error
-		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
-		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysAPI) error
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysAPI, error)
+		// FindOneByID 根据ID查询一条数据
+		FindOneByID(ctx context.Context, ID string) (*fkratos_sys_model.SysAPI, error)
 		// FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
 		FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysAPI, error)
+		// FindMultiByIDS 根据IDS查询多条数据
+		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysAPI, error)
 		// FindMultiByPermissionID 根据permissionID查询多条数据
 		FindMultiByPermissionID(ctx context.Context, permissionID string) ([]*fkratos_sys_model.SysAPI, error)
 		// FindMultiByPermissionIDS 根据permissionIDS查询多条数据
 		FindMultiByPermissionIDS(ctx context.Context, permissionIDS []string) ([]*fkratos_sys_model.SysAPI, error)
+		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
+		DeleteOneCacheByID(ctx context.Context, ID string) error
+		// DeleteOneByID 根据ID删除一条数据
+		DeleteOneByID(ctx context.Context, ID string) error
+		// DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
+		DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error
+		// DeleteMultiByIDS 根据IDS删除多条数据
+		DeleteMultiByIDS(ctx context.Context, IDS []string) error
+		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
+		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysAPI) error
 	}
-
+	ISysAPICache interface {
+		Key(fields ...any) string
+		Fetch(ctx context.Context, key string, fn func() (string, error)) (string, error)
+		FetchBatch(ctx context.Context, keys []string, fn func(miss []string) (map[string]string, error)) (map[string]string, error)
+		Del(ctx context.Context, key string) error
+		DelBatch(ctx context.Context, keys []string) error
+	}
 	SysAPIRepo struct {
-		db         *gorm.DB
-		rockscache *rockscache.Client
+		db    *gorm.DB
+		cache ISysAPICache
 	}
 )
 
-func NewSysAPIRepo(db *gorm.DB, rockscache *rockscache.Client) *SysAPIRepo {
+func NewSysAPIRepo(db *gorm.DB, cache ISysAPICache) *SysAPIRepo {
 	return &SysAPIRepo{
-		db:         db,
-		rockscache: rockscache,
+		db:    db,
+		cache: cache,
 	}
 }
 
@@ -66,6 +75,16 @@ func NewSysAPIRepo(db *gorm.DB, rockscache *rockscache.Client) *SysAPIRepo {
 func (r *SysAPIRepo) CreateOne(ctx context.Context, data *fkratos_sys_model.SysAPI) error {
 	dao := fkratos_sys_dao.Use(r.db).SysAPI
 	err := dao.WithContext(ctx).Create(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// CreateBatch 批量创建数据
+func (r *SysAPIRepo) CreateBatch(ctx context.Context, data []*fkratos_sys_model.SysAPI, batchSize int) error {
+	dao := fkratos_sys_dao.Use(r.db).SysAPI
+	err := dao.WithContext(ctx).CreateInBatches(data, batchSize)
 	if err != nil {
 		return err
 	}
@@ -107,6 +126,16 @@ func (r *SysAPIRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
 	return nil
 }
 
+// DeleteOneByID 根据ID删除一条数据
+func (r *SysAPIRepo) DeleteOneByID(ctx context.Context, ID string) error {
+	dao := fkratos_sys_dao.Use(r.db).SysAPI
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
 func (r *SysAPIRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error {
 	dao := fkratos_sys_dao.Use(r.db).SysAPI
@@ -128,17 +157,26 @@ func (r *SysAPIRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) er
 	return nil
 }
 
+// DeleteMultiByIDS 根据IDS删除多条数据
+func (r *SysAPIRepo) DeleteMultiByIDS(ctx context.Context, IDS []string) error {
+	dao := fkratos_sys_dao.Use(r.db).SysAPI
+	_, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // DeleteUniqueIndexCache 删除唯一索引存在的缓存
 func (r *SysAPIRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysAPI) error {
-	var err error
-	cacheSysAPIByID := CacheSysAPIByID.NewSingleKey(r.rockscache)
-
+	keys := make([]string, 0)
 	for _, v := range data {
-		err = cacheSysAPIByID.SingleCacheDel(ctx, cacheSysAPIByID.BuildKey(v.ID))
-		if err != nil {
-			return err
-		}
+		keys = append(keys, r.cache.Key(cacheSysAPIByIDPrefix, v.ID))
 
+	}
+	err := r.cache.DelBatch(ctx, keys)
+	if err != nil {
+		return err
 	}
 	return nil
 }
@@ -146,8 +184,8 @@ func (r *SysAPIRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (r *SysAPIRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysAPI, error) {
 	resp := new(fkratos_sys_model.SysAPI)
-	cache := CacheSysAPIByID.NewSingleKey(r.rockscache)
-	cacheValue, err := cache.SingleCache(ctx, conv.String(ID), func() (string, error) {
+	key := r.cache.Key(cacheSysAPIByIDPrefix, ID)
+	cacheValue, err := r.cache.Fetch(ctx, key, func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysAPI
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
@@ -169,27 +207,46 @@ func (r *SysAPIRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_
 	return resp, nil
 }
 
+// FindOneByID 根据ID查询一条数据
+func (r *SysAPIRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_sys_model.SysAPI, error) {
+	dao := fkratos_sys_dao.Use(r.db).SysAPI
+	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
+	}
+	return result, nil
+}
+
 // FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
 func (r *SysAPIRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysAPI, error) {
 	resp := make([]*fkratos_sys_model.SysAPI, 0)
-	cacheKey := CacheSysAPIByID.NewBatchKey(r.rockscache)
-	batchKeys := make([]string, 0)
+	keys := make([]string, 0)
+	keyToParam := make(map[string]string)
 	for _, v := range IDS {
-		batchKeys = append(batchKeys, conv.String(v))
+		key := r.cache.Key(cacheSysAPIByIDPrefix, v)
+		keys = append(keys, key)
+		keyToParam[key] = v
 	}
-	cacheValue, err := cacheKey.BatchKeyCache(ctx, batchKeys, func() (map[string]string, error) {
+	cacheValue, err := r.cache.FetchBatch(ctx, keys, func(miss []string) (map[string]string, error) {
+		params := make([]string, 0)
+		for _, v := range miss {
+			params = append(params, keyToParam[v])
+		}
 		dao := fkratos_sys_dao.Use(r.db).SysAPI
-		result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
+		result, err := dao.WithContext(ctx).Where(dao.ID.In(params...)).Find()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, err
 		}
 		value := make(map[string]string)
+		for _, v := range miss {
+			value[v] = ""
+		}
 		for _, v := range result {
 			marshal, err := json.Marshal(v)
 			if err != nil {
 				return nil, err
 			}
-			value[conv.String(v.ID)] = string(marshal)
+			value[r.cache.Key(cacheSysAPIByIDPrefix, v.ID)] = string(marshal)
 		}
 		return value, nil
 	})
@@ -205,6 +262,16 @@ func (r *SysAPIRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*
 		resp = append(resp, tmp)
 	}
 	return resp, nil
+}
+
+// FindMultiByIDS 根据IDS查询多条数据
+func (r *SysAPIRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysAPI, error) {
+	dao := fkratos_sys_dao.Use(r.db).SysAPI
+	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }
 
 // FindMultiByPermissionID 根据permissionID查询多条数据

@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/fzf-labs/fpkg/conv"
-	"github.com/fzf-labs/fpkg/db/gen"
+	"github.com/fzf-labs/fpkg/orm/gen"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
 )

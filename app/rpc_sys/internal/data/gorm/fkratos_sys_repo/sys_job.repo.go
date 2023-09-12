@@ -10,51 +10,60 @@ import (
 	"errors"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
-	"time"
 
-	"github.com/dtm-labs/rockscache"
-	"github.com/fzf-labs/fpkg/cache/cachekey"
-	"github.com/fzf-labs/fpkg/conv"
 	"gorm.io/gorm"
 )
 
 var _ ISysJobRepo = (*SysJobRepo)(nil)
 
 var (
-	// 缓存管理器
-	cacheKeySysJobManage = cachekey.NewKeyManage("SysJobRepo")
-	// 只针对唯一索引做缓存
-	CacheSysJobByID = cacheKeySysJobManage.AddKey("CacheSysJobByID", time.Hour*24, "CacheSysJobByID")
+	cacheSysJobByIDPrefix = "DBCache:fkratos_sys:SysJobByID"
 )
 
 type (
 	ISysJobRepo interface {
 		// CreateOne 创建一条数据
 		CreateOne(ctx context.Context, data *fkratos_sys_model.SysJob) error
+		// CreateBatch 批量创建数据
+		CreateBatch(ctx context.Context, data []*fkratos_sys_model.SysJob, batchSize int) error
 		// UpdateOne 更新一条数据
 		UpdateOne(ctx context.Context, data *fkratos_sys_model.SysJob) error
-		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
-		DeleteOneCacheByID(ctx context.Context, ID string) error
-		// DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
-		DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error
-		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
-		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysJob) error
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error)
+		// FindOneByID 根据ID查询一条数据
+		FindOneByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error)
 		// FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
 		FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysJob, error)
+		// FindMultiByIDS 根据IDS查询多条数据
+		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysJob, error)
+		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
+		DeleteOneCacheByID(ctx context.Context, ID string) error
+		// DeleteOneByID 根据ID删除一条数据
+		DeleteOneByID(ctx context.Context, ID string) error
+		// DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
+		DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error
+		// DeleteMultiByIDS 根据IDS删除多条数据
+		DeleteMultiByIDS(ctx context.Context, IDS []string) error
+		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
+		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysJob) error
 	}
-
+	ISysJobCache interface {
+		Key(fields ...any) string
+		Fetch(ctx context.Context, key string, fn func() (string, error)) (string, error)
+		FetchBatch(ctx context.Context, keys []string, fn func(miss []string) (map[string]string, error)) (map[string]string, error)
+		Del(ctx context.Context, key string) error
+		DelBatch(ctx context.Context, keys []string) error
+	}
 	SysJobRepo struct {
-		db         *gorm.DB
-		rockscache *rockscache.Client
+		db    *gorm.DB
+		cache ISysJobCache
 	}
 )
 
-func NewSysJobRepo(db *gorm.DB, rockscache *rockscache.Client) *SysJobRepo {
+func NewSysJobRepo(db *gorm.DB, cache ISysJobCache) *SysJobRepo {
 	return &SysJobRepo{
-		db:         db,
-		rockscache: rockscache,
+		db:    db,
+		cache: cache,
 	}
 }
 
@@ -62,6 +71,16 @@ func NewSysJobRepo(db *gorm.DB, rockscache *rockscache.Client) *SysJobRepo {
 func (r *SysJobRepo) CreateOne(ctx context.Context, data *fkratos_sys_model.SysJob) error {
 	dao := fkratos_sys_dao.Use(r.db).SysJob
 	err := dao.WithContext(ctx).Create(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// CreateBatch 批量创建数据
+func (r *SysJobRepo) CreateBatch(ctx context.Context, data []*fkratos_sys_model.SysJob, batchSize int) error {
+	dao := fkratos_sys_dao.Use(r.db).SysJob
+	err := dao.WithContext(ctx).CreateInBatches(data, batchSize)
 	if err != nil {
 		return err
 	}
@@ -103,6 +122,16 @@ func (r *SysJobRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
 	return nil
 }
 
+// DeleteOneByID 根据ID删除一条数据
+func (r *SysJobRepo) DeleteOneByID(ctx context.Context, ID string) error {
+	dao := fkratos_sys_dao.Use(r.db).SysJob
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
 func (r *SysJobRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error {
 	dao := fkratos_sys_dao.Use(r.db).SysJob
@@ -124,17 +153,26 @@ func (r *SysJobRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) er
 	return nil
 }
 
+// DeleteMultiByIDS 根据IDS删除多条数据
+func (r *SysJobRepo) DeleteMultiByIDS(ctx context.Context, IDS []string) error {
+	dao := fkratos_sys_dao.Use(r.db).SysJob
+	_, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // DeleteUniqueIndexCache 删除唯一索引存在的缓存
 func (r *SysJobRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysJob) error {
-	var err error
-	cacheSysJobByID := CacheSysJobByID.NewSingleKey(r.rockscache)
-
+	keys := make([]string, 0)
 	for _, v := range data {
-		err = cacheSysJobByID.SingleCacheDel(ctx, cacheSysJobByID.BuildKey(v.ID))
-		if err != nil {
-			return err
-		}
+		keys = append(keys, r.cache.Key(cacheSysJobByIDPrefix, v.ID))
 
+	}
+	err := r.cache.DelBatch(ctx, keys)
+	if err != nil {
+		return err
 	}
 	return nil
 }
@@ -142,8 +180,8 @@ func (r *SysJobRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (r *SysJobRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error) {
 	resp := new(fkratos_sys_model.SysJob)
-	cache := CacheSysJobByID.NewSingleKey(r.rockscache)
-	cacheValue, err := cache.SingleCache(ctx, conv.String(ID), func() (string, error) {
+	key := r.cache.Key(cacheSysJobByIDPrefix, ID)
+	cacheValue, err := r.cache.Fetch(ctx, key, func() (string, error) {
 		dao := fkratos_sys_dao.Use(r.db).SysJob
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
@@ -165,27 +203,46 @@ func (r *SysJobRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_
 	return resp, nil
 }
 
+// FindOneByID 根据ID查询一条数据
+func (r *SysJobRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error) {
+	dao := fkratos_sys_dao.Use(r.db).SysJob
+	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
+	}
+	return result, nil
+}
+
 // FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
 func (r *SysJobRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysJob, error) {
 	resp := make([]*fkratos_sys_model.SysJob, 0)
-	cacheKey := CacheSysJobByID.NewBatchKey(r.rockscache)
-	batchKeys := make([]string, 0)
+	keys := make([]string, 0)
+	keyToParam := make(map[string]string)
 	for _, v := range IDS {
-		batchKeys = append(batchKeys, conv.String(v))
+		key := r.cache.Key(cacheSysJobByIDPrefix, v)
+		keys = append(keys, key)
+		keyToParam[key] = v
 	}
-	cacheValue, err := cacheKey.BatchKeyCache(ctx, batchKeys, func() (map[string]string, error) {
+	cacheValue, err := r.cache.FetchBatch(ctx, keys, func(miss []string) (map[string]string, error) {
+		params := make([]string, 0)
+		for _, v := range miss {
+			params = append(params, keyToParam[v])
+		}
 		dao := fkratos_sys_dao.Use(r.db).SysJob
-		result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
+		result, err := dao.WithContext(ctx).Where(dao.ID.In(params...)).Find()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, err
 		}
 		value := make(map[string]string)
+		for _, v := range miss {
+			value[v] = ""
+		}
 		for _, v := range result {
 			marshal, err := json.Marshal(v)
 			if err != nil {
 				return nil, err
 			}
-			value[conv.String(v.ID)] = string(marshal)
+			value[r.cache.Key(cacheSysJobByIDPrefix, v.ID)] = string(marshal)
 		}
 		return value, nil
 	})
@@ -201,4 +258,14 @@ func (r *SysJobRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*
 		resp = append(resp, tmp)
 	}
 	return resp, nil
+}
+
+// FindMultiByIDS 根据IDS查询多条数据
+func (r *SysJobRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysJob, error) {
+	dao := fkratos_sys_dao.Use(r.db).SysJob
+	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }

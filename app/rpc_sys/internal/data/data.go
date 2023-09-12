@@ -6,11 +6,10 @@ import (
 	"fkratos/internal/pkg/asynq"
 	"fmt"
 
-	"github.com/dtm-labs/rockscache"
-	rc "github.com/fzf-labs/fpkg/cache/rockscache"
+	"github.com/fzf-labs/fpkg/orm/gen/cache/rueidisdbcache"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
-	"github.com/redis/go-redis/v9"
+	"github.com/redis/rueidis"
 	"gorm.io/gorm"
 )
 
@@ -18,10 +17,8 @@ import (
 var ProviderSet = wire.NewSet(
 	NewData,
 	bootstrap.NewGorm,
-	bootstrap.NewRedis,
+	bootstrap.NewRueidis,
 	bootstrap.NewAysnqClient,
-	rc.NewWeakRocksCacheClient,
-
 	NewSysAdminRepo,
 	NewSysDeptRepo,
 	NewSysJobRepo,
@@ -34,19 +31,19 @@ var ProviderSet = wire.NewSet(
 type Data struct {
 	logger      *log.Helper
 	gorm        *gorm.DB
-	redis       *redis.Client
-	rocksCache  *rockscache.Client
+	rueidis     rueidis.Client
+	dbCache     *rueidisdbcache.Cache
 	aysnqClient *asynq.Client
 }
 
-func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redisClient *redis.Client, rocksCache *rockscache.Client, aysnqClient *asynq.Client) (*Data, func(), error) {
+func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidis rueidis.Client, aysnqClient *asynq.Client) (*Data, func(), error) {
 	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.ServiceName)))
 	d := &Data{
 		logger:      l,
 		gorm:        db,
-		redis:       redisClient,
-		rocksCache:  rocksCache,
+		rueidis:     rueidis,
 		aysnqClient: aysnqClient,
+		dbCache:     rueidisdbcache.NewRueidisCache(rueidis),
 	}
 	cleanup := func() {
 		log.Info("closing the data resources")
@@ -58,10 +55,7 @@ func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, redisClient *red
 		if err != nil {
 			l.Error(err)
 		}
-		err = d.redis.Close()
-		if err != nil {
-			l.Error(err)
-		}
+		d.rueidis.Close()
 	}
 	return d, cleanup, nil
 }

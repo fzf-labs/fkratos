@@ -9,22 +9,18 @@ import (
 	"fkratos/internal/errorx"
 	"strings"
 
-	"github.com/dtm-labs/rockscache"
 	"github.com/fzf-labs/fpkg/crypt"
 	"github.com/fzf-labs/fpkg/third_api/avatar"
 	"github.com/fzf-labs/fpkg/util/jsonutil"
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/jinzhu/copier"
-	"github.com/redis/go-redis/v9"
 )
 
-func NewAdminUseCase(logger log.Logger, redisClient *redis.Client, rocksCache *rockscache.Client, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo, sysPermissionRepo SysPermissionRepo) *AdminUseCase {
+func NewAdminUseCase(logger log.Logger, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo, sysPermissionRepo SysPermissionRepo) *AdminUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/admin"))
 	return &AdminUseCase{
 		log:               l,
-		redis:             redisClient,
-		rocksCache:        rocksCache,
 		sysAdminRepo:      sysAdminRepo,
 		sysRoleRepo:       sysRoleRepo,
 		sysJobRepo:        sysJobRepo,
@@ -35,8 +31,6 @@ func NewAdminUseCase(logger log.Logger, redisClient *redis.Client, rocksCache *r
 
 type AdminUseCase struct {
 	log               *log.Helper
-	redis             *redis.Client
-	rocksCache        *rockscache.Client
 	sysAdminRepo      SysAdminRepo
 	sysRoleRepo       SysRoleRepo
 	sysJobRepo        SysJobRepo

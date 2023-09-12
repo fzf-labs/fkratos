@@ -4,15 +4,17 @@ import (
 	"fkratos/internal/bootstrap/conf"
 	"fmt"
 
-	fRedis "github.com/fzf-labs/fpkg/cache/redis"
+	"github.com/fzf-labs/fpkg/cache/gorediscache"
+	"github.com/fzf-labs/fpkg/cache/rueidiscache"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/redis/go-redis/v9"
+	"github.com/redis/rueidis"
 )
 
 // NewRedis 初始化redis
 func NewRedis(cfg *conf.Bootstrap, logger log.Logger) *redis.Client {
 	l := log.NewHelper(log.With(logger, "module", "NewRedis"))
-	r, err := fRedis.NewGoRedis(fRedis.GoRedisConfig{
+	r, err := gorediscache.NewGoRedis(gorediscache.GoRedisConfig{
 		Addr:         cfg.Data.Redis.Addr,
 		Password:     cfg.Data.Redis.Password,
 		DB:           int(cfg.Data.Redis.Db),
@@ -23,6 +25,22 @@ func NewRedis(cfg *conf.Bootstrap, logger log.Logger) *redis.Client {
 	if err != nil {
 		l.Fatalf("failed opening connection to redis")
 		panic(fmt.Sprintf("NewRedis err: %s", err))
+	}
+	return r
+}
+
+// NewRueidis 初始化redis
+func NewRueidis(cfg *conf.Bootstrap, logger log.Logger) rueidis.Client {
+	l := log.NewHelper(log.With(logger, "module", "NewRueidis"))
+	r, err := rueidiscache.NewRueidis(&rueidis.ClientOption{
+		Username:    cfg.Data.Redis.Username,
+		Password:    cfg.Data.Redis.Password,
+		InitAddress: []string{cfg.Data.Redis.Addr},
+		SelectDB:    int(cfg.Data.Redis.Db),
+	})
+	if err != nil {
+		l.Fatalf("failed opening connection to redis")
+		panic(fmt.Sprintf("NewRueidis err: %s", err))
 	}
 	return r
 }

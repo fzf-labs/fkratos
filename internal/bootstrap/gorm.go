@@ -4,7 +4,7 @@ import (
 	"fkratos/internal/bootstrap/conf"
 	"fmt"
 
-	"github.com/fzf-labs/fpkg/db"
+	"github.com/fzf-labs/fpkg/orm"
 	"github.com/go-kratos/kratos/v2/log"
 	"gorm.io/gorm"
 )
@@ -12,7 +12,7 @@ import (
 // NewGorm 初始化gorm
 func NewGorm(cfg *conf.Bootstrap, logger log.Logger) *gorm.DB {
 	l := log.NewHelper(log.With(logger, "module", "NewGorm"))
-	client, err := db.NewGormPostgresClient(&db.GormPostgresClientConfig{
+	client, err := orm.NewGormPostgresClient(&orm.GormPostgresClientConfig{
 		DataSourceName:  cfg.Data.Gorm.DataSourceName,
 		MaxIdleConn:     int(cfg.Data.Gorm.MaxIdleConn),
 		MaxOpenConn:     int(cfg.Data.Gorm.MaxOpenConn),

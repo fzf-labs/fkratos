@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 
 	"github.com/fzf-labs/fpkg/conv"
-	"github.com/fzf-labs/fpkg/db"
-	"github.com/fzf-labs/fpkg/db/gen"
+	"github.com/fzf-labs/fpkg/orm"
+	"github.com/fzf-labs/fpkg/orm/gen"
 	"github.com/spf13/viper"
 )
 
@@ -16,7 +16,7 @@ func main() {
 	flag.Parse()
 	dsn := GetDsn(*configFile)
 	connectDB := gen.ConnectDB("postgres", dsn)
-	db.DumpPostgres(connectDB, dsn, "../../doc/sql")
+	orm.DumpPostgres(connectDB, dsn, "../../doc/sql")
 }
 
 func GetDsn(configFile string) string {

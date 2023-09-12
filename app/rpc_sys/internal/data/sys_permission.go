@@ -19,7 +19,7 @@ func NewSysPermissionRepo(data *Data, logger log.Logger) biz.SysPermissionRepo {
 	return &SysPermissionRepo{
 		data:              data,
 		log:               l,
-		SysPermissionRepo: fkratos_sys_repo.NewSysPermissionRepo(data.gorm, data.rocksCache),
+		SysPermissionRepo: fkratos_sys_repo.NewSysPermissionRepo(data.gorm, data.dbCache),
 	}
 }
 

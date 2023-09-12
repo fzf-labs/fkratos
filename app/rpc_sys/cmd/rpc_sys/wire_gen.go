@@ -13,7 +13,6 @@ import (
 	"fkratos/app/rpc_sys/internal/service"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
-	"github.com/fzf-labs/fpkg/cache/rockscache"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
@@ -28,10 +27,9 @@ import (
 // wireApp init kratos application.
 func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
 	db := bootstrap.NewGorm(confBootstrap, logger)
-	client := bootstrap.NewRedis(confBootstrap, logger)
-	rockscacheClient := rockscache.NewWeakRocksCacheClient(client)
+	client := bootstrap.NewRueidis(confBootstrap, logger)
 	asynqClient := bootstrap.NewAysnqClient(confBootstrap)
-	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, client, rockscacheClient, asynqClient)
+	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, client, asynqClient)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -42,7 +40,7 @@ func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registr
 	sysJobRepo := data.NewSysJobRepo(dataData, logger)
 	sysDeptRepo := data.NewSysDeptRepo(dataData, logger)
 	sysPermissionRepo := data.NewSysPermissionRepo(dataData, logger)
-	adminUseCase := biz.NewAdminUseCase(logger, client, rockscacheClient, sysAdminRepo, sysRoleRepo, sysJobRepo, sysDeptRepo, sysPermissionRepo)
+	adminUseCase := biz.NewAdminUseCase(logger, sysAdminRepo, sysRoleRepo, sysJobRepo, sysDeptRepo, sysPermissionRepo)
 	adminService := service.NewAdminService(logger, adminUseCase)
 	roleUseCase := biz.NewRoleUseCase(logger, sysRoleRepo)
 	roleService := service.NewRoleService(logger, roleUseCase)
