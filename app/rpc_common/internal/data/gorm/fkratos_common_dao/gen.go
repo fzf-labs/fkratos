@@ -18,6 +18,8 @@ import (
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
 		db:            db,
+		DictDatum:     newDictDatum(db, opts...),
+		DictType:      newDictType(db, opts...),
 		SensitiveWord: newSensitiveWord(db, opts...),
 	}
 }
@@ -25,6 +27,8 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 type Query struct {
 	db *gorm.DB
 
+	DictDatum     dictDatum
+	DictType      dictType
 	SensitiveWord sensitiveWord
 }
 
@@ -33,6 +37,8 @@ func (q *Query) Available() bool { return q.db != nil }
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
 		db:            db,
+		DictDatum:     q.DictDatum.clone(db),
+		DictType:      q.DictType.clone(db),
 		SensitiveWord: q.SensitiveWord.clone(db),
 	}
 }
@@ -48,16 +54,22 @@ func (q *Query) WriteDB() *Query {
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
 		db:            db,
+		DictDatum:     q.DictDatum.replaceDB(db),
+		DictType:      q.DictType.replaceDB(db),
 		SensitiveWord: q.SensitiveWord.replaceDB(db),
 	}
 }
 
 type queryCtx struct {
+	DictDatum     *dictDatumDo
+	DictType      *dictTypeDo
 	SensitiveWord *sensitiveWordDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
+		DictDatum:     q.DictDatum.WithContext(ctx),
+		DictType:      q.DictType.WithContext(ctx),
 		SensitiveWord: q.SensitiveWord.WithContext(ctx),
 	}
 }

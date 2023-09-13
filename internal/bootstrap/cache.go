@@ -11,7 +11,7 @@ import (
 	"github.com/redis/rueidis"
 )
 
-// NewRedis 初始化redis
+// NewRedis 初始化Redis
 func NewRedis(cfg *conf.Bootstrap, logger log.Logger) *redis.Client {
 	l := log.NewHelper(log.With(logger, "module", "NewRedis"))
 	r, err := gorediscache.NewGoRedis(gorediscache.GoRedisConfig{
@@ -29,7 +29,7 @@ func NewRedis(cfg *conf.Bootstrap, logger log.Logger) *redis.Client {
 	return r
 }
 
-// NewRueidis 初始化redis
+// NewRueidis 初始化Rueidis
 func NewRueidis(cfg *conf.Bootstrap, logger log.Logger) rueidis.Client {
 	l := log.NewHelper(log.With(logger, "module", "NewRueidis"))
 	r, err := rueidiscache.NewRueidis(&rueidis.ClientOption{

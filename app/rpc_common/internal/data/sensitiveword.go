@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/fzf-labs/fpkg/page"
+	"github.com/fzf-labs/fpkg/util/jsonutil"
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
 )
@@ -23,7 +24,7 @@ func NewSensitiveWordRepo(data *Data, logger log.Logger) biz.SensitiveWordRepo {
 	return &SensitiveWordRepo{
 		data:              data,
 		log:               l,
-		SensitiveWordRepo: fkratos_common_repo.NewSensitiveWordRepo(data.db, data.rocksCache),
+		SensitiveWordRepo: fkratos_common_repo.NewSensitiveWordRepo(data.db, data.rueidisdbcache),
 	}
 }
 
@@ -94,27 +95,22 @@ func (s *SensitiveWordRepo) SensitiveWordsQuery(ctx context.Context) ([]string, 
 
 func (s *SensitiveWordRepo) SensitiveWordsCache(ctx context.Context) ([]string, error) {
 	key := cache.SensitiveWordsCache.Key()
-	exists, err := s.data.redis.Exists(ctx, key).Result()
-	if err != nil {
-		return nil, err
-	}
-	// 存在
-	if exists == 1 {
-		result, err2 := s.data.redis.HKeys(ctx, key).Result()
-		if err2 != nil {
-			return nil, err2
+	result := make([]string, 0)
+	resp, err := s.data.rueidisdbcache.Fetch(ctx, key, func() (string, error) {
+		result, err := s.SensitiveWordsQuery(ctx)
+		if err != nil {
+			return "", err
 		}
-		return result, nil
-	}
-	result, err := s.SensitiveWordsQuery(ctx)
+		encode, err := jsonutil.Encode(result)
+		if err != nil {
+			return "", err
+		}
+		return string(encode), nil
+	})
 	if err != nil {
 		return nil, err
 	}
-	values := make([]any, 0)
-	for _, v := range result {
-		values = append(values, v, "1")
-	}
-	err = s.data.redis.HSet(ctx, key, values...).Err()
+	err = jsonutil.DecodeString(resp, result)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +119,7 @@ func (s *SensitiveWordRepo) SensitiveWordsCache(ctx context.Context) ([]string, 
 
 func (s *SensitiveWordRepo) SensitiveWordsCacheDel(ctx context.Context) error {
 	key := cache.SensitiveWordsCache.Key()
-	err := s.data.redis.Del(ctx, key).Err()
+	err := s.data.rueidisdbcache.Del(ctx, key)
 	if err != nil {
 		return err
 	}

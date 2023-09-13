@@ -35,7 +35,7 @@ func NewSysAdminRepo(c *conf.Bootstrap, data *Data, logger log.Logger) biz.SysAd
 		log:          l,
 		data:         data,
 		jwtCache:     NewJwtCache(data.rueidis),
-		SysAdminRepo: fkratos_sys_repo.NewSysAdminRepo(data.gorm, data.dbCache),
+		SysAdminRepo: fkratos_sys_repo.NewSysAdminRepo(data.gorm, data.rueidisdbcache),
 	}
 }
 

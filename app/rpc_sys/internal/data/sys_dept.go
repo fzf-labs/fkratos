@@ -21,7 +21,7 @@ func NewSysDeptRepo(data *Data, logger log.Logger) biz.SysDeptRepo {
 	return &SysDeptRepo{
 		data:        data,
 		log:         l,
-		SysDeptRepo: fkratos_sys_repo.NewSysDeptRepo(data.gorm, data.dbCache),
+		SysDeptRepo: fkratos_sys_repo.NewSysDeptRepo(data.gorm, data.rueidisdbcache),
 	}
 }
 

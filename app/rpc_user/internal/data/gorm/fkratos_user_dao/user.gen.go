@@ -53,7 +53,7 @@ type user struct {
 	userDo userDo
 
 	ALL       field.Asterisk
-	ID        field.String // ID
+	ID        field.String // Id
 	UID       field.Int64  // uid
 	Username  field.String // 用户名
 	Phone     field.String // 手机

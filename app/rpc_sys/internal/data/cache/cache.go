@@ -4,10 +4,10 @@ import (
 	"fkratos/internal/constant"
 	"time"
 
-	"github.com/fzf-labs/fpkg/cache/cachekey"
+	"github.com/fzf-labs/fpkg/keymanage"
 )
 
-var cache = cachekey.NewKeyManage(constant.RPCSys)
+var cache = keymanage.New(constant.RPCSys)
 
 // 缓存key前缀
 var (

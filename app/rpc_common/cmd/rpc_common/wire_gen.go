@@ -13,7 +13,6 @@ import (
 	"fkratos/app/rpc_common/internal/service"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
-	"github.com/fzf-labs/fpkg/cache/rockscache"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
@@ -28,9 +27,8 @@ import (
 // wireApp init kratos application.
 func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
 	db := bootstrap.NewGorm(confBootstrap, logger)
-	client := bootstrap.NewRedis(confBootstrap, logger)
-	rockscacheClient := rockscache.NewWeakRocksCacheClient(client)
-	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, client, rockscacheClient)
+	client := bootstrap.NewRueidis(confBootstrap, logger)
+	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, client)
 	if err != nil {
 		return nil, nil, err
 	}

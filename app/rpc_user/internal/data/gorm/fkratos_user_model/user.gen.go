@@ -14,7 +14,7 @@ const TableNameUser = "user"
 
 // User mapped from table <user>
 type User struct {
-	ID        string         `gorm:"column:id;primaryKey;comment:ID" json:"id"`                 // ID
+	ID        string         `gorm:"column:id;primaryKey;comment:Id" json:"id"`                 // Id
 	UID       int64          `gorm:"column:uid;not null;comment:uid" json:"uid"`                // uid
 	Username  string         `gorm:"column:username;comment:用户名" json:"username"`               // 用户名
 	Phone     string         `gorm:"column:phone;comment:手机" json:"phone"`                      // 手机

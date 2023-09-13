@@ -25,7 +25,7 @@ func NewSysLogRepo(data *Data, logger log.Logger) biz.SysLogRepo {
 	return &SysLogRepo{
 		data:       data,
 		log:        l,
-		SysLogRepo: fkratos_sys_repo.NewSysLogRepo(data.gorm, data.dbCache),
+		SysLogRepo: fkratos_sys_repo.NewSysLogRepo(data.gorm, data.rueidisdbcache),
 	}
 }
 
