@@ -97,11 +97,11 @@ func (s *SensitiveWordRepo) SensitiveWordsCache(ctx context.Context) ([]string, 
 	key := cache.SensitiveWordsCache.Key()
 	result := make([]string, 0)
 	resp, err := s.data.rueidisdbcache.Fetch(ctx, key, func() (string, error) {
-		result, err := s.SensitiveWordsQuery(ctx)
+		sensitiveWordsQuery, err := s.SensitiveWordsQuery(ctx)
 		if err != nil {
 			return "", err
 		}
-		encode, err := jsonutil.Encode(result)
+		encode, err := jsonutil.Encode(sensitiveWordsQuery)
 		if err != nil {
 			return "", err
 		}

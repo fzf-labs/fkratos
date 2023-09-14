@@ -11,6 +11,7 @@ import (
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 
+	"github.com/fzf-labs/fpkg/orm"
 	"gorm.io/gorm"
 )
 
@@ -24,10 +25,14 @@ type (
 	ISysPermissionRepo interface {
 		// CreateOne 创建一条数据
 		CreateOne(ctx context.Context, data *fkratos_sys_model.SysPermission) error
+		// CreateOneByTx 创建一条数据(事务)
+		CreateOneByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysPermission) error
 		// CreateBatch 批量创建数据
 		CreateBatch(ctx context.Context, data []*fkratos_sys_model.SysPermission, batchSize int) error
 		// UpdateOne 更新一条数据
 		UpdateOne(ctx context.Context, data *fkratos_sys_model.SysPermission) error
+		// UpdateOne 更新一条数据(事务)
+		UpdateOneByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysPermission) error
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysPermission, error)
 		// FindOneByID 根据ID查询一条数据
@@ -36,14 +41,24 @@ type (
 		FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysPermission, error)
 		// FindMultiByIDS 根据IDS查询多条数据
 		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysPermission, error)
+		// FindMultiByPaginator 查询分页数据(通用)
+		FindMultiByPaginator(ctx context.Context, params *orm.PaginatorParams) ([]*fkratos_sys_model.SysPermission, int64, error)
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
 		DeleteOneCacheByID(ctx context.Context, ID string) error
+		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
+		DeleteOneCacheByIDTx(ctx context.Context, tx *fkratos_sys_dao.Query, ID string) error
 		// DeleteOneByID 根据ID删除一条数据
 		DeleteOneByID(ctx context.Context, ID string) error
+		// DeleteOneByID 根据ID删除一条数据
+		DeleteOneByIDTx(ctx context.Context, tx *fkratos_sys_dao.Query, ID string) error
 		// DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
 		DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error
+		// DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
+		DeleteMultiCacheByIDSTx(ctx context.Context, tx *fkratos_sys_dao.Query, IDS []string) error
 		// DeleteMultiByIDS 根据IDS删除多条数据
 		DeleteMultiByIDS(ctx context.Context, IDS []string) error
+		// DeleteMultiByIDS 根据IDS删除多条数据
+		DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_sys_dao.Query, IDS []string) error
 		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
 		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysPermission) error
 	}
@@ -68,8 +83,18 @@ func NewSysPermissionRepo(db *gorm.DB, cache ISysPermissionCache) *SysPermission
 }
 
 // CreateOne 创建一条数据
-func (r *SysPermissionRepo) CreateOne(ctx context.Context, data *fkratos_sys_model.SysPermission) error {
-	dao := fkratos_sys_dao.Use(r.db).SysPermission
+func (s *SysPermissionRepo) CreateOne(ctx context.Context, data *fkratos_sys_model.SysPermission) error {
+	dao := fkratos_sys_dao.Use(s.db).SysPermission
+	err := dao.WithContext(ctx).Create(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// CreateOneByTx 创建一条数据(事务)
+func (s *SysPermissionRepo) CreateOneByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysPermission) error {
+	dao := tx.SysPermission
 	err := dao.WithContext(ctx).Create(data)
 	if err != nil {
 		return err
@@ -78,8 +103,8 @@ func (r *SysPermissionRepo) CreateOne(ctx context.Context, data *fkratos_sys_mod
 }
 
 // CreateBatch 批量创建数据
-func (r *SysPermissionRepo) CreateBatch(ctx context.Context, data []*fkratos_sys_model.SysPermission, batchSize int) error {
-	dao := fkratos_sys_dao.Use(r.db).SysPermission
+func (s *SysPermissionRepo) CreateBatch(ctx context.Context, data []*fkratos_sys_model.SysPermission, batchSize int) error {
+	dao := fkratos_sys_dao.Use(s.db).SysPermission
 	err := dao.WithContext(ctx).CreateInBatches(data, batchSize)
 	if err != nil {
 		return err
@@ -88,22 +113,36 @@ func (r *SysPermissionRepo) CreateBatch(ctx context.Context, data []*fkratos_sys
 }
 
 // UpdateOne 更新一条数据
-func (r *SysPermissionRepo) UpdateOne(ctx context.Context, data *fkratos_sys_model.SysPermission) error {
-	dao := fkratos_sys_dao.Use(r.db).SysPermission
+func (s *SysPermissionRepo) UpdateOne(ctx context.Context, data *fkratos_sys_model.SysPermission) error {
+	dao := fkratos_sys_dao.Use(s.db).SysPermission
 	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Updates(data)
 	if err != nil {
 		return err
 	}
-	err = r.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysPermission{data})
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysPermission{data})
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
+// UpdateOneByTx 更新一条数据(事务)
+func (s *SysPermissionRepo) UpdateOneByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysPermission) error {
+	dao := tx.SysPermission
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Updates(data)
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysPermission{data})
+	if err != nil {
+		return err
+	}
+	return err
+}
+
 // DeleteOneCacheByID 根据ID删除一条数据并清理缓存
-func (r *SysPermissionRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
-	dao := fkratos_sys_dao.Use(r.db).SysPermission
+func (s *SysPermissionRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
+	dao := fkratos_sys_dao.Use(s.db).SysPermission
 	first, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
@@ -115,7 +154,28 @@ func (r *SysPermissionRepo) DeleteOneCacheByID(ctx context.Context, ID string) e
 	if err != nil {
 		return err
 	}
-	err = r.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysPermission{first})
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysPermission{first})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
+func (s *SysPermissionRepo) DeleteOneCacheByIDTx(ctx context.Context, tx *fkratos_sys_dao.Query, ID string) error {
+	dao := tx.SysPermission
+	first, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return err
+	}
+	if first == nil {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysPermission{first})
 	if err != nil {
 		return err
 	}
@@ -123,8 +183,18 @@ func (r *SysPermissionRepo) DeleteOneCacheByID(ctx context.Context, ID string) e
 }
 
 // DeleteOneByID 根据ID删除一条数据
-func (r *SysPermissionRepo) DeleteOneByID(ctx context.Context, ID string) error {
-	dao := fkratos_sys_dao.Use(r.db).SysPermission
+func (s *SysPermissionRepo) DeleteOneByID(ctx context.Context, ID string) error {
+	dao := fkratos_sys_dao.Use(s.db).SysPermission
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOneByID 根据ID删除一条数据
+func (s *SysPermissionRepo) DeleteOneByIDTx(ctx context.Context, tx *fkratos_sys_dao.Query, ID string) error {
+	dao := tx.SysPermission
 	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
 	if err != nil {
 		return err
@@ -133,8 +203,8 @@ func (r *SysPermissionRepo) DeleteOneByID(ctx context.Context, ID string) error 
 }
 
 // DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
-func (r *SysPermissionRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error {
-	dao := fkratos_sys_dao.Use(r.db).SysPermission
+func (s *SysPermissionRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error {
+	dao := fkratos_sys_dao.Use(s.db).SysPermission
 	list, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
 	if err != nil {
 		return err
@@ -146,7 +216,28 @@ func (r *SysPermissionRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []str
 	if err != nil {
 		return err
 	}
-	err = r.DeleteUniqueIndexCache(ctx, list)
+	err = s.DeleteUniqueIndexCache(ctx, list)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
+func (s *SysPermissionRepo) DeleteMultiCacheByIDSTx(ctx context.Context, tx *fkratos_sys_dao.Query, IDS []string) error {
+	dao := tx.SysPermission
+	list, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
+	if err != nil {
+		return err
+	}
+	if len(list) == 0 {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, list)
 	if err != nil {
 		return err
 	}
@@ -154,8 +245,18 @@ func (r *SysPermissionRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []str
 }
 
 // DeleteMultiByIDS 根据IDS删除多条数据
-func (r *SysPermissionRepo) DeleteMultiByIDS(ctx context.Context, IDS []string) error {
-	dao := fkratos_sys_dao.Use(r.db).SysPermission
+func (s *SysPermissionRepo) DeleteMultiByIDS(ctx context.Context, IDS []string) error {
+	dao := fkratos_sys_dao.Use(s.db).SysPermission
+	_, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiByIDS 根据IDS删除多条数据
+func (s *SysPermissionRepo) DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_sys_dao.Query, IDS []string) error {
+	dao := tx.SysPermission
 	_, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
 	if err != nil {
 		return err
@@ -164,13 +265,13 @@ func (r *SysPermissionRepo) DeleteMultiByIDS(ctx context.Context, IDS []string) 
 }
 
 // DeleteUniqueIndexCache 删除唯一索引存在的缓存
-func (r *SysPermissionRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysPermission) error {
+func (s *SysPermissionRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysPermission) error {
 	keys := make([]string, 0)
 	for _, v := range data {
-		keys = append(keys, r.cache.Key(cacheSysPermissionByIDPrefix, v.ID))
+		keys = append(keys, s.cache.Key(cacheSysPermissionByIDPrefix, v.ID))
 
 	}
-	err := r.cache.DelBatch(ctx, keys)
+	err := s.cache.DelBatch(ctx, keys)
 	if err != nil {
 		return err
 	}
@@ -178,11 +279,11 @@ func (r *SysPermissionRepo) DeleteUniqueIndexCache(ctx context.Context, data []*
 }
 
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
-func (r *SysPermissionRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysPermission, error) {
+func (s *SysPermissionRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysPermission, error) {
 	resp := new(fkratos_sys_model.SysPermission)
-	key := r.cache.Key(cacheSysPermissionByIDPrefix, ID)
-	cacheValue, err := r.cache.Fetch(ctx, key, func() (string, error) {
-		dao := fkratos_sys_dao.Use(r.db).SysPermission
+	key := s.cache.Key(cacheSysPermissionByIDPrefix, ID)
+	cacheValue, err := s.cache.Fetch(ctx, key, func() (string, error) {
+		dao := fkratos_sys_dao.Use(s.db).SysPermission
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return "", err
@@ -204,8 +305,8 @@ func (r *SysPermissionRepo) FindOneCacheByID(ctx context.Context, ID string) (*f
 }
 
 // FindOneByID 根据ID查询一条数据
-func (r *SysPermissionRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_sys_model.SysPermission, error) {
-	dao := fkratos_sys_dao.Use(r.db).SysPermission
+func (s *SysPermissionRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_sys_model.SysPermission, error) {
+	dao := fkratos_sys_dao.Use(s.db).SysPermission
 	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
@@ -214,21 +315,21 @@ func (r *SysPermissionRepo) FindOneByID(ctx context.Context, ID string) (*fkrato
 }
 
 // FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
-func (r *SysPermissionRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysPermission, error) {
+func (s *SysPermissionRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysPermission, error) {
 	resp := make([]*fkratos_sys_model.SysPermission, 0)
 	keys := make([]string, 0)
 	keyToParam := make(map[string]string)
 	for _, v := range IDS {
-		key := r.cache.Key(cacheSysPermissionByIDPrefix, v)
+		key := s.cache.Key(cacheSysPermissionByIDPrefix, v)
 		keys = append(keys, key)
 		keyToParam[key] = v
 	}
-	cacheValue, err := r.cache.FetchBatch(ctx, keys, func(miss []string) (map[string]string, error) {
+	cacheValue, err := s.cache.FetchBatch(ctx, keys, func(miss []string) (map[string]string, error) {
 		params := make([]string, 0)
 		for _, v := range miss {
 			params = append(params, keyToParam[v])
 		}
-		dao := fkratos_sys_dao.Use(r.db).SysPermission
+		dao := fkratos_sys_dao.Use(s.db).SysPermission
 		result, err := dao.WithContext(ctx).Where(dao.ID.In(params...)).Find()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, err
@@ -242,7 +343,7 @@ func (r *SysPermissionRepo) FindMultiCacheByIDS(ctx context.Context, IDS []strin
 			if err != nil {
 				return nil, err
 			}
-			value[r.cache.Key(cacheSysPermissionByIDPrefix, v.ID)] = string(marshal)
+			value[s.cache.Key(cacheSysPermissionByIDPrefix, v.ID)] = string(marshal)
 		}
 		return value, nil
 	})
@@ -261,11 +362,39 @@ func (r *SysPermissionRepo) FindMultiCacheByIDS(ctx context.Context, IDS []strin
 }
 
 // FindMultiByIDS 根据IDS查询多条数据
-func (r *SysPermissionRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysPermission, error) {
-	dao := fkratos_sys_dao.Use(r.db).SysPermission
+func (s *SysPermissionRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysPermission, error) {
+	dao := fkratos_sys_dao.Use(s.db).SysPermission
 	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
 	if err != nil {
 		return nil, err
 	}
 	return result, nil
+}
+
+// FindMultiByPaginator 查询分页数据(通用)
+func (s *SysPermissionRepo) FindMultiByPaginator(ctx context.Context, params *orm.PaginatorParams) ([]*fkratos_sys_model.SysPermission, int64, error) {
+	result := make([]*fkratos_sys_model.SysPermission, 0)
+	var total int64
+	queryStr, args, err := params.ConvertToGormConditions()
+	if err != nil {
+		return nil, 0, err
+	}
+	err = s.db.WithContext(ctx).Model(&fkratos_sys_model.SysPermission{}).Select([]string{"id"}).Where(queryStr, args...).Count(&total).Error
+	if err != nil {
+		return nil, 0, err
+	}
+	if total == 0 {
+		return nil, total, nil
+	}
+	query := s.db.WithContext(ctx)
+	order := params.ConvertToOrder()
+	if order != "" {
+		query = query.Order(order)
+	}
+	limit, offset := params.ConvertToPage()
+	err = query.Limit(limit).Offset(offset).Where(queryStr, args...).Find(&result).Error
+	if err != nil {
+		return nil, 0, err
+	}
+	return result, total, err
 }

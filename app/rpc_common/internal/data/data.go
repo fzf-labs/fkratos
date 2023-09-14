@@ -27,13 +27,13 @@ type Data struct {
 	rueidisdbcache *rueidisdbcache.Cache
 }
 
-func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidis rueidis.Client) (*Data, func(), error) {
-	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.ServiceName)))
+func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidisClient rueidis.Client) (*Data, func(), error) {
+	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.Name)))
 	d := &Data{
 		logger:         l,
 		db:             db,
-		rueidis:        rueidis,
-		rueidisdbcache: rueidisdbcache.NewRueidisDBCache(rueidis),
+		rueidis:        rueidisClient,
+		rueidisdbcache: rueidisdbcache.NewRueidisDBCache(rueidisClient),
 	}
 	cleanup := func() {
 		log.Info("closing the data resources")

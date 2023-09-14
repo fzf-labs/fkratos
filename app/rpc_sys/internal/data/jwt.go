@@ -19,7 +19,7 @@ func (j *JwtCache) Get(ctx context.Context, key string) (string, error) {
 	return j.client.Do(ctx, j.client.B().Get().Key(key).Build()).ToString()
 }
 
-func (j *JwtCache) Set(ctx context.Context, key string, value string, expiration time.Duration) error {
+func (j *JwtCache) Set(ctx context.Context, key, value string, expiration time.Duration) error {
 	return j.client.Do(ctx, j.client.B().Set().Key(key).Value(value).Ex(expiration).Build()).Error()
 }
 

@@ -16,7 +16,7 @@ import "business.proto";
 
 // 引导信息
 message Bootstrap {
-  string serviceName = 1;
+  string name = 1;
   Server server = 2;
   Data data = 3;
   Tracer trace = 4;

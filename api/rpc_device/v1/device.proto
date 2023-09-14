@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package api.rpc_device.v1;
+
+option go_package = "fkratos/api/rpc_device/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.rpc_sys.v1";
+
+// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
+// 后缀定义:请求req,响应reply
+
+// 设备服务
+service Device {
+  //创建设备
+  rpc CreateDevice(CreateDeviceReq) returns (CreateDeviceReply);
+  //更新设备
+  rpc UpdateDevice(UpdateDeviceReq) returns (UpdateDeviceReply);
+  //删除设备
+  rpc DeleteDevice(DeleteDeviceReq) returns (DeleteDeviceReply);
+  //获取单个设备
+  rpc GetDevice(GetDeviceReq) returns (GetDeviceReply);
+  //获取设备列表
+  rpc ListDevice(ListDeviceReq) returns (ListDeviceReply);
+}
+
+//请求-创建设备
+message CreateDeviceReq {}
+
+//响应-创建设备
+message CreateDeviceReply {}
+
+//请求-更新设备
+message UpdateDeviceReq {}
+
+//响应-更新设备
+message UpdateDeviceReply {}
+
+//请求-删除设备
+message DeleteDeviceReq {}
+
+//响应-删除设备
+message DeleteDeviceReply {}
+
+//请求-获取单个设备
+message GetDeviceReq {}
+
+//响应-获取单个设备
+message GetDeviceReply {}
+
+//请求-获取设备列表
+message ListDeviceReq {}
+
+//响应-获取设备列表
+message ListDeviceReply {}

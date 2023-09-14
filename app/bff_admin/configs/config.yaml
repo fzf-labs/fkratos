@@ -1,3 +1,4 @@
+name: bff_admin
 server:
   http:
     addr: 0.0.0.0:8802
@@ -19,7 +20,6 @@ trace:
   endpoint: "http://0.0.0.0:14268/api/traces"
   sampler: "1.0"
   env: "dev"
-
 registry:
   type: "etcd"
   etcd:
@@ -37,3 +37,7 @@ registry:
     beatInterval: 1s
     notLoadCacheAtStart: false
     updateCacheWhenEmpty: true
+doc:
+  apiFox:
+    accessToken: APS-1zB0KpDZlq5eunxay3GzoRYC6AdeuXg9
+    projectId: "2513045"

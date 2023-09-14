@@ -36,13 +36,13 @@ type Data struct {
 	aysnqClient    *asynq.Client
 }
 
-func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidis rueidis.Client, aysnqClient *asynq.Client) (*Data, func(), error) {
-	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.ServiceName)))
+func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidisClient rueidis.Client, aysnqClient *asynq.Client) (*Data, func(), error) {
+	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.Name)))
 	d := &Data{
 		logger:         l,
 		gorm:           db,
-		rueidis:        rueidis,
-		rueidisdbcache: rueidisdbcache.NewRueidisDBCache(rueidis),
+		rueidis:        rueidisClient,
+		rueidisdbcache: rueidisdbcache.NewRueidisDBCache(rueidisClient),
 		aysnqClient:    aysnqClient,
 	}
 	cleanup := func() {

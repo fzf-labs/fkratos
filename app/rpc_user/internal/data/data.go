@@ -22,22 +22,22 @@ var ProviderSet = wire.NewSet(
 
 type Data struct {
 	logger         *log.Helper
-	db             *gorm.DB
+	gorm           *gorm.DB
 	rueidis        rueidis.Client
 	rueidisdbcache *rueidisdbcache.Cache
 }
 
-func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidis rueidis.Client) (*Data, func(), error) {
-	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.ServiceName)))
+func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidisClient rueidis.Client) (*Data, func(), error) {
+	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.Name)))
 	d := &Data{
 		logger:         l,
-		db:             db,
-		rueidis:        rueidis,
-		rueidisdbcache: rueidisdbcache.NewRueidisDBCache(rueidis),
+		gorm:           db,
+		rueidis:        rueidisClient,
+		rueidisdbcache: rueidisdbcache.NewRueidisDBCache(rueidisClient),
 	}
 	cleanup := func() {
 		log.Info("closing the data resources")
-		sqlDB, err := d.db.DB()
+		sqlDB, err := d.gorm.DB()
 		if err != nil {
 			l.Error(err)
 		}

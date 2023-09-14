@@ -3,6 +3,8 @@ package errorx
 import (
 	"fmt"
 	"net/http"
+	"runtime"
+	"strconv"
 
 	"github.com/go-kratos/kratos/v2/errors"
 
@@ -58,6 +60,16 @@ func ContentType(subtype string) string {
 // SetErrMetadata 设置错误元数据
 func SetErrMetadata(err error) map[string]string {
 	return map[string]string{
-		"err": err.Error(),
+		"err":  err.Error(),
+		"line": GetFileLine(),
 	}
+}
+
+// GetFileLine 获取行数
+func GetFileLine() string {
+	_, file, line, ok := runtime.Caller(2)
+	if !ok {
+		return ""
+	}
+	return file + ":" + strconv.Itoa(line)
 }

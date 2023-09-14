@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/envoyproxy/protoc-gen-validate v1.0.2
-	github.com/fzf-labs/fpkg v1.5.1
+	github.com/fzf-labs/fpkg v1.5.2
 	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/config/etcd/v2 v2.0.0-20230808051727-7888107c4b4f
@@ -69,7 +69,6 @@ require (
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
-	github.com/dtm-labs/rockscache v0.1.1 // indirect
 	github.com/emicklei/go-restful/v3 v3.9.0 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/felixge/httpsnoop v1.0.1 // indirect
@@ -122,7 +121,6 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
-	github.com/lithammer/shortuuid v3.0.0+incompatible // indirect
 	github.com/longbridgeapp/sqlparser v0.3.1 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect

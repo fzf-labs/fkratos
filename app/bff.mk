@@ -55,8 +55,12 @@ api:
  	       --openapiv2_opt logtostderr=true \
  	       --openapiv2_opt json_names_for_fields=false \
 	       $$files
-
+.PHONY: apifox
+# apifox 同步文档
+apifox:
+	@go run ../../cmd/apifox/main.go -f configs/config.yaml
 .PHONY: buf
+
 # buf 格式化 proto
 buf:
 	@if [ -n "$(BUF_INSTALLED)" ]; then \
