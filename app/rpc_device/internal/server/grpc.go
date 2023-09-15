@@ -1,8 +1,8 @@
 package server
 
 import (
-	v1 "fkratos/api/rpc_user/v1"
-	"fkratos/app/rpc_user/internal/service"
+	v1 "fkratos/api/rpc_device/v1"
+	"fkratos/app/rpc_device/internal/service"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
 
@@ -11,8 +11,8 @@ import (
 )
 
 // NewGRPCServer new a gRPC server.
-func NewGRPCServer(c *conf.Bootstrap, logger log.Logger, userService *service.UserService) *grpc.Server {
+func NewGRPCServer(c *conf.Bootstrap, logger log.Logger, deviceService *service.DeviceService) *grpc.Server {
 	srv := bootstrap.NewGrpcServer(c, logger)
-	v1.RegisterUserServer(srv, userService)
+	v1.RegisterDeviceServer(srv, deviceService)
 	return srv
 }

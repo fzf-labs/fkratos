@@ -63,55 +63,29 @@ func GetConfig(configFile string) *viper.Viper {
 	return config
 }
 
-type APIFoxParam struct {
-	// 导入到目标目录的ID，不传表示导入到根目录
-	APIFolderID float64 `json:"apiFolderId,omitempty"`
-	// 覆盖模式，匹配到相同接口时的覆盖模式，不传表示忽略
-	APIOverwriteMode *APIOverwriteMode `json:"apiOverwriteMode,omitempty"`
-	// 要导入的数据，Swagger（OpenAPI） 格式 json 字符串，支持 OpenAPI 3、Swagger 1、2、3 数据格式
-	Data string `json:"data"`
-	// 是否在接口路径加上basePath，建议不传，即为 false，推荐将 BasePath 放到环境里的”前置 URL“里
-	ImportBasePath bool `json:"importBasePath,omitempty"`
-	// 导入数据格式，目前只支持`openapi`，表示 Swagger 或 OpenAPI 格式
-	ImportFormat ImportFormat `json:"importFormat"`
-	// 覆盖模式，匹配到相同数据模型时的覆盖模式，不传表示忽略
-	SchemaOverwriteMode *SchemaOverwriteMode `json:"schemaOverwriteMode,omitempty"`
-	// 是否同步更新接口所在目录
-	SyncAPIFolder bool `json:"syncApiFolder,omitempty"`
-}
-
-// APIOverwriteMode 覆盖模式，匹配到相同接口时的覆盖模式，不传表示忽略
-type APIOverwriteMode string
-
-const (
-	APIOverwriteModeBoth   APIOverwriteMode = "both"
-	APIOverwriteModeIgnore APIOverwriteMode = "ignore"
-	APIOverwriteModeMerge  APIOverwriteMode = "merge"
-	MethodAndPath          APIOverwriteMode = "methodAndPath"
-)
-
-type ImportFormat string
-
-const (
-	Openapi ImportFormat = "openapi"
-)
-
-// SchemaOverwriteMode 覆盖模式，匹配到相同数据模型时的覆盖模式，不传表示忽略
-type SchemaOverwriteMode string
-
-const (
-	Name                      SchemaOverwriteMode = "name"
-	SchemaOverwriteModeBoth   SchemaOverwriteMode = "both"
-	SchemaOverwriteModeIgnore SchemaOverwriteMode = "ignore"
-	SchemaOverwriteModeMerge  SchemaOverwriteMode = "merge"
-)
-
 type APIFox struct {
 	AccessToken string `json:"accessToken"`
 }
 
 func NewAPIFox(accessToken string) *APIFox {
 	return &APIFox{AccessToken: accessToken}
+}
+
+type APIFoxHTTPParam struct {
+	// 导入数据格式，目前只支持`openapi`，表示 Swagger 或 OpenAPI 格式
+	ImportFormat string `json:"importFormat"`
+	// 要导入的数据，Swagger（OpenAPI） 格式 json 字符串，支持 OpenAPI 3、Swagger 1、2、3 数据格式
+	Data string `json:"data"`
+	// 导入到目标目录的ID，不传表示导入到根目录
+	APIFolderID float64 `json:"apiFolderId,omitempty"`
+	// 覆盖模式，匹配到相同接口时的覆盖模式，不传表示忽略
+	APIOverwriteMode string `json:"apiOverwriteMode,omitempty"`
+	// 是否在接口路径加上basePath，建议不传，即为 false，推荐将 BasePath 放到环境里的”前置 URL“里
+	ImportBasePath bool `json:"importBasePath,omitempty"`
+	// 覆盖模式，匹配到相同数据模型时的覆盖模式，不传表示忽略
+	SchemaOverwriteMode string `json:"schemaOverwriteMode,omitempty"`
+	// 是否同步更新接口所在目录
+	SyncAPIFolder bool `json:"syncApiFolder,omitempty"`
 }
 
 // SyncHTTP 同步Http文档
@@ -121,7 +95,7 @@ func (a *APIFox) SyncHTTP(projectId, data string) error {
 		"X-Apifox-Version": "2022-11-16",
 		"Authorization":    fmt.Sprintf("Bearer %s", a.AccessToken),
 	}
-	body := APIFoxParam{
+	body := APIFoxHTTPParam{
 		ImportFormat: "openapi",
 		Data:         data,
 	}
