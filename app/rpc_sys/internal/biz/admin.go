@@ -5,17 +5,30 @@ import (
 	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 	"fkratos/internal/constant"
+	"fkratos/internal/dto"
 	"fkratos/internal/errorx"
 	"strings"
 
 	"github.com/fzf-labs/fpkg/crypt"
+	"github.com/fzf-labs/fpkg/jwt"
+	"github.com/fzf-labs/fpkg/orm"
 	"github.com/fzf-labs/fpkg/third_api/avatar"
 	"github.com/fzf-labs/fpkg/util/jsonutil"
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/jinzhu/copier"
 )
+
+type SysAdminRepo interface {
+	fkratos_sys_repo.ISysAdminRepo
+	GenerateJwTToken(ctx context.Context, kv map[string]interface{}) (*jwt.Token, error)
+	ClearJwTToken(ctx context.Context, jwtUID string) error
+	SysManageStore(ctx context.Context, req *v1.SysManageStoreReq) (*fkratos_sys_model.SysAdmin, error)
+	GetAdminIDToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	SysAuthJwtTokenCheck(ctx context.Context, token string) (string, error)
+}
 
 func NewAdminUseCase(logger log.Logger, sysAdminRepo SysAdminRepo, sysRoleRepo SysRoleRepo, sysJobRepo SysJobRepo, sysDeptRepo SysDeptRepo, sysPermissionRepo SysPermissionRepo) *AdminUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/admin"))
@@ -106,7 +119,12 @@ func (a *AdminUseCase) SysAdminGenerateAvatar(_ context.Context, _ *v1.SysAdminG
 
 func (a *AdminUseCase) SysManageList(ctx context.Context, req *paginator.PaginatorReq) (*v1.SysManageListReply, error) {
 	resp := new(v1.SysManageListReply)
-	sysAdmins, p, err := a.sysAdminRepo.SysManageListBySearch(ctx, req)
+	paginatorReq := &orm.PaginatorReq{}
+	err := dto.Copy(paginatorReq, req)
+	if err != nil {
+		return nil, err
+	}
+	sysAdmins, paginatorReply, err := a.sysAdminRepo.FindMultiByPaginator(ctx, paginatorReq)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +186,7 @@ func (a *AdminUseCase) SysManageList(ctx context.Context, req *paginator.Paginat
 		}
 		resp.List = list
 	}
-	err = copier.Copy(&resp.Paginator, p)
+	err = copier.Copy(&resp.Paginator, paginatorReply)
 	if err != nil {
 		return nil, err
 	}

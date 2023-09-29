@@ -4,11 +4,21 @@ import (
 	"context"
 	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
+	"fkratos/internal/dto"
 
+	"github.com/fzf-labs/fpkg/orm"
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/jinzhu/copier"
 )
+
+type SysJobRepo interface {
+	fkratos_sys_repo.ISysJobRepo
+	GetJobIDToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*fkratos_sys_model.SysJob, error)
+}
 
 func NewJobUseCase(logger log.Logger, sysJobRepo SysJobRepo) *JobUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/job"))
@@ -25,7 +35,12 @@ type JobUseCase struct {
 
 func (d *JobUseCase) SysJobList(ctx context.Context, req *paginator.PaginatorReq) (*v1.SysJobListReply, error) {
 	resp := new(v1.SysJobListReply)
-	sysJobs, p, err := d.sysJobRepo.SysJobListBySearch(ctx, req)
+	paginatorReq := &orm.PaginatorReq{}
+	err := dto.Copy(req, paginatorReq)
+	if err != nil {
+		return nil, err
+	}
+	sysJobs, p, err := d.sysJobRepo.FindMultiByPaginator(ctx, paginatorReq)
 	if err != nil {
 		return nil, err
 	}

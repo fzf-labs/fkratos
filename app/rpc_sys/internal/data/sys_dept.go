@@ -16,12 +16,16 @@ import (
 
 var _ biz.SysDeptRepo = (*SysDeptRepo)(nil)
 
-func NewSysDeptRepo(data *Data, logger log.Logger) biz.SysDeptRepo {
+func NewSysDeptRepo(
+	data *Data,
+	logger log.Logger,
+	sysDeptRepo *fkratos_sys_repo.SysDeptRepo,
+) biz.SysDeptRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_dept"))
 	return &SysDeptRepo{
 		data:        data,
 		log:         l,
-		SysDeptRepo: fkratos_sys_repo.NewSysDeptRepo(data.gorm, data.rueidisdbcache),
+		SysDeptRepo: sysDeptRepo,
 	}
 }
 

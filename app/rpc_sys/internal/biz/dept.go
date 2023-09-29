@@ -3,10 +3,19 @@ package biz
 import (
 	"context"
 	v1 "fkratos/api/rpc_sys/v1"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
 )
+
+type SysDeptRepo interface {
+	fkratos_sys_repo.ISysDeptRepo
+	GetDeptIDToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	SysDeptList(ctx context.Context) ([]*v1.SysDeptInfo, error)
+	SysDeptStore(ctx context.Context, req *v1.SysDeptStoreReq) (*fkratos_sys_model.SysDept, error)
+}
 
 func NewDeptUseCase(logger log.Logger, sysDeptRepo SysDeptRepo) *DeptUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/dept"))

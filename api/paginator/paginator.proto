@@ -1,7 +1,8 @@
 syntax = "proto3";
 
 package paginator;
-
+import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 option go_package = "fkratos/api/paginator;paginator";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
@@ -10,16 +11,23 @@ option go_package = "fkratos/api/paginator;paginator";
 message SearchParam {
   string field = 1; //字段
   string val = 2; //值
-  string operator = 3; //操作
+  string exp = 3; //操作
+  string logic = 4; //逻辑关系
 }
 
+//分页请求
 message PaginatorReq {
-  int32 page = 1; //页码
-  int32 pageSize = 2; //页数
-  string quickSearch = 3; //快捷搜索
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema :{
+      required:["page", "pageSize"]//必选项
+    }
+  };
+  int32 page = 1[(validate.rules).int32 = {gte:1}]; //页码
+  int32 pageSize = 2[(validate.rules).int32 = {gte:1,lte: 1000}]; //页数
+  string order = 3; //排序
   repeated SearchParam search = 4; //详细搜索
-  string order = 5; //排序
 }
+
 
 //分页响应
 message PaginatorReply {

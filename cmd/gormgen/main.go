@@ -2,42 +2,24 @@ package main
 
 import (
 	"flag"
-	"path/filepath"
 
 	"github.com/fzf-labs/fpkg/conv"
 	"github.com/fzf-labs/fpkg/orm/gen"
 	"github.com/spf13/viper"
-	"gorm.io/gorm"
 )
 
 var configFile = flag.String("f", "config.yaml", "the config file")
 
-// 默认Postgres字段类型映射
-var defaultPostgresDataMap = map[string]func(columnType gorm.ColumnType) (dataType string){
-	"json": func(columnType gorm.ColumnType) string { return "datatypes.JSON" },
-	"timestamptz": func(columnType gorm.ColumnType) string {
-		nullable, _ := columnType.Nullable()
-		if nullable {
-			return "sql.NullTime"
-		}
-		return "time.Time"
-	},
-}
-
 func main() {
 	flag.Parse()
 	dsn := GetDsn(*configFile)
-	outPath := "./internal/data/gorm"
 	connectDB := gen.ConnectDB("postgres", dsn)
-	gen.Generation(connectDB, defaultPostgresDataMap, outPath)
+	gen.NewGeneration(connectDB, "./internal/data/gorm", gen.WithDataMap(gen.DefaultPostgresDataMap), gen.WithOpts(gen.ModelOptionPgEmptyString(), gen.ModelOptionUnderline("UL"))).Do()
 }
 
 func GetDsn(configFile string) string {
 	config := viper.New()
-	config.AddConfigPath(filepath.Dir(configFile)) // 设置读取的文件路径
-	config.SetConfigName("config")                 // 设置读取的文件名
-	config.SetConfigType("yaml")                   // 设置文件的类型
-	// 尝试进行配置读取
+	config.SetConfigFile(configFile)
 	if err := config.ReadInConfig(); err != nil {
 		panic(err)
 	}

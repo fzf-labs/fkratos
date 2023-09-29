@@ -14,12 +14,16 @@ import (
 
 var _ biz.SysPermissionRepo = (*SysPermissionRepo)(nil)
 
-func NewSysPermissionRepo(data *Data, logger log.Logger) biz.SysPermissionRepo {
+func NewSysPermissionRepo(
+	data *Data,
+	logger log.Logger,
+	sysPermissionRepo *fkratos_sys_repo.SysPermissionRepo,
+) biz.SysPermissionRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_permission"))
 	return &SysPermissionRepo{
 		data:              data,
 		log:               l,
-		SysPermissionRepo: fkratos_sys_repo.NewSysPermissionRepo(data.gorm, data.rueidisdbcache),
+		SysPermissionRepo: sysPermissionRepo,
 	}
 }
 

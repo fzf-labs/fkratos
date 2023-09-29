@@ -1,11 +1,13 @@
 package data
 
 import (
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
 	"fkratos/internal/pkg/asynq"
 	"fmt"
 
+	"github.com/fzf-labs/fpkg/orm/gen/cache"
 	"github.com/fzf-labs/fpkg/orm/gen/cache/rueidisdbcache"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
@@ -19,6 +21,14 @@ var ProviderSet = wire.NewSet(
 	bootstrap.NewGorm,
 	bootstrap.NewRueidis,
 	bootstrap.NewAysnqClient,
+	NewDBCache,
+	fkratos_sys_repo.NewSysAdminRepo,
+	fkratos_sys_repo.NewSysDeptRepo,
+	fkratos_sys_repo.NewSysJobRepo,
+	fkratos_sys_repo.NewSysRoleRepo,
+	fkratos_sys_repo.NewSysLogRepo,
+	fkratos_sys_repo.NewSysAPIRepo,
+	fkratos_sys_repo.NewSysPermissionRepo,
 	NewSysAdminRepo,
 	NewSysDeptRepo,
 	NewSysJobRepo,
@@ -29,21 +39,21 @@ var ProviderSet = wire.NewSet(
 )
 
 type Data struct {
-	logger         *log.Helper
-	gorm           *gorm.DB
-	rueidis        rueidis.Client
-	rueidisdbcache *rueidisdbcache.Cache
-	aysnqClient    *asynq.Client
+	logger      *log.Helper
+	gorm        *gorm.DB
+	rueidis     rueidis.Client
+	dbCache     cache.IDBCache
+	aysnqClient *asynq.Client
 }
 
-func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidisClient rueidis.Client, aysnqClient *asynq.Client) (*Data, func(), error) {
+func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, dbCache cache.IDBCache, rueidisClient rueidis.Client, aysnqClient *asynq.Client) (*Data, func(), error) {
 	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.Name)))
 	d := &Data{
-		logger:         l,
-		gorm:           db,
-		rueidis:        rueidisClient,
-		rueidisdbcache: rueidisdbcache.NewRueidisDBCache(rueidisClient),
-		aysnqClient:    aysnqClient,
+		logger:      l,
+		gorm:        db,
+		rueidis:     rueidisClient,
+		dbCache:     dbCache,
+		aysnqClient: aysnqClient,
 	}
 	cleanup := func() {
 		log.Info("closing the data resources")
@@ -58,4 +68,8 @@ func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidisClient ru
 		d.rueidis.Close()
 	}
 	return d, cleanup, nil
+}
+
+func NewDBCache(rueidisClient rueidis.Client) cache.IDBCache {
+	return rueidisdbcache.NewRueidisDBCache(rueidisClient)
 }

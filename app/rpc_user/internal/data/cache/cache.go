@@ -4,7 +4,7 @@ import (
 	"fkratos/internal/constant"
 	"time"
 
-	"github.com/fzf-labs/fpkg/keymanage"
+	"github.com/fzf-labs/fpkg/cache/keymanage"
 )
 
 var cache = keymanage.New(constant.RPCUser)

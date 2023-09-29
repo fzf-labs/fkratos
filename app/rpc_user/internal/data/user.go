@@ -23,7 +23,3 @@ type UserRepo struct {
 	log  *log.Helper
 	*fkratos_user_repo.UserRepo
 }
-
-func (u *UserRepo) CreateUSer() {
-	u.data.gorm.Exec("")
-}

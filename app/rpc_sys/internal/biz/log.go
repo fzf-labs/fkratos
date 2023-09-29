@@ -4,11 +4,21 @@ import (
 	"context"
 	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
+	"fkratos/internal/dto"
 
+	"github.com/fzf-labs/fpkg/orm"
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/jinzhu/copier"
 )
+
+type SysLogRepo interface {
+	fkratos_sys_repo.ISysLogRepo
+	SysLogStore(ctx context.Context, req *v1.SysLogStoreReq) (*fkratos_sys_model.SysLog, error)
+	SysLogStoreMQProducer(ctx context.Context, req *v1.SysLogStoreReq) error
+}
 
 func NewLogUseCase(logger log.Logger, sysLogRepo SysLogRepo, sysAdminRepo SysAdminRepo, sysAPIRepo SysAPIRepo) *LogUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/log"))
@@ -29,7 +39,12 @@ type LogUseCase struct {
 
 func (l *LogUseCase) SysLogList(ctx context.Context, req *paginator.PaginatorReq) (*v1.SysLogListResp, error) {
 	resp := new(v1.SysLogListResp)
-	sysLogs, p, err := l.sysLogRepo.SysLogListBySearch(ctx, req)
+	paginatorReq := &orm.PaginatorReq{}
+	err := dto.Copy(req, paginatorReq)
+	if err != nil {
+		return nil, err
+	}
+	sysLogs, p, err := l.sysLogRepo.FindMultiByPaginator(ctx, paginatorReq)
 	if err != nil {
 		return nil, err
 	}

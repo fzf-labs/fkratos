@@ -3,11 +3,20 @@ package biz
 import (
 	"context"
 	v1 "fkratos/api/rpc_sys/v1"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 	"strings"
 
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
 )
+
+type SysRoleRepo interface {
+	fkratos_sys_repo.ISysRoleRepo
+	GetRoleIDToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	SysRoleList(ctx context.Context) ([]*fkratos_sys_model.SysRole, error)
+	SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq) (*fkratos_sys_model.SysRole, error)
+}
 
 func NewRoleUseCase(logger log.Logger, sysRoleRepo SysRoleRepo) *RoleUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/role"))

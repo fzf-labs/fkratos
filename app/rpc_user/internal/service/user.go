@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	v1 "fkratos/api/bff_api/v1"
 	rpcUserV1 "fkratos/api/rpc_user/v1"
 	"fkratos/app/rpc_user/internal/biz"
 
@@ -24,27 +23,22 @@ type UserService struct {
 	userUseCase *biz.UserUseCase
 }
 
-func (u *UserService) CreateUser(ctx context.Context, req *v1.CreateUserReq) (*v1.CreateUserReply, error) {
+func (u *UserService) UserList(ctx context.Context, req *rpcUserV1.UserListReq) (*rpcUserV1.UserListReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserService) UpdateUser(ctx context.Context, req *v1.UpdateUserReq) (*v1.UpdateUserReply, error) {
+func (u *UserService) UserInfo(ctx context.Context, req *rpcUserV1.UserInfoReq) (*rpcUserV1.UserInfoReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserService) DeleteUser(ctx context.Context, req *v1.DeleteUserReq) (*v1.DeleteUserReply, error) {
+func (u *UserService) UserStore(ctx context.Context, req *rpcUserV1.UserStoreReq) (*rpcUserV1.UserStoreReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserService) GetUser(ctx context.Context, req *v1.GetUserReq) (*v1.GetUserReply, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (u *UserService) ListUser(ctx context.Context, req *v1.ListUserReq) (*v1.ListUserReply, error) {
+func (u *UserService) UserDel(ctx context.Context, req *rpcUserV1.UserDelReq) (*rpcUserV1.UserDelReply, error) {
 	//TODO implement me
 	panic("implement me")
 }

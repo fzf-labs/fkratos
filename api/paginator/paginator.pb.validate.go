@@ -61,7 +61,9 @@ func (m *SearchParam) validate(all bool) error {
 
 	// no validation rules for Val
 
-	// no validation rules for Operator
+	// no validation rules for Exp
+
+	// no validation rules for Logic
 
 	if len(errors) > 0 {
 		return SearchParamMultiError(errors)
@@ -162,11 +164,29 @@ func (m *PaginatorReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Page
+	if m.GetPage() < 1 {
+		err := PaginatorReqValidationError{
+			field:  "Page",
+			reason: "value must be greater than or equal to 1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for PageSize
+	if val := m.GetPageSize(); val < 1 || val > 1000 {
+		err := PaginatorReqValidationError{
+			field:  "PageSize",
+			reason: "value must be inside range [1, 1000]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for QuickSearch
+	// no validation rules for Order
 
 	for idx, item := range m.GetSearch() {
 		_, _ = idx, item
@@ -201,8 +221,6 @@ func (m *PaginatorReq) validate(all bool) error {
 		}
 
 	}
-
-	// no validation rules for Order
 
 	if len(errors) > 0 {
 		return PaginatorReqMultiError(errors)

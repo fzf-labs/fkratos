@@ -4,10 +4,17 @@ import (
 	"context"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
 )
+
+type SysAPIRepo interface {
+	fkratos_sys_repo.ISysAPIRepo
+	GetAPIIdToNameByIds(ctx context.Context, ids []string) (map[string]string, error)
+	SysAPIStore(ctx context.Context, model *fkratos_sys_model.SysAPI) (*fkratos_sys_model.SysAPI, error)
+}
 
 func NewAPIUseCase(logger log.Logger, sysAPIRepo SysAPIRepo) *APIUseCase {
 	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz/api"))

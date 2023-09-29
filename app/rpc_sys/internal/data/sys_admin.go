@@ -3,39 +3,39 @@ package data
 import (
 	"context"
 	"errors"
-	"fkratos/api/paginator"
 	v1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 	"fkratos/internal/bootstrap/conf"
-	"fkratos/internal/constant"
 	"fkratos/internal/errorx"
-	"strings"
 
 	"github.com/fzf-labs/fpkg/conv"
 	"github.com/fzf-labs/fpkg/crypt"
 	"github.com/fzf-labs/fpkg/jwt"
-	"github.com/fzf-labs/fpkg/page"
 	"github.com/fzf-labs/fpkg/third_api/avatar"
 	"github.com/fzf-labs/fpkg/util/jsonutil"
 	"github.com/fzf-labs/fpkg/util/strutil"
-	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/go-kratos/kratos/v2/log"
 	"gorm.io/gorm"
 )
 
 var _ biz.SysAdminRepo = (*SysAdminRepo)(nil)
 
-func NewSysAdminRepo(c *conf.Bootstrap, data *Data, logger log.Logger) biz.SysAdminRepo {
+func NewSysAdminRepo(
+	c *conf.Bootstrap,
+	data *Data,
+	logger log.Logger,
+	sysAdminRepo *fkratos_sys_repo.SysAdminRepo,
+) biz.SysAdminRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_admin"))
 	return &SysAdminRepo{
 		config:       c,
 		log:          l,
 		data:         data,
 		jwtCache:     NewJwtCache(data.rueidis),
-		SysAdminRepo: fkratos_sys_repo.NewSysAdminRepo(data.gorm, data.rueidisdbcache),
+		SysAdminRepo: sysAdminRepo,
 	}
 }
 
@@ -137,51 +137,6 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *v1.SysManageStor
 		}
 	}
 	return sysAdmin, nil
-}
-
-func (s *SysAdminRepo) SysManageListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_sys_model.SysAdmin, *page.Page, error) {
-	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
-	query := sysAdminDao.WithContext(ctx)
-	if req.QuickSearch != "" {
-		query = query.Where(sysAdminDao.Nickname.Like(req.QuickSearch))
-	} else {
-		for _, search := range req.Search {
-			if search.Field == constant.SearchID {
-				query = query.Where(sysAdminDao.ID.Eq(search.Val))
-			}
-			if search.Field == "username" {
-				query = query.Where(sysAdminDao.Username.Eq(search.Val))
-			}
-			if search.Field == "nickname" {
-				query = query.Where(sysAdminDao.Nickname.Eq(search.Val))
-			}
-			if search.Field == "mobile" {
-				query = query.Where(sysAdminDao.Mobile.Eq(search.Val))
-			}
-			if search.Field == "email" {
-				query = query.Where(sysAdminDao.Email.Eq(search.Val))
-			}
-			if search.Field == constant.SearchStatus {
-				query = query.Where(sysAdminDao.Status.Eq(conv.Int16(search.Val)))
-			}
-			if search.Field == constant.SearchCreatedAt {
-				ss := strings.Split(search.Val, ",")
-				query = query.Where(sysAdminDao.CreatedAt.Gte(timeutil.Carbon().Parse(ss[0]).Carbon2Time()), sysAdminDao.CreatedAt.Lte(timeutil.Carbon().Parse(ss[1]).Carbon2Time()))
-			}
-		}
-	}
-
-	queryCount := query
-	total, err := queryCount.Count()
-	if err != nil {
-		return nil, nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
-	}
-	p := page.Paginator(int(req.Page), int(req.PageSize), int(total))
-	sysAdmins, err := query.Offset(p.Offset).Limit(p.Limit).Find()
-	if err != nil {
-		return nil, nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
-	}
-	return sysAdmins, p, nil
 }
 
 // ClearJwTToken 清除jwtToken

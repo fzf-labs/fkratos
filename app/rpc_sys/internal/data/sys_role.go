@@ -17,12 +17,16 @@ import (
 
 var _ biz.SysRoleRepo = (*SysRoleRepo)(nil)
 
-func NewSysRoleRepo(data *Data, logger log.Logger) biz.SysRoleRepo {
+func NewSysRoleRepo(
+	data *Data,
+	logger log.Logger,
+	sysRoleRepo *fkratos_sys_repo.SysRoleRepo,
+) biz.SysRoleRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_role"))
 	return &SysRoleRepo{
 		log:         l,
 		data:        data,
-		SysRoleRepo: fkratos_sys_repo.NewSysRoleRepo(data.gorm, data.rueidisdbcache),
+		SysRoleRepo: sysRoleRepo,
 	}
 }
 

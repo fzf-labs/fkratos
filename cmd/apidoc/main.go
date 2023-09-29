@@ -19,8 +19,8 @@ func main() {
 	flag.Parse()
 	config := GetConfig(*configFile)
 	name := conv.String(config.Get("name"))
-	accessToken := conv.String(config.Get("doc.apiFox.accessToken"))
-	projectID := conv.String(config.Get("doc.apiFox.projectID"))
+	accessToken := conv.String(config.Get("apiDoc.apiFox.accessToken"))
+	projectID := conv.String(config.Get("apiDoc.apiFox.projectID"))
 	if name == "" || accessToken == "" || projectID == "" {
 		slog.Error("Missing configuration")
 		return
@@ -96,8 +96,10 @@ func (a *APIFox) SyncHTTP(projectId, data string) error {
 		"Authorization":    fmt.Sprintf("Bearer %s", a.AccessToken),
 	}
 	body := APIFoxHTTPParam{
-		ImportFormat: "openapi",
-		Data:         data,
+		ImportFormat:        "openapi",
+		Data:                data,
+		APIOverwriteMode:    "methodAndPath",
+		SchemaOverwriteMode: "name",
 	}
 	_, err := req.R().SetHeaders(headers).SetBody(body).Post(url)
 	if err != nil {

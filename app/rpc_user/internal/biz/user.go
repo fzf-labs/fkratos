@@ -2,13 +2,12 @@ package biz
 
 import (
 	"context"
-	rpcUserV1 "fkratos/api/rpc_user/v1"
+	userV1 "fkratos/api/rpc_user/v1"
 
 	"github.com/go-kratos/kratos/v2/log"
 )
 
 type UserRepo interface {
-	CreateUSer()
 }
 
 func NewUserUseCase(repo UserRepo, logger log.Logger) *UserUseCase {
@@ -24,27 +23,22 @@ type UserUseCase struct {
 	log  *log.Helper
 }
 
-func (u *UserUseCase) CreateUser(ctx context.Context, req *rpcUserV1.CreateUserReq) (*rpcUserV1.CreateUserReply, error) {
+func (u *UserUseCase) UserList(ctx context.Context, req *userV1.UserListReq) (*userV1.UserListReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserUseCase) UpdateUser(ctx context.Context, req *rpcUserV1.UpdateUserReq) (*rpcUserV1.UpdateUserReply, error) {
+func (u *UserUseCase) UserInfo(ctx context.Context, req *userV1.UserInfoReq) (*userV1.UserInfoReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserUseCase) DeleteUser(ctx context.Context, req *rpcUserV1.DeleteUserReq) (*rpcUserV1.DeleteUserReply, error) {
+func (u *UserUseCase) UserStore(ctx context.Context, req *userV1.UserStoreReq) (*userV1.UserStoreReply, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (u *UserUseCase) GetUser(ctx context.Context, req *rpcUserV1.GetUserReq) (*rpcUserV1.GetUserReply, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (u *UserUseCase) ListUser(ctx context.Context, req *rpcUserV1.ListUserReq) (*rpcUserV1.ListUserReply, error) {
+func (u *UserUseCase) UserDel(ctx context.Context, req *userV1.UserDelReq) (*userV1.UserDelReply, error) {
 	//TODO implement me
 	panic("implement me")
 }

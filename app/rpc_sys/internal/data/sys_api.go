@@ -13,12 +13,16 @@ import (
 
 var _ biz.SysAPIRepo = (*SysAPIRepo)(nil)
 
-func NewSysAPIRepo(data *Data, logger log.Logger) biz.SysAPIRepo {
+func NewSysAPIRepo(
+	data *Data,
+	logger log.Logger,
+	sysAPIRepo *fkratos_sys_repo.SysAPIRepo,
+) biz.SysAPIRepo {
 	l := log.NewHelper(log.With(logger, "module", "rpc_sys/data/sys_log"))
 	return &SysAPIRepo{
 		data:       data,
 		log:        l,
-		SysAPIRepo: fkratos_sys_repo.NewSysAPIRepo(data.gorm, data.rueidisdbcache),
+		SysAPIRepo: sysAPIRepo,
 	}
 }
 

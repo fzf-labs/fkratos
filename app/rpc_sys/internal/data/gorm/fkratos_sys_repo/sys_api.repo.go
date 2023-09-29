@@ -12,6 +12,7 @@ import (
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 
 	"github.com/fzf-labs/fpkg/orm"
+	"github.com/fzf-labs/fpkg/orm/gen/cache"
 	"gorm.io/gorm"
 )
 
@@ -46,7 +47,7 @@ type (
 		// FindMultiByPermissionIDS 根据permissionIDS查询多条数据
 		FindMultiByPermissionIDS(ctx context.Context, permissionIDS []string) ([]*fkratos_sys_model.SysAPI, error)
 		// FindMultiByPaginator 查询分页数据(通用)
-		FindMultiByPaginator(ctx context.Context, params *orm.PaginatorParams) ([]*fkratos_sys_model.SysAPI, int64, error)
+		FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_sys_model.SysAPI, *orm.PaginatorReply, error)
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
 		DeleteOneCacheByID(ctx context.Context, ID string) error
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
@@ -66,20 +67,13 @@ type (
 		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
 		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysAPI) error
 	}
-	ISysAPICache interface {
-		Key(fields ...any) string
-		Fetch(ctx context.Context, key string, fn func() (string, error)) (string, error)
-		FetchBatch(ctx context.Context, keys []string, fn func(miss []string) (map[string]string, error)) (map[string]string, error)
-		Del(ctx context.Context, key string) error
-		DelBatch(ctx context.Context, keys []string) error
-	}
 	SysAPIRepo struct {
 		db    *gorm.DB
-		cache ISysAPICache
+		cache cache.IDBCache
 	}
 )
 
-func NewSysAPIRepo(db *gorm.DB, cache ISysAPICache) *SysAPIRepo {
+func NewSysAPIRepo(db *gorm.DB, cache cache.IDBCache) *SysAPIRepo {
 	return &SysAPIRepo{
 		db:    db,
 		cache: cache,
@@ -147,18 +141,18 @@ func (s *SysAPIRepo) UpdateOneByTx(ctx context.Context, tx *fkratos_sys_dao.Quer
 // DeleteOneCacheByID 根据ID删除一条数据并清理缓存
 func (s *SysAPIRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
 	dao := fkratos_sys_dao.Use(s.db).SysAPI
-	first, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
+	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
-	if first == nil {
+	if result == nil {
 		return nil
 	}
 	_, err = dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
 	if err != nil {
 		return err
 	}
-	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysAPI{first})
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysAPI{result})
 	if err != nil {
 		return err
 	}
@@ -168,18 +162,18 @@ func (s *SysAPIRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
 // DeleteOneCacheByID 根据ID删除一条数据并清理缓存
 func (s *SysAPIRepo) DeleteOneCacheByIDTx(ctx context.Context, tx *fkratos_sys_dao.Query, ID string) error {
 	dao := tx.SysAPI
-	first, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
+	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
-	if first == nil {
+	if result == nil {
 		return nil
 	}
 	_, err = dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
 	if err != nil {
 		return err
 	}
-	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysAPI{first})
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysAPI{result})
 	if err != nil {
 		return err
 	}
@@ -209,18 +203,18 @@ func (s *SysAPIRepo) DeleteOneByIDTx(ctx context.Context, tx *fkratos_sys_dao.Qu
 // DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
 func (s *SysAPIRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error {
 	dao := fkratos_sys_dao.Use(s.db).SysAPI
-	list, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
+	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
 	if err != nil {
 		return err
 	}
-	if len(list) == 0 {
+	if len(result) == 0 {
 		return nil
 	}
 	_, err = dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
 	if err != nil {
 		return err
 	}
-	err = s.DeleteUniqueIndexCache(ctx, list)
+	err = s.DeleteUniqueIndexCache(ctx, result)
 	if err != nil {
 		return err
 	}
@@ -230,18 +224,18 @@ func (s *SysAPIRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) er
 // DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
 func (s *SysAPIRepo) DeleteMultiCacheByIDSTx(ctx context.Context, tx *fkratos_sys_dao.Query, IDS []string) error {
 	dao := tx.SysAPI
-	list, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
+	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
 	if err != nil {
 		return err
 	}
-	if len(list) == 0 {
+	if len(result) == 0 {
 		return nil
 	}
 	_, err = dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
 	if err != nil {
 		return err
 	}
-	err = s.DeleteUniqueIndexCache(ctx, list)
+	err = s.DeleteUniqueIndexCache(ctx, result)
 	if err != nil {
 		return err
 	}
@@ -285,8 +279,8 @@ func (s *SysAPIRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (s *SysAPIRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysAPI, error) {
 	resp := new(fkratos_sys_model.SysAPI)
-	key := s.cache.Key(cacheSysAPIByIDPrefix, ID)
-	cacheValue, err := s.cache.Fetch(ctx, key, func() (string, error) {
+	cacheKey := s.cache.Key(cacheSysAPIByIDPrefix, ID)
+	cacheValue, err := s.cache.Fetch(ctx, cacheKey, func() (string, error) {
 		dao := fkratos_sys_dao.Use(s.db).SysAPI
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
@@ -321,20 +315,20 @@ func (s *SysAPIRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_sys_m
 // FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
 func (s *SysAPIRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysAPI, error) {
 	resp := make([]*fkratos_sys_model.SysAPI, 0)
-	keys := make([]string, 0)
+	cacheKeys := make([]string, 0)
 	keyToParam := make(map[string]string)
 	for _, v := range IDS {
-		key := s.cache.Key(cacheSysAPIByIDPrefix, v)
-		keys = append(keys, key)
-		keyToParam[key] = v
+		cacheKey := s.cache.Key(cacheSysAPIByIDPrefix, v)
+		cacheKeys = append(cacheKeys, cacheKey)
+		keyToParam[cacheKey] = v
 	}
-	cacheValue, err := s.cache.FetchBatch(ctx, keys, func(miss []string) (map[string]string, error) {
-		params := make([]string, 0)
+	cacheValue, err := s.cache.FetchBatch(ctx, cacheKeys, func(miss []string) (map[string]string, error) {
+		parameters := make([]string, 0)
 		for _, v := range miss {
-			params = append(params, keyToParam[v])
+			parameters = append(parameters, keyToParam[v])
 		}
 		dao := fkratos_sys_dao.Use(s.db).SysAPI
-		result, err := dao.WithContext(ctx).Where(dao.ID.In(params...)).Find()
+		result, err := dao.WithContext(ctx).Where(dao.ID.In(parameters...)).Find()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, err
 		}
@@ -396,29 +390,29 @@ func (s *SysAPIRepo) FindMultiByPermissionIDS(ctx context.Context, permissionIDS
 }
 
 // FindMultiByPaginator 查询分页数据(通用)
-func (s *SysAPIRepo) FindMultiByPaginator(ctx context.Context, params *orm.PaginatorParams) ([]*fkratos_sys_model.SysAPI, int64, error) {
+func (s *SysAPIRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_sys_model.SysAPI, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_sys_model.SysAPI, 0)
 	var total int64
-	queryStr, args, err := params.ConvertToGormConditions()
+	queryStr, args, err := paginatorReq.ConvertToGormConditions()
 	if err != nil {
-		return nil, 0, err
+		return nil, nil, err
 	}
 	err = s.db.WithContext(ctx).Model(&fkratos_sys_model.SysAPI{}).Select([]string{"id"}).Where(queryStr, args...).Count(&total).Error
 	if err != nil {
-		return nil, 0, err
+		return nil, nil, err
 	}
 	if total == 0 {
-		return nil, total, nil
+		return nil, nil, nil
 	}
 	query := s.db.WithContext(ctx)
-	order := params.ConvertToOrder()
+	order := paginatorReq.ConvertToOrder()
 	if order != "" {
 		query = query.Order(order)
 	}
-	limit, offset := params.ConvertToPage()
-	err = query.Limit(limit).Offset(offset).Where(queryStr, args...).Find(&result).Error
+	paginatorReply := paginatorReq.ConvertToPage(int(total))
+	err = query.Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Where(queryStr, args...).Find(&result).Error
 	if err != nil {
-		return nil, 0, err
+		return nil, nil, err
 	}
-	return result, total, err
+	return result, paginatorReply, err
 }

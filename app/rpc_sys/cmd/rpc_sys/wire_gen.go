@@ -9,6 +9,7 @@ package main
 import (
 	"fkratos/app/rpc_sys/internal/biz"
 	"fkratos/app/rpc_sys/internal/data"
+	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 	"fkratos/app/rpc_sys/internal/server"
 	"fkratos/app/rpc_sys/internal/service"
 	"fkratos/internal/bootstrap"
@@ -28,33 +29,41 @@ import (
 func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
 	db := bootstrap.NewGorm(confBootstrap, logger)
 	client := bootstrap.NewRueidis(confBootstrap, logger)
+	idbCache := data.NewDBCache(client)
 	asynqClient := bootstrap.NewAysnqClient(confBootstrap)
-	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, client, asynqClient)
+	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, idbCache, client, asynqClient)
 	if err != nil {
 		return nil, nil, err
 	}
-	sysAdminRepo := data.NewSysAdminRepo(confBootstrap, dataData, logger)
-	authUseCase := biz.NewAuthUseCase(logger, sysAdminRepo)
+	sysAdminRepo := fkratos_sys_repo.NewSysAdminRepo(db, idbCache)
+	bizSysAdminRepo := data.NewSysAdminRepo(confBootstrap, dataData, logger, sysAdminRepo)
+	authUseCase := biz.NewAuthUseCase(logger, bizSysAdminRepo)
 	authService := service.NewAuthService(logger, authUseCase)
-	sysRoleRepo := data.NewSysRoleRepo(dataData, logger)
-	sysJobRepo := data.NewSysJobRepo(dataData, logger)
-	sysDeptRepo := data.NewSysDeptRepo(dataData, logger)
-	sysPermissionRepo := data.NewSysPermissionRepo(dataData, logger)
-	adminUseCase := biz.NewAdminUseCase(logger, sysAdminRepo, sysRoleRepo, sysJobRepo, sysDeptRepo, sysPermissionRepo)
+	sysRoleRepo := fkratos_sys_repo.NewSysRoleRepo(db, idbCache)
+	bizSysRoleRepo := data.NewSysRoleRepo(dataData, logger, sysRoleRepo)
+	sysJobRepo := fkratos_sys_repo.NewSysJobRepo(db, idbCache)
+	bizSysJobRepo := data.NewSysJobRepo(dataData, logger, sysJobRepo)
+	sysDeptRepo := fkratos_sys_repo.NewSysDeptRepo(db, idbCache)
+	bizSysDeptRepo := data.NewSysDeptRepo(dataData, logger, sysDeptRepo)
+	sysPermissionRepo := fkratos_sys_repo.NewSysPermissionRepo(db, idbCache)
+	bizSysPermissionRepo := data.NewSysPermissionRepo(dataData, logger, sysPermissionRepo)
+	adminUseCase := biz.NewAdminUseCase(logger, bizSysAdminRepo, bizSysRoleRepo, bizSysJobRepo, bizSysDeptRepo, bizSysPermissionRepo)
 	adminService := service.NewAdminService(logger, adminUseCase)
-	roleUseCase := biz.NewRoleUseCase(logger, sysRoleRepo)
+	roleUseCase := biz.NewRoleUseCase(logger, bizSysRoleRepo)
 	roleService := service.NewRoleService(logger, roleUseCase)
-	permissionUseCase := biz.NewPermissionUseCase(logger, sysPermissionRepo)
+	permissionUseCase := biz.NewPermissionUseCase(logger, bizSysPermissionRepo)
 	permissionService := service.NewPermissionService(logger, permissionUseCase)
-	jobUseCase := biz.NewJobUseCase(logger, sysJobRepo)
+	jobUseCase := biz.NewJobUseCase(logger, bizSysJobRepo)
 	jobService := service.NewJobService(logger, jobUseCase)
-	deptUseCase := biz.NewDeptUseCase(logger, sysDeptRepo)
+	deptUseCase := biz.NewDeptUseCase(logger, bizSysDeptRepo)
 	deptService := service.NewDeptService(logger, deptUseCase)
-	sysAPIRepo := data.NewSysAPIRepo(dataData, logger)
-	apiUseCase := biz.NewAPIUseCase(logger, sysAPIRepo)
+	sysAPIRepo := fkratos_sys_repo.NewSysAPIRepo(db, idbCache)
+	bizSysAPIRepo := data.NewSysAPIRepo(dataData, logger, sysAPIRepo)
+	apiUseCase := biz.NewAPIUseCase(logger, bizSysAPIRepo)
 	apiService := service.NewAPIService(logger, apiUseCase)
-	sysLogRepo := data.NewSysLogRepo(dataData, logger)
-	logUseCase := biz.NewLogUseCase(logger, sysLogRepo, sysAdminRepo, sysAPIRepo)
+	sysLogRepo := fkratos_sys_repo.NewSysLogRepo(db, idbCache)
+	bizSysLogRepo := data.NewSysLogRepo(dataData, logger, sysLogRepo)
+	logUseCase := biz.NewLogUseCase(logger, bizSysLogRepo, bizSysAdminRepo, bizSysAPIRepo)
 	logService := service.NewLogService(logger, logUseCase)
 	dashboardService := service.NewDashboardService(logger)
 	grpcServer := server.NewGRPCServer(confBootstrap, logger, authService, adminService, roleService, permissionService, jobService, deptService, apiService, logService, dashboardService)

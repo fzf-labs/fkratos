@@ -42,7 +42,7 @@ proto:
 
 .PHONY: api
 # protobuf 生成 Go 代码
-api:
+api: buf
 	@cd ../../ && files=`find api/${APP_NAME} -name *.proto` && \
 	protoc --proto_path=./api \
 	       --proto_path=./third_party \

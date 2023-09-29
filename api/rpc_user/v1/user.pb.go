@@ -7,6 +7,7 @@
 package v1
 
 import (
+	paginator "fkratos/api/paginator"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -20,15 +21,28 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// 请求-创建用户
-type CreateUserReq struct {
+type UserInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	ID        string `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`                // Id
+	UID       int64  `protobuf:"varint,2,opt,name=UID,proto3" json:"UID,omitempty"`             // uid
+	Username  string `protobuf:"bytes,3,opt,name=Username,proto3" json:"Username,omitempty"`    // 用户名
+	Phone     string `protobuf:"bytes,4,opt,name=Phone,proto3" json:"Phone,omitempty"`          // 手机
+	Email     string `protobuf:"bytes,5,opt,name=Email,proto3" json:"Email,omitempty"`          // 邮箱
+	Nickname  string `protobuf:"bytes,6,opt,name=Nickname,proto3" json:"Nickname,omitempty"`    // 昵称
+	Sex       int32  `protobuf:"varint,7,opt,name=Sex,proto3" json:"Sex,omitempty"`             // 性别（0未知 1男 2女）
+	Avatar    string `protobuf:"bytes,8,opt,name=Avatar,proto3" json:"Avatar,omitempty"`        // 头像
+	Profile   string `protobuf:"bytes,9,opt,name=Profile,proto3" json:"Profile,omitempty"`      // 简介
+	Other     string `protobuf:"bytes,10,opt,name=Other,proto3" json:"Other,omitempty"`         // 其他
+	Status    int32  `protobuf:"varint,11,opt,name=Status,proto3" json:"Status,omitempty"`      // 状态
+	CreatedAt string `protobuf:"bytes,12,opt,name=CreatedAt,proto3" json:"CreatedAt,omitempty"` // 创建时间
+	UpdatedAt string `protobuf:"bytes,13,opt,name=UpdatedAt,proto3" json:"UpdatedAt,omitempty"` // 更新时间
 }
 
-func (x *CreateUserReq) Reset() {
-	*x = CreateUserReq{}
+func (x *UserInfo) Reset() {
+	*x = UserInfo{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_user_v1_user_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -36,13 +50,13 @@ func (x *CreateUserReq) Reset() {
 	}
 }
 
-func (x *CreateUserReq) String() string {
+func (x *UserInfo) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateUserReq) ProtoMessage() {}
+func (*UserInfo) ProtoMessage() {}
 
-func (x *CreateUserReq) ProtoReflect() protoreflect.Message {
+func (x *UserInfo) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_user_v1_user_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -54,20 +68,112 @@ func (x *CreateUserReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateUserReq.ProtoReflect.Descriptor instead.
-func (*CreateUserReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use UserInfo.ProtoReflect.Descriptor instead.
+func (*UserInfo) Descriptor() ([]byte, []int) {
 	return file_rpc_user_v1_user_proto_rawDescGZIP(), []int{0}
 }
 
-// 响应-创建用户
-type CreateUserReply struct {
+func (x *UserInfo) GetID() string {
+	if x != nil {
+		return x.ID
+	}
+	return ""
+}
+
+func (x *UserInfo) GetUID() int64 {
+	if x != nil {
+		return x.UID
+	}
+	return 0
+}
+
+func (x *UserInfo) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *UserInfo) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *UserInfo) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *UserInfo) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
+func (x *UserInfo) GetSex() int32 {
+	if x != nil {
+		return x.Sex
+	}
+	return 0
+}
+
+func (x *UserInfo) GetAvatar() string {
+	if x != nil {
+		return x.Avatar
+	}
+	return ""
+}
+
+func (x *UserInfo) GetProfile() string {
+	if x != nil {
+		return x.Profile
+	}
+	return ""
+}
+
+func (x *UserInfo) GetOther() string {
+	if x != nil {
+		return x.Other
+	}
+	return ""
+}
+
+func (x *UserInfo) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *UserInfo) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *UserInfo) GetUpdatedAt() string {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return ""
+}
+
+type UserListReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Paginator *paginator.PaginatorReq `protobuf:"bytes,1,opt,name=paginator,proto3" json:"paginator,omitempty"` //分页
 }
 
-func (x *CreateUserReply) Reset() {
-	*x = CreateUserReply{}
+func (x *UserListReq) Reset() {
+	*x = UserListReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_user_v1_user_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -75,13 +181,13 @@ func (x *CreateUserReply) Reset() {
 	}
 }
 
-func (x *CreateUserReply) String() string {
+func (x *UserListReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateUserReply) ProtoMessage() {}
+func (*UserListReq) ProtoMessage() {}
 
-func (x *CreateUserReply) ProtoReflect() protoreflect.Message {
+func (x *UserListReq) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_user_v1_user_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -93,20 +199,29 @@ func (x *CreateUserReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateUserReply.ProtoReflect.Descriptor instead.
-func (*CreateUserReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use UserListReq.ProtoReflect.Descriptor instead.
+func (*UserListReq) Descriptor() ([]byte, []int) {
 	return file_rpc_user_v1_user_proto_rawDescGZIP(), []int{1}
 }
 
-// 请求-更新用户
-type UpdateUserReq struct {
+func (x *UserListReq) GetPaginator() *paginator.PaginatorReq {
+	if x != nil {
+		return x.Paginator
+	}
+	return nil
+}
+
+type UserListReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Paginator *paginator.PaginatorReply `protobuf:"bytes,1,opt,name=paginator,proto3" json:"paginator,omitempty"` //分页
+	List      []*UserInfo               `protobuf:"bytes,2,rep,name=list,proto3" json:"list,omitempty"`           //列表
 }
 
-func (x *UpdateUserReq) Reset() {
-	*x = UpdateUserReq{}
+func (x *UserListReply) Reset() {
+	*x = UserListReply{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_user_v1_user_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -114,13 +229,13 @@ func (x *UpdateUserReq) Reset() {
 	}
 }
 
-func (x *UpdateUserReq) String() string {
+func (x *UserListReply) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateUserReq) ProtoMessage() {}
+func (*UserListReply) ProtoMessage() {}
 
-func (x *UpdateUserReq) ProtoReflect() protoreflect.Message {
+func (x *UserListReply) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_user_v1_user_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -132,20 +247,35 @@ func (x *UpdateUserReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateUserReq.ProtoReflect.Descriptor instead.
-func (*UpdateUserReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use UserListReply.ProtoReflect.Descriptor instead.
+func (*UserListReply) Descriptor() ([]byte, []int) {
 	return file_rpc_user_v1_user_proto_rawDescGZIP(), []int{2}
 }
 
-// 响应-更新用户
-type UpdateUserReply struct {
+func (x *UserListReply) GetPaginator() *paginator.PaginatorReply {
+	if x != nil {
+		return x.Paginator
+	}
+	return nil
+}
+
+func (x *UserListReply) GetList() []*UserInfo {
+	if x != nil {
+		return x.List
+	}
+	return nil
+}
+
+type UserInfoReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	UID int64 `protobuf:"varint,2,opt,name=UID,proto3" json:"UID,omitempty"` // uid
 }
 
-func (x *UpdateUserReply) Reset() {
-	*x = UpdateUserReply{}
+func (x *UserInfoReq) Reset() {
+	*x = UserInfoReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_user_v1_user_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -153,13 +283,13 @@ func (x *UpdateUserReply) Reset() {
 	}
 }
 
-func (x *UpdateUserReply) String() string {
+func (x *UserInfoReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateUserReply) ProtoMessage() {}
+func (*UserInfoReq) ProtoMessage() {}
 
-func (x *UpdateUserReply) ProtoReflect() protoreflect.Message {
+func (x *UserInfoReq) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_user_v1_user_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -171,20 +301,28 @@ func (x *UpdateUserReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateUserReply.ProtoReflect.Descriptor instead.
-func (*UpdateUserReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use UserInfoReq.ProtoReflect.Descriptor instead.
+func (*UserInfoReq) Descriptor() ([]byte, []int) {
 	return file_rpc_user_v1_user_proto_rawDescGZIP(), []int{3}
 }
 
-// 请求-删除用户
-type DeleteUserReq struct {
+func (x *UserInfoReq) GetUID() int64 {
+	if x != nil {
+		return x.UID
+	}
+	return 0
+}
+
+type UserInfoReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Info *UserInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"` //用户信息
 }
 
-func (x *DeleteUserReq) Reset() {
-	*x = DeleteUserReq{}
+func (x *UserInfoReply) Reset() {
+	*x = UserInfoReply{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_user_v1_user_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -192,13 +330,13 @@ func (x *DeleteUserReq) Reset() {
 	}
 }
 
-func (x *DeleteUserReq) String() string {
+func (x *UserInfoReply) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteUserReq) ProtoMessage() {}
+func (*UserInfoReply) ProtoMessage() {}
 
-func (x *DeleteUserReq) ProtoReflect() protoreflect.Message {
+func (x *UserInfoReply) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_user_v1_user_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -210,20 +348,37 @@ func (x *DeleteUserReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteUserReq.ProtoReflect.Descriptor instead.
-func (*DeleteUserReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use UserInfoReply.ProtoReflect.Descriptor instead.
+func (*UserInfoReply) Descriptor() ([]byte, []int) {
 	return file_rpc_user_v1_user_proto_rawDescGZIP(), []int{4}
 }
 
-// 响应-删除用户
-type DeleteUserReply struct {
+func (x *UserInfoReply) GetInfo() *UserInfo {
+	if x != nil {
+		return x.Info
+	}
+	return nil
+}
+
+type UserStoreReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	ID       string `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`             // Id
+	Username string `protobuf:"bytes,2,opt,name=Username,proto3" json:"Username,omitempty"` // 用户名
+	Phone    string `protobuf:"bytes,3,opt,name=Phone,proto3" json:"Phone,omitempty"`       // 手机
+	Email    string `protobuf:"bytes,4,opt,name=Email,proto3" json:"Email,omitempty"`       // 邮箱
+	Password string `protobuf:"bytes,5,opt,name=Password,proto3" json:"Password,omitempty"` // 密码
+	Nickname string `protobuf:"bytes,6,opt,name=Nickname,proto3" json:"Nickname,omitempty"` // 昵称
+	Sex      int32  `protobuf:"varint,7,opt,name=Sex,proto3" json:"Sex,omitempty"`          // 性别（0未知 1男 2女）
+	Avatar   string `protobuf:"bytes,8,opt,name=Avatar,proto3" json:"Avatar,omitempty"`     // 头像
+	Profile  string `protobuf:"bytes,9,opt,name=Profile,proto3" json:"Profile,omitempty"`   // 简介
+	Status   int32  `protobuf:"varint,10,opt,name=Status,proto3" json:"Status,omitempty"`   // 状态
 }
 
-func (x *DeleteUserReply) Reset() {
-	*x = DeleteUserReply{}
+func (x *UserStoreReq) Reset() {
+	*x = UserStoreReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_user_v1_user_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -231,13 +386,13 @@ func (x *DeleteUserReply) Reset() {
 	}
 }
 
-func (x *DeleteUserReply) String() string {
+func (x *UserStoreReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteUserReply) ProtoMessage() {}
+func (*UserStoreReq) ProtoMessage() {}
 
-func (x *DeleteUserReply) ProtoReflect() protoreflect.Message {
+func (x *UserStoreReq) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_user_v1_user_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -249,20 +404,91 @@ func (x *DeleteUserReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteUserReply.ProtoReflect.Descriptor instead.
-func (*DeleteUserReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use UserStoreReq.ProtoReflect.Descriptor instead.
+func (*UserStoreReq) Descriptor() ([]byte, []int) {
 	return file_rpc_user_v1_user_proto_rawDescGZIP(), []int{5}
 }
 
-// 请求-获取单个用户
-type GetUserReq struct {
+func (x *UserStoreReq) GetID() string {
+	if x != nil {
+		return x.ID
+	}
+	return ""
+}
+
+func (x *UserStoreReq) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *UserStoreReq) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *UserStoreReq) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *UserStoreReq) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *UserStoreReq) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
+func (x *UserStoreReq) GetSex() int32 {
+	if x != nil {
+		return x.Sex
+	}
+	return 0
+}
+
+func (x *UserStoreReq) GetAvatar() string {
+	if x != nil {
+		return x.Avatar
+	}
+	return ""
+}
+
+func (x *UserStoreReq) GetProfile() string {
+	if x != nil {
+		return x.Profile
+	}
+	return ""
+}
+
+func (x *UserStoreReq) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+type UserStoreReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	ID string `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"` // Id
 }
 
-func (x *GetUserReq) Reset() {
-	*x = GetUserReq{}
+func (x *UserStoreReply) Reset() {
+	*x = UserStoreReply{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_user_v1_user_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -270,13 +496,13 @@ func (x *GetUserReq) Reset() {
 	}
 }
 
-func (x *GetUserReq) String() string {
+func (x *UserStoreReply) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetUserReq) ProtoMessage() {}
+func (*UserStoreReply) ProtoMessage() {}
 
-func (x *GetUserReq) ProtoReflect() protoreflect.Message {
+func (x *UserStoreReply) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_user_v1_user_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -288,20 +514,28 @@ func (x *GetUserReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetUserReq.ProtoReflect.Descriptor instead.
-func (*GetUserReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use UserStoreReply.ProtoReflect.Descriptor instead.
+func (*UserStoreReply) Descriptor() ([]byte, []int) {
 	return file_rpc_user_v1_user_proto_rawDescGZIP(), []int{6}
 }
 
-// 响应-获取单个用户
-type GetUserReply struct {
+func (x *UserStoreReply) GetID() string {
+	if x != nil {
+		return x.ID
+	}
+	return ""
+}
+
+type UserDelReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Ids []string `protobuf:"bytes,1,rep,name=ids,proto3" json:"ids,omitempty"` //ID集合
 }
 
-func (x *GetUserReply) Reset() {
-	*x = GetUserReply{}
+func (x *UserDelReq) Reset() {
+	*x = UserDelReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_user_v1_user_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -309,13 +543,13 @@ func (x *GetUserReply) Reset() {
 	}
 }
 
-func (x *GetUserReply) String() string {
+func (x *UserDelReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetUserReply) ProtoMessage() {}
+func (*UserDelReq) ProtoMessage() {}
 
-func (x *GetUserReply) ProtoReflect() protoreflect.Message {
+func (x *UserDelReq) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_user_v1_user_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -327,20 +561,26 @@ func (x *GetUserReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetUserReply.ProtoReflect.Descriptor instead.
-func (*GetUserReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use UserDelReq.ProtoReflect.Descriptor instead.
+func (*UserDelReq) Descriptor() ([]byte, []int) {
 	return file_rpc_user_v1_user_proto_rawDescGZIP(), []int{7}
 }
 
-// 请求-获取用户列表
-type ListUserReq struct {
+func (x *UserDelReq) GetIds() []string {
+	if x != nil {
+		return x.Ids
+	}
+	return nil
+}
+
+type UserDelReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *ListUserReq) Reset() {
-	*x = ListUserReq{}
+func (x *UserDelReply) Reset() {
+	*x = UserDelReply{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_user_v1_user_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -348,13 +588,13 @@ func (x *ListUserReq) Reset() {
 	}
 }
 
-func (x *ListUserReq) String() string {
+func (x *UserDelReply) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ListUserReq) ProtoMessage() {}
+func (*UserDelReply) ProtoMessage() {}
 
-func (x *ListUserReq) ProtoReflect() protoreflect.Message {
+func (x *UserDelReply) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_user_v1_user_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -366,48 +606,9 @@ func (x *ListUserReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListUserReq.ProtoReflect.Descriptor instead.
-func (*ListUserReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use UserDelReply.ProtoReflect.Descriptor instead.
+func (*UserDelReply) Descriptor() ([]byte, []int) {
 	return file_rpc_user_v1_user_proto_rawDescGZIP(), []int{8}
-}
-
-// 响应-获取用户列表
-type ListUserReply struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *ListUserReply) Reset() {
-	*x = ListUserReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_user_v1_user_proto_msgTypes[9]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ListUserReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListUserReply) ProtoMessage() {}
-
-func (x *ListUserReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_user_v1_user_proto_msgTypes[9]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListUserReply.ProtoReflect.Descriptor instead.
-func (*ListUserReply) Descriptor() ([]byte, []int) {
-	return file_rpc_user_v1_user_proto_rawDescGZIP(), []int{9}
 }
 
 var File_rpc_user_v1_user_proto protoreflect.FileDescriptor
@@ -415,46 +616,89 @@ var File_rpc_user_v1_user_proto protoreflect.FileDescriptor
 var file_rpc_user_v1_user_proto_rawDesc = []byte{
 	0x0a, 0x16, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2f, 0x76, 0x31, 0x2f, 0x75, 0x73,
 	0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0f, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70,
-	0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x22, 0x0f, 0x0a, 0x0d, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x22, 0x11, 0x0a, 0x0f, 0x43, 0x72,
-	0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x0f, 0x0a,
-	0x0d, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x22, 0x11,
-	0x0a, 0x0f, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c,
-	0x79, 0x22, 0x0f, 0x0a, 0x0d, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52,
-	0x65, 0x71, 0x22, 0x11, 0x0a, 0x0f, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
-	0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x0c, 0x0a, 0x0a, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72,
-	0x52, 0x65, 0x71, 0x22, 0x0e, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
-	0x70, 0x6c, 0x79, 0x22, 0x0d, 0x0a, 0x0b, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52,
-	0x65, 0x71, 0x22, 0x0f, 0x0a, 0x0d, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
-	0x70, 0x6c, 0x79, 0x32, 0x87, 0x03, 0x0a, 0x04, 0x55, 0x73, 0x65, 0x72, 0x12, 0x4e, 0x0a, 0x0a,
-	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x1e, 0x2e, 0x61, 0x70, 0x69,
-	0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x20, 0x2e, 0x61, 0x70, 0x69,
-	0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x4e, 0x0a, 0x0a,
-	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x1e, 0x2e, 0x61, 0x70, 0x69,
-	0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64,
-	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x20, 0x2e, 0x61, 0x70, 0x69,
-	0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64,
-	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x4e, 0x0a, 0x0a,
-	0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x12, 0x1e, 0x2e, 0x61, 0x70, 0x69,
-	0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c,
-	0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x20, 0x2e, 0x61, 0x70, 0x69,
-	0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c,
-	0x65, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x45, 0x0a, 0x07,
-	0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x12, 0x1b, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70,
-	0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65,
-	0x72, 0x52, 0x65, 0x71, 0x1a, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75,
-	0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
-	0x70, 0x6c, 0x79, 0x12, 0x48, 0x0a, 0x08, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x12,
-	0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76,
-	0x31, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x1e, 0x2e,
+	0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x1a, 0x19, 0x70, 0x61, 0x67, 0x69, 0x6e,
+	0x61, 0x74, 0x6f, 0x72, 0x2f, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x22, 0xbe, 0x02, 0x0a, 0x08, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66,
+	0x6f, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x49,
+	0x44, 0x12, 0x10, 0x0a, 0x03, 0x55, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x03,
+	0x55, 0x49, 0x44, 0x12, 0x1a, 0x0a, 0x08, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x12,
+	0x14, 0x0a, 0x05, 0x50, 0x68, 0x6f, 0x6e, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+	0x50, 0x68, 0x6f, 0x6e, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x05,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x4e,
+	0x69, 0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x4e,
+	0x69, 0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x53, 0x65, 0x78, 0x18, 0x07,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x03, 0x53, 0x65, 0x78, 0x12, 0x16, 0x0a, 0x06, 0x41, 0x76, 0x61,
+	0x74, 0x61, 0x72, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x41, 0x76, 0x61, 0x74, 0x61,
+	0x72, 0x12, 0x18, 0x0a, 0x07, 0x50, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x18, 0x09, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x07, 0x50, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x4f,
+	0x74, 0x68, 0x65, 0x72, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x4f, 0x74, 0x68, 0x65,
+	0x72, 0x12, 0x16, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x0b, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x1c, 0x0a, 0x09, 0x43, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x43, 0x72,
+	0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x64, 0x41, 0x74, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0x44, 0x0a, 0x0b, 0x55, 0x73, 0x65, 0x72, 0x4c, 0x69, 0x73,
+	0x74, 0x52, 0x65, 0x71, 0x12, 0x35, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f,
+	0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61,
+	0x74, 0x6f, 0x72, 0x2e, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x52, 0x65, 0x71,
+	0x52, 0x09, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x77, 0x0a, 0x0d, 0x55,
+	0x73, 0x65, 0x72, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x37, 0x0a, 0x09,
+	0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x19, 0x2e, 0x70, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x6f, 0x72, 0x2e, 0x50, 0x61, 0x67, 0x69,
+	0x6e, 0x61, 0x74, 0x6f, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x52, 0x09, 0x70, 0x61, 0x67, 0x69,
+	0x6e, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x2d, 0x0a, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x02, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73,
+	0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04,
+	0x6c, 0x69, 0x73, 0x74, 0x22, 0x1f, 0x0a, 0x0b, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f,
+	0x52, 0x65, 0x71, 0x12, 0x10, 0x0a, 0x03, 0x55, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x03, 0x55, 0x49, 0x44, 0x22, 0x3e, 0x0a, 0x0d, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66,
+	0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x2d, 0x0a, 0x04, 0x69, 0x6e, 0x66, 0x6f, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75,
+	0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52,
+	0x04, 0x69, 0x6e, 0x66, 0x6f, 0x22, 0xfa, 0x01, 0x0a, 0x0c, 0x55, 0x73, 0x65, 0x72, 0x53, 0x74,
+	0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x02, 0x49, 0x44, 0x12, 0x1a, 0x0a, 0x08, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61,
+	0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61,
+	0x6d, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x50, 0x68, 0x6f, 0x6e, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x05, 0x50, 0x68, 0x6f, 0x6e, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x45, 0x6d, 0x61, 0x69,
+	0x6c, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1a,
+	0x0a, 0x08, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x08, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x4e, 0x69,
+	0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x4e, 0x69,
+	0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x53, 0x65, 0x78, 0x18, 0x07, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x03, 0x53, 0x65, 0x78, 0x12, 0x16, 0x0a, 0x06, 0x41, 0x76, 0x61, 0x74,
+	0x61, 0x72, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x41, 0x76, 0x61, 0x74, 0x61, 0x72,
+	0x12, 0x18, 0x0a, 0x07, 0x50, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x18, 0x09, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x50, 0x72, 0x6f, 0x66, 0x69, 0x6c, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x53, 0x74,
+	0x61, 0x74, 0x75, 0x73, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x53, 0x74, 0x61, 0x74,
+	0x75, 0x73, 0x22, 0x20, 0x0a, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x02, 0x49, 0x44, 0x22, 0x1e, 0x0a, 0x0a, 0x55, 0x73, 0x65, 0x72, 0x44, 0x65, 0x6c, 0x52,
+	0x65, 0x71, 0x12, 0x10, 0x0a, 0x03, 0x69, 0x64, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52,
+	0x03, 0x69, 0x64, 0x73, 0x22, 0x0e, 0x0a, 0x0c, 0x55, 0x73, 0x65, 0x72, 0x44, 0x65, 0x6c, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x32, 0xae, 0x02, 0x0a, 0x04, 0x55, 0x73, 0x65, 0x72, 0x12, 0x48, 0x0a,
+	0x08, 0x55, 0x73, 0x65, 0x72, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72,
+	0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70,
+	0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x4c, 0x69,
+	0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x48, 0x0a, 0x08, 0x55, 0x73, 0x65, 0x72, 0x49,
+	0x6e, 0x66, 0x6f, 0x12, 0x1c, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73,
+	0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65,
+	0x71, 0x1a, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72,
+	0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c,
+	0x79, 0x12, 0x4b, 0x0a, 0x09, 0x55, 0x73, 0x65, 0x72, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x1d,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31,
+	0x2e, 0x55, 0x73, 0x65, 0x72, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x1f, 0x2e,
 	0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e,
-	0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x42, 0x2e, 0x0a,
-	0x0e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x73, 0x79, 0x73, 0x2e, 0x76, 0x31, 0x50,
-	0x01, 0x5a, 0x1a, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x72,
-	0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x55, 0x73, 0x65, 0x72, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x45,
+	0x0a, 0x07, 0x55, 0x73, 0x65, 0x72, 0x44, 0x65, 0x6c, 0x12, 0x1b, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72,
+	0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x1a, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63,
+	0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x44, 0x65, 0x6c,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x42, 0x1c, 0x5a, 0x1a, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73,
+	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2f, 0x76, 0x31,
+	0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -469,35 +713,38 @@ func file_rpc_user_v1_user_proto_rawDescGZIP() []byte {
 	return file_rpc_user_v1_user_proto_rawDescData
 }
 
-var file_rpc_user_v1_user_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_rpc_user_v1_user_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_rpc_user_v1_user_proto_goTypes = []interface{}{
-	(*CreateUserReq)(nil),   // 0: api.rpc_user.v1.CreateUserReq
-	(*CreateUserReply)(nil), // 1: api.rpc_user.v1.CreateUserReply
-	(*UpdateUserReq)(nil),   // 2: api.rpc_user.v1.UpdateUserReq
-	(*UpdateUserReply)(nil), // 3: api.rpc_user.v1.UpdateUserReply
-	(*DeleteUserReq)(nil),   // 4: api.rpc_user.v1.DeleteUserReq
-	(*DeleteUserReply)(nil), // 5: api.rpc_user.v1.DeleteUserReply
-	(*GetUserReq)(nil),      // 6: api.rpc_user.v1.GetUserReq
-	(*GetUserReply)(nil),    // 7: api.rpc_user.v1.GetUserReply
-	(*ListUserReq)(nil),     // 8: api.rpc_user.v1.ListUserReq
-	(*ListUserReply)(nil),   // 9: api.rpc_user.v1.ListUserReply
+	(*UserInfo)(nil),                 // 0: api.rpc_user.v1.UserInfo
+	(*UserListReq)(nil),              // 1: api.rpc_user.v1.UserListReq
+	(*UserListReply)(nil),            // 2: api.rpc_user.v1.UserListReply
+	(*UserInfoReq)(nil),              // 3: api.rpc_user.v1.UserInfoReq
+	(*UserInfoReply)(nil),            // 4: api.rpc_user.v1.UserInfoReply
+	(*UserStoreReq)(nil),             // 5: api.rpc_user.v1.UserStoreReq
+	(*UserStoreReply)(nil),           // 6: api.rpc_user.v1.UserStoreReply
+	(*UserDelReq)(nil),               // 7: api.rpc_user.v1.UserDelReq
+	(*UserDelReply)(nil),             // 8: api.rpc_user.v1.UserDelReply
+	(*paginator.PaginatorReq)(nil),   // 9: paginator.PaginatorReq
+	(*paginator.PaginatorReply)(nil), // 10: paginator.PaginatorReply
 }
 var file_rpc_user_v1_user_proto_depIdxs = []int32{
-	0, // 0: api.rpc_user.v1.User.CreateUser:input_type -> api.rpc_user.v1.CreateUserReq
-	2, // 1: api.rpc_user.v1.User.UpdateUser:input_type -> api.rpc_user.v1.UpdateUserReq
-	4, // 2: api.rpc_user.v1.User.DeleteUser:input_type -> api.rpc_user.v1.DeleteUserReq
-	6, // 3: api.rpc_user.v1.User.GetUser:input_type -> api.rpc_user.v1.GetUserReq
-	8, // 4: api.rpc_user.v1.User.ListUser:input_type -> api.rpc_user.v1.ListUserReq
-	1, // 5: api.rpc_user.v1.User.CreateUser:output_type -> api.rpc_user.v1.CreateUserReply
-	3, // 6: api.rpc_user.v1.User.UpdateUser:output_type -> api.rpc_user.v1.UpdateUserReply
-	5, // 7: api.rpc_user.v1.User.DeleteUser:output_type -> api.rpc_user.v1.DeleteUserReply
-	7, // 8: api.rpc_user.v1.User.GetUser:output_type -> api.rpc_user.v1.GetUserReply
-	9, // 9: api.rpc_user.v1.User.ListUser:output_type -> api.rpc_user.v1.ListUserReply
-	5, // [5:10] is the sub-list for method output_type
-	0, // [0:5] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	9,  // 0: api.rpc_user.v1.UserListReq.paginator:type_name -> paginator.PaginatorReq
+	10, // 1: api.rpc_user.v1.UserListReply.paginator:type_name -> paginator.PaginatorReply
+	0,  // 2: api.rpc_user.v1.UserListReply.list:type_name -> api.rpc_user.v1.UserInfo
+	0,  // 3: api.rpc_user.v1.UserInfoReply.info:type_name -> api.rpc_user.v1.UserInfo
+	1,  // 4: api.rpc_user.v1.User.UserList:input_type -> api.rpc_user.v1.UserListReq
+	3,  // 5: api.rpc_user.v1.User.UserInfo:input_type -> api.rpc_user.v1.UserInfoReq
+	5,  // 6: api.rpc_user.v1.User.UserStore:input_type -> api.rpc_user.v1.UserStoreReq
+	7,  // 7: api.rpc_user.v1.User.UserDel:input_type -> api.rpc_user.v1.UserDelReq
+	2,  // 8: api.rpc_user.v1.User.UserList:output_type -> api.rpc_user.v1.UserListReply
+	4,  // 9: api.rpc_user.v1.User.UserInfo:output_type -> api.rpc_user.v1.UserInfoReply
+	6,  // 10: api.rpc_user.v1.User.UserStore:output_type -> api.rpc_user.v1.UserStoreReply
+	8,  // 11: api.rpc_user.v1.User.UserDel:output_type -> api.rpc_user.v1.UserDelReply
+	8,  // [8:12] is the sub-list for method output_type
+	4,  // [4:8] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_rpc_user_v1_user_proto_init() }
@@ -507,7 +754,7 @@ func file_rpc_user_v1_user_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_rpc_user_v1_user_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateUserReq); i {
+			switch v := v.(*UserInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -519,7 +766,7 @@ func file_rpc_user_v1_user_proto_init() {
 			}
 		}
 		file_rpc_user_v1_user_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateUserReply); i {
+			switch v := v.(*UserListReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -531,7 +778,7 @@ func file_rpc_user_v1_user_proto_init() {
 			}
 		}
 		file_rpc_user_v1_user_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateUserReq); i {
+			switch v := v.(*UserListReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -543,7 +790,7 @@ func file_rpc_user_v1_user_proto_init() {
 			}
 		}
 		file_rpc_user_v1_user_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateUserReply); i {
+			switch v := v.(*UserInfoReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -555,7 +802,7 @@ func file_rpc_user_v1_user_proto_init() {
 			}
 		}
 		file_rpc_user_v1_user_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteUserReq); i {
+			switch v := v.(*UserInfoReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -567,7 +814,7 @@ func file_rpc_user_v1_user_proto_init() {
 			}
 		}
 		file_rpc_user_v1_user_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteUserReply); i {
+			switch v := v.(*UserStoreReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -579,7 +826,7 @@ func file_rpc_user_v1_user_proto_init() {
 			}
 		}
 		file_rpc_user_v1_user_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserReq); i {
+			switch v := v.(*UserStoreReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -591,7 +838,7 @@ func file_rpc_user_v1_user_proto_init() {
 			}
 		}
 		file_rpc_user_v1_user_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserReply); i {
+			switch v := v.(*UserDelReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -603,19 +850,7 @@ func file_rpc_user_v1_user_proto_init() {
 			}
 		}
 		file_rpc_user_v1_user_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListUserReq); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_user_v1_user_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListUserReply); i {
+			switch v := v.(*UserDelReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -633,7 +868,7 @@ func file_rpc_user_v1_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_user_v1_user_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

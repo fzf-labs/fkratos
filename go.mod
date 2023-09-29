@@ -4,8 +4,8 @@ go 1.20
 
 require (
 	github.com/envoyproxy/protoc-gen-validate v1.0.2
-	github.com/fzf-labs/fpkg v1.5.2
-	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/fzf-labs/fpkg v1.5.8
+	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20230830131453-6c026bce56a9
 	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/config/etcd/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/config/kubernetes/v2 v2.0.0-20230808051727-7888107c4b4f
@@ -21,9 +21,11 @@ require (
 	github.com/go-kratos/kratos/v2 v2.7.0
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.2
 	github.com/hashicorp/consul/api v1.20.0
 	github.com/hibiken/asynq v0.24.1
 	github.com/importcjj/sensitive v0.0.0-20200106142752-42d1c505be7b
+	github.com/imroc/req/v3 v3.41.4
 	github.com/jinzhu/copier v0.4.0
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/nacos-group/nacos-sdk-go v1.1.4
@@ -109,8 +111,8 @@ require (
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/hashicorp/serf v0.10.1 // indirect
+	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
-	github.com/imroc/req/v3 v3.41.4 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/pgx/v5 v5.4.2 // indirect
