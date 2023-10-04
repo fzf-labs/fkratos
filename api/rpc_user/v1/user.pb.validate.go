@@ -57,9 +57,9 @@ func (m *UserInfo) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
-	// no validation rules for UID
+	// no validation rules for Uid
 
 	// no validation rules for Username
 
@@ -473,7 +473,7 @@ func (m *UserInfoReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for UID
+	// no validation rules for Uid
 
 	if len(errors) > 0 {
 		return UserInfoReqMultiError(errors)
@@ -703,7 +703,7 @@ func (m *UserStoreReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for Username
 
@@ -822,7 +822,7 @@ func (m *UserStoreReply) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return UserStoreReplyMultiError(errors)

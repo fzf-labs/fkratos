@@ -65,7 +65,7 @@ func (m *SysPermissionInfo) validate(all bool) error {
 
 	// no validation rules for Title
 
-	// no validation rules for Name
+	// no validation rules for UpperName
 
 	// no validation rules for Path
 
@@ -708,7 +708,7 @@ func (m *SysPermissionStoreReq) validate(all bool) error {
 
 	// no validation rules for Title
 
-	// no validation rules for Name
+	// no validation rules for UpperName
 
 	// no validation rules for Path
 

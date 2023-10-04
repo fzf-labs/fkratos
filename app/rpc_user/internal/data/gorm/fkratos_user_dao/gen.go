@@ -17,23 +17,29 @@ import (
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
-		db:   db,
-		User: newUser(db, opts...),
+		db:        db,
+		User:      newUser(db, opts...),
+		UserGroup: newUserGroup(db, opts...),
+		UserRule:  newUserRule(db, opts...),
 	}
 }
 
 type Query struct {
 	db *gorm.DB
 
-	User user
+	User      user
+	UserGroup userGroup
+	UserRule  userRule
 }
 
 func (q *Query) Available() bool { return q.db != nil }
 
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
-		db:   db,
-		User: q.User.clone(db),
+		db:        db,
+		User:      q.User.clone(db),
+		UserGroup: q.UserGroup.clone(db),
+		UserRule:  q.UserRule.clone(db),
 	}
 }
 
@@ -47,18 +53,24 @@ func (q *Query) WriteDB() *Query {
 
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
-		db:   db,
-		User: q.User.replaceDB(db),
+		db:        db,
+		User:      q.User.replaceDB(db),
+		UserGroup: q.UserGroup.replaceDB(db),
+		UserRule:  q.UserRule.replaceDB(db),
 	}
 }
 
 type queryCtx struct {
-	User *userDo
+	User      *userDo
+	UserGroup *userGroupDo
+	UserRule  *userRuleDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
-		User: q.User.WithContext(ctx),
+		User:      q.User.WithContext(ctx),
+		UserGroup: q.UserGroup.WithContext(ctx),
+		UserRule:  q.UserRule.WithContext(ctx),
 	}
 }
 

@@ -9,7 +9,7 @@ option go_package = "fkratos/api/rpc_user/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
-// 用户服务
+// 用户
 service User {
   //用户-列表
   rpc UserList(UserListReq) returns (UserListReply);
@@ -22,19 +22,19 @@ service User {
 }
 
 message UserInfo {
-  string ID = 1; // Id
-  int64 UID = 2; // uid
-  string Username = 3; // 用户名
-  string Phone = 4; // 手机
-  string Email = 5; // 邮箱
-  string Nickname = 6; // 昵称
-  int32 Sex = 7; // 性别（0未知 1男 2女）
-  string Avatar = 8; // 头像
-  string Profile = 9; // 简介
-  string Other = 10; // 其他
-  int32 Status = 11; // 状态
-  string CreatedAt = 12; // 创建时间
-  string UpdatedAt = 13; // 更新时间
+  string id = 1; // Id
+  int64 uid = 2; // uid
+  string username = 3; // 用户名
+  string phone = 4; // 手机
+  string email = 5; // 邮箱
+  string nickname = 6; // 昵称
+  int32 sex = 7; // 性别（0未知 1男 2女）
+  string avatar = 8; // 头像
+  string profile = 9; // 简介
+  string other = 10; // 其他
+  int32 status = 11; // 状态
+  string createdAt = 12; // 创建时间
+  string updatedAt = 13; // 更新时间
 }
 
 message UserListReq {
@@ -46,26 +46,26 @@ message UserListReply {
 }
 
 message UserInfoReq {
-  int64 UID = 2; // uid
+  int64 uid = 2; // uid
 }
 message UserInfoReply {
   UserInfo info = 1; //用户信息
 }
 
 message UserStoreReq {
-  string ID = 1; // Id
-  string Username = 2; // 用户名
-  string Phone = 3; // 手机
-  string Email = 4; // 邮箱
-  string Password = 5; // 密码
-  string Nickname = 6; // 昵称
-  int32 Sex = 7; // 性别（0未知 1男 2女）
-  string Avatar = 8; // 头像
-  string Profile = 9; // 简介
-  int32 Status = 10; // 状态
+  string id = 1; // Id
+  string username = 2; // 用户名
+  string phone = 3; // 手机
+  string email = 4; // 邮箱
+  string password = 5; // 密码
+  string nickname = 6; // 昵称
+  int32 sex = 7; // 性别（0未知 1男 2女）
+  string avatar = 8; // 头像
+  string profile = 9; // 简介
+  int32 status = 10; // 状态
 }
 message UserStoreReply {
-  string ID = 1; // Id
+  string id = 1; // Id
 }
 
 message UserDelReq {

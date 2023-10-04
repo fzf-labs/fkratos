@@ -61,7 +61,7 @@ func (m *SysRoleInfo) validate(all bool) error {
 
 	// no validation rules for Pid
 
-	// no validation rules for Name
+	// no validation rules for UpperName
 
 	// no validation rules for Remark
 
@@ -675,7 +675,7 @@ func (m *SysRoleStoreReq) validate(all bool) error {
 
 	// no validation rules for Pid
 
-	// no validation rules for Name
+	// no validation rules for UpperName
 
 	// no validation rules for Remark
 

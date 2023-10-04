@@ -59,7 +59,7 @@ api: buf
 .PHONY: apidoc
 # apidoc 同步文档
 apidoc:
-	@go run ../../cmd/apifox/main.go -f configs/config.yaml
+	@go run ../../cmd/apidoc/main.go -f configs/config.yaml
 
 .PHONY: buf
 # buf 格式化 proto
@@ -84,7 +84,7 @@ common:
 .PHONY: service
 # 通过 proto 文件，生成对应的 Service 实现代码 make service PROTO_NAME=demo
 service:
-	@kratos proto server ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
+	@go run ../../cmd/proto/main.go service ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
 
 .PHONY: run
 # run

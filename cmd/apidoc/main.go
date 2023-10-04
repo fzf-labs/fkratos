@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"path/filepath"
 	"strings"
 
 	"github.com/fzf-labs/fpkg/conv"
@@ -53,9 +52,7 @@ func main() {
 
 func GetConfig(configFile string) *viper.Viper {
 	config := viper.New()
-	config.AddConfigPath(filepath.Dir(configFile)) // 设置读取的文件路径
-	config.SetConfigName("config")                 // 设置读取的文件名
-	config.SetConfigType("yaml")                   // 设置文件的类型
+	config.SetConfigFile(configFile)
 	// 尝试进行配置读取
 	if err := config.ReadInConfig(); err != nil {
 		panic(err)

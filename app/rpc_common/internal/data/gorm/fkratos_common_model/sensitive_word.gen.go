@@ -5,10 +5,10 @@
 package fkratos_common_model
 
 import (
-	"database/sql"
 	"time"
 
 	"gorm.io/datatypes"
+	"gorm.io/gorm"
 )
 
 const TableNameSensitiveWord = "sensitive_word"
@@ -21,7 +21,7 @@ type SensitiveWord struct {
 	Desc      string         `gorm:"column:desc;comment:描述" json:"desc"`                       // 描述
 	CreatedAt time.Time      `gorm:"column:created_at;not null;comment:创建时间" json:"createdAt"` // 创建时间
 	UpdatedAt time.Time      `gorm:"column:updated_at;not null;comment:更新时间" json:"updatedAt"` // 更新时间
-	DeletedAt sql.NullTime   `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`          // 删除时间
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`          // 删除时间
 }
 
 // TableName SensitiveWord's table name

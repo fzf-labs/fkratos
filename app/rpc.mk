@@ -84,7 +84,9 @@ common:
 .PHONY: service
 # 通过 proto 文件，生成对应的 Service 实现代码 make service PROTO_NAME=demo
 service:
-	@kratos proto server ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
+	@go run ../../cmd/proto/main.go biz ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/biz
+	@go run ../../cmd/proto/main.go data ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/data
+	@go run ../../cmd/proto/main.go service ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
 
 .PHONY: run
 # run

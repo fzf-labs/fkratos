@@ -25,8 +25,9 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public."user" (
-    id uuid NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     uid bigint NOT NULL,
+    user_group_id uuid,
     username character varying,
     phone character varying,
     email character varying,
@@ -36,7 +37,7 @@ CREATE TABLE public."user" (
     sex smallint DEFAULT 0,
     avatar character varying DEFAULT ''::character varying,
     profile character varying,
-    other json,
+    other jsonb,
     status smallint DEFAULT 1 NOT NULL,
     created_at timestamp with time zone,
     updated_at timestamp with time zone,
@@ -45,6 +46,13 @@ CREATE TABLE public."user" (
 
 
 ALTER TABLE public."user" OWNER TO postgres;
+
+--
+-- Name: TABLE "user"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE public."user" IS '用户表';
+
 
 --
 -- Name: COLUMN "user".id; Type: COMMENT; Schema: public; Owner: postgres
@@ -58,6 +66,13 @@ COMMENT ON COLUMN public."user".id IS 'Id';
 --
 
 COMMENT ON COLUMN public."user".uid IS 'uid';
+
+
+--
+-- Name: COLUMN "user".user_group_id; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN public."user".user_group_id IS '分组ID';
 
 
 --
@@ -170,28 +185,28 @@ ALTER TABLE ONLY public."user"
 -- Name: user_email_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX user_email_idx ON public."user" USING btree (email);
+CREATE INDEX user_email_idx ON public."user" USING btree (email);
 
 
 --
 -- Name: user_phone_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX user_phone_idx ON public."user" USING btree (phone);
+CREATE INDEX user_phone_idx ON public."user" USING btree (phone);
 
 
 --
--- Name: user_status_idx; Type: INDEX; Schema: public; Owner: postgres
+-- Name: user_uid_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX user_status_idx ON public."user" USING btree (status);
+CREATE UNIQUE INDEX user_uid_idx ON public."user" USING btree (uid);
 
 
 --
--- Name: user_username_idx; Type: INDEX; Schema: public; Owner: postgres
+-- Name: user_user_group_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX user_username_idx ON public."user" USING btree (username);
+CREATE INDEX user_user_group_id_idx ON public."user" USING btree (user_group_id);
 
 
 --

@@ -12,6 +12,7 @@ import (
 	"fkratos/app/rpc_common/internal/data/gorm/fkratos_common_model"
 
 	"github.com/fzf-labs/fpkg/orm"
+	"github.com/fzf-labs/fpkg/orm/gen/cache"
 	"gorm.io/gorm"
 )
 
@@ -42,7 +43,7 @@ type (
 		// FindMultiByIDS 根据IDS查询多条数据
 		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_common_model.DictDatum, error)
 		// FindMultiByPaginator 查询分页数据(通用)
-		FindMultiByPaginator(ctx context.Context, params *orm.PaginatorParams) ([]*fkratos_common_model.DictDatum, int64, error)
+		FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_common_model.DictDatum, *orm.PaginatorReply, error)
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
 		DeleteOneCacheByID(ctx context.Context, ID string) error
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
@@ -62,20 +63,13 @@ type (
 		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
 		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_common_model.DictDatum) error
 	}
-	IDictDatumCache interface {
-		Key(fields ...any) string
-		Fetch(ctx context.Context, key string, fn func() (string, error)) (string, error)
-		FetchBatch(ctx context.Context, keys []string, fn func(miss []string) (map[string]string, error)) (map[string]string, error)
-		Del(ctx context.Context, key string) error
-		DelBatch(ctx context.Context, keys []string) error
-	}
 	DictDatumRepo struct {
 		db    *gorm.DB
-		cache IDictDatumCache
+		cache cache.IDBCache
 	}
 )
 
-func NewDictDatumRepo(db *gorm.DB, cache IDictDatumCache) *DictDatumRepo {
+func NewDictDatumRepo(db *gorm.DB, cache cache.IDBCache) *DictDatumRepo {
 	return &DictDatumRepo{
 		db:    db,
 		cache: cache,
@@ -143,18 +137,18 @@ func (d *DictDatumRepo) UpdateOneByTx(ctx context.Context, tx *fkratos_common_da
 // DeleteOneCacheByID 根据ID删除一条数据并清理缓存
 func (d *DictDatumRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
 	dao := fkratos_common_dao.Use(d.db).DictDatum
-	first, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
+	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
-	if first == nil {
+	if result == nil {
 		return nil
 	}
 	_, err = dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
 	if err != nil {
 		return err
 	}
-	err = d.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.DictDatum{first})
+	err = d.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.DictDatum{result})
 	if err != nil {
 		return err
 	}
@@ -164,18 +158,18 @@ func (d *DictDatumRepo) DeleteOneCacheByID(ctx context.Context, ID string) error
 // DeleteOneCacheByID 根据ID删除一条数据并清理缓存
 func (d *DictDatumRepo) DeleteOneCacheByIDTx(ctx context.Context, tx *fkratos_common_dao.Query, ID string) error {
 	dao := tx.DictDatum
-	first, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
+	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
-	if first == nil {
+	if result == nil {
 		return nil
 	}
 	_, err = dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
 	if err != nil {
 		return err
 	}
-	err = d.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.DictDatum{first})
+	err = d.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.DictDatum{result})
 	if err != nil {
 		return err
 	}
@@ -205,18 +199,18 @@ func (d *DictDatumRepo) DeleteOneByIDTx(ctx context.Context, tx *fkratos_common_
 // DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
 func (d *DictDatumRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error {
 	dao := fkratos_common_dao.Use(d.db).DictDatum
-	list, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
+	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
 	if err != nil {
 		return err
 	}
-	if len(list) == 0 {
+	if len(result) == 0 {
 		return nil
 	}
 	_, err = dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
 	if err != nil {
 		return err
 	}
-	err = d.DeleteUniqueIndexCache(ctx, list)
+	err = d.DeleteUniqueIndexCache(ctx, result)
 	if err != nil {
 		return err
 	}
@@ -226,18 +220,18 @@ func (d *DictDatumRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string)
 // DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
 func (d *DictDatumRepo) DeleteMultiCacheByIDSTx(ctx context.Context, tx *fkratos_common_dao.Query, IDS []string) error {
 	dao := tx.DictDatum
-	list, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
+	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
 	if err != nil {
 		return err
 	}
-	if len(list) == 0 {
+	if len(result) == 0 {
 		return nil
 	}
 	_, err = dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
 	if err != nil {
 		return err
 	}
-	err = d.DeleteUniqueIndexCache(ctx, list)
+	err = d.DeleteUniqueIndexCache(ctx, result)
 	if err != nil {
 		return err
 	}
@@ -281,8 +275,8 @@ func (d *DictDatumRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkra
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (d *DictDatumRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_common_model.DictDatum, error) {
 	resp := new(fkratos_common_model.DictDatum)
-	key := d.cache.Key(cacheDictDatumByIDPrefix, ID)
-	cacheValue, err := d.cache.Fetch(ctx, key, func() (string, error) {
+	cacheKey := d.cache.Key(cacheDictDatumByIDPrefix, ID)
+	cacheValue, err := d.cache.Fetch(ctx, cacheKey, func() (string, error) {
 		dao := fkratos_common_dao.Use(d.db).DictDatum
 		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
@@ -317,20 +311,20 @@ func (d *DictDatumRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_co
 // FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
 func (d *DictDatumRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_common_model.DictDatum, error) {
 	resp := make([]*fkratos_common_model.DictDatum, 0)
-	keys := make([]string, 0)
+	cacheKeys := make([]string, 0)
 	keyToParam := make(map[string]string)
 	for _, v := range IDS {
-		key := d.cache.Key(cacheDictDatumByIDPrefix, v)
-		keys = append(keys, key)
-		keyToParam[key] = v
+		cacheKey := d.cache.Key(cacheDictDatumByIDPrefix, v)
+		cacheKeys = append(cacheKeys, cacheKey)
+		keyToParam[cacheKey] = v
 	}
-	cacheValue, err := d.cache.FetchBatch(ctx, keys, func(miss []string) (map[string]string, error) {
-		params := make([]string, 0)
+	cacheValue, err := d.cache.FetchBatch(ctx, cacheKeys, func(miss []string) (map[string]string, error) {
+		parameters := make([]string, 0)
 		for _, v := range miss {
-			params = append(params, keyToParam[v])
+			parameters = append(parameters, keyToParam[v])
 		}
 		dao := fkratos_common_dao.Use(d.db).DictDatum
-		result, err := dao.WithContext(ctx).Where(dao.ID.In(params...)).Find()
+		result, err := dao.WithContext(ctx).Where(dao.ID.In(parameters...)).Find()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, err
 		}
@@ -372,29 +366,29 @@ func (d *DictDatumRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fk
 }
 
 // FindMultiByPaginator 查询分页数据(通用)
-func (d *DictDatumRepo) FindMultiByPaginator(ctx context.Context, params *orm.PaginatorParams) ([]*fkratos_common_model.DictDatum, int64, error) {
+func (d *DictDatumRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_common_model.DictDatum, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_common_model.DictDatum, 0)
 	var total int64
-	queryStr, args, err := params.ConvertToGormConditions()
+	queryStr, args, err := paginatorReq.ConvertToGormConditions()
 	if err != nil {
-		return nil, 0, err
+		return nil, nil, err
 	}
 	err = d.db.WithContext(ctx).Model(&fkratos_common_model.DictDatum{}).Select([]string{"id"}).Where(queryStr, args...).Count(&total).Error
 	if err != nil {
-		return nil, 0, err
+		return nil, nil, err
 	}
 	if total == 0 {
-		return nil, total, nil
+		return nil, nil, nil
 	}
 	query := d.db.WithContext(ctx)
-	order := params.ConvertToOrder()
+	order := paginatorReq.ConvertToOrder()
 	if order != "" {
 		query = query.Order(order)
 	}
-	limit, offset := params.ConvertToPage()
-	err = query.Limit(limit).Offset(offset).Where(queryStr, args...).Find(&result).Error
+	paginatorReply := paginatorReq.ConvertToPage(int(total))
+	err = query.Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Where(queryStr, args...).Find(&result).Error
 	if err != nil {
-		return nil, 0, err
+		return nil, nil, err
 	}
-	return result, total, err
+	return result, paginatorReply, err
 }

@@ -2,7 +2,8 @@ package biz
 
 import (
 	"context"
-	userV1 "fkratos/api/rpc_user/v1"
+
+	pb "fkratos/api/rpc_user/v1"
 
 	"github.com/go-kratos/kratos/v2/log"
 )
@@ -10,35 +11,26 @@ import (
 type UserRepo interface {
 }
 
-func NewUserUseCase(repo UserRepo, logger log.Logger) *UserUseCase {
-	l := log.NewHelper(log.With(logger, "module", "rpc_user/biz"))
+type UserUseCase struct {
+	log *log.Helper
+}
+
+func NewUserUseCase(logger log.Logger) *UserUseCase {
+	l := log.NewHelper(log.With(logger, "module", "biz/user"))
 	return &UserUseCase{
-		repo: repo,
-		log:  l,
+		log: l,
 	}
 }
 
-type UserUseCase struct {
-	repo UserRepo
-	log  *log.Helper
+func (s *UserUseCase) UserList(ctx context.Context, req *pb.UserListReq) (*pb.UserListReply, error) {
+	return &pb.UserListReply{}, nil
 }
-
-func (u *UserUseCase) UserList(ctx context.Context, req *userV1.UserListReq) (*userV1.UserListReply, error) {
-	//TODO implement me
-	panic("implement me")
+func (s *UserUseCase) UserInfo(ctx context.Context, req *pb.UserInfoReq) (*pb.UserInfoReply, error) {
+	return &pb.UserInfoReply{}, nil
 }
-
-func (u *UserUseCase) UserInfo(ctx context.Context, req *userV1.UserInfoReq) (*userV1.UserInfoReply, error) {
-	//TODO implement me
-	panic("implement me")
+func (s *UserUseCase) UserStore(ctx context.Context, req *pb.UserStoreReq) (*pb.UserStoreReply, error) {
+	return &pb.UserStoreReply{}, nil
 }
-
-func (u *UserUseCase) UserStore(ctx context.Context, req *userV1.UserStoreReq) (*userV1.UserStoreReply, error) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (u *UserUseCase) UserDel(ctx context.Context, req *userV1.UserDelReq) (*userV1.UserDelReply, error) {
-	//TODO implement me
-	panic("implement me")
+func (s *UserUseCase) UserDel(ctx context.Context, req *pb.UserDelReq) (*pb.UserDelReply, error) {
+	return &pb.UserDelReply{}, nil
 }

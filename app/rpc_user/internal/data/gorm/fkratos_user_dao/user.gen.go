@@ -29,6 +29,7 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 	_user.ALL = field.NewAsterisk(tableName)
 	_user.ID = field.NewString(tableName, "id")
 	_user.UID = field.NewInt64(tableName, "uid")
+	_user.UserGroupID = field.NewString(tableName, "user_group_id")
 	_user.Username = field.NewString(tableName, "username")
 	_user.Phone = field.NewString(tableName, "phone")
 	_user.Email = field.NewString(tableName, "email")
@@ -52,23 +53,24 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 type user struct {
 	userDo userDo
 
-	ALL       field.Asterisk
-	ID        field.String // Id
-	UID       field.Int64  // uid
-	Username  field.String // 用户名
-	Phone     field.String // 手机
-	Email     field.String // 邮箱
-	Password  field.String // 密码
-	Salt      field.String // 盐值
-	Nickname  field.String // 昵称
-	Sex       field.Int16  // 性别（0未知 1男 2女）
-	Avatar    field.String // 头像
-	Profile   field.String // 简介
-	Other     field.Field  // 其他
-	Status    field.Int16  // 状态
-	CreatedAt field.Field  // 创建时间
-	UpdatedAt field.Field  // 更新时间
-	DeletedAt field.Field  // 删除时间
+	ALL         field.Asterisk
+	ID          field.String // Id
+	UID         field.Int64  // uid
+	UserGroupID field.String // 分组ID
+	Username    field.String // 用户名
+	Phone       field.String // 手机
+	Email       field.String // 邮箱
+	Password    field.String // 密码
+	Salt        field.String // 盐值
+	Nickname    field.String // 昵称
+	Sex         field.Int16  // 性别（0未知 1男 2女）
+	Avatar      field.String // 头像
+	Profile     field.String // 简介
+	Other       field.Field  // 其他
+	Status      field.Int16  // 状态
+	CreatedAt   field.Field  // 创建时间
+	UpdatedAt   field.Field  // 更新时间
+	DeletedAt   field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
 }
@@ -87,6 +89,7 @@ func (u *user) updateTableName(table string) *user {
 	u.ALL = field.NewAsterisk(table)
 	u.ID = field.NewString(table, "id")
 	u.UID = field.NewInt64(table, "uid")
+	u.UserGroupID = field.NewString(table, "user_group_id")
 	u.Username = field.NewString(table, "username")
 	u.Phone = field.NewString(table, "phone")
 	u.Email = field.NewString(table, "email")
@@ -125,9 +128,10 @@ func (u *user) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (u *user) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 16)
+	u.fieldMap = make(map[string]field.Expr, 17)
 	u.fieldMap["id"] = u.ID
 	u.fieldMap["uid"] = u.UID
+	u.fieldMap["user_group_id"] = u.UserGroupID
 	u.fieldMap["username"] = u.Username
 	u.fieldMap["phone"] = u.Phone
 	u.fieldMap["email"] = u.Email

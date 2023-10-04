@@ -7,10 +7,11 @@ import (
 	v1 "fkratos/api/rpc_common/v1"
 	"fkratos/app/rpc_common/internal/data/gorm/fkratos_common_model"
 	"fkratos/app/rpc_common/internal/data/gorm/fkratos_common_repo"
+	"fkratos/internal/dto"
 	"fkratos/internal/errorx"
 	"sync"
 
-	"github.com/fzf-labs/fpkg/page"
+	"github.com/fzf-labs/fpkg/orm"
 	"github.com/fzf-labs/fpkg/util/timeutil"
 	"github.com/importcjj/sensitive"
 	"github.com/jinzhu/copier"
@@ -20,7 +21,6 @@ import (
 
 type SensitiveWordRepo interface {
 	fkratos_common_repo.ISensitiveWordRepo
-	SensitiveWordListBySearch(ctx context.Context, req *paginator.PaginatorReq) ([]*fkratos_common_model.SensitiveWord, *page.Page, error)
 	SensitiveWordStore(ctx context.Context, data *fkratos_common_model.SensitiveWord) (*fkratos_common_model.SensitiveWord, error)
 	SensitiveWordsCache(ctx context.Context) ([]string, error)
 	SensitiveWordsCacheDel(ctx context.Context) error
@@ -41,9 +41,14 @@ type SensitiveWordUseCase struct {
 
 func (s *SensitiveWordUseCase) SensitiveWordList(ctx context.Context, req *paginator.PaginatorReq) (*v1.SensitiveWordListReply, error) {
 	resp := new(v1.SensitiveWordListReply)
-	result, p, err := s.sensitiveWordRepo.SensitiveWordListBySearch(ctx, req)
+	paginatorReq := &orm.PaginatorReq{}
+	err := dto.Copy(paginatorReq, req)
 	if err != nil {
-		return nil, err
+		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+	}
+	result, paginatorReply, err := s.sensitiveWordRepo.FindMultiByPaginator(ctx, paginatorReq)
+	if err != nil {
+		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 	}
 	for _, v := range result {
 		labs := make([]string, 0)
@@ -59,7 +64,7 @@ func (s *SensitiveWordUseCase) SensitiveWordList(ctx context.Context, req *pagin
 			UpdatedAt: timeutil.ToDateTimeStringByTime(v.UpdatedAt),
 		})
 	}
-	err = copier.Copy(&resp.Paginator, p)
+	err = copier.Copy(&resp.Paginator, paginatorReply)
 	if err != nil {
 		return nil, err
 	}

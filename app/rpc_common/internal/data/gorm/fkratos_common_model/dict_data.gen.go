@@ -5,25 +5,26 @@
 package fkratos_common_model
 
 import (
-	"database/sql"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 const TableNameDictDatum = "dict_data"
 
 // DictDatum mapped from table <dict_data>
 type DictDatum struct {
-	ID        string       `gorm:"column:id;primaryKey;comment:id" json:"id"`                // id
-	Type      string       `gorm:"column:type;not null;comment:字典类型" json:"type"`            // 字典类型
-	Label     string       `gorm:"column:label;not null;comment:字典标签" json:"label"`          // 字典标签
-	Value     string       `gorm:"column:value;not null;comment:字典键值" json:"value"`          // 字典键值
-	Remark    string       `gorm:"column:remark;comment:备注" json:"remark"`                   // 备注
-	CSSColor  string       `gorm:"column:css_color;comment:css 颜色" json:"cssColor"`          // css 颜色
-	CSSClass  string       `gorm:"column:css_class;comment:css 样式" json:"cssClass"`          // css 样式
-	Status    int16        `gorm:"column:status;not null;comment:状态（0正常 1停用）" json:"status"` // 状态（0正常 1停用）
-	CreatedAt time.Time    `gorm:"column:created_at;not null;comment:创建时间" json:"createdAt"` // 创建时间
-	UpdatedAt time.Time    `gorm:"column:updated_at;not null;comment:更新时间" json:"updatedAt"` // 更新时间
-	DeletedAt sql.NullTime `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`          // 删除时间
+	ID        string         `gorm:"column:id;primaryKey;comment:id" json:"id"`                // id
+	Type      string         `gorm:"column:type;not null;comment:字典类型" json:"type"`            // 字典类型
+	Label     string         `gorm:"column:label;not null;comment:字典标签" json:"label"`          // 字典标签
+	Value     string         `gorm:"column:value;not null;comment:字典键值" json:"value"`          // 字典键值
+	Remark    string         `gorm:"column:remark;comment:备注" json:"remark"`                   // 备注
+	CSSColor  string         `gorm:"column:css_color;comment:css 颜色" json:"cssColor"`          // css 颜色
+	CSSClass  string         `gorm:"column:css_class;comment:css 样式" json:"cssClass"`          // css 样式
+	Status    int16          `gorm:"column:status;not null;comment:状态（0正常 1停用）" json:"status"` // 状态（0正常 1停用）
+	CreatedAt time.Time      `gorm:"column:created_at;not null;comment:创建时间" json:"createdAt"` // 创建时间
+	UpdatedAt time.Time      `gorm:"column:updated_at;not null;comment:更新时间" json:"updatedAt"` // 更新时间
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`          // 删除时间
 }
 
 // TableName DictDatum's table name

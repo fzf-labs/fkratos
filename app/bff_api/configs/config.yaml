@@ -38,3 +38,7 @@ registry:
     beatInterval: 1s
     notLoadCacheAtStart: false
     updateCacheWhenEmpty: true
+apiDoc:
+  apiFox:
+    accessToken: APS-1zB0KpDZlq5eunxay3GzoRYC6AdeuXg9
+    projectId: "3366291"

@@ -1026,7 +1026,7 @@ type SysAdminPermission struct {
 	Pid       string                `protobuf:"bytes,2,opt,name=Pid,proto3" json:"Pid,omitempty"`              // 上级菜单
 	Type      string                `protobuf:"bytes,3,opt,name=Type,proto3" json:"Type,omitempty"`            // 类型:menu_dir=菜单目录,menu=菜单项,button=页面按钮
 	Title     string                `protobuf:"bytes,4,opt,name=Title,proto3" json:"Title,omitempty"`          // 标题
-	Name      string                `protobuf:"bytes,5,opt,name=Name,proto3" json:"Name,omitempty"`            // 规则名称
+	Name      string                `protobuf:"bytes,5,opt,name=UpperName,proto3" json:"UpperName,omitempty"`  // 规则名称
 	Path      string                `protobuf:"bytes,6,opt,name=Path,proto3" json:"Path,omitempty"`            // 路由路径
 	Icon      string                `protobuf:"bytes,7,opt,name=Icon,proto3" json:"Icon,omitempty"`            // 图标
 	MenuType  string                `protobuf:"bytes,8,opt,name=MenuType,proto3" json:"MenuType,omitempty"`    // 菜单类型:tab=选项卡,link=链接,iframe=Iframe

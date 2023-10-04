@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package api.rpc_user.v1;
+
+import "paginator/paginator.proto";
+
+option go_package = "fkratos/api/rpc_user/v1;v1";
+
+// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
+// 后缀定义:请求req,响应reply
+
+// 用户分组
+service UserGroup {
+  //用户分组-列表
+  rpc UserGroupList(UserGroupListReq) returns (UserGroupListReply);
+  //用户分组-保存
+  rpc UserGroupStore(UserGroupStoreReq) returns (UserGroupStoreReply);
+  //用户分组-删除
+  rpc UserGroupDel(UserGroupDelReq) returns (UserGroupDelReply);
+}
+
+message UserGroupInfo {
+  string id = 1; // Id
+  string name = 2; // 名称
+  repeated string roles = 3; // 规则
+  int32 status = 4; // 状态
+  string createdAt = 5; // 创建时间
+  string updatedAt = 6; // 更新时间
+}
+
+message UserGroupListReq {
+  paginator.PaginatorReq paginator = 1; //分页
+}
+message UserGroupListReply {
+  paginator.PaginatorReply paginator = 1; //分页
+  repeated UserGroupInfo list = 2; //列表
+}
+
+message UserGroupStoreReq {
+  string id = 1; // Id
+  string name = 2; // 名称
+  repeated string roles = 3; // 规则
+  int32 status = 4; // 状态
+}
+message UserGroupStoreReply {
+  string id = 1; // Id
+}
+
+message UserGroupDelReq {
+  repeated string ids = 1; //ID集合
+}
+message UserGroupDelReply {}

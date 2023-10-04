@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package api.rpc_user.v1;
+
+import "paginator/paginator.proto";
+
+option go_package = "fkratos/api/rpc_user/v1;v1";
+
+// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
+// 后缀定义:请求req,响应reply
+
+// 用户规则
+service UserRule {
+  //用户规则-列表
+  rpc UserRuleList(UserRuleListReq) returns (UserRuleListReply);
+  //用户规则-信息
+  rpc UserRuleInfo(UserRuleInfoReq) returns (UserRuleInfoReply);
+  //用户规则-保存
+  rpc UserRuleStore(UserRuleStoreReq) returns (UserRuleStoreReply);
+  //用户规则-删除
+  rpc UserRuleDel(UserRuleDelReq) returns (UserRuleDelReply);
+}
+
+message UserRuleInfo {}
+
+message UserRuleListReq {
+  paginator.PaginatorReq paginator = 1; //分页
+}
+message UserRuleListReply {
+  paginator.PaginatorReply paginator = 1; //分页
+  repeated UserRuleInfo list = 2; //列表
+}
+
+message UserRuleInfoReq {
+  int64 UID = 2; // uid
+}
+message UserRuleInfoReply {
+  UserRuleInfo info = 1; //用户规则信息
+}
+
+message UserRuleStoreReq {}
+message UserRuleStoreReply {
+  string ID = 1; // Id
+}
+
+message UserRuleDelReq {
+  repeated string ids = 1; //ID集合
+}
+message UserRuleDelReply {}
