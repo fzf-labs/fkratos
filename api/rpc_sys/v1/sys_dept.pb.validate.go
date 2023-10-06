@@ -61,7 +61,7 @@ func (m *SysDeptInfo) validate(all bool) error {
 
 	// no validation rules for Pid
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for FullName
 
@@ -683,7 +683,7 @@ func (m *SysDeptStoreReq) validate(all bool) error {
 
 	// no validation rules for Pid
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for FullName
 

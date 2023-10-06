@@ -7,10 +7,11 @@
 package v1
 
 import (
-	context "context"
-	paginator "fkratos/api/paginator"
-	http "github.com/go-kratos/kratos/v2/transport/http"
-	binding "github.com/go-kratos/kratos/v2/transport/http/binding"
+	"context"
+	"fkratos/api/paginator"
+
+	"github.com/go-kratos/kratos/v2/transport/http"
+	"github.com/go-kratos/kratos/v2/transport/http/binding"
 )
 
 // This is a compile-time assertion to ensure that this generated file

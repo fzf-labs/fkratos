@@ -1,10 +1,12 @@
 package data
 
 import (
+	"fkratos/app/rpc_user/internal/data/gorm/fkratos_user_repo"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
 	"fmt"
 
+	"github.com/fzf-labs/fpkg/orm/gen/cache"
 	"github.com/fzf-labs/fpkg/orm/gen/cache/rueidisdbcache"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
@@ -15,25 +17,31 @@ import (
 // ProviderSet is data providers.
 var ProviderSet = wire.NewSet(
 	NewData,
-	NewUserRepo,
 	bootstrap.NewGorm,
 	bootstrap.NewRueidis,
+	NewDBCache,
+	NewUserRepo,
+	NewUserGroupRepo,
+	NewUserRuleRepo,
+	fkratos_user_repo.NewUserRepo,
+	fkratos_user_repo.NewUserGroupRepo,
+	fkratos_user_repo.NewUserRuleRepo,
 )
 
 type Data struct {
-	logger         *log.Helper
-	gorm           *gorm.DB
-	rueidis        rueidis.Client
-	rueidisdbcache *rueidisdbcache.Cache
+	logger  *log.Helper
+	gorm    *gorm.DB
+	rueidis rueidis.Client
+	dbCache cache.IDBCache
 }
 
-func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidisClient rueidis.Client) (*Data, func(), error) {
+func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidisClient rueidis.Client, dbCache cache.IDBCache) (*Data, func(), error) {
 	l := log.NewHelper(log.With(logger, "module", fmt.Sprintf("%s/data", c.Name)))
 	d := &Data{
-		logger:         l,
-		gorm:           db,
-		rueidis:        rueidisClient,
-		rueidisdbcache: rueidisdbcache.NewRueidisDBCache(rueidisClient),
+		logger:  l,
+		gorm:    db,
+		rueidis: rueidisClient,
+		dbCache: dbCache,
 	}
 	cleanup := func() {
 		log.Info("closing the data resources")
@@ -48,4 +56,8 @@ func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidisClient ru
 		d.rueidis.Close()
 	}
 	return d, cleanup, nil
+}
+
+func NewDBCache(rueidisClient rueidis.Client) cache.IDBCache {
+	return rueidisdbcache.NewRueidisDBCache(rueidisClient)
 }

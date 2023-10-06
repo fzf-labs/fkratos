@@ -3,9 +3,8 @@ package service
 import (
 	"context"
 	"fkratos/api/paginator"
-	"fkratos/app/rpc_common/internal/biz"
-
 	pb "fkratos/api/rpc_common/v1"
+	"fkratos/app/rpc_common/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
 )

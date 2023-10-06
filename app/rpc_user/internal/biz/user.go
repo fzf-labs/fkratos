@@ -2,35 +2,109 @@ package biz
 
 import (
 	"context"
-
+	"fkratos/api/paginator"
 	pb "fkratos/api/rpc_user/v1"
+	"fkratos/app/rpc_user/internal/data/gorm/fkratos_user_model"
+	"fkratos/app/rpc_user/internal/data/gorm/fkratos_user_repo"
+	"fkratos/internal/dto"
+	"fkratos/internal/errorx"
 
+	"github.com/fzf-labs/fpkg/orm"
 	"github.com/go-kratos/kratos/v2/log"
 )
 
 type UserRepo interface {
+	fkratos_user_repo.IUserRepo
 }
 
 type UserUseCase struct {
-	log *log.Helper
+	log      *log.Helper
+	userRepo UserRepo
 }
 
-func NewUserUseCase(logger log.Logger) *UserUseCase {
+func NewUserUseCase(logger log.Logger, userRepo UserRepo) *UserUseCase {
 	l := log.NewHelper(log.With(logger, "module", "biz/user"))
 	return &UserUseCase{
-		log: l,
+		log:      l,
+		userRepo: userRepo,
 	}
 }
 
 func (s *UserUseCase) UserList(ctx context.Context, req *pb.UserListReq) (*pb.UserListReply, error) {
-	return &pb.UserListReply{}, nil
+	resp := &pb.UserListReply{
+		Paginator: &paginator.PaginatorReply{},
+		List:      make([]*pb.UserInfo, 0),
+	}
+	paginatorReq := &orm.PaginatorReq{}
+	err := dto.Copy(paginatorReq, req.GetPaginator())
+	if err != nil {
+		return nil, errorx.DataFormattingError.WithMetadata(errorx.SetErrMetadata(err))
+	}
+	result, p, err := s.userRepo.FindMultiByPaginator(ctx, paginatorReq)
+	if err != nil {
+		return nil, errorx.DataSQLErr.WithMetadata(errorx.SetErrMetadata(err))
+	}
+	if len(result) > 0 {
+		err = dto.Copy(&resp.List, &result)
+		if err != nil {
+			return nil, errorx.DataFormattingError.WithMetadata(errorx.SetErrMetadata(err))
+		}
+		err = dto.Copy(&resp.Paginator, p)
+		if err != nil {
+			return nil, errorx.DataFormattingError.WithMetadata(errorx.SetErrMetadata(err))
+		}
+	}
+	return resp, nil
 }
 func (s *UserUseCase) UserInfo(ctx context.Context, req *pb.UserInfoReq) (*pb.UserInfoReply, error) {
-	return &pb.UserInfoReply{}, nil
+	resp := &pb.UserInfoReply{
+		Info: &pb.UserInfo{},
+	}
+	result, err := s.userRepo.FindOneCacheByUID(ctx, req.GetUid())
+	if err != nil {
+		return nil, err
+	}
+	err = dto.Copy(&resp.Info, result)
+	if err != nil {
+		return nil, errorx.DataFormattingError.WithMetadata(errorx.SetErrMetadata(err))
+	}
+	return resp, nil
 }
+
 func (s *UserUseCase) UserStore(ctx context.Context, req *pb.UserStoreReq) (*pb.UserStoreReply, error) {
-	return &pb.UserStoreReply{}, nil
+	user := &fkratos_user_model.User{
+		ID:       req.GetId(),
+		Username: req.GetUsername(),
+		Phone:    req.GetPhone(),
+		Email:    req.GetEmail(),
+		Password: req.GetPassword(),
+		Nickname: req.GetNickname(),
+		Sex:      int16(req.GetSex()),
+		Avatar:   req.GetAvatar(),
+		Profile:  req.GetProfile(),
+		Status:   int16(req.GetStatus()),
+	}
+	if user.ID != "" {
+		err := s.userRepo.UpdateOne(ctx, user)
+		if err != nil {
+			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		}
+	} else {
+		err := s.userRepo.CreateOne(ctx, user)
+		if err != nil {
+			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		}
+	}
+	return &pb.UserStoreReply{
+		Id: user.ID,
+	}, nil
 }
+
 func (s *UserUseCase) UserDel(ctx context.Context, req *pb.UserDelReq) (*pb.UserDelReply, error) {
-	return &pb.UserDelReply{}, nil
+	resp := new(pb.UserDelReply)
+	err := s.userRepo.DeleteMultiCacheByIDS(ctx, req.GetIds())
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
 }

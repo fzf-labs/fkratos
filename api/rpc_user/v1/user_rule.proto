@@ -21,7 +21,23 @@ service UserRule {
   rpc UserRuleDel(UserRuleDelReq) returns (UserRuleDelReply);
 }
 
-message UserRuleInfo {}
+message UserRuleInfo {
+  string id = 1; // ID
+  string pid = 2; // 上级菜单
+  string type = 3; // 类型:route=路由,menu_dir=菜单目录,menu=菜单项,nav_user_menu=顶栏会员菜单下拉项,nav=顶栏菜单项,button=页面按钮
+  string title = 4; // 标题
+  string name = 5; // 规则名称
+  string path = 6; // 路由路径
+  string icon = 7; // 图标
+  string menuType = 8; // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
+  string url = 9; // URL
+  string component = 10; // 组件路径
+  string extend = 11; // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
+  string remark = 12; // 备注
+  int32 status = 13; // 状态
+  string createdAt = 14; // 创建时间
+  string updatedAt = 15; // 更新时间
+}
 
 message UserRuleListReq {
   paginator.PaginatorReq paginator = 1; //分页
@@ -32,13 +48,27 @@ message UserRuleListReply {
 }
 
 message UserRuleInfoReq {
-  int64 UID = 2; // uid
+  string ID = 1; // Id
 }
 message UserRuleInfoReply {
   UserRuleInfo info = 1; //用户规则信息
 }
 
-message UserRuleStoreReq {}
+message UserRuleStoreReq {
+  string id = 1; // ID
+  string pid = 2; // 上级菜单
+  string type = 3; // 类型:route=路由,menu_dir=菜单目录,menu=菜单项,nav_user_menu=顶栏会员菜单下拉项,nav=顶栏菜单项,button=页面按钮
+  string title = 4; // 标题
+  string name = 5; // 规则名称
+  string path = 6; // 路由路径
+  string icon = 7; // 图标
+  string menuType = 8; // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
+  string url = 9; // URL
+  string component = 10; // 组件路径
+  string extend = 11; // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
+  string remark = 12; // 备注
+  int32 status = 13; // 状态
+}
 message UserRuleStoreReply {
   string ID = 1; // Id
 }

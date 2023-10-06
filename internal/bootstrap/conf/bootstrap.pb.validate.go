@@ -57,7 +57,7 @@ func (m *Bootstrap) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	if all {
 		switch v := interface{}(m.GetServer()).(type) {

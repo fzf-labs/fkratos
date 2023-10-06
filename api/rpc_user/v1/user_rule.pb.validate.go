@@ -57,6 +57,36 @@ func (m *UserRuleInfo) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Id
+
+	// no validation rules for Pid
+
+	// no validation rules for Type
+
+	// no validation rules for Title
+
+	// no validation rules for Name
+
+	// no validation rules for Path
+
+	// no validation rules for Icon
+
+	// no validation rules for MenuType
+
+	// no validation rules for Url
+
+	// no validation rules for Component
+
+	// no validation rules for Extend
+
+	// no validation rules for Remark
+
+	// no validation rules for Status
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
 	if len(errors) > 0 {
 		return UserRuleInfoMultiError(errors)
 	}
@@ -450,7 +480,7 @@ func (m *UserRuleInfoReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for UID
+	// no validation rules for ID
 
 	if len(errors) > 0 {
 		return UserRuleInfoReqMultiError(errors)
@@ -682,6 +712,32 @@ func (m *UserRuleStoreReq) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Pid
+
+	// no validation rules for Type
+
+	// no validation rules for Title
+
+	// no validation rules for Name
+
+	// no validation rules for Path
+
+	// no validation rules for Icon
+
+	// no validation rules for MenuType
+
+	// no validation rules for Url
+
+	// no validation rules for Component
+
+	// no validation rules for Extend
+
+	// no validation rules for Remark
+
+	// no validation rules for Status
 
 	if len(errors) > 0 {
 		return UserRuleStoreReqMultiError(errors)

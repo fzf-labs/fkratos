@@ -18,7 +18,7 @@ type UserGroup struct {
 	ID        string         `gorm:"column:id;primaryKey;default:gen_random_uuid();comment:ID" json:"id"` // ID
 	Name      string         `gorm:"column:name;comment:名称" json:"name"`                                  // 名称
 	Roles     datatypes.JSON `gorm:"column:roles;comment:权限" json:"roles"`                                // 权限
-	Status    int16          `gorm:"column:status;not null;default:1;comment:状态" json:"status"`           // 状态
+	Status    int16          `gorm:"column:status;not null;comment:状态" json:"status"`                     // 状态
 	CreatedAt sql.NullTime   `gorm:"column:created_at;comment:创建时间" json:"createdAt"`                     // 创建时间
 	UpdatedAt sql.NullTime   `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`                     // 更新时间
 	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`                     // 删除时间

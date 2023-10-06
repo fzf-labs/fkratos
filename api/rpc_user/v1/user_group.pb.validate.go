@@ -59,7 +59,7 @@ func (m *UserGroupInfo) validate(all bool) error {
 
 	// no validation rules for Id
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for Status
 
@@ -463,7 +463,7 @@ func (m *UserGroupStoreReq) validate(all bool) error {
 
 	// no validation rules for Id
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for Status
 

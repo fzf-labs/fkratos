@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package paginator;
+package api.paginator;
 import "validate/validate.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 option go_package = "fkratos/api/paginator;paginator";

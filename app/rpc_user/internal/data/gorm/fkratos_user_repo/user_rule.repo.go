@@ -28,6 +28,10 @@ type (
 		CreateOne(ctx context.Context, data *fkratos_user_model.UserRule) error
 		// CreateOneByTx 创建一条数据(事务)
 		CreateOneByTx(ctx context.Context, tx *fkratos_user_dao.Query, data *fkratos_user_model.UserRule) error
+		// UpsertOne Upsert一条数据
+		UpsertOne(ctx context.Context, data *fkratos_user_model.UserRule) error
+		// UpsertOneByTx Upsert一条数据(事务)
+		UpsertOneByTx(ctx context.Context, tx *fkratos_user_dao.Query, data *fkratos_user_model.UserRule) error
 		// CreateBatch 批量创建数据
 		CreateBatch(ctx context.Context, data []*fkratos_user_model.UserRule, batchSize int) error
 		// UpdateOne 更新一条数据
@@ -100,6 +104,26 @@ func (u *UserRuleRepo) CreateOneByTx(ctx context.Context, tx *fkratos_user_dao.Q
 	return nil
 }
 
+// UpsertOne Upsert一条数据
+func (u *UserRuleRepo) UpsertOne(ctx context.Context, data *fkratos_user_model.UserRule) error {
+	dao := fkratos_user_dao.Use(u.db).UserRule
+	err := dao.WithContext(ctx).Save(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UpsertOneByTx Upsert一条数据(事务)
+func (u *UserRuleRepo) UpsertOneByTx(ctx context.Context, tx *fkratos_user_dao.Query, data *fkratos_user_model.UserRule) error {
+	dao := tx.UserRule
+	err := dao.WithContext(ctx).Save(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // CreateBatch 批量创建数据
 func (u *UserRuleRepo) CreateBatch(ctx context.Context, data []*fkratos_user_model.UserRule, batchSize int) error {
 	dao := fkratos_user_dao.Use(u.db).UserRule
@@ -113,7 +137,7 @@ func (u *UserRuleRepo) CreateBatch(ctx context.Context, data []*fkratos_user_mod
 // UpdateOne 更新一条数据
 func (u *UserRuleRepo) UpdateOne(ctx context.Context, data *fkratos_user_model.UserRule) error {
 	dao := fkratos_user_dao.Use(u.db).UserRule
-	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Updates(data)
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -127,7 +151,7 @@ func (u *UserRuleRepo) UpdateOne(ctx context.Context, data *fkratos_user_model.U
 // UpdateOneByTx 更新一条数据(事务)
 func (u *UserRuleRepo) UpdateOneByTx(ctx context.Context, tx *fkratos_user_dao.Query, data *fkratos_user_model.UserRule) error {
 	dao := tx.UserRule
-	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Updates(data)
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -395,14 +419,14 @@ func (u *UserRuleRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *o
 	var total int64
 	queryStr, args, err := paginatorReq.ConvertToGormConditions()
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	err = u.db.WithContext(ctx).Model(&fkratos_user_model.UserRule{}).Select([]string{"id"}).Where(queryStr, args...).Count(&total).Error
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	if total == 0 {
-		return nil, nil, nil
+		return result, nil, nil
 	}
 	query := u.db.WithContext(ctx)
 	order := paginatorReq.ConvertToOrder()
@@ -412,7 +436,7 @@ func (u *UserRuleRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *o
 	paginatorReply := paginatorReq.ConvertToPage(int(total))
 	err = query.Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Where(queryStr, args...).Find(&result).Error
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	return result, paginatorReply, err
 }

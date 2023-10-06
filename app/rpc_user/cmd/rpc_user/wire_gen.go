@@ -9,6 +9,7 @@ package main
 import (
 	"fkratos/app/rpc_user/internal/biz"
 	"fkratos/app/rpc_user/internal/data"
+	"fkratos/app/rpc_user/internal/data/gorm/fkratos_user_repo"
 	"fkratos/app/rpc_user/internal/server"
 	"fkratos/app/rpc_user/internal/service"
 	"fkratos/internal/bootstrap"
@@ -28,14 +29,24 @@ import (
 func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
 	db := bootstrap.NewGorm(confBootstrap, logger)
 	client := bootstrap.NewRueidis(confBootstrap, logger)
-	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, client)
+	idbCache := data.NewDBCache(client)
+	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, client, idbCache)
 	if err != nil {
 		return nil, nil, err
 	}
-	userRepo := data.NewUserRepo(dataData, logger)
-	userUseCase := biz.NewUserUseCase(userRepo, logger)
+	userRepo := fkratos_user_repo.NewUserRepo(db, idbCache)
+	bizUserRepo := data.NewUserRepo(logger, dataData, userRepo)
+	userUseCase := biz.NewUserUseCase(logger, bizUserRepo)
 	userService := service.NewUserService(logger, userUseCase)
-	grpcServer := server.NewGRPCServer(confBootstrap, logger, userService)
+	userRuleRepo := fkratos_user_repo.NewUserRuleRepo(db, idbCache)
+	bizUserRuleRepo := data.NewUserRuleRepo(logger, dataData, userRuleRepo)
+	userRuleUseCase := biz.NewUserRuleUseCase(logger, bizUserRuleRepo)
+	userRuleService := service.NewUserRuleService(logger, userRuleUseCase)
+	userGroupRepo := fkratos_user_repo.NewUserGroupRepo(db, idbCache)
+	bizUserGroupRepo := data.NewUserGroupRepo(logger, dataData, userGroupRepo)
+	userGroupUseCase := biz.NewUserGroupUseCase(logger, bizUserGroupRepo)
+	userGroupService := service.NewUserGroupService(logger, userGroupUseCase)
+	grpcServer := server.NewGRPCServer(confBootstrap, logger, userService, userRuleService, userGroupService)
 	app := newApp(logger, registrar, grpcServer)
 	return app, func() {
 		cleanup()

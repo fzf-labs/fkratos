@@ -16,7 +16,7 @@ import (
 
 var _ biz.{{ .UpperName }}Repo = (*{{ .UpperName }}Repo)(nil)
 
-func New{{ .UpperName }}Repo(logger log.Logger,data *Data) *{{ .UpperName }}Repo {
+func New{{ .UpperName }}Repo(logger log.Logger,data *Data) biz.{{ .UpperName }}Repo {
 	l := log.NewHelper(log.With(logger, "module", "data/{{ .LowerName }}"))
 	return &{{ .UpperName }}Repo{
 		log:         l,

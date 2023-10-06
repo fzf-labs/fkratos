@@ -37,7 +37,6 @@ func newUserRule(db *gorm.DB, opts ...gen.DOOption) userRule {
 	_userRule.MenuType = field.NewString(tableName, "menu_type")
 	_userRule.URL = field.NewString(tableName, "url")
 	_userRule.Component = field.NewString(tableName, "component")
-	_userRule.NoLoginValid = field.NewBool(tableName, "no_login_valid")
 	_userRule.Extend = field.NewString(tableName, "extend")
 	_userRule.Remark = field.NewString(tableName, "remark")
 	_userRule.Status = field.NewInt16(tableName, "status")
@@ -53,24 +52,23 @@ func newUserRule(db *gorm.DB, opts ...gen.DOOption) userRule {
 type userRule struct {
 	userRuleDo userRuleDo
 
-	ALL          field.Asterisk
-	ID           field.String // ID
-	Pid          field.String // 上级菜单
-	Type         field.String // 类型:route=路由,menu_dir=菜单目录,menu=菜单项,nav_user_menu=顶栏会员菜单下拉项,nav=顶栏菜单项,button=页面按钮
-	Title        field.String // 标题
-	Name         field.String // 规则名称
-	Path         field.String // 路由路径
-	Icon         field.String // 图标
-	MenuType     field.String // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
-	URL          field.String // URL
-	Component    field.String // 组件路径
-	NoLoginValid field.Bool   // 未登录有效:0=否,1=是
-	Extend       field.String // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
-	Remark       field.String // 备注
-	Status       field.Int16  // 状态
-	CreatedAt    field.Field  // 创建时间
-	UpdatedAt    field.Field  // 更新时间
-	DeletedAt    field.Field  // 删除时间
+	ALL       field.Asterisk
+	ID        field.String // ID
+	Pid       field.String // 上级菜单
+	Type      field.String // 类型:route=路由,menu_dir=菜单目录,menu=菜单项,nav_user_menu=顶栏会员菜单下拉项,nav=顶栏菜单项,button=页面按钮
+	Title     field.String // 标题
+	Name      field.String // 规则名称
+	Path      field.String // 路由路径
+	Icon      field.String // 图标
+	MenuType  field.String // 菜单类型:tab=选项卡,link=链接,iframe=Iframe
+	URL       field.String // URL
+	Component field.String // 组件路径
+	Extend    field.String // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
+	Remark    field.String // 备注
+	Status    field.Int16  // 状态
+	CreatedAt field.Field  // 创建时间
+	UpdatedAt field.Field  // 更新时间
+	DeletedAt field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
 }
@@ -97,7 +95,6 @@ func (u *userRule) updateTableName(table string) *userRule {
 	u.MenuType = field.NewString(table, "menu_type")
 	u.URL = field.NewString(table, "url")
 	u.Component = field.NewString(table, "component")
-	u.NoLoginValid = field.NewBool(table, "no_login_valid")
 	u.Extend = field.NewString(table, "extend")
 	u.Remark = field.NewString(table, "remark")
 	u.Status = field.NewInt16(table, "status")
@@ -128,7 +125,7 @@ func (u *userRule) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (u *userRule) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 17)
+	u.fieldMap = make(map[string]field.Expr, 16)
 	u.fieldMap["id"] = u.ID
 	u.fieldMap["pid"] = u.Pid
 	u.fieldMap["type"] = u.Type
@@ -139,7 +136,6 @@ func (u *userRule) fillFieldMap() {
 	u.fieldMap["menu_type"] = u.MenuType
 	u.fieldMap["url"] = u.URL
 	u.fieldMap["component"] = u.Component
-	u.fieldMap["no_login_valid"] = u.NoLoginValid
 	u.fieldMap["extend"] = u.Extend
 	u.fieldMap["remark"] = u.Remark
 	u.fieldMap["status"] = u.Status
