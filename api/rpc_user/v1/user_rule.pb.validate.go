@@ -480,7 +480,7 @@ func (m *UserRuleInfoReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return UserRuleInfoReqMultiError(errors)
@@ -839,7 +839,7 @@ func (m *UserRuleStoreReply) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return UserRuleStoreReplyMultiError(errors)
@@ -1120,3 +1120,238 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UserRuleDelReplyValidationError{}
+
+// Validate checks the field values on UserRulesReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UserRulesReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserRulesReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UserRulesReqMultiError, or
+// nil if none found.
+func (m *UserRulesReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserRulesReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Uid
+
+	if len(errors) > 0 {
+		return UserRulesReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserRulesReqMultiError is an error wrapping multiple validation errors
+// returned by UserRulesReq.ValidateAll() if the designated constraints aren't met.
+type UserRulesReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserRulesReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserRulesReqMultiError) AllErrors() []error { return m }
+
+// UserRulesReqValidationError is the validation error returned by
+// UserRulesReq.Validate if the designated constraints aren't met.
+type UserRulesReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserRulesReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserRulesReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserRulesReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserRulesReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserRulesReqValidationError) ErrorName() string { return "UserRulesReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserRulesReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserRulesReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserRulesReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserRulesReqValidationError{}
+
+// Validate checks the field values on UserRulesReply with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UserRulesReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UserRulesReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UserRulesReplyMultiError,
+// or nil if none found.
+func (m *UserRulesReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UserRulesReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UserRulesReplyValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UserRulesReplyValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UserRulesReplyValidationError{
+					field:  fmt.Sprintf("List[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UserRulesReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// UserRulesReplyMultiError is an error wrapping multiple validation errors
+// returned by UserRulesReply.ValidateAll() if the designated constraints
+// aren't met.
+type UserRulesReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UserRulesReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UserRulesReplyMultiError) AllErrors() []error { return m }
+
+// UserRulesReplyValidationError is the validation error returned by
+// UserRulesReply.Validate if the designated constraints aren't met.
+type UserRulesReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UserRulesReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UserRulesReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UserRulesReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UserRulesReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UserRulesReplyValidationError) ErrorName() string { return "UserRulesReplyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UserRulesReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUserRulesReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UserRulesReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UserRulesReplyValidationError{}

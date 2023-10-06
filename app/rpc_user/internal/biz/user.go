@@ -9,7 +9,9 @@ import (
 	"fkratos/internal/dto"
 	"fkratos/internal/errorx"
 
+	"github.com/fzf-labs/fpkg/crypt"
 	"github.com/fzf-labs/fpkg/orm"
+	"github.com/fzf-labs/fpkg/util/uuidutil"
 	"github.com/go-kratos/kratos/v2/log"
 )
 
@@ -72,32 +74,78 @@ func (s *UserUseCase) UserInfo(ctx context.Context, req *pb.UserInfoReq) (*pb.Us
 }
 
 func (s *UserUseCase) UserStore(ctx context.Context, req *pb.UserStoreReq) (*pb.UserStoreReply, error) {
-	user := &fkratos_user_model.User{
-		ID:       req.GetId(),
-		Username: req.GetUsername(),
-		Phone:    req.GetPhone(),
-		Email:    req.GetEmail(),
-		Password: req.GetPassword(),
-		Nickname: req.GetNickname(),
-		Sex:      int16(req.GetSex()),
-		Avatar:   req.GetAvatar(),
-		Profile:  req.GetProfile(),
-		Status:   int16(req.GetStatus()),
-	}
-	if user.ID != "" {
+	if req.Id != "" {
+		userInfo, err2 := s.userRepo.FindOneCacheByID(ctx, req.Id)
+		if err2 != nil {
+			return nil, err2
+		}
+		user := &fkratos_user_model.User{
+			ID:          req.GetId(),
+			UID:         userInfo.UID,
+			UserGroupID: req.GetUserGroupID(),
+			Username:    req.GetUsername(),
+			Phone:       req.GetPhone(),
+			Email:       req.GetEmail(),
+			Password:    userInfo.Password,
+			Salt:        userInfo.Salt,
+			Nickname:    req.GetNickname(),
+			Sex:         int16(req.GetSex()),
+			Avatar:      req.GetAvatar(),
+			Profile:     req.GetProfile(),
+			Status:      int16(req.GetStatus()),
+		}
+		if req.GetPassword() != "" {
+			encrypt, err := crypt.Encrypt(req.GetPassword() + userInfo.Salt)
+			if err != nil {
+				return nil, err
+			}
+			user.Password = encrypt
+		}
 		err := s.userRepo.UpdateOne(ctx, user)
 		if err != nil {
 			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
+		return &pb.UserStoreReply{
+			Id: user.ID,
+		}, nil
 	} else {
-		err := s.userRepo.CreateOne(ctx, user)
+		findOneCacheByUsername, err := s.userRepo.FindOneCacheByUsername(ctx, req.GetUsername())
+		if err != nil {
+			return nil, err
+		}
+		if findOneCacheByUsername != nil {
+			return nil, errorx.AccountDuplicateUsername
+		}
+		salt := uuidutil.KSUID()
+		user := &fkratos_user_model.User{
+			ID:          req.GetId(),
+			UID:         uuidutil.KSUIDByTime(),
+			UserGroupID: req.GetUserGroupID(),
+			Username:    req.GetUsername(),
+			Phone:       req.GetPhone(),
+			Email:       req.GetEmail(),
+			Password:    req.GetPassword(),
+			Salt:        salt,
+			Nickname:    req.GetNickname(),
+			Sex:         int16(req.GetSex()),
+			Avatar:      req.GetAvatar(),
+			Profile:     req.GetProfile(),
+			Other:       nil,
+			Status:      int16(req.GetStatus()),
+		}
+		encrypt, err := crypt.Encrypt(req.GetPassword() + salt)
+		if err != nil {
+			return nil, err
+		}
+		user.Password = encrypt
+		err = s.userRepo.CreateOne(ctx, user)
 		if err != nil {
 			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
 		}
+		return &pb.UserStoreReply{
+			Id: user.ID,
+		}, nil
 	}
-	return &pb.UserStoreReply{
-		Id: user.ID,
-	}, nil
 }
 
 func (s *UserUseCase) UserDel(ctx context.Context, req *pb.UserDelReq) (*pb.UserDelReply, error) {

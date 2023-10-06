@@ -19,6 +19,8 @@ service UserRule {
   rpc UserRuleStore(UserRuleStoreReq) returns (UserRuleStoreReply);
   //用户规则-删除
   rpc UserRuleDel(UserRuleDelReq) returns (UserRuleDelReply);
+  //用户规则-用户所有规则
+  rpc UserRules(UserRulesReq) returns (UserRulesReply);
 }
 
 message UserRuleInfo {
@@ -48,7 +50,7 @@ message UserRuleListReply {
 }
 
 message UserRuleInfoReq {
-  string ID = 1; // Id
+  string id = 1; // Id
 }
 message UserRuleInfoReply {
   UserRuleInfo info = 1; //用户规则信息
@@ -70,10 +72,17 @@ message UserRuleStoreReq {
   int32 status = 13; // 状态
 }
 message UserRuleStoreReply {
-  string ID = 1; // Id
+  string id = 1; // Id
 }
 
 message UserRuleDelReq {
   repeated string ids = 1; //ID集合
 }
 message UserRuleDelReply {}
+
+message UserRulesReq {
+  string uid = 1; // uid
+}
+message UserRulesReply {
+  repeated UserRuleInfo list = 1; //列表
+}

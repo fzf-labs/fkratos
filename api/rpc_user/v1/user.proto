@@ -23,7 +23,7 @@ service User {
 
 message UserInfo {
   string id = 1; // Id
-  int64 uid = 2; // uid
+  string uid = 2; // uid
   string username = 3; // 用户名
   string phone = 4; // 手机
   string email = 5; // 邮箱
@@ -46,7 +46,7 @@ message UserListReply {
 }
 
 message UserInfoReq {
-  int64 uid = 2; // uid
+  string uid = 2; // uid
 }
 message UserInfoReply {
   UserInfo info = 1; //用户信息
@@ -63,6 +63,7 @@ message UserStoreReq {
   string avatar = 8; // 头像
   string profile = 9; // 简介
   int32 status = 10; // 状态
+  string userGroupID = 11; // 分组ID
 }
 message UserStoreReply {
   string id = 1; // Id

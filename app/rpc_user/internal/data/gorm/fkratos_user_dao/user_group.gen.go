@@ -31,8 +31,8 @@ func newUserGroup(db *gorm.DB, opts ...gen.DOOption) userGroup {
 	_userGroup.Name = field.NewString(tableName, "name")
 	_userGroup.Roles = field.NewField(tableName, "roles")
 	_userGroup.Status = field.NewInt16(tableName, "status")
-	_userGroup.CreatedAt = field.NewField(tableName, "created_at")
-	_userGroup.UpdatedAt = field.NewField(tableName, "updated_at")
+	_userGroup.CreatedAt = field.NewTime(tableName, "created_at")
+	_userGroup.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_userGroup.DeletedAt = field.NewField(tableName, "deleted_at")
 
 	_userGroup.fillFieldMap()
@@ -48,8 +48,8 @@ type userGroup struct {
 	Name      field.String // 名称
 	Roles     field.Field  // 权限
 	Status    field.Int16  // 状态
-	CreatedAt field.Field  // 创建时间
-	UpdatedAt field.Field  // 更新时间
+	CreatedAt field.Time   // 创建时间
+	UpdatedAt field.Time   // 更新时间
 	DeletedAt field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
@@ -71,8 +71,8 @@ func (u *userGroup) updateTableName(table string) *userGroup {
 	u.Name = field.NewString(table, "name")
 	u.Roles = field.NewField(table, "roles")
 	u.Status = field.NewInt16(table, "status")
-	u.CreatedAt = field.NewField(table, "created_at")
-	u.UpdatedAt = field.NewField(table, "updated_at")
+	u.CreatedAt = field.NewTime(table, "created_at")
+	u.UpdatedAt = field.NewTime(table, "updated_at")
 	u.DeletedAt = field.NewField(table, "deleted_at")
 
 	u.fillFieldMap()

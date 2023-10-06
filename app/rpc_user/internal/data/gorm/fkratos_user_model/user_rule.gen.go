@@ -5,7 +5,7 @@
 package fkratos_user_model
 
 import (
-	"database/sql"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -27,8 +27,8 @@ type UserRule struct {
 	Extend    string         `gorm:"column:extend;not null;comment:扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单" json:"extend"`                       // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
 	Remark    string         `gorm:"column:remark;not null;comment:备注" json:"remark"`                                                                           // 备注
 	Status    int16          `gorm:"column:status;not null;comment:状态" json:"status"`                                                                           // 状态
-	CreatedAt sql.NullTime   `gorm:"column:created_at;comment:创建时间" json:"createdAt"`                                                                           // 创建时间
-	UpdatedAt sql.NullTime   `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`                                                                           // 更新时间
+	CreatedAt time.Time      `gorm:"column:created_at;not null;comment:创建时间" json:"createdAt"`                                                                  // 创建时间
+	UpdatedAt time.Time      `gorm:"column:updated_at;not null;comment:更新时间" json:"updatedAt"`                                                                  // 更新时间
 	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`                                                                           // 删除时间
 }
 

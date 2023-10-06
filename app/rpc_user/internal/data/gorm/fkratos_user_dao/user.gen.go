@@ -28,7 +28,7 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 	tableName := _user.userDo.TableName()
 	_user.ALL = field.NewAsterisk(tableName)
 	_user.ID = field.NewString(tableName, "id")
-	_user.UID = field.NewInt64(tableName, "uid")
+	_user.UID = field.NewString(tableName, "uid")
 	_user.UserGroupID = field.NewString(tableName, "user_group_id")
 	_user.Username = field.NewString(tableName, "username")
 	_user.Phone = field.NewString(tableName, "phone")
@@ -41,8 +41,8 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 	_user.Profile = field.NewString(tableName, "profile")
 	_user.Other = field.NewField(tableName, "other")
 	_user.Status = field.NewInt16(tableName, "status")
-	_user.CreatedAt = field.NewField(tableName, "created_at")
-	_user.UpdatedAt = field.NewField(tableName, "updated_at")
+	_user.CreatedAt = field.NewTime(tableName, "created_at")
+	_user.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_user.DeletedAt = field.NewField(tableName, "deleted_at")
 
 	_user.fillFieldMap()
@@ -55,7 +55,7 @@ type user struct {
 
 	ALL         field.Asterisk
 	ID          field.String // Id
-	UID         field.Int64  // uid
+	UID         field.String // uid
 	UserGroupID field.String // 分组ID
 	Username    field.String // 用户名
 	Phone       field.String // 手机
@@ -68,8 +68,8 @@ type user struct {
 	Profile     field.String // 简介
 	Other       field.Field  // 其他
 	Status      field.Int16  // 状态
-	CreatedAt   field.Field  // 创建时间
-	UpdatedAt   field.Field  // 更新时间
+	CreatedAt   field.Time   // 创建时间
+	UpdatedAt   field.Time   // 更新时间
 	DeletedAt   field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
@@ -88,7 +88,7 @@ func (u user) As(alias string) *user {
 func (u *user) updateTableName(table string) *user {
 	u.ALL = field.NewAsterisk(table)
 	u.ID = field.NewString(table, "id")
-	u.UID = field.NewInt64(table, "uid")
+	u.UID = field.NewString(table, "uid")
 	u.UserGroupID = field.NewString(table, "user_group_id")
 	u.Username = field.NewString(table, "username")
 	u.Phone = field.NewString(table, "phone")
@@ -101,8 +101,8 @@ func (u *user) updateTableName(table string) *user {
 	u.Profile = field.NewString(table, "profile")
 	u.Other = field.NewField(table, "other")
 	u.Status = field.NewInt16(table, "status")
-	u.CreatedAt = field.NewField(table, "created_at")
-	u.UpdatedAt = field.NewField(table, "updated_at")
+	u.CreatedAt = field.NewTime(table, "created_at")
+	u.UpdatedAt = field.NewTime(table, "updated_at")
 	u.DeletedAt = field.NewField(table, "deleted_at")
 
 	u.fillFieldMap()

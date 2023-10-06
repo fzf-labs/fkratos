@@ -23,6 +23,7 @@ const (
 	UserRule_UserRuleInfo_FullMethodName  = "/api.rpc_user.v1.UserRule/UserRuleInfo"
 	UserRule_UserRuleStore_FullMethodName = "/api.rpc_user.v1.UserRule/UserRuleStore"
 	UserRule_UserRuleDel_FullMethodName   = "/api.rpc_user.v1.UserRule/UserRuleDel"
+	UserRule_UserRules_FullMethodName     = "/api.rpc_user.v1.UserRule/UserRules"
 )
 
 // UserRuleClient is the client API for UserRule service.
@@ -37,6 +38,8 @@ type UserRuleClient interface {
 	UserRuleStore(ctx context.Context, in *UserRuleStoreReq, opts ...grpc.CallOption) (*UserRuleStoreReply, error)
 	// 用户规则-删除
 	UserRuleDel(ctx context.Context, in *UserRuleDelReq, opts ...grpc.CallOption) (*UserRuleDelReply, error)
+	// 用户规则-用户所有规则
+	UserRules(ctx context.Context, in *UserRulesReq, opts ...grpc.CallOption) (*UserRulesReply, error)
 }
 
 type userRuleClient struct {
@@ -83,6 +86,15 @@ func (c *userRuleClient) UserRuleDel(ctx context.Context, in *UserRuleDelReq, op
 	return out, nil
 }
 
+func (c *userRuleClient) UserRules(ctx context.Context, in *UserRulesReq, opts ...grpc.CallOption) (*UserRulesReply, error) {
+	out := new(UserRulesReply)
+	err := c.cc.Invoke(ctx, UserRule_UserRules_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserRuleServer is the server API for UserRule service.
 // All implementations must embed UnimplementedUserRuleServer
 // for forward compatibility
@@ -95,6 +107,8 @@ type UserRuleServer interface {
 	UserRuleStore(context.Context, *UserRuleStoreReq) (*UserRuleStoreReply, error)
 	// 用户规则-删除
 	UserRuleDel(context.Context, *UserRuleDelReq) (*UserRuleDelReply, error)
+	// 用户规则-用户所有规则
+	UserRules(context.Context, *UserRulesReq) (*UserRulesReply, error)
 	mustEmbedUnimplementedUserRuleServer()
 }
 
@@ -113,6 +127,9 @@ func (UnimplementedUserRuleServer) UserRuleStore(context.Context, *UserRuleStore
 }
 func (UnimplementedUserRuleServer) UserRuleDel(context.Context, *UserRuleDelReq) (*UserRuleDelReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UserRuleDel not implemented")
+}
+func (UnimplementedUserRuleServer) UserRules(context.Context, *UserRulesReq) (*UserRulesReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserRules not implemented")
 }
 func (UnimplementedUserRuleServer) mustEmbedUnimplementedUserRuleServer() {}
 
@@ -199,6 +216,24 @@ func _UserRule_UserRuleDel_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserRule_UserRules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserRulesReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserRuleServer).UserRules(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserRule_UserRules_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserRuleServer).UserRules(ctx, req.(*UserRulesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserRule_ServiceDesc is the grpc.ServiceDesc for UserRule service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -221,6 +256,10 @@ var UserRule_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UserRuleDel",
 			Handler:    _UserRule_UserRuleDel_Handler,
+		},
+		{
+			MethodName: "UserRules",
+			Handler:    _UserRule_UserRules_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

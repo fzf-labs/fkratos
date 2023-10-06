@@ -5,7 +5,7 @@
 package fkratos_user_model
 
 import (
-	"database/sql"
+	"time"
 
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
@@ -16,21 +16,21 @@ const TableNameUser = "user"
 // User mapped from table <user>
 type User struct {
 	ID          string         `gorm:"column:id;primaryKey;default:gen_random_uuid();comment:Id" json:"id"` // Id
-	UID         int64          `gorm:"column:uid;not null;comment:uid" json:"uid"`                          // uid
-	UserGroupID string         `gorm:"column:user_group_id;comment:分组ID" json:"userGroupId"`                // 分组ID
-	Username    string         `gorm:"column:username;comment:用户名" json:"username"`                         // 用户名
-	Phone       string         `gorm:"column:phone;comment:手机" json:"phone"`                                // 手机
-	Email       string         `gorm:"column:email;comment:邮箱" json:"email"`                                // 邮箱
+	UID         string         `gorm:"column:uid;not null;comment:uid" json:"uid"`                          // uid
+	UserGroupID string         `gorm:"column:user_group_id;not null;comment:分组ID" json:"userGroupId"`       // 分组ID
+	Username    string         `gorm:"column:username;not null;comment:用户名" json:"username"`                // 用户名
+	Phone       string         `gorm:"column:phone;not null;comment:手机" json:"phone"`                       // 手机
+	Email       string         `gorm:"column:email;not null;comment:邮箱" json:"email"`                       // 邮箱
 	Password    string         `gorm:"column:password;not null;comment:密码" json:"password"`                 // 密码
 	Salt        string         `gorm:"column:salt;not null;comment:盐值" json:"salt"`                         // 盐值
-	Nickname    string         `gorm:"column:nickname;comment:昵称" json:"nickname"`                          // 昵称
-	Sex         int16          `gorm:"column:sex;comment:性别（0未知 1男 2女）" json:"sex"`                         // 性别（0未知 1男 2女）
-	Avatar      string         `gorm:"column:avatar;comment:头像" json:"avatar"`                              // 头像
-	Profile     string         `gorm:"column:profile;comment:简介" json:"profile"`                            // 简介
+	Nickname    string         `gorm:"column:nickname;not null;comment:昵称" json:"nickname"`                 // 昵称
+	Sex         int16          `gorm:"column:sex;not null;comment:性别（0未知 1男 2女）" json:"sex"`                // 性别（0未知 1男 2女）
+	Avatar      string         `gorm:"column:avatar;not null;comment:头像" json:"avatar"`                     // 头像
+	Profile     string         `gorm:"column:profile;not null;comment:简介" json:"profile"`                   // 简介
 	Other       datatypes.JSON `gorm:"column:other;comment:其他" json:"other"`                                // 其他
 	Status      int16          `gorm:"column:status;not null;comment:状态" json:"status"`                     // 状态
-	CreatedAt   sql.NullTime   `gorm:"column:created_at;comment:创建时间" json:"createdAt"`                     // 创建时间
-	UpdatedAt   sql.NullTime   `gorm:"column:updated_at;comment:更新时间" json:"updatedAt"`                     // 更新时间
+	CreatedAt   time.Time      `gorm:"column:created_at;not null;comment:创建时间" json:"createdAt"`            // 创建时间
+	UpdatedAt   time.Time      `gorm:"column:updated_at;not null;comment:更新时间" json:"updatedAt"`            // 更新时间
 	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`                     // 删除时间
 }
 

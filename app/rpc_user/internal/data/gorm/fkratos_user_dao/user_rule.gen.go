@@ -40,8 +40,8 @@ func newUserRule(db *gorm.DB, opts ...gen.DOOption) userRule {
 	_userRule.Extend = field.NewString(tableName, "extend")
 	_userRule.Remark = field.NewString(tableName, "remark")
 	_userRule.Status = field.NewInt16(tableName, "status")
-	_userRule.CreatedAt = field.NewField(tableName, "created_at")
-	_userRule.UpdatedAt = field.NewField(tableName, "updated_at")
+	_userRule.CreatedAt = field.NewTime(tableName, "created_at")
+	_userRule.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_userRule.DeletedAt = field.NewField(tableName, "deleted_at")
 
 	_userRule.fillFieldMap()
@@ -66,8 +66,8 @@ type userRule struct {
 	Extend    field.String // 扩展属性:none=无,add_rules_only=只添加为路由,add_menu_only=只添加为菜单
 	Remark    field.String // 备注
 	Status    field.Int16  // 状态
-	CreatedAt field.Field  // 创建时间
-	UpdatedAt field.Field  // 更新时间
+	CreatedAt field.Time   // 创建时间
+	UpdatedAt field.Time   // 更新时间
 	DeletedAt field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
@@ -98,8 +98,8 @@ func (u *userRule) updateTableName(table string) *userRule {
 	u.Extend = field.NewString(table, "extend")
 	u.Remark = field.NewString(table, "remark")
 	u.Status = field.NewInt16(table, "status")
-	u.CreatedAt = field.NewField(table, "created_at")
-	u.UpdatedAt = field.NewField(table, "updated_at")
+	u.CreatedAt = field.NewTime(table, "created_at")
+	u.UpdatedAt = field.NewTime(table, "updated_at")
 	u.DeletedAt = field.NewField(table, "deleted_at")
 
 	u.fillFieldMap()
