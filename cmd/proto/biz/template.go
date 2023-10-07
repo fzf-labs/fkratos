@@ -27,17 +27,17 @@ import (
 type {{ .UpperName }}Repo interface {
 }
 
-type {{ .UpperName }}UseCase struct {
-	log *log.Helper
-	{{ .LowerName }}Repo {{ .UpperName }}Repo
-}
-
 func New{{ .UpperName }}UseCase(logger log.Logger,{{ .LowerName }}Repo {{ .UpperName }}Repo) *{{ .UpperName }}UseCase {
 	l := log.NewHelper(log.With(logger, "module", "biz/{{ .LowerName }}"))
 	return &{{ .UpperName }}UseCase{
 		log:         l,
 		{{ .LowerName }}Repo:{{ .LowerName }}Repo,
 	}
+}
+
+type {{ .UpperName }}UseCase struct {
+	log *log.Helper
+	{{ .LowerName }}Repo {{ .UpperName }}Repo
 }
 
 {{- $s1 := "google.protobuf.Empty" }}

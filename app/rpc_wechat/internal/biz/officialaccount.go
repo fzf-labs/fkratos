@@ -1,13 +1,14 @@
 package biz
 
-import "github.com/go-kratos/kratos/v2/log"
+import (
+	"context"
+
+	pb "fkratos/api/rpc_wechat/v1"
+
+	"github.com/go-kratos/kratos/v2/log"
+)
 
 type OfficialAccountRepo interface {
-}
-
-type OfficialAccountUseCase struct {
-	log                 *log.Helper
-	officialAccountRepo OfficialAccountRepo
 }
 
 func NewOfficialAccountUseCase(logger log.Logger, officialAccountRepo OfficialAccountRepo) *OfficialAccountUseCase {
@@ -16,4 +17,13 @@ func NewOfficialAccountUseCase(logger log.Logger, officialAccountRepo OfficialAc
 		log:                 l,
 		officialAccountRepo: officialAccountRepo,
 	}
+}
+
+type OfficialAccountUseCase struct {
+	log                 *log.Helper
+	officialAccountRepo OfficialAccountRepo
+}
+
+func (s *OfficialAccountUseCase) OfficialAccountMenu(ctx context.Context, req *pb.OfficialAccountMenuReq) (*pb.OfficialAccountMenuReply, error) {
+	return &pb.OfficialAccountMenuReply{}, nil
 }

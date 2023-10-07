@@ -34,3 +34,207 @@ var (
 	_ = anypb.Any{}
 	_ = sort.Sort
 )
+
+// Validate checks the field values on OfficialAccountMenuReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *OfficialAccountMenuReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OfficialAccountMenuReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// OfficialAccountMenuReqMultiError, or nil if none found.
+func (m *OfficialAccountMenuReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OfficialAccountMenuReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return OfficialAccountMenuReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// OfficialAccountMenuReqMultiError is an error wrapping multiple validation
+// errors returned by OfficialAccountMenuReq.ValidateAll() if the designated
+// constraints aren't met.
+type OfficialAccountMenuReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OfficialAccountMenuReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OfficialAccountMenuReqMultiError) AllErrors() []error { return m }
+
+// OfficialAccountMenuReqValidationError is the validation error returned by
+// OfficialAccountMenuReq.Validate if the designated constraints aren't met.
+type OfficialAccountMenuReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OfficialAccountMenuReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OfficialAccountMenuReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OfficialAccountMenuReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OfficialAccountMenuReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OfficialAccountMenuReqValidationError) ErrorName() string {
+	return "OfficialAccountMenuReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e OfficialAccountMenuReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOfficialAccountMenuReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OfficialAccountMenuReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OfficialAccountMenuReqValidationError{}
+
+// Validate checks the field values on OfficialAccountMenuReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *OfficialAccountMenuReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on OfficialAccountMenuReply with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// OfficialAccountMenuReplyMultiError, or nil if none found.
+func (m *OfficialAccountMenuReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *OfficialAccountMenuReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return OfficialAccountMenuReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// OfficialAccountMenuReplyMultiError is an error wrapping multiple validation
+// errors returned by OfficialAccountMenuReply.ValidateAll() if the designated
+// constraints aren't met.
+type OfficialAccountMenuReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m OfficialAccountMenuReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m OfficialAccountMenuReplyMultiError) AllErrors() []error { return m }
+
+// OfficialAccountMenuReplyValidationError is the validation error returned by
+// OfficialAccountMenuReply.Validate if the designated constraints aren't met.
+type OfficialAccountMenuReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e OfficialAccountMenuReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e OfficialAccountMenuReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e OfficialAccountMenuReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e OfficialAccountMenuReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e OfficialAccountMenuReplyValidationError) ErrorName() string {
+	return "OfficialAccountMenuReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e OfficialAccountMenuReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sOfficialAccountMenuReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = OfficialAccountMenuReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = OfficialAccountMenuReplyValidationError{}

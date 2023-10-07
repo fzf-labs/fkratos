@@ -7,7 +7,10 @@
 package v1
 
 import (
+	context "context"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -15,12 +18,16 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-const ()
+const (
+	OfficialAccount_OfficialAccountMenu_FullMethodName = "/api.rpc_wechat.v1.OfficialAccount/OfficialAccountMenu"
+)
 
 // OfficialAccountClient is the client API for OfficialAccount service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OfficialAccountClient interface {
+	// 公众号-菜单
+	OfficialAccountMenu(ctx context.Context, in *OfficialAccountMenuReq, opts ...grpc.CallOption) (*OfficialAccountMenuReply, error)
 }
 
 type officialAccountClient struct {
@@ -31,10 +38,21 @@ func NewOfficialAccountClient(cc grpc.ClientConnInterface) OfficialAccountClient
 	return &officialAccountClient{cc}
 }
 
+func (c *officialAccountClient) OfficialAccountMenu(ctx context.Context, in *OfficialAccountMenuReq, opts ...grpc.CallOption) (*OfficialAccountMenuReply, error) {
+	out := new(OfficialAccountMenuReply)
+	err := c.cc.Invoke(ctx, OfficialAccount_OfficialAccountMenu_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OfficialAccountServer is the server API for OfficialAccount service.
 // All implementations must embed UnimplementedOfficialAccountServer
 // for forward compatibility
 type OfficialAccountServer interface {
+	// 公众号-菜单
+	OfficialAccountMenu(context.Context, *OfficialAccountMenuReq) (*OfficialAccountMenuReply, error)
 	mustEmbedUnimplementedOfficialAccountServer()
 }
 
@@ -42,6 +60,9 @@ type OfficialAccountServer interface {
 type UnimplementedOfficialAccountServer struct {
 }
 
+func (UnimplementedOfficialAccountServer) OfficialAccountMenu(context.Context, *OfficialAccountMenuReq) (*OfficialAccountMenuReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OfficialAccountMenu not implemented")
+}
 func (UnimplementedOfficialAccountServer) mustEmbedUnimplementedOfficialAccountServer() {}
 
 // UnsafeOfficialAccountServer may be embedded to opt out of forward compatibility for this service.
@@ -55,13 +76,36 @@ func RegisterOfficialAccountServer(s grpc.ServiceRegistrar, srv OfficialAccountS
 	s.RegisterService(&OfficialAccount_ServiceDesc, srv)
 }
 
+func _OfficialAccount_OfficialAccountMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OfficialAccountMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OfficialAccountServer).OfficialAccountMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OfficialAccount_OfficialAccountMenu_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OfficialAccountServer).OfficialAccountMenu(ctx, req.(*OfficialAccountMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OfficialAccount_ServiceDesc is the grpc.ServiceDesc for OfficialAccount service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var OfficialAccount_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "api.rpc_wechat.v1.OfficialAccount",
 	HandlerType: (*OfficialAccountServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "rpc_wechat/v1/officialaccount.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "OfficialAccountMenu",
+			Handler:    _OfficialAccount_OfficialAccountMenu_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "rpc_wechat/v1/officialaccount.proto",
 }

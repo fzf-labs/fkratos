@@ -8,4 +8,10 @@ option go_package = "fkratos/api/rpc_wechat/v1;v1";
 // 后缀定义:请求req,响应reply
 
 // 微信公众号
-service OfficialAccount {}
+service OfficialAccount {
+  //公众号-菜单
+  rpc OfficialAccountMenu(OfficialAccountMenuReq) returns (OfficialAccountMenuReply);
+}
+
+message OfficialAccountMenuReq {}
+message OfficialAccountMenuReply {}
