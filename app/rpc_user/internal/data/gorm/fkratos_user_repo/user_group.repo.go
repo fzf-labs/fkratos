@@ -38,6 +38,10 @@ type (
 		UpdateOne(ctx context.Context, data *fkratos_user_model.UserGroup) error
 		// UpdateOne 更新一条数据(事务)
 		UpdateOneByTx(ctx context.Context, tx *fkratos_user_dao.Query, data *fkratos_user_model.UserGroup) error
+		// UpdateOneWithZero 更新一条数据,包含零值
+		UpdateOneWithZero(ctx context.Context, data *fkratos_user_model.UserGroup) error
+		// UpdateOneWithZero 更新一条数据,包含零值(事务)
+		UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_user_dao.Query, data *fkratos_user_model.UserGroup) error
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_user_model.UserGroup, error)
 		// FindOneByID 根据ID查询一条数据
@@ -133,7 +137,7 @@ func (u *UserGroupRepo) CreateBatch(ctx context.Context, data []*fkratos_user_mo
 // UpdateOne 更新一条数据
 func (u *UserGroupRepo) UpdateOne(ctx context.Context, data *fkratos_user_model.UserGroup) error {
 	dao := fkratos_user_dao.Use(u.db).UserGroup
-	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL).Updates(data)
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -146,6 +150,34 @@ func (u *UserGroupRepo) UpdateOne(ctx context.Context, data *fkratos_user_model.
 
 // UpdateOneByTx 更新一条数据(事务)
 func (u *UserGroupRepo) UpdateOneByTx(ctx context.Context, tx *fkratos_user_dao.Query, data *fkratos_user_model.UserGroup) error {
+	dao := tx.UserGroup
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Updates(data)
+	if err != nil {
+		return err
+	}
+	err = u.DeleteUniqueIndexCache(ctx, []*fkratos_user_model.UserGroup{data})
+	if err != nil {
+		return err
+	}
+	return err
+}
+
+// UpdateOneWithZero 更新一条数据,包含零值
+func (u *UserGroupRepo) UpdateOneWithZero(ctx context.Context, data *fkratos_user_model.UserGroup) error {
+	dao := fkratos_user_dao.Use(u.db).UserGroup
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL).Updates(data)
+	if err != nil {
+		return err
+	}
+	err = u.DeleteUniqueIndexCache(ctx, []*fkratos_user_model.UserGroup{data})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UpdateOneWithZeroByTx 更新一条数据(事务),包含零值
+func (u *UserGroupRepo) UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_user_dao.Query, data *fkratos_user_model.UserGroup) error {
 	dao := tx.UserGroup
 	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL).Updates(data)
 	if err != nil {
