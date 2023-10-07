@@ -81,9 +81,24 @@ common:
  	       --validate_out=paths=source_relative,lang=go:./api \
 	       $$files
 
+.PHONY: data
+# 通过 proto 文件，生成对应的 data 实现代码 make data PROTO_NAME=demo
+service:
+	@go run ../../cmd/proto/main.go data ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/data
+
+.PHONY: biz
+# 通过 proto 文件，生成对应的 biz 实现代码 make biz PROTO_NAME=demo
+biz:
+	@go run ../../cmd/proto/main.go biz ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/biz
+
 .PHONY: service
 # 通过 proto 文件，生成对应的 Service 实现代码 make service PROTO_NAME=demo
 service:
+	@go run ../../cmd/proto/main.go service ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
+
+.PHONY: proto
+# 通过 proto 文件，生成对应的 data,biz,service 代码 make proto PROTO_NAME=demo
+proto:
 	@go run ../../cmd/proto/main.go biz ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/biz
 	@go run ../../cmd/proto/main.go data ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/data
 	@go run ../../cmd/proto/main.go service ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
