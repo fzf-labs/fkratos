@@ -4,6 +4,7 @@ import "net/http"
 
 var (
 	InternalServerError = New(http.StatusInternalServerError, "InternalServerError", "服务崩溃了,请稍后再试")
+	RequestCanceledErr  = New(http.StatusConflict, "RequestCanceledErr", "Request Exception")
 )
 
 // 参数相关

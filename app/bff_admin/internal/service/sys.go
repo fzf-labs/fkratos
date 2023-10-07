@@ -172,11 +172,10 @@ func (s *SysService) SysAdminPermission(ctx context.Context, _ *pb.SysAdminPermi
 func (s *SysService) SysManageList(ctx context.Context, req *paginator.PaginatorReq) (*pb.SysManageListReply, error) {
 	resp := new(pb.SysManageListReply)
 	result, err := s.sysAdminClient.SysManageList(ctx, &paginator.PaginatorReq{
-		Page:        req.GetPage(),
-		PageSize:    req.GetPageSize(),
-		QuickSearch: req.GetQuickSearch(),
-		Search:      req.GetSearch(),
-		Order:       req.GetOrder(),
+		Page:     req.GetPage(),
+		PageSize: req.GetPageSize(),
+		Search:   req.GetSearch(),
+		Order:    req.GetOrder(),
 	})
 	if err != nil {
 		return nil, err
@@ -353,11 +352,10 @@ func (s *SysService) SysDeptDel(ctx context.Context, req *pb.SysDeptDelReq) (*pb
 func (s *SysService) SysJobList(ctx context.Context, req *paginator.PaginatorReq) (*pb.SysJobListReply, error) {
 	resp := new(pb.SysJobListReply)
 	result, err := s.sysJobClient.SysJobList(ctx, &paginator.PaginatorReq{
-		Page:        req.GetPage(),
-		PageSize:    req.GetPageSize(),
-		QuickSearch: req.GetQuickSearch(),
-		Search:      req.GetSearch(),
-		Order:       req.GetOrder(),
+		Page:     req.GetPage(),
+		PageSize: req.GetPageSize(),
+		Search:   req.GetSearch(),
+		Order:    req.GetOrder(),
 	})
 	if err != nil {
 		return nil, err
@@ -418,11 +416,10 @@ func (s *SysService) SysJobDel(ctx context.Context, req *pb.SysJobDelReq) (*pb.S
 func (s *SysService) SysLogList(ctx context.Context, req *paginator.PaginatorReq) (*pb.SysLogListResp, error) {
 	resp := new(pb.SysLogListResp)
 	result, err := s.sysLogClient.SysLogList(ctx, &paginator.PaginatorReq{
-		Page:        req.GetPage(),
-		PageSize:    req.GetPageSize(),
-		QuickSearch: req.GetQuickSearch(),
-		Search:      req.GetSearch(),
-		Order:       req.GetOrder(),
+		Page:     req.GetPage(),
+		PageSize: req.GetPageSize(),
+		Search:   req.GetSearch(),
+		Order:    req.GetOrder(),
 	})
 	if err != nil {
 		return nil, err
