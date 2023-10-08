@@ -44,7 +44,12 @@ type {{ .UpperName }}UseCase struct {
 {{ range .Methods }}
 {{- if eq .Type 1 }}
 func (s *{{ .UpperName }}UseCase) {{ .Name }}(ctx context.Context, req {{ if eq .Request $s1 }}*emptypb.Empty{{ else }}*pb.{{ .Request }}{{ end }}) ({{ if eq .Reply $s1 }}*emptypb.Empty{{ else }}*pb.{{ .Reply }}{{ end }}, error) {
-	return {{ if eq .Reply $s1 }}&emptypb.Empty{}{{ else }}&pb.{{ .Reply }}{}{{ end }}, nil
+	{{- if eq .Reply $s1 }}
+ 	resp :=	&emptypb.Empty{}
+	{{- else }}
+ 	resp :=	&pb.{{ .Reply }}{}
+	{{- end }}
+	return resp, nil
 }
 
 {{- else if eq .Type 2 }}

@@ -13,7 +13,7 @@ import (
 
 var (
 	Service = bootstrap.NewService(
-		constant.RPCUser,
+		constant.RPCDevice,
 		"1.0.0",
 		"",
 	)

@@ -7,10 +7,10 @@
 package main
 
 import (
-	"fkratos/app/rpc_user/internal/biz"
-	"fkratos/app/rpc_user/internal/data"
-	"fkratos/app/rpc_user/internal/server"
-	"fkratos/app/rpc_user/internal/service"
+	"fkratos/app/rpc_device/internal/biz"
+	"fkratos/app/rpc_device/internal/data"
+	"fkratos/app/rpc_device/internal/server"
+	"fkratos/app/rpc_device/internal/service"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
 	"github.com/go-kratos/kratos/v2"
@@ -32,10 +32,10 @@ func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registr
 	if err != nil {
 		return nil, nil, err
 	}
-	userRepo := data.NewUserRepo(dataData, logger)
-	userUseCase := biz.NewUserUseCase(userRepo, logger)
-	userService := service.NewUserService(logger, userUseCase)
-	grpcServer := server.NewGRPCServer(confBootstrap, logger, userService)
+	deviceRepo := data.NewDeviceRepo(logger, dataData)
+	deviceUseCase := biz.NewDeviceUseCase(logger, deviceRepo)
+	deviceService := service.NewDeviceService(logger, deviceUseCase)
+	grpcServer := server.NewGRPCServer(confBootstrap, logger, deviceService)
 	app := newApp(logger, registrar, grpcServer)
 	return app, func() {
 		cleanup()

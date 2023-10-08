@@ -2,49 +2,45 @@ package biz
 
 import (
 	"context"
-	rpcDeviceV1 "fkratos/api/rpc_device/v1"
+
+	pb "fkratos/api/rpc_device/v1"
 
 	"github.com/go-kratos/kratos/v2/log"
 )
 
 type DeviceRepo interface {
-	CreateDevice()
 }
 
-func NewDeviceUseCase(repo DeviceRepo, logger log.Logger) *DeviceUseCase {
-	l := log.NewHelper(log.With(logger, "module", "rpc_Device/biz"))
+func NewDeviceUseCase(logger log.Logger, deviceRepo DeviceRepo) *DeviceUseCase {
+	l := log.NewHelper(log.With(logger, "module", "biz/device"))
 	return &DeviceUseCase{
-		repo: repo,
-		log:  l,
+		log:        l,
+		deviceRepo: deviceRepo,
 	}
 }
 
 type DeviceUseCase struct {
-	repo DeviceRepo
-	log  *log.Helper
+	log        *log.Helper
+	deviceRepo DeviceRepo
 }
 
-func (u *DeviceUseCase) CreateDevice(ctx context.Context, req *rpcDeviceV1.CreateDeviceReq) (*rpcDeviceV1.CreateDeviceReply, error) {
-	//TODO implement me
-	panic("implement me")
+func (s *DeviceUseCase) CreateDevice(ctx context.Context, req *pb.CreateDeviceReq) (*pb.CreateDeviceReply, error) {
+	resp := &pb.CreateDeviceReply{}
+	return resp, nil
 }
-
-func (u *DeviceUseCase) UpdateDevice(ctx context.Context, req *rpcDeviceV1.UpdateDeviceReq) (*rpcDeviceV1.UpdateDeviceReply, error) {
-	//TODO implement me
-	panic("implement me")
+func (s *DeviceUseCase) UpdateDevice(ctx context.Context, req *pb.UpdateDeviceReq) (*pb.UpdateDeviceReply, error) {
+	resp := &pb.UpdateDeviceReply{}
+	return resp, nil
 }
-
-func (u *DeviceUseCase) DeleteDevice(ctx context.Context, req *rpcDeviceV1.DeleteDeviceReq) (*rpcDeviceV1.DeleteDeviceReply, error) {
-	//TODO implement me
-	panic("implement me")
+func (s *DeviceUseCase) DeleteDevice(ctx context.Context, req *pb.DeleteDeviceReq) (*pb.DeleteDeviceReply, error) {
+	resp := &pb.DeleteDeviceReply{}
+	return resp, nil
 }
-
-func (u *DeviceUseCase) GetDevice(ctx context.Context, req *rpcDeviceV1.GetDeviceReq) (*rpcDeviceV1.GetDeviceReply, error) {
-	//TODO implement me
-	panic("implement me")
+func (s *DeviceUseCase) GetDevice(ctx context.Context, req *pb.GetDeviceReq) (*pb.GetDeviceReply, error) {
+	resp := &pb.GetDeviceReply{}
+	return resp, nil
 }
-
-func (u *DeviceUseCase) ListDevice(ctx context.Context, req *rpcDeviceV1.ListDeviceReq) (*rpcDeviceV1.ListDeviceReply, error) {
-	//TODO implement me
-	panic("implement me")
+func (s *DeviceUseCase) ListDevice(ctx context.Context, req *pb.ListDeviceReq) (*pb.ListDeviceReply, error) {
+	resp := &pb.ListDeviceReply{}
+	return resp, nil
 }

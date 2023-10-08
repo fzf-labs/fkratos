@@ -86,8 +86,8 @@ type APIFoxHTTPParam struct {
 }
 
 // SyncHTTP 同步Http文档
-func (a *APIFox) SyncHTTP(projectId, data string) error {
-	url := fmt.Sprintf("https://api.apifox.cn/api/v1/projects/%s/import-data", projectId)
+func (a *APIFox) SyncHTTP(projectID, data string) error {
+	url := fmt.Sprintf("https://api.apifox.cn/api/v1/projects/%s/import-data", projectID)
 	headers := map[string]string{
 		"X-Apifox-Version": "2022-11-16",
 		"Authorization":    fmt.Sprintf("Bearer %s", a.AccessToken),

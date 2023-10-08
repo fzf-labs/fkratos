@@ -9,9 +9,19 @@ option go_package = "fkratos/api/rpc_wechat/v1;v1";
 
 // 微信公众号
 service OfficialAccount {
-  //公众号-菜单
-  rpc OfficialAccountMenu(OfficialAccountMenuReq) returns (OfficialAccountMenuReply);
+  //公众号-菜单查看
+  rpc MenuList(MenuListReq) returns (MenuListReply);
+  //公众号-菜单保存
+  rpc MenuStore(MenuStoreReq) returns (MenuStoreReply);
+  //公众号-菜单删除
+  rpc MenuDel(MenuDelReq) returns (MenuDelReply);
 }
 
-message OfficialAccountMenuReq {}
-message OfficialAccountMenuReply {}
+message MenuListReq {}
+message MenuListReply {}
+
+message MenuStoreReq{}
+message MenuStoreReply{}
+
+message MenuDelReq{}
+message MenuDelReply{}

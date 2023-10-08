@@ -17,7 +17,6 @@ import (
 
 type UserGroupRepo interface {
 	fkratos_user_repo.IUserGroupRepo
-	//Save(ctx context.Context, data *fkratos_user_model.UserGroup) error
 }
 
 type UserGroupUseCase struct {

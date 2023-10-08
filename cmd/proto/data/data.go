@@ -1,3 +1,4 @@
+//nolint:all
 package data
 
 import (
@@ -117,7 +118,7 @@ func output(fileName string, content []byte) error {
 		}
 		return fmt.Errorf("cannot format file: %w", err)
 	}
-	return os.WriteFile(fileName, result, 0o644)
+	return os.WriteFile(fileName, result, 0600)
 }
 
 func getMethodType(streamsRequest, streamsReturns bool) MethodType {

@@ -9,7 +9,7 @@ import (
 )
 
 // Copy copier的封装,包含字段映射
-func Copy(toValue interface{}, fromValue interface{}) (err error) {
+func Copy(toValue, fromValue interface{}) (err error) {
 	return copier.CopyWithOption(toValue, fromValue, copier.Option{
 		IgnoreEmpty: false,
 		DeepCopy:    false,

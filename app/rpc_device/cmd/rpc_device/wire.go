@@ -6,10 +6,10 @@
 package main
 
 import (
-	"fkratos/app/rpc_user/internal/biz"
-	"fkratos/app/rpc_user/internal/data"
-	"fkratos/app/rpc_user/internal/server"
-	"fkratos/app/rpc_user/internal/service"
+	"fkratos/app/rpc_device/internal/biz"
+	"fkratos/app/rpc_device/internal/data"
+	"fkratos/app/rpc_device/internal/server"
+	"fkratos/app/rpc_device/internal/service"
 	"fkratos/internal/bootstrap/conf"
 
 	"github.com/go-kratos/kratos/v2"
