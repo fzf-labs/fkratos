@@ -3,7 +3,7 @@ package bootstrap
 import (
 	"fkratos/internal/bootstrap/conf"
 	"fkratos/internal/errorx"
-	"fkratos/internal/middleware/timeout"
+	"fkratos/internal/middleware/ctx"
 	"fkratos/internal/middleware/validate"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -33,7 +33,7 @@ func NewHTTPServer(cfg *conf.Bootstrap, logger log.Logger, m ...middleware.Middl
 		recovery.Recovery(),
 		metadata.Server(),
 		validate.Validator(),
-		timeout.Timeout(),
+		ctx.Canceled(),
 		Metrics(),
 	)
 	ms = append(ms, m...)

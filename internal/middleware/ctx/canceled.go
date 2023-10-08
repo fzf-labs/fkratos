@@ -1,4 +1,4 @@
-package timeout
+package ctx
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware"
 )
 
-func Timeout() middleware.Middleware {
+func Canceled() middleware.Middleware {
 	return func(handler middleware.Handler) middleware.Handler {
 		return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
 			panicChan := make(chan any, 1)
