@@ -1,215 +1,44 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
--- Dumped by pg_dump version 15.4 (Homebrew)
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
-SET default_tablespace = '';
-
-SET default_table_access_method = heap;
-
---
--- Name: user; Type: TABLE; Schema: public; Owner: postgres
---
-
 CREATE TABLE public."user" (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
-    uid bigint NOT NULL,
-    user_group_id uuid,
-    username character varying,
-    phone character varying,
-    email character varying,
-    password character varying NOT NULL,
-    salt character varying NOT NULL,
-    nickname character varying DEFAULT ''::character varying,
-    sex smallint DEFAULT 0,
-    avatar character varying DEFAULT ''::character varying,
-    profile character varying,
+    uid character varying(64) NOT NULL,
+    user_group_id character varying(64) DEFAULT ''::character varying NOT NULL,
+    username character varying(64) DEFAULT ''::character varying NOT NULL,
+    phone character varying DEFAULT ''::character varying NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    password character varying DEFAULT ''::character varying NOT NULL,
+    salt character varying DEFAULT ''::character varying NOT NULL,
+    nickname character varying DEFAULT ''::character varying NOT NULL,
+    sex smallint DEFAULT 0 NOT NULL,
+    avatar character varying DEFAULT ''::character varying NOT NULL,
+    profile character varying DEFAULT ''::character varying NOT NULL,
     other jsonb,
     status smallint DEFAULT 1 NOT NULL,
-    created_at timestamp with time zone,
-    updated_at timestamp with time zone,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
     deleted_at timestamp with time zone
 );
-
-
-ALTER TABLE public."user" OWNER TO postgres;
-
---
--- Name: TABLE "user"; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON TABLE public."user" IS '用户表';
-
-
---
--- Name: COLUMN "user".id; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".id IS 'Id';
-
-
---
--- Name: COLUMN "user".uid; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".uid IS 'uid';
-
-
---
--- Name: COLUMN "user".user_group_id; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".user_group_id IS '分组ID';
-
-
---
--- Name: COLUMN "user".username; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".username IS '用户名';
-
-
---
--- Name: COLUMN "user".phone; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".phone IS '手机';
-
-
---
--- Name: COLUMN "user".email; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".email IS '邮箱';
-
-
---
--- Name: COLUMN "user".password; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".password IS '密码';
-
-
---
--- Name: COLUMN "user".salt; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".salt IS '盐值';
-
-
---
--- Name: COLUMN "user".nickname; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".nickname IS '昵称';
-
-
---
--- Name: COLUMN "user".sex; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".sex IS '性别（0未知 1男 2女）';
-
-
---
--- Name: COLUMN "user".avatar; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".avatar IS '头像';
-
-
---
--- Name: COLUMN "user".profile; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".profile IS '简介';
-
-
---
--- Name: COLUMN "user".other; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".other IS '其他';
-
-
---
--- Name: COLUMN "user".status; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".status IS '状态';
-
-
---
--- Name: COLUMN "user".created_at; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".created_at IS '创建时间';
-
-
---
--- Name: COLUMN "user".updated_at; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".updated_at IS '更新时间';
-
-
---
--- Name: COLUMN "user".deleted_at; Type: COMMENT; Schema: public; Owner: postgres
---
-
 COMMENT ON COLUMN public."user".deleted_at IS '删除时间';
-
-
---
--- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
 ALTER TABLE ONLY public."user"
     ADD CONSTRAINT user_pkey PRIMARY KEY (id);
-
-
---
--- Name: user_email_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
 CREATE INDEX user_email_idx ON public."user" USING btree (email);
-
-
---
--- Name: user_phone_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
 CREATE INDEX user_phone_idx ON public."user" USING btree (phone);
-
-
---
--- Name: user_uid_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
 CREATE UNIQUE INDEX user_uid_idx ON public."user" USING btree (uid);
-
-
---
--- Name: user_user_group_id_idx; Type: INDEX; Schema: public; Owner: postgres
---
-
 CREATE INDEX user_user_group_id_idx ON public."user" USING btree (user_group_id);
-
-
---
--- PostgreSQL database dump complete
---
-
+CREATE UNIQUE INDEX user_username_idx ON public."user" USING btree (username);
