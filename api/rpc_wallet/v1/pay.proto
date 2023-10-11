@@ -2,10 +2,88 @@ syntax = "proto3";
 
 package api.rpc_wallet.v1;
 
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "paginator/paginator.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "validate/validate.proto";
+
 option go_package = "fkratos/api/rpc_wallet/v1;v1";
 
-// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
-// 后缀定义:请求req,响应reply
+service Pay {
+  //支付-创建一条数据
+  rpc PayStore(PayStoreReq) returns (PayStoreReply) {
+    option (google.api.http) = {
+      post: "/pay/v1/pay_store"
+      body: "*"
+    };
+  }
+  //支付-删除多条数据
+  rpc PayDel(PayDelReq) returns (PayDelReply) {
+    option (google.api.http) = {
+      post: "/pay/v1/pay_del"
+      body: "*"
+    };
+  }
+  //支付-单条数据查询
+  rpc PayOne(PayOneReq) returns (PayOneReply) {
+    option (google.api.http) = {get: "/pay/v1/pay_info"};
+  }
+  //支付-列表数据查询
+  rpc PayList(PayListReq) returns (PayListReply) {
+    option (google.api.http) = {
+      post: "/pay/v1/pay_list",
+      body: "*"
+    };
+  }
+}
 
-// 支付服务
-service Pay {}
+//支付信息
+message PayInfo {
+  string ID = 1; // Id
+  string UID = 2; // uid
+  int32 status = 3; // 状态
+  google.protobuf.Timestamp createdAt = 4; // 创建时间
+  google.protobuf.Timestamp updatedAt = 5; // 更新时间
+}
+
+//请求-支付-创建一条数据
+message PayStoreReq {
+  string ID = 1; // Id
+  string UID = 2; // uid
+  int32 status = 3; // 状态
+}
+
+//响应-支付-创建一条数据
+message PayStoreReply {
+  string ID = 1; // Id
+}
+
+//请求-支付-删除多条数据
+message PayDelReq {
+  string ID = 1; // Id
+}
+
+//响应-支付-删除多条数据
+message PayDelReply {}
+
+//请求-支付-单条数据查询
+message PayOneReq {
+  string ID = 1; // Id
+}
+
+//响应-支付-单条数据查询
+message PayOneReply {
+  PayInfo info = 1;
+}
+
+//请求-支付-列表数据查询
+message PayListReq {
+  paginator.PaginatorReq paginator = 1; //分页
+}
+
+//响应-支付-列表数据查询
+message PayListReply {
+  paginator.PaginatorReply paginator = 1; // 分页
+  repeated PayInfo list = 2; // 列表数据
+}

@@ -9,6 +9,10 @@ option go_package = "fkratos/api/rpc_wechat/v1;v1";
 
 // 微信公众号
 service OfficialAccount {
+  //公众号-配置查看
+  rpc MenuConfigInfo(MenuConfigInfoReq) returns (MenuConfigInfoReply);
+  //公众号-配置保存
+  rpc MenuConfigStore(MenuConfigStoreReq) returns (MenuConfigStoreReply);
   //公众号-菜单查看
   rpc MenuList(MenuListReq) returns (MenuListReply);
   //公众号-菜单保存
@@ -17,11 +21,39 @@ service OfficialAccount {
   rpc MenuDel(MenuDelReq) returns (MenuDelReply);
 }
 
+message MenuConfigInfo {
+  string id = 1; // ID
+  string appID = 2; // 开发者ID(AppID)
+  string appSecret = 3; // 开发者密码(AppSecret)
+  string accountID = 4; // 账号id
+  string businessID = 5; // 业务主账号id
+  string name = 6; // 公众号名称
+  string expiresAccessToken = 7; // 获取access_token时间
+  string expiresJsapiTicket = 8; // 获取jsapi_ticket时间
+  string accessToken = 9; // access_token
+  string jsapiTicket = 10; // jsapi_ticket
+  string qrcode = 11; // 二维码
+  string token = 12; // Token 长度为3-32字符
+  string encodingAseKey = 13; // 消息加密密钥由43位字符组成
+  string remark = 14; // 备注
+  string createdAt = 15; // 创建时间
+  string updatedAt = 16; // 更新时间
+  string deletedAt = 17; // 删除时间
+}
+
+message MenuConfigInfoReq {}
+message MenuConfigInfoReply {
+  MenuConfigInfo info = 1;
+}
+
+message MenuConfigStoreReq {}
+message MenuConfigStoreReply {}
+
 message MenuListReq {}
 message MenuListReply {}
 
-message MenuStoreReq{}
-message MenuStoreReply{}
+message MenuStoreReq {}
+message MenuStoreReply {}
 
-message MenuDelReq{}
-message MenuDelReply{}
+message MenuDelReq {}
+message MenuDelReply {}

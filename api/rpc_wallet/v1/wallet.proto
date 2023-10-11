@@ -2,10 +2,88 @@ syntax = "proto3";
 
 package api.rpc_wallet.v1;
 
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "paginator/paginator.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "validate/validate.proto";
+
 option go_package = "fkratos/api/rpc_wallet/v1;v1";
 
-// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
-// 后缀定义:请求req,响应reply
+service Wallet {
+  //钱包-创建一条数据
+  rpc WalletStore(WalletStoreReq) returns (WalletStoreReply) {
+    option (google.api.http) = {
+      post: "/wallet/v1/wallet_store"
+      body: "*"
+    };
+  }
+  //钱包-删除多条数据
+  rpc WalletDel(WalletDelReq) returns (WalletDelReply) {
+    option (google.api.http) = {
+      post: "/wallet/v1/wallet_del"
+      body: "*"
+    };
+  }
+  //钱包-单条数据查询
+  rpc WalletOne(WalletOneReq) returns (WalletOneReply) {
+    option (google.api.http) = {get: "/wallet/v1/wallet_info"};
+  }
+  //钱包-列表数据查询
+  rpc WalletList(WalletListReq) returns (WalletListReply) {
+    option (google.api.http) = {
+      post: "/wallet/v1/wallet_list",
+      body: "*"
+    };
+  }
+}
 
-// 钱包
-service Wallet {}
+//钱包信息
+message WalletInfo {
+  string ID = 1; // Id
+  string UID = 2; // uid
+  int32 status = 3; // 状态
+  google.protobuf.Timestamp createdAt = 4; // 创建时间
+  google.protobuf.Timestamp updatedAt = 5; // 更新时间
+}
+
+//请求-钱包-创建一条数据
+message WalletStoreReq {
+  string ID = 1; // Id
+  string UID = 2; // uid
+  int32 status = 3; // 状态
+}
+
+//响应-钱包-创建一条数据
+message WalletStoreReply {
+  string ID = 1; // Id
+}
+
+//请求-钱包-删除多条数据
+message WalletDelReq {
+  string ID = 1; // Id
+}
+
+//响应-钱包-删除多条数据
+message WalletDelReply {}
+
+//请求-钱包-单条数据查询
+message WalletOneReq {
+  string ID = 1; // Id
+}
+
+//响应-钱包-单条数据查询
+message WalletOneReply {
+  WalletInfo info = 1;
+}
+
+//请求-钱包-列表数据查询
+message WalletListReq {
+  paginator.PaginatorReq paginator = 1; //分页
+}
+
+//响应-钱包-列表数据查询
+message WalletListReply {
+  paginator.PaginatorReply paginator = 1; // 分页
+  repeated WalletInfo list = 2; // 列表数据
+}

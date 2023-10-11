@@ -35,22 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on OfficialAccountMenuReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *OfficialAccountMenuReq) Validate() error {
+// Validate checks the field values on MenuListReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MenuListReq) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on OfficialAccountMenuReq with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// OfficialAccountMenuReqMultiError, or nil if none found.
-func (m *OfficialAccountMenuReq) ValidateAll() error {
+// ValidateAll checks the field values on MenuListReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MenuListReqMultiError, or
+// nil if none found.
+func (m *MenuListReq) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *OfficialAccountMenuReq) validate(all bool) error {
+func (m *MenuListReq) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -58,19 +58,18 @@ func (m *OfficialAccountMenuReq) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return OfficialAccountMenuReqMultiError(errors)
+		return MenuListReqMultiError(errors)
 	}
 
 	return nil
 }
 
-// OfficialAccountMenuReqMultiError is an error wrapping multiple validation
-// errors returned by OfficialAccountMenuReq.ValidateAll() if the designated
-// constraints aren't met.
-type OfficialAccountMenuReqMultiError []error
+// MenuListReqMultiError is an error wrapping multiple validation errors
+// returned by MenuListReq.ValidateAll() if the designated constraints aren't met.
+type MenuListReqMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m OfficialAccountMenuReqMultiError) Error() string {
+func (m MenuListReqMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -79,11 +78,11 @@ func (m OfficialAccountMenuReqMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m OfficialAccountMenuReqMultiError) AllErrors() []error { return m }
+func (m MenuListReqMultiError) AllErrors() []error { return m }
 
-// OfficialAccountMenuReqValidationError is the validation error returned by
-// OfficialAccountMenuReq.Validate if the designated constraints aren't met.
-type OfficialAccountMenuReqValidationError struct {
+// MenuListReqValidationError is the validation error returned by
+// MenuListReq.Validate if the designated constraints aren't met.
+type MenuListReqValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -91,24 +90,22 @@ type OfficialAccountMenuReqValidationError struct {
 }
 
 // Field function returns field value.
-func (e OfficialAccountMenuReqValidationError) Field() string { return e.field }
+func (e MenuListReqValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e OfficialAccountMenuReqValidationError) Reason() string { return e.reason }
+func (e MenuListReqValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e OfficialAccountMenuReqValidationError) Cause() error { return e.cause }
+func (e MenuListReqValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e OfficialAccountMenuReqValidationError) Key() bool { return e.key }
+func (e MenuListReqValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e OfficialAccountMenuReqValidationError) ErrorName() string {
-	return "OfficialAccountMenuReqValidationError"
-}
+func (e MenuListReqValidationError) ErrorName() string { return "MenuListReqValidationError" }
 
 // Error satisfies the builtin error interface
-func (e OfficialAccountMenuReqValidationError) Error() string {
+func (e MenuListReqValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -120,14 +117,14 @@ func (e OfficialAccountMenuReqValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sOfficialAccountMenuReq.%s: %s%s",
+		"invalid %sMenuListReq.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = OfficialAccountMenuReqValidationError{}
+var _ error = MenuListReqValidationError{}
 
 var _ interface {
 	Field() string
@@ -135,24 +132,24 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = OfficialAccountMenuReqValidationError{}
+} = MenuListReqValidationError{}
 
-// Validate checks the field values on OfficialAccountMenuReply with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *OfficialAccountMenuReply) Validate() error {
+// Validate checks the field values on MenuListReply with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MenuListReply) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on OfficialAccountMenuReply with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// OfficialAccountMenuReplyMultiError, or nil if none found.
-func (m *OfficialAccountMenuReply) ValidateAll() error {
+// ValidateAll checks the field values on MenuListReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MenuListReplyMultiError, or
+// nil if none found.
+func (m *MenuListReply) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *OfficialAccountMenuReply) validate(all bool) error {
+func (m *MenuListReply) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -160,19 +157,19 @@ func (m *OfficialAccountMenuReply) validate(all bool) error {
 	var errors []error
 
 	if len(errors) > 0 {
-		return OfficialAccountMenuReplyMultiError(errors)
+		return MenuListReplyMultiError(errors)
 	}
 
 	return nil
 }
 
-// OfficialAccountMenuReplyMultiError is an error wrapping multiple validation
-// errors returned by OfficialAccountMenuReply.ValidateAll() if the designated
-// constraints aren't met.
-type OfficialAccountMenuReplyMultiError []error
+// MenuListReplyMultiError is an error wrapping multiple validation errors
+// returned by MenuListReply.ValidateAll() if the designated constraints
+// aren't met.
+type MenuListReplyMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m OfficialAccountMenuReplyMultiError) Error() string {
+func (m MenuListReplyMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -181,11 +178,11 @@ func (m OfficialAccountMenuReplyMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m OfficialAccountMenuReplyMultiError) AllErrors() []error { return m }
+func (m MenuListReplyMultiError) AllErrors() []error { return m }
 
-// OfficialAccountMenuReplyValidationError is the validation error returned by
-// OfficialAccountMenuReply.Validate if the designated constraints aren't met.
-type OfficialAccountMenuReplyValidationError struct {
+// MenuListReplyValidationError is the validation error returned by
+// MenuListReply.Validate if the designated constraints aren't met.
+type MenuListReplyValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -193,24 +190,22 @@ type OfficialAccountMenuReplyValidationError struct {
 }
 
 // Field function returns field value.
-func (e OfficialAccountMenuReplyValidationError) Field() string { return e.field }
+func (e MenuListReplyValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e OfficialAccountMenuReplyValidationError) Reason() string { return e.reason }
+func (e MenuListReplyValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e OfficialAccountMenuReplyValidationError) Cause() error { return e.cause }
+func (e MenuListReplyValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e OfficialAccountMenuReplyValidationError) Key() bool { return e.key }
+func (e MenuListReplyValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e OfficialAccountMenuReplyValidationError) ErrorName() string {
-	return "OfficialAccountMenuReplyValidationError"
-}
+func (e MenuListReplyValidationError) ErrorName() string { return "MenuListReplyValidationError" }
 
 // Error satisfies the builtin error interface
-func (e OfficialAccountMenuReplyValidationError) Error() string {
+func (e MenuListReplyValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -222,14 +217,14 @@ func (e OfficialAccountMenuReplyValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sOfficialAccountMenuReply.%s: %s%s",
+		"invalid %sMenuListReply.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = OfficialAccountMenuReplyValidationError{}
+var _ error = MenuListReplyValidationError{}
 
 var _ interface {
 	Field() string
@@ -237,4 +232,401 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = OfficialAccountMenuReplyValidationError{}
+} = MenuListReplyValidationError{}
+
+// Validate checks the field values on MenuStoreReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MenuStoreReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MenuStoreReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MenuStoreReqMultiError, or
+// nil if none found.
+func (m *MenuStoreReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MenuStoreReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return MenuStoreReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// MenuStoreReqMultiError is an error wrapping multiple validation errors
+// returned by MenuStoreReq.ValidateAll() if the designated constraints aren't met.
+type MenuStoreReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MenuStoreReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MenuStoreReqMultiError) AllErrors() []error { return m }
+
+// MenuStoreReqValidationError is the validation error returned by
+// MenuStoreReq.Validate if the designated constraints aren't met.
+type MenuStoreReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MenuStoreReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MenuStoreReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MenuStoreReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MenuStoreReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MenuStoreReqValidationError) ErrorName() string { return "MenuStoreReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MenuStoreReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMenuStoreReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MenuStoreReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MenuStoreReqValidationError{}
+
+// Validate checks the field values on MenuStoreReply with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MenuStoreReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MenuStoreReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MenuStoreReplyMultiError,
+// or nil if none found.
+func (m *MenuStoreReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MenuStoreReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return MenuStoreReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// MenuStoreReplyMultiError is an error wrapping multiple validation errors
+// returned by MenuStoreReply.ValidateAll() if the designated constraints
+// aren't met.
+type MenuStoreReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MenuStoreReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MenuStoreReplyMultiError) AllErrors() []error { return m }
+
+// MenuStoreReplyValidationError is the validation error returned by
+// MenuStoreReply.Validate if the designated constraints aren't met.
+type MenuStoreReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MenuStoreReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MenuStoreReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MenuStoreReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MenuStoreReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MenuStoreReplyValidationError) ErrorName() string { return "MenuStoreReplyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MenuStoreReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMenuStoreReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MenuStoreReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MenuStoreReplyValidationError{}
+
+// Validate checks the field values on MenuDelReq with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MenuDelReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MenuDelReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MenuDelReqMultiError, or
+// nil if none found.
+func (m *MenuDelReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MenuDelReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return MenuDelReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// MenuDelReqMultiError is an error wrapping multiple validation errors
+// returned by MenuDelReq.ValidateAll() if the designated constraints aren't met.
+type MenuDelReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MenuDelReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MenuDelReqMultiError) AllErrors() []error { return m }
+
+// MenuDelReqValidationError is the validation error returned by
+// MenuDelReq.Validate if the designated constraints aren't met.
+type MenuDelReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MenuDelReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MenuDelReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MenuDelReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MenuDelReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MenuDelReqValidationError) ErrorName() string { return "MenuDelReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MenuDelReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMenuDelReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MenuDelReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MenuDelReqValidationError{}
+
+// Validate checks the field values on MenuDelReply with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MenuDelReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MenuDelReply with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MenuDelReplyMultiError, or
+// nil if none found.
+func (m *MenuDelReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MenuDelReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return MenuDelReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// MenuDelReplyMultiError is an error wrapping multiple validation errors
+// returned by MenuDelReply.ValidateAll() if the designated constraints aren't met.
+type MenuDelReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MenuDelReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MenuDelReplyMultiError) AllErrors() []error { return m }
+
+// MenuDelReplyValidationError is the validation error returned by
+// MenuDelReply.Validate if the designated constraints aren't met.
+type MenuDelReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MenuDelReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MenuDelReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MenuDelReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MenuDelReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MenuDelReplyValidationError) ErrorName() string { return "MenuDelReplyValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MenuDelReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMenuDelReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MenuDelReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MenuDelReplyValidationError{}

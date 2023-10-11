@@ -32,6 +32,11 @@ gorm:
 sqldump:
 	@go run ../../cmd/sqldump/main.go -f configs/config.yaml
 
+.PHONY: sqltopb
+# sql导出pb文件
+sqltopb:
+	@go run ../../cmd/sqltopb/main.go -s ${APP_NAME} -f configs/config.yaml
+	@make buf
 .PHONY: errcode
 # 导出错误码
 errcode:
