@@ -14,7 +14,7 @@ func main() {
 	flag.Parse()
 	dsn := GetDsn(*configFile)
 	connectDB := gen.ConnectDB("postgres", dsn)
-	gen.NewGeneration(connectDB, "./internal/data/gorm", gen.WithDataMap(gen.DefaultPostgresDataMap), gen.WithDBOpts(gen.ModelOptionRemoveDefault(), gen.ModelOptionUnderline("UL"))).Do()
+	gen.NewGenerationDB(connectDB, "./internal/data/gorm", gen.WithDataMap(gen.DefaultPostgresDataMap), gen.WithDBOpts(gen.ModelOptionRemoveDefault(), gen.ModelOptionUnderline("UL"))).Do()
 }
 
 func GetDsn(configFile string) string {

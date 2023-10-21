@@ -13,241 +13,207 @@ option go_package = "fkratos/api/bff_admin/v1;v1";
 // 系统服务
 service Sys {
   //仪表盘-一言
-  rpc DashboardSpeech(DashboardSpeechReq) returns (DashboardSpeechReply){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/dashboard_speech"
-    };
-  };
+  rpc DashboardSpeech(DashboardSpeechReq) returns (DashboardSpeechReply) {
+    option (google.api.http) = {get: "/admin/v1/sys/dashboard_speech"};
+  }
   //Auth-验证码
-  rpc SysAuthLoginCaptcha(SysAuthLoginCaptchaReq) returns (SysAuthLoginCaptchaReply){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_auth_login_captcha"
-    };
-  };
+  rpc SysAuthLoginCaptcha(SysAuthLoginCaptchaReq) returns (SysAuthLoginCaptchaReply) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_auth_login_captcha"};
+  }
   //Auth-登录
-  rpc SysAuthLogin(SysAuthLoginReq) returns (SysAuthLoginReply){
+  rpc SysAuthLogin(SysAuthLoginReq) returns (SysAuthLoginReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_auth_login"
       body: "*"
     };
-  };
+  }
   //Auth-退出
-  rpc SysAuthLogout(SysAuthLogoutReq) returns (SysAuthLogoutReply){
+  rpc SysAuthLogout(SysAuthLogoutReq) returns (SysAuthLogoutReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_auth_logout"
       body: "*"
     };
-  };
+  }
 
   //管理员-个人信息
-  rpc SysAdminInfo(SysAdminInfoReq) returns (SysAdminInfoReply){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_admin_info"
-    };
-  };
+  rpc SysAdminInfo(SysAdminInfoReq) returns (SysAdminInfoReply) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_admin_info"};
+  }
   //管理员-个人信息更新
-  rpc SysAdminInfoUpdate(SysAdminInfoUpdateReq) returns (SysAdminInfoUpdateReply){
+  rpc SysAdminInfoUpdate(SysAdminInfoUpdateReq) returns (SysAdminInfoUpdateReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_admin_info_update"
       body: "*"
     };
-  };
+  }
   //管理员-生成头像
-  rpc SysAdminGenerateAvatar(SysAdminGenerateAvatarReq) returns (SysAdminGenerateAvatarReply){
+  rpc SysAdminGenerateAvatar(SysAdminGenerateAvatarReq) returns (SysAdminGenerateAvatarReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_admin_generate_avatar"
       body: "*"
     };
-  };
+  }
   //管理员-查询权限
-  rpc SysAdminPermission(SysAdminPermissionReq) returns (SysAdminPermissionReply){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_admin_permission"
-    };
-  };
+  rpc SysAdminPermission(SysAdminPermissionReq) returns (SysAdminPermissionReply) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_admin_permission"};
+  }
 
   //管理员-列表
-  rpc SysManageList(paginator.PaginatorReq) returns (SysManageListReply){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_manage_list"
-    };
-  };
+  rpc SysManageList(SysManageListReq) returns (SysManageListReply) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_manage_list"};
+  }
   //管理员-信息
-  rpc SysManageInfo(SysManageInfoReq) returns (SysManageInfoReply){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_manage_info"
-    };
-  };
+  rpc SysManageInfo(SysManageInfoReq) returns (SysManageInfoReply) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_manage_info"};
+  }
   //管理员-保存
-  rpc SysManageStore(SysManageStoreReq) returns (SysManageStoreReply){
+  rpc SysManageStore(SysManageStoreReq) returns (SysManageStoreReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_manage_store"
       body: "*"
     };
-  };
+  }
   //管理员-删除
-  rpc SysManageDel(SysManageDelReq) returns (SysManageDelReply){
+  rpc SysManageDel(SysManageDelReq) returns (SysManageDelReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_manage_del"
       body: "*"
     };
-  };
+  }
 
   //API-列表
-  rpc SysAPIList(SysAPIListReq) returns (SysAPIListReply){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_api_list"
-    };
-  };
+  rpc SysAPIList(SysAPIListReq) returns (SysAPIListReply) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_api_list"};
+  }
   //API-保存
-  rpc SysAPIStore(SysAPIStoreReq) returns (SysAPIStoreReply){
+  rpc SysAPIStore(SysAPIStoreReq) returns (SysAPIStoreReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_api_store"
       body: "*"
     };
-  };
+  }
   //API-删除
-  rpc SysAPIDel(SysAPIDelReq) returns (SysAPIDelReply){
+  rpc SysAPIDel(SysAPIDelReq) returns (SysAPIDelReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_api_del"
       body: "*"
     };
-  };
+  }
 
   //部门-列表
-  rpc SysDeptList(SysDeptListReq) returns (SysDeptListReply){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_dept_list"
-    };
-  };
+  rpc SysDeptList(SysDeptListReq) returns (SysDeptListReply) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_dept_list"};
+  }
   //部门-单个部门信息
-  rpc SysDeptInfo(SysDeptInfoReq) returns (SysDeptInfoReply){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_dept_info"
-    };
-  };
+  rpc SysDeptInfo(SysDeptInfoReq) returns (SysDeptInfoReply) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_dept_info"};
+  }
   //部门-保存
-  rpc SysDeptStore(SysDeptStoreReq) returns (SysDeptStoreReply){
+  rpc SysDeptStore(SysDeptStoreReq) returns (SysDeptStoreReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_dept_store"
       body: "*"
     };
-  };
+  }
   //部门-删除
-  rpc SysDeptDel(SysDeptDelReq) returns (SysDeptDelReply){
+  rpc SysDeptDel(SysDeptDelReq) returns (SysDeptDelReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_dept_del"
       body: "*"
     };
-  };
+  }
 
   //岗位-列表
-  rpc SysJobList(paginator.PaginatorReq) returns (SysJobListReply){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_job_list"
-    };
-  };
+  rpc SysJobList(SysJobListReq) returns (SysJobListReply) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_job_list"};
+  }
   //岗位-单个岗位信息
-  rpc SysJobInfo(SysJobInfoReq) returns (SysJobInfoReply){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_job_info"
-    };
-  };
+  rpc SysJobInfo(SysJobInfoReq) returns (SysJobInfoReply) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_job_info"};
+  }
   //岗位-保存
-  rpc SysJobStore(SysJobStoreReq) returns (SysJobStoreReply){
+  rpc SysJobStore(SysJobStoreReq) returns (SysJobStoreReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_job_store"
       body: "*"
     };
-  };
+  }
   //岗位-删除
-  rpc SysJobDel(SysJobDelReq) returns (SysJobDelReply){
+  rpc SysJobDel(SysJobDelReq) returns (SysJobDelReply) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_job_del"
       body: "*"
     };
-  };
+  }
 
   //日志-列表
-  rpc SysLogList(paginator.PaginatorReq) returns (SysLogListResp){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_log_list"
-    };
-  };
+  rpc SysLogList(SysLogListReq) returns (SysLogListResp) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_log_list"};
+  }
   //日志-信息
-  rpc SysLogInfo(SysLogInfoReq) returns (SysLogInfoResp){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_log_info"
-    };
-  };
+  rpc SysLogInfo(SysLogInfoReq) returns (SysLogInfoResp) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_log_info"};
+  }
   //日志-保存
-  rpc SysLogStore(SysLogStoreReq) returns (SysLogStoreResp){
+  rpc SysLogStore(SysLogStoreReq) returns (SysLogStoreResp) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_log_store"
       body: "*"
     };
-  };
+  }
 
   //权限-列表
-  rpc SysPermissionList(SysPermissionListReq) returns (SysPermissionListResp){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_permission_list"
-    };
-  };
+  rpc SysPermissionList(SysPermissionListReq) returns (SysPermissionListResp) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_permission_list"};
+  }
   //权限-单个权限信息
-  rpc SysPermissionInfo(SysPermissionInfoReq) returns (SysPermissionInfoResp){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_permission_info"
-    };
-  };
+  rpc SysPermissionInfo(SysPermissionInfoReq) returns (SysPermissionInfoResp) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_permission_info"};
+  }
   //权限-保存
-  rpc SysPermissionStore(SysPermissionStoreReq) returns (SysPermissionStoreResp){
+  rpc SysPermissionStore(SysPermissionStoreReq) returns (SysPermissionStoreResp) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_permission_store"
       body: "*"
     };
-  };
+  }
   //权限-删除
-  rpc SysPermissionDel(SysPermissionDelReq) returns (SysPermissionDelResp){
+  rpc SysPermissionDel(SysPermissionDelReq) returns (SysPermissionDelResp) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_permission_del"
       body: "*"
     };
-  };
+  }
   //权限-修改状态
-  rpc SysPermissionStatus(SysPermissionStatusReq) returns (SysPermissionStatusResp){
+  rpc SysPermissionStatus(SysPermissionStatusReq) returns (SysPermissionStatusResp) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_permission_status"
       body: "*"
     };
-  };
+  }
 
   //角色-列表
-  rpc SysRoleList(SysRoleListReq) returns (SysRoleListResp){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_role_list"
-    };
-  };
+  rpc SysRoleList(SysRoleListReq) returns (SysRoleListResp) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_role_list"};
+  }
   //角色-信息
-  rpc SysRoleInfo(SysRoleInfoReq) returns (SysRoleInfoResp){
-    option (google.api.http) = {
-      get: "/admin/v1/sys/sys_role_info"
-    };
-  };
+  rpc SysRoleInfo(SysRoleInfoReq) returns (SysRoleInfoResp) {
+    option (google.api.http) = {get: "/admin/v1/sys/sys_role_info"};
+  }
   //角色-保存
-  rpc SysRoleStore(SysRoleStoreReq) returns (SysRoleStoreResp){
+  rpc SysRoleStore(SysRoleStoreReq) returns (SysRoleStoreResp) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_role_store"
       body: "*"
     };
-  };
+  }
   //角色-删除
-  rpc SysRoleDel(SysRoleDelReq) returns (SysRoleDelResp){
+  rpc SysRoleDel(SysRoleDelReq) returns (SysRoleDelResp) {
     option (google.api.http) = {
       post: "/admin/v1/sys/sys_role_del"
       body: "*"
     };
-  };
+  }
 }
 
 //请求-一言
@@ -283,8 +249,7 @@ message SysAuthLoginReply {
 }
 
 //请求-退出
-message SysAuthLogoutReq {
-}
+message SysAuthLogoutReq {}
 
 //响应-退出
 message SysAuthLogoutReply {}
@@ -305,8 +270,7 @@ message SysAdminInfo {
 }
 
 //请求-管理员信息
-message SysAdminInfoReq {
-}
+message SysAdminInfoReq {}
 
 //响应-管理员信息
 message SysAdminInfoReply {
@@ -341,8 +305,7 @@ message SysAdminInfoUpdateReq {
 message SysAdminInfoUpdateReply {}
 
 //请求-生成头像
-message SysAdminGenerateAvatarReq {
-}
+message SysAdminGenerateAvatarReq {}
 
 //响应-生成头像
 message SysAdminGenerateAvatarReply {
@@ -387,12 +350,15 @@ message SysAdminPermission {
 }
 
 //请求-权限
-message SysAdminPermissionReq {
-}
+message SysAdminPermissionReq {}
 
 //响应-权限
 message SysAdminPermissionReply {
   repeated SysAdminPermission list = 1; //列表
+}
+
+message SysManageListReq {
+  paginator.PaginatorReq paginator = 1; //分页
 }
 
 //响应-管理员列表
@@ -553,6 +519,10 @@ message SysJobInfo {
   string updatedAt = 8; // 更新时间
 }
 
+message SysJobListReq {
+  paginator.PaginatorReq paginator = 1; //分页
+}
+
 //响应-岗位列表
 message SysJobListReply {
   repeated SysJobInfo list = 1; //列表
@@ -606,8 +576,7 @@ message SysLogInfo {
 
 //请求-日志列表
 message SysLogListReq {
-  int32 page = 1; //页码
-  int32 pageSize = 2; //页数
+  paginator.PaginatorReq paginator = 1; //分页
 }
 
 //响应-日志列表

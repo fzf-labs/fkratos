@@ -2,6 +2,7 @@ package data
 
 import (
 	userV1 "fkratos/api/rpc_user/v1"
+	"fkratos/app/bff_admin/internal/data/rpc"
 	"fkratos/internal/bootstrap/conf"
 	"fmt"
 
@@ -12,18 +13,18 @@ import (
 // ProviderSet is data providers.
 var ProviderSet = wire.NewSet(
 	NewData,
-	NewRPCSysGrpc,
-	NewSysAdminServiceClient,
-	NewSysAuthServiceClient,
-	NewSysDashboardServiceClient,
-	NewSysRoleServiceClient,
-	NewSysPermissionServiceClient,
-	NewSysAPIServiceClient,
-	NewSysLogServiceClient,
-	NewSysJobServiceClient,
-	NewSysDeptServiceClient,
-	NewRPCUserGrpc,
-	NewUserServiceClient,
+	rpc.NewRPCSysGrpc,
+	rpc.NewSysAdminServiceClient,
+	rpc.NewSysAuthServiceClient,
+	rpc.NewSysDashboardServiceClient,
+	rpc.NewSysRoleServiceClient,
+	rpc.NewSysPermissionServiceClient,
+	rpc.NewSysAPIServiceClient,
+	rpc.NewSysLogServiceClient,
+	rpc.NewSysJobServiceClient,
+	rpc.NewSysDeptServiceClient,
+	rpc.NewRPCUserGrpc,
+	rpc.NewUserServiceClient,
 )
 
 type Data struct {

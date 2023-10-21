@@ -8,7 +8,10 @@ import (
 
 var _ biz.WalletRepo = (*WalletRepo)(nil)
 
-func NewWalletRepo(logger log.Logger, data *Data) biz.WalletRepo {
+func NewWalletRepo(
+	logger log.Logger,
+	data *Data,
+) biz.WalletRepo {
 	l := log.NewHelper(log.With(logger, "module", "data/wallet"))
 	return &WalletRepo{
 		log:  l,

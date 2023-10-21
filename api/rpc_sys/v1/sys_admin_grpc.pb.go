@@ -8,7 +8,6 @@ package v1
 
 import (
 	context "context"
-	paginator "fkratos/api/paginator"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -20,20 +19,20 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Admin_SysAdminInfo_FullMethodName           = "/api.rpc_sys.v1.Admin/SysAdminInfo"
-	Admin_SysAdminInfoUpdate_FullMethodName     = "/api.rpc_sys.v1.Admin/SysAdminInfoUpdate"
-	Admin_SysAdminGenerateAvatar_FullMethodName = "/api.rpc_sys.v1.Admin/SysAdminGenerateAvatar"
-	Admin_SysAdminPermission_FullMethodName     = "/api.rpc_sys.v1.Admin/SysAdminPermission"
-	Admin_SysManageList_FullMethodName          = "/api.rpc_sys.v1.Admin/SysManageList"
-	Admin_SysManageInfo_FullMethodName          = "/api.rpc_sys.v1.Admin/SysManageInfo"
-	Admin_SysManageStore_FullMethodName         = "/api.rpc_sys.v1.Admin/SysManageStore"
-	Admin_SysManageDel_FullMethodName           = "/api.rpc_sys.v1.Admin/SysManageDel"
+	SysAdmin_SysAdminInfo_FullMethodName           = "/api.rpc_sys.v1.SysAdmin/SysAdminInfo"
+	SysAdmin_SysAdminInfoUpdate_FullMethodName     = "/api.rpc_sys.v1.SysAdmin/SysAdminInfoUpdate"
+	SysAdmin_SysAdminGenerateAvatar_FullMethodName = "/api.rpc_sys.v1.SysAdmin/SysAdminGenerateAvatar"
+	SysAdmin_SysAdminPermission_FullMethodName     = "/api.rpc_sys.v1.SysAdmin/SysAdminPermission"
+	SysAdmin_SysManageList_FullMethodName          = "/api.rpc_sys.v1.SysAdmin/SysManageList"
+	SysAdmin_SysManageInfo_FullMethodName          = "/api.rpc_sys.v1.SysAdmin/SysManageInfo"
+	SysAdmin_SysManageStore_FullMethodName         = "/api.rpc_sys.v1.SysAdmin/SysManageStore"
+	SysAdmin_SysManageDel_FullMethodName           = "/api.rpc_sys.v1.SysAdmin/SysManageDel"
 )
 
-// AdminClient is the client API for Admin service.
+// SysAdminClient is the client API for SysAdmin service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type AdminClient interface {
+type SysAdminClient interface {
 	// 管理员-个人信息
 	SysAdminInfo(ctx context.Context, in *SysAdminInfoReq, opts ...grpc.CallOption) (*SysAdminInfoReply, error)
 	// 管理员-个人信息更新
@@ -43,7 +42,7 @@ type AdminClient interface {
 	// 管理员-查询权限
 	SysAdminPermission(ctx context.Context, in *SysAdminPermissionReq, opts ...grpc.CallOption) (*SysAdminPermissionReply, error)
 	// 管理员-列表
-	SysManageList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysManageListReply, error)
+	SysManageList(ctx context.Context, in *SysManageListReq, opts ...grpc.CallOption) (*SysManageListReply, error)
 	// 管理员-信息
 	SysManageInfo(ctx context.Context, in *SysManageInfoReq, opts ...grpc.CallOption) (*SysManageInfoReply, error)
 	// 管理员-保存
@@ -52,90 +51,90 @@ type AdminClient interface {
 	SysManageDel(ctx context.Context, in *SysManageDelReq, opts ...grpc.CallOption) (*SysManageDelReply, error)
 }
 
-type adminClient struct {
+type sysAdminClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewAdminClient(cc grpc.ClientConnInterface) AdminClient {
-	return &adminClient{cc}
+func NewSysAdminClient(cc grpc.ClientConnInterface) SysAdminClient {
+	return &sysAdminClient{cc}
 }
 
-func (c *adminClient) SysAdminInfo(ctx context.Context, in *SysAdminInfoReq, opts ...grpc.CallOption) (*SysAdminInfoReply, error) {
+func (c *sysAdminClient) SysAdminInfo(ctx context.Context, in *SysAdminInfoReq, opts ...grpc.CallOption) (*SysAdminInfoReply, error) {
 	out := new(SysAdminInfoReply)
-	err := c.cc.Invoke(ctx, Admin_SysAdminInfo_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAdmin_SysAdminInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *adminClient) SysAdminInfoUpdate(ctx context.Context, in *SysAdminInfoUpdateReq, opts ...grpc.CallOption) (*SysAdminInfoUpdateReply, error) {
+func (c *sysAdminClient) SysAdminInfoUpdate(ctx context.Context, in *SysAdminInfoUpdateReq, opts ...grpc.CallOption) (*SysAdminInfoUpdateReply, error) {
 	out := new(SysAdminInfoUpdateReply)
-	err := c.cc.Invoke(ctx, Admin_SysAdminInfoUpdate_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAdmin_SysAdminInfoUpdate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *adminClient) SysAdminGenerateAvatar(ctx context.Context, in *SysAdminGenerateAvatarReq, opts ...grpc.CallOption) (*SysAdminGenerateAvatarReply, error) {
+func (c *sysAdminClient) SysAdminGenerateAvatar(ctx context.Context, in *SysAdminGenerateAvatarReq, opts ...grpc.CallOption) (*SysAdminGenerateAvatarReply, error) {
 	out := new(SysAdminGenerateAvatarReply)
-	err := c.cc.Invoke(ctx, Admin_SysAdminGenerateAvatar_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAdmin_SysAdminGenerateAvatar_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *adminClient) SysAdminPermission(ctx context.Context, in *SysAdminPermissionReq, opts ...grpc.CallOption) (*SysAdminPermissionReply, error) {
+func (c *sysAdminClient) SysAdminPermission(ctx context.Context, in *SysAdminPermissionReq, opts ...grpc.CallOption) (*SysAdminPermissionReply, error) {
 	out := new(SysAdminPermissionReply)
-	err := c.cc.Invoke(ctx, Admin_SysAdminPermission_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAdmin_SysAdminPermission_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *adminClient) SysManageList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysManageListReply, error) {
+func (c *sysAdminClient) SysManageList(ctx context.Context, in *SysManageListReq, opts ...grpc.CallOption) (*SysManageListReply, error) {
 	out := new(SysManageListReply)
-	err := c.cc.Invoke(ctx, Admin_SysManageList_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAdmin_SysManageList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *adminClient) SysManageInfo(ctx context.Context, in *SysManageInfoReq, opts ...grpc.CallOption) (*SysManageInfoReply, error) {
+func (c *sysAdminClient) SysManageInfo(ctx context.Context, in *SysManageInfoReq, opts ...grpc.CallOption) (*SysManageInfoReply, error) {
 	out := new(SysManageInfoReply)
-	err := c.cc.Invoke(ctx, Admin_SysManageInfo_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAdmin_SysManageInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *adminClient) SysManageStore(ctx context.Context, in *SysManageStoreReq, opts ...grpc.CallOption) (*SysManageStoreReply, error) {
+func (c *sysAdminClient) SysManageStore(ctx context.Context, in *SysManageStoreReq, opts ...grpc.CallOption) (*SysManageStoreReply, error) {
 	out := new(SysManageStoreReply)
-	err := c.cc.Invoke(ctx, Admin_SysManageStore_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAdmin_SysManageStore_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *adminClient) SysManageDel(ctx context.Context, in *SysManageDelReq, opts ...grpc.CallOption) (*SysManageDelReply, error) {
+func (c *sysAdminClient) SysManageDel(ctx context.Context, in *SysManageDelReq, opts ...grpc.CallOption) (*SysManageDelReply, error) {
 	out := new(SysManageDelReply)
-	err := c.cc.Invoke(ctx, Admin_SysManageDel_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAdmin_SysManageDel_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// AdminServer is the server API for Admin service.
-// All implementations must embed UnimplementedAdminServer
+// SysAdminServer is the server API for SysAdmin service.
+// All implementations must embed UnimplementedSysAdminServer
 // for forward compatibility
-type AdminServer interface {
+type SysAdminServer interface {
 	// 管理员-个人信息
 	SysAdminInfo(context.Context, *SysAdminInfoReq) (*SysAdminInfoReply, error)
 	// 管理员-个人信息更新
@@ -145,239 +144,239 @@ type AdminServer interface {
 	// 管理员-查询权限
 	SysAdminPermission(context.Context, *SysAdminPermissionReq) (*SysAdminPermissionReply, error)
 	// 管理员-列表
-	SysManageList(context.Context, *paginator.PaginatorReq) (*SysManageListReply, error)
+	SysManageList(context.Context, *SysManageListReq) (*SysManageListReply, error)
 	// 管理员-信息
 	SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error)
 	// 管理员-保存
 	SysManageStore(context.Context, *SysManageStoreReq) (*SysManageStoreReply, error)
 	// 管理员-删除
 	SysManageDel(context.Context, *SysManageDelReq) (*SysManageDelReply, error)
-	mustEmbedUnimplementedAdminServer()
+	mustEmbedUnimplementedSysAdminServer()
 }
 
-// UnimplementedAdminServer must be embedded to have forward compatible implementations.
-type UnimplementedAdminServer struct {
+// UnimplementedSysAdminServer must be embedded to have forward compatible implementations.
+type UnimplementedSysAdminServer struct {
 }
 
-func (UnimplementedAdminServer) SysAdminInfo(context.Context, *SysAdminInfoReq) (*SysAdminInfoReply, error) {
+func (UnimplementedSysAdminServer) SysAdminInfo(context.Context, *SysAdminInfoReq) (*SysAdminInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAdminInfo not implemented")
 }
-func (UnimplementedAdminServer) SysAdminInfoUpdate(context.Context, *SysAdminInfoUpdateReq) (*SysAdminInfoUpdateReply, error) {
+func (UnimplementedSysAdminServer) SysAdminInfoUpdate(context.Context, *SysAdminInfoUpdateReq) (*SysAdminInfoUpdateReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAdminInfoUpdate not implemented")
 }
-func (UnimplementedAdminServer) SysAdminGenerateAvatar(context.Context, *SysAdminGenerateAvatarReq) (*SysAdminGenerateAvatarReply, error) {
+func (UnimplementedSysAdminServer) SysAdminGenerateAvatar(context.Context, *SysAdminGenerateAvatarReq) (*SysAdminGenerateAvatarReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAdminGenerateAvatar not implemented")
 }
-func (UnimplementedAdminServer) SysAdminPermission(context.Context, *SysAdminPermissionReq) (*SysAdminPermissionReply, error) {
+func (UnimplementedSysAdminServer) SysAdminPermission(context.Context, *SysAdminPermissionReq) (*SysAdminPermissionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAdminPermission not implemented")
 }
-func (UnimplementedAdminServer) SysManageList(context.Context, *paginator.PaginatorReq) (*SysManageListReply, error) {
+func (UnimplementedSysAdminServer) SysManageList(context.Context, *SysManageListReq) (*SysManageListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysManageList not implemented")
 }
-func (UnimplementedAdminServer) SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error) {
+func (UnimplementedSysAdminServer) SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysManageInfo not implemented")
 }
-func (UnimplementedAdminServer) SysManageStore(context.Context, *SysManageStoreReq) (*SysManageStoreReply, error) {
+func (UnimplementedSysAdminServer) SysManageStore(context.Context, *SysManageStoreReq) (*SysManageStoreReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysManageStore not implemented")
 }
-func (UnimplementedAdminServer) SysManageDel(context.Context, *SysManageDelReq) (*SysManageDelReply, error) {
+func (UnimplementedSysAdminServer) SysManageDel(context.Context, *SysManageDelReq) (*SysManageDelReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysManageDel not implemented")
 }
-func (UnimplementedAdminServer) mustEmbedUnimplementedAdminServer() {}
+func (UnimplementedSysAdminServer) mustEmbedUnimplementedSysAdminServer() {}
 
-// UnsafeAdminServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to AdminServer will
+// UnsafeSysAdminServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SysAdminServer will
 // result in compilation errors.
-type UnsafeAdminServer interface {
-	mustEmbedUnimplementedAdminServer()
+type UnsafeSysAdminServer interface {
+	mustEmbedUnimplementedSysAdminServer()
 }
 
-func RegisterAdminServer(s grpc.ServiceRegistrar, srv AdminServer) {
-	s.RegisterService(&Admin_ServiceDesc, srv)
+func RegisterSysAdminServer(s grpc.ServiceRegistrar, srv SysAdminServer) {
+	s.RegisterService(&SysAdmin_ServiceDesc, srv)
 }
 
-func _Admin_SysAdminInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysAdmin_SysAdminInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysAdminInfoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AdminServer).SysAdminInfo(ctx, in)
+		return srv.(SysAdminServer).SysAdminInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Admin_SysAdminInfo_FullMethodName,
+		FullMethod: SysAdmin_SysAdminInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdminServer).SysAdminInfo(ctx, req.(*SysAdminInfoReq))
+		return srv.(SysAdminServer).SysAdminInfo(ctx, req.(*SysAdminInfoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Admin_SysAdminInfoUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysAdmin_SysAdminInfoUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysAdminInfoUpdateReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AdminServer).SysAdminInfoUpdate(ctx, in)
+		return srv.(SysAdminServer).SysAdminInfoUpdate(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Admin_SysAdminInfoUpdate_FullMethodName,
+		FullMethod: SysAdmin_SysAdminInfoUpdate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdminServer).SysAdminInfoUpdate(ctx, req.(*SysAdminInfoUpdateReq))
+		return srv.(SysAdminServer).SysAdminInfoUpdate(ctx, req.(*SysAdminInfoUpdateReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Admin_SysAdminGenerateAvatar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysAdmin_SysAdminGenerateAvatar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysAdminGenerateAvatarReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AdminServer).SysAdminGenerateAvatar(ctx, in)
+		return srv.(SysAdminServer).SysAdminGenerateAvatar(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Admin_SysAdminGenerateAvatar_FullMethodName,
+		FullMethod: SysAdmin_SysAdminGenerateAvatar_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdminServer).SysAdminGenerateAvatar(ctx, req.(*SysAdminGenerateAvatarReq))
+		return srv.(SysAdminServer).SysAdminGenerateAvatar(ctx, req.(*SysAdminGenerateAvatarReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Admin_SysAdminPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysAdmin_SysAdminPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysAdminPermissionReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AdminServer).SysAdminPermission(ctx, in)
+		return srv.(SysAdminServer).SysAdminPermission(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Admin_SysAdminPermission_FullMethodName,
+		FullMethod: SysAdmin_SysAdminPermission_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdminServer).SysAdminPermission(ctx, req.(*SysAdminPermissionReq))
+		return srv.(SysAdminServer).SysAdminPermission(ctx, req.(*SysAdminPermissionReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Admin_SysManageList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(paginator.PaginatorReq)
+func _SysAdmin_SysManageList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysManageListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AdminServer).SysManageList(ctx, in)
+		return srv.(SysAdminServer).SysManageList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Admin_SysManageList_FullMethodName,
+		FullMethod: SysAdmin_SysManageList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdminServer).SysManageList(ctx, req.(*paginator.PaginatorReq))
+		return srv.(SysAdminServer).SysManageList(ctx, req.(*SysManageListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Admin_SysManageInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysAdmin_SysManageInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysManageInfoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AdminServer).SysManageInfo(ctx, in)
+		return srv.(SysAdminServer).SysManageInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Admin_SysManageInfo_FullMethodName,
+		FullMethod: SysAdmin_SysManageInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdminServer).SysManageInfo(ctx, req.(*SysManageInfoReq))
+		return srv.(SysAdminServer).SysManageInfo(ctx, req.(*SysManageInfoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Admin_SysManageStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysAdmin_SysManageStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysManageStoreReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AdminServer).SysManageStore(ctx, in)
+		return srv.(SysAdminServer).SysManageStore(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Admin_SysManageStore_FullMethodName,
+		FullMethod: SysAdmin_SysManageStore_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdminServer).SysManageStore(ctx, req.(*SysManageStoreReq))
+		return srv.(SysAdminServer).SysManageStore(ctx, req.(*SysManageStoreReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Admin_SysManageDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysAdmin_SysManageDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysManageDelReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AdminServer).SysManageDel(ctx, in)
+		return srv.(SysAdminServer).SysManageDel(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Admin_SysManageDel_FullMethodName,
+		FullMethod: SysAdmin_SysManageDel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AdminServer).SysManageDel(ctx, req.(*SysManageDelReq))
+		return srv.(SysAdminServer).SysManageDel(ctx, req.(*SysManageDelReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Admin_ServiceDesc is the grpc.ServiceDesc for Admin service.
+// SysAdmin_ServiceDesc is the grpc.ServiceDesc for SysAdmin service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Admin_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.rpc_sys.v1.Admin",
-	HandlerType: (*AdminServer)(nil),
+var SysAdmin_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "api.rpc_sys.v1.SysAdmin",
+	HandlerType: (*SysAdminServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SysAdminInfo",
-			Handler:    _Admin_SysAdminInfo_Handler,
+			Handler:    _SysAdmin_SysAdminInfo_Handler,
 		},
 		{
 			MethodName: "SysAdminInfoUpdate",
-			Handler:    _Admin_SysAdminInfoUpdate_Handler,
+			Handler:    _SysAdmin_SysAdminInfoUpdate_Handler,
 		},
 		{
 			MethodName: "SysAdminGenerateAvatar",
-			Handler:    _Admin_SysAdminGenerateAvatar_Handler,
+			Handler:    _SysAdmin_SysAdminGenerateAvatar_Handler,
 		},
 		{
 			MethodName: "SysAdminPermission",
-			Handler:    _Admin_SysAdminPermission_Handler,
+			Handler:    _SysAdmin_SysAdminPermission_Handler,
 		},
 		{
 			MethodName: "SysManageList",
-			Handler:    _Admin_SysManageList_Handler,
+			Handler:    _SysAdmin_SysManageList_Handler,
 		},
 		{
 			MethodName: "SysManageInfo",
-			Handler:    _Admin_SysManageInfo_Handler,
+			Handler:    _SysAdmin_SysManageInfo_Handler,
 		},
 		{
 			MethodName: "SysManageStore",
-			Handler:    _Admin_SysManageStore_Handler,
+			Handler:    _SysAdmin_SysManageStore_Handler,
 		},
 		{
 			MethodName: "SysManageDel",
-			Handler:    _Admin_SysManageDel_Handler,
+			Handler:    _SysAdmin_SysManageDel_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

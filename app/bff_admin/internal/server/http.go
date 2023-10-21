@@ -13,8 +13,8 @@ import (
 )
 
 // NewHTTPServer new an HTTP server.
-func NewHTTPServer(c *conf.Bootstrap, logger log.Logger, authClient sysV1.AuthClient, adminService *service.SysService) *http.Server {
+func NewHTTPServer(c *conf.Bootstrap, logger log.Logger, authClient sysV1.SysAuthClient, sysService *service.SysService) *http.Server {
 	srv := bootstrap.NewHTTPServer(c, logger, auth.SelectorMiddleware(authClient))
-	bffAdminV1.RegisterSysHTTPServer(srv, adminService)
+	bffAdminV1.RegisterSysHTTPServer(srv, sysService)
 	return srv
 }

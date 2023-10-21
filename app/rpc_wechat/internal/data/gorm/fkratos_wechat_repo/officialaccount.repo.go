@@ -190,7 +190,7 @@ func (o *OfficialaccountRepo) UpdateOneByTx(ctx context.Context, tx *fkratos_wec
 // UpdateOneWithZero 更新一条数据,包含零值
 func (o *OfficialaccountRepo) UpdateOneWithZero(ctx context.Context, data *fkratos_wechat_model.Officialaccount) error {
 	dao := fkratos_wechat_dao.Use(o.db).Officialaccount
-	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL).Updates(data)
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -204,7 +204,7 @@ func (o *OfficialaccountRepo) UpdateOneWithZero(ctx context.Context, data *fkrat
 // UpdateOneWithZeroByTx 更新一条数据(事务),包含零值
 func (o *OfficialaccountRepo) UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_wechat_dao.Query, data *fkratos_wechat_model.Officialaccount) error {
 	dao := tx.Officialaccount
-	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL).Updates(data)
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -668,24 +668,19 @@ func (o *OfficialaccountRepo) FindMultiByAppIDS(ctx context.Context, appIDS []st
 func (o *OfficialaccountRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_wechat_model.Officialaccount, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_wechat_model.Officialaccount, 0)
 	var total int64
-	queryStr, args, err := paginatorReq.ConvertToGormConditions()
+	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_wechat_model.Officialaccount{})
 	if err != nil {
-		return result, nil, err
+		return nil, nil, err
 	}
-	err = o.db.WithContext(ctx).Model(&fkratos_wechat_model.Officialaccount{}).Select([]string{"id"}).Where(queryStr, args...).Count(&total).Error
+	err = o.db.WithContext(ctx).Model(&fkratos_wechat_model.Officialaccount{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {
 		return result, nil, err
 	}
 	if total == 0 {
 		return result, nil, nil
 	}
-	query := o.db.WithContext(ctx)
-	order := paginatorReq.ConvertToOrder()
-	if order != "" {
-		query = query.Order(order)
-	}
 	paginatorReply := paginatorReq.ConvertToPage(int(total))
-	err = query.Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Where(queryStr, args...).Find(&result).Error
+	err = o.db.WithContext(ctx).Model(&fkratos_wechat_model.Officialaccount{}).Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Clauses(whereExpressions...).Clauses(orderExpressions...).Find(&result).Error
 	if err != nil {
 		return result, nil, err
 	}

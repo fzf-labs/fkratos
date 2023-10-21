@@ -7,12 +7,10 @@
 package v1
 
 import (
-	"context"
-	"fkratos/api/paginator"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
+	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -79,7 +77,7 @@ type SysClient interface {
 	// 管理员-查询权限
 	SysAdminPermission(ctx context.Context, in *SysAdminPermissionReq, opts ...grpc.CallOption) (*SysAdminPermissionReply, error)
 	// 管理员-列表
-	SysManageList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysManageListReply, error)
+	SysManageList(ctx context.Context, in *SysManageListReq, opts ...grpc.CallOption) (*SysManageListReply, error)
 	// 管理员-信息
 	SysManageInfo(ctx context.Context, in *SysManageInfoReq, opts ...grpc.CallOption) (*SysManageInfoReply, error)
 	// 管理员-保存
@@ -101,7 +99,7 @@ type SysClient interface {
 	// 部门-删除
 	SysDeptDel(ctx context.Context, in *SysDeptDelReq, opts ...grpc.CallOption) (*SysDeptDelReply, error)
 	// 岗位-列表
-	SysJobList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysJobListReply, error)
+	SysJobList(ctx context.Context, in *SysJobListReq, opts ...grpc.CallOption) (*SysJobListReply, error)
 	// 岗位-单个岗位信息
 	SysJobInfo(ctx context.Context, in *SysJobInfoReq, opts ...grpc.CallOption) (*SysJobInfoReply, error)
 	// 岗位-保存
@@ -109,7 +107,7 @@ type SysClient interface {
 	// 岗位-删除
 	SysJobDel(ctx context.Context, in *SysJobDelReq, opts ...grpc.CallOption) (*SysJobDelReply, error)
 	// 日志-列表
-	SysLogList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysLogListResp, error)
+	SysLogList(ctx context.Context, in *SysLogListReq, opts ...grpc.CallOption) (*SysLogListResp, error)
 	// 日志-信息
 	SysLogInfo(ctx context.Context, in *SysLogInfoReq, opts ...grpc.CallOption) (*SysLogInfoResp, error)
 	// 日志-保存
@@ -214,7 +212,7 @@ func (c *sysClient) SysAdminPermission(ctx context.Context, in *SysAdminPermissi
 	return out, nil
 }
 
-func (c *sysClient) SysManageList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysManageListReply, error) {
+func (c *sysClient) SysManageList(ctx context.Context, in *SysManageListReq, opts ...grpc.CallOption) (*SysManageListReply, error) {
 	out := new(SysManageListReply)
 	err := c.cc.Invoke(ctx, Sys_SysManageList_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -313,7 +311,7 @@ func (c *sysClient) SysDeptDel(ctx context.Context, in *SysDeptDelReq, opts ...g
 	return out, nil
 }
 
-func (c *sysClient) SysJobList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysJobListReply, error) {
+func (c *sysClient) SysJobList(ctx context.Context, in *SysJobListReq, opts ...grpc.CallOption) (*SysJobListReply, error) {
 	out := new(SysJobListReply)
 	err := c.cc.Invoke(ctx, Sys_SysJobList_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -349,7 +347,7 @@ func (c *sysClient) SysJobDel(ctx context.Context, in *SysJobDelReq, opts ...grp
 	return out, nil
 }
 
-func (c *sysClient) SysLogList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysLogListResp, error) {
+func (c *sysClient) SysLogList(ctx context.Context, in *SysLogListReq, opts ...grpc.CallOption) (*SysLogListResp, error) {
 	out := new(SysLogListResp)
 	err := c.cc.Invoke(ctx, Sys_SysLogList_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -478,7 +476,7 @@ type SysServer interface {
 	// 管理员-查询权限
 	SysAdminPermission(context.Context, *SysAdminPermissionReq) (*SysAdminPermissionReply, error)
 	// 管理员-列表
-	SysManageList(context.Context, *paginator.PaginatorReq) (*SysManageListReply, error)
+	SysManageList(context.Context, *SysManageListReq) (*SysManageListReply, error)
 	// 管理员-信息
 	SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error)
 	// 管理员-保存
@@ -500,7 +498,7 @@ type SysServer interface {
 	// 部门-删除
 	SysDeptDel(context.Context, *SysDeptDelReq) (*SysDeptDelReply, error)
 	// 岗位-列表
-	SysJobList(context.Context, *paginator.PaginatorReq) (*SysJobListReply, error)
+	SysJobList(context.Context, *SysJobListReq) (*SysJobListReply, error)
 	// 岗位-单个岗位信息
 	SysJobInfo(context.Context, *SysJobInfoReq) (*SysJobInfoReply, error)
 	// 岗位-保存
@@ -508,7 +506,7 @@ type SysServer interface {
 	// 岗位-删除
 	SysJobDel(context.Context, *SysJobDelReq) (*SysJobDelReply, error)
 	// 日志-列表
-	SysLogList(context.Context, *paginator.PaginatorReq) (*SysLogListResp, error)
+	SysLogList(context.Context, *SysLogListReq) (*SysLogListResp, error)
 	// 日志-信息
 	SysLogInfo(context.Context, *SysLogInfoReq) (*SysLogInfoResp, error)
 	// 日志-保存
@@ -562,7 +560,7 @@ func (UnimplementedSysServer) SysAdminGenerateAvatar(context.Context, *SysAdminG
 func (UnimplementedSysServer) SysAdminPermission(context.Context, *SysAdminPermissionReq) (*SysAdminPermissionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAdminPermission not implemented")
 }
-func (UnimplementedSysServer) SysManageList(context.Context, *paginator.PaginatorReq) (*SysManageListReply, error) {
+func (UnimplementedSysServer) SysManageList(context.Context, *SysManageListReq) (*SysManageListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysManageList not implemented")
 }
 func (UnimplementedSysServer) SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error) {
@@ -595,7 +593,7 @@ func (UnimplementedSysServer) SysDeptStore(context.Context, *SysDeptStoreReq) (*
 func (UnimplementedSysServer) SysDeptDel(context.Context, *SysDeptDelReq) (*SysDeptDelReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysDeptDel not implemented")
 }
-func (UnimplementedSysServer) SysJobList(context.Context, *paginator.PaginatorReq) (*SysJobListReply, error) {
+func (UnimplementedSysServer) SysJobList(context.Context, *SysJobListReq) (*SysJobListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysJobList not implemented")
 }
 func (UnimplementedSysServer) SysJobInfo(context.Context, *SysJobInfoReq) (*SysJobInfoReply, error) {
@@ -607,7 +605,7 @@ func (UnimplementedSysServer) SysJobStore(context.Context, *SysJobStoreReq) (*Sy
 func (UnimplementedSysServer) SysJobDel(context.Context, *SysJobDelReq) (*SysJobDelReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysJobDel not implemented")
 }
-func (UnimplementedSysServer) SysLogList(context.Context, *paginator.PaginatorReq) (*SysLogListResp, error) {
+func (UnimplementedSysServer) SysLogList(context.Context, *SysLogListReq) (*SysLogListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysLogList not implemented")
 }
 func (UnimplementedSysServer) SysLogInfo(context.Context, *SysLogInfoReq) (*SysLogInfoResp, error) {
@@ -801,7 +799,7 @@ func _Sys_SysAdminPermission_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 func _Sys_SysManageList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(paginator.PaginatorReq)
+	in := new(SysManageListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -813,7 +811,7 @@ func _Sys_SysManageList_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: Sys_SysManageList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SysServer).SysManageList(ctx, req.(*paginator.PaginatorReq))
+		return srv.(SysServer).SysManageList(ctx, req.(*SysManageListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -999,7 +997,7 @@ func _Sys_SysDeptDel_Handler(srv interface{}, ctx context.Context, dec func(inte
 }
 
 func _Sys_SysJobList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(paginator.PaginatorReq)
+	in := new(SysJobListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1011,7 +1009,7 @@ func _Sys_SysJobList_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: Sys_SysJobList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SysServer).SysJobList(ctx, req.(*paginator.PaginatorReq))
+		return srv.(SysServer).SysJobList(ctx, req.(*SysJobListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1071,7 +1069,7 @@ func _Sys_SysJobDel_Handler(srv interface{}, ctx context.Context, dec func(inter
 }
 
 func _Sys_SysLogList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(paginator.PaginatorReq)
+	in := new(SysLogListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1083,7 +1081,7 @@ func _Sys_SysLogList_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: Sys_SysLogList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SysServer).SysLogList(ctx, req.(*paginator.PaginatorReq))
+		return srv.(SysServer).SysLogList(ctx, req.(*SysLogListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

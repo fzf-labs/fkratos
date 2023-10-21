@@ -9,6 +9,7 @@ package main
 import (
 	"fkratos/app/rpc_device/internal/biz"
 	"fkratos/app/rpc_device/internal/data"
+	"fkratos/app/rpc_device/internal/data/gorm/fkratos_device_repo"
 	"fkratos/app/rpc_device/internal/server"
 	"fkratos/app/rpc_device/internal/service"
 	"fkratos/internal/bootstrap"
@@ -32,8 +33,10 @@ func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registr
 	if err != nil {
 		return nil, nil, err
 	}
-	deviceRepo := data.NewDeviceRepo(logger, dataData)
-	deviceUseCase := biz.NewDeviceUseCase(logger, deviceRepo)
+	idbCache := data.NewDBCache(client)
+	deviceRepo := fkratos_device_repo.NewDeviceRepo(db, idbCache)
+	bizDeviceRepo := data.NewDeviceRepo(logger, dataData, deviceRepo)
+	deviceUseCase := biz.NewDeviceUseCase(logger, bizDeviceRepo)
 	deviceService := service.NewDeviceService(logger, deviceUseCase)
 	grpcServer := server.NewGRPCServer(confBootstrap, logger, deviceService)
 	app := newApp(logger, registrar, grpcServer)

@@ -35,6 +35,577 @@ var (
 	_ = sort.Sort
 )
 
+// Validate checks the field values on MenuConfigInfo with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MenuConfigInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MenuConfigInfo with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MenuConfigInfoMultiError,
+// or nil if none found.
+func (m *MenuConfigInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MenuConfigInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for AppID
+
+	// no validation rules for AppSecret
+
+	// no validation rules for AccountID
+
+	// no validation rules for BusinessID
+
+	// no validation rules for Name
+
+	// no validation rules for ExpiresAccessToken
+
+	// no validation rules for ExpiresJsapiTicket
+
+	// no validation rules for AccessToken
+
+	// no validation rules for JsapiTicket
+
+	// no validation rules for Qrcode
+
+	// no validation rules for Token
+
+	// no validation rules for EncodingAseKey
+
+	// no validation rules for Remark
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	// no validation rules for DeletedAt
+
+	if len(errors) > 0 {
+		return MenuConfigInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// MenuConfigInfoMultiError is an error wrapping multiple validation errors
+// returned by MenuConfigInfo.ValidateAll() if the designated constraints
+// aren't met.
+type MenuConfigInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MenuConfigInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MenuConfigInfoMultiError) AllErrors() []error { return m }
+
+// MenuConfigInfoValidationError is the validation error returned by
+// MenuConfigInfo.Validate if the designated constraints aren't met.
+type MenuConfigInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MenuConfigInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MenuConfigInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MenuConfigInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MenuConfigInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MenuConfigInfoValidationError) ErrorName() string { return "MenuConfigInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MenuConfigInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMenuConfigInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MenuConfigInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MenuConfigInfoValidationError{}
+
+// Validate checks the field values on MenuConfigInfoReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *MenuConfigInfoReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MenuConfigInfoReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MenuConfigInfoReqMultiError, or nil if none found.
+func (m *MenuConfigInfoReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MenuConfigInfoReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return MenuConfigInfoReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// MenuConfigInfoReqMultiError is an error wrapping multiple validation errors
+// returned by MenuConfigInfoReq.ValidateAll() if the designated constraints
+// aren't met.
+type MenuConfigInfoReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MenuConfigInfoReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MenuConfigInfoReqMultiError) AllErrors() []error { return m }
+
+// MenuConfigInfoReqValidationError is the validation error returned by
+// MenuConfigInfoReq.Validate if the designated constraints aren't met.
+type MenuConfigInfoReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MenuConfigInfoReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MenuConfigInfoReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MenuConfigInfoReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MenuConfigInfoReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MenuConfigInfoReqValidationError) ErrorName() string {
+	return "MenuConfigInfoReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MenuConfigInfoReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMenuConfigInfoReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MenuConfigInfoReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MenuConfigInfoReqValidationError{}
+
+// Validate checks the field values on MenuConfigInfoReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MenuConfigInfoReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MenuConfigInfoReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MenuConfigInfoReplyMultiError, or nil if none found.
+func (m *MenuConfigInfoReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MenuConfigInfoReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetInfo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, MenuConfigInfoReplyValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, MenuConfigInfoReplyValidationError{
+					field:  "Info",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return MenuConfigInfoReplyValidationError{
+				field:  "Info",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return MenuConfigInfoReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// MenuConfigInfoReplyMultiError is an error wrapping multiple validation
+// errors returned by MenuConfigInfoReply.ValidateAll() if the designated
+// constraints aren't met.
+type MenuConfigInfoReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MenuConfigInfoReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MenuConfigInfoReplyMultiError) AllErrors() []error { return m }
+
+// MenuConfigInfoReplyValidationError is the validation error returned by
+// MenuConfigInfoReply.Validate if the designated constraints aren't met.
+type MenuConfigInfoReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MenuConfigInfoReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MenuConfigInfoReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MenuConfigInfoReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MenuConfigInfoReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MenuConfigInfoReplyValidationError) ErrorName() string {
+	return "MenuConfigInfoReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MenuConfigInfoReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMenuConfigInfoReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MenuConfigInfoReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MenuConfigInfoReplyValidationError{}
+
+// Validate checks the field values on MenuConfigStoreReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MenuConfigStoreReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MenuConfigStoreReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MenuConfigStoreReqMultiError, or nil if none found.
+func (m *MenuConfigStoreReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MenuConfigStoreReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return MenuConfigStoreReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// MenuConfigStoreReqMultiError is an error wrapping multiple validation errors
+// returned by MenuConfigStoreReq.ValidateAll() if the designated constraints
+// aren't met.
+type MenuConfigStoreReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MenuConfigStoreReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MenuConfigStoreReqMultiError) AllErrors() []error { return m }
+
+// MenuConfigStoreReqValidationError is the validation error returned by
+// MenuConfigStoreReq.Validate if the designated constraints aren't met.
+type MenuConfigStoreReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MenuConfigStoreReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MenuConfigStoreReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MenuConfigStoreReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MenuConfigStoreReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MenuConfigStoreReqValidationError) ErrorName() string {
+	return "MenuConfigStoreReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MenuConfigStoreReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMenuConfigStoreReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MenuConfigStoreReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MenuConfigStoreReqValidationError{}
+
+// Validate checks the field values on MenuConfigStoreReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *MenuConfigStoreReply) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MenuConfigStoreReply with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// MenuConfigStoreReplyMultiError, or nil if none found.
+func (m *MenuConfigStoreReply) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MenuConfigStoreReply) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return MenuConfigStoreReplyMultiError(errors)
+	}
+
+	return nil
+}
+
+// MenuConfigStoreReplyMultiError is an error wrapping multiple validation
+// errors returned by MenuConfigStoreReply.ValidateAll() if the designated
+// constraints aren't met.
+type MenuConfigStoreReplyMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MenuConfigStoreReplyMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MenuConfigStoreReplyMultiError) AllErrors() []error { return m }
+
+// MenuConfigStoreReplyValidationError is the validation error returned by
+// MenuConfigStoreReply.Validate if the designated constraints aren't met.
+type MenuConfigStoreReplyValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MenuConfigStoreReplyValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MenuConfigStoreReplyValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MenuConfigStoreReplyValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MenuConfigStoreReplyValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MenuConfigStoreReplyValidationError) ErrorName() string {
+	return "MenuConfigStoreReplyValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e MenuConfigStoreReplyValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMenuConfigStoreReply.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MenuConfigStoreReplyValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MenuConfigStoreReplyValidationError{}
+
 // Validate checks the field values on MenuListReq with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.

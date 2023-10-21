@@ -8,7 +8,6 @@ package v1
 
 import (
 	context "context"
-	paginator "fkratos/api/paginator"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -20,169 +19,169 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Log_SysLogList_FullMethodName  = "/api.rpc_sys.v1.Log/SysLogList"
-	Log_SysLogInfo_FullMethodName  = "/api.rpc_sys.v1.Log/SysLogInfo"
-	Log_SysLogStore_FullMethodName = "/api.rpc_sys.v1.Log/SysLogStore"
+	SysLog_SysLogList_FullMethodName  = "/api.rpc_sys.v1.SysLog/SysLogList"
+	SysLog_SysLogInfo_FullMethodName  = "/api.rpc_sys.v1.SysLog/SysLogInfo"
+	SysLog_SysLogStore_FullMethodName = "/api.rpc_sys.v1.SysLog/SysLogStore"
 )
 
-// LogClient is the client API for Log service.
+// SysLogClient is the client API for SysLog service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type LogClient interface {
+type SysLogClient interface {
 	// 日志-列表
-	SysLogList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysLogListResp, error)
+	SysLogList(ctx context.Context, in *SysLogListReq, opts ...grpc.CallOption) (*SysLogListResp, error)
 	// 日志-信息
 	SysLogInfo(ctx context.Context, in *SysLogInfoReq, opts ...grpc.CallOption) (*SysLogInfoResp, error)
 	// 日志-保存
 	SysLogStore(ctx context.Context, in *SysLogStoreReq, opts ...grpc.CallOption) (*SysLogStoreResp, error)
 }
 
-type logClient struct {
+type sysLogClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewLogClient(cc grpc.ClientConnInterface) LogClient {
-	return &logClient{cc}
+func NewSysLogClient(cc grpc.ClientConnInterface) SysLogClient {
+	return &sysLogClient{cc}
 }
 
-func (c *logClient) SysLogList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SysLogListResp, error) {
+func (c *sysLogClient) SysLogList(ctx context.Context, in *SysLogListReq, opts ...grpc.CallOption) (*SysLogListResp, error) {
 	out := new(SysLogListResp)
-	err := c.cc.Invoke(ctx, Log_SysLogList_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysLog_SysLogList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *logClient) SysLogInfo(ctx context.Context, in *SysLogInfoReq, opts ...grpc.CallOption) (*SysLogInfoResp, error) {
+func (c *sysLogClient) SysLogInfo(ctx context.Context, in *SysLogInfoReq, opts ...grpc.CallOption) (*SysLogInfoResp, error) {
 	out := new(SysLogInfoResp)
-	err := c.cc.Invoke(ctx, Log_SysLogInfo_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysLog_SysLogInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *logClient) SysLogStore(ctx context.Context, in *SysLogStoreReq, opts ...grpc.CallOption) (*SysLogStoreResp, error) {
+func (c *sysLogClient) SysLogStore(ctx context.Context, in *SysLogStoreReq, opts ...grpc.CallOption) (*SysLogStoreResp, error) {
 	out := new(SysLogStoreResp)
-	err := c.cc.Invoke(ctx, Log_SysLogStore_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysLog_SysLogStore_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// LogServer is the server API for Log service.
-// All implementations must embed UnimplementedLogServer
+// SysLogServer is the server API for SysLog service.
+// All implementations must embed UnimplementedSysLogServer
 // for forward compatibility
-type LogServer interface {
+type SysLogServer interface {
 	// 日志-列表
-	SysLogList(context.Context, *paginator.PaginatorReq) (*SysLogListResp, error)
+	SysLogList(context.Context, *SysLogListReq) (*SysLogListResp, error)
 	// 日志-信息
 	SysLogInfo(context.Context, *SysLogInfoReq) (*SysLogInfoResp, error)
 	// 日志-保存
 	SysLogStore(context.Context, *SysLogStoreReq) (*SysLogStoreResp, error)
-	mustEmbedUnimplementedLogServer()
+	mustEmbedUnimplementedSysLogServer()
 }
 
-// UnimplementedLogServer must be embedded to have forward compatible implementations.
-type UnimplementedLogServer struct {
+// UnimplementedSysLogServer must be embedded to have forward compatible implementations.
+type UnimplementedSysLogServer struct {
 }
 
-func (UnimplementedLogServer) SysLogList(context.Context, *paginator.PaginatorReq) (*SysLogListResp, error) {
+func (UnimplementedSysLogServer) SysLogList(context.Context, *SysLogListReq) (*SysLogListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysLogList not implemented")
 }
-func (UnimplementedLogServer) SysLogInfo(context.Context, *SysLogInfoReq) (*SysLogInfoResp, error) {
+func (UnimplementedSysLogServer) SysLogInfo(context.Context, *SysLogInfoReq) (*SysLogInfoResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysLogInfo not implemented")
 }
-func (UnimplementedLogServer) SysLogStore(context.Context, *SysLogStoreReq) (*SysLogStoreResp, error) {
+func (UnimplementedSysLogServer) SysLogStore(context.Context, *SysLogStoreReq) (*SysLogStoreResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysLogStore not implemented")
 }
-func (UnimplementedLogServer) mustEmbedUnimplementedLogServer() {}
+func (UnimplementedSysLogServer) mustEmbedUnimplementedSysLogServer() {}
 
-// UnsafeLogServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to LogServer will
+// UnsafeSysLogServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SysLogServer will
 // result in compilation errors.
-type UnsafeLogServer interface {
-	mustEmbedUnimplementedLogServer()
+type UnsafeSysLogServer interface {
+	mustEmbedUnimplementedSysLogServer()
 }
 
-func RegisterLogServer(s grpc.ServiceRegistrar, srv LogServer) {
-	s.RegisterService(&Log_ServiceDesc, srv)
+func RegisterSysLogServer(s grpc.ServiceRegistrar, srv SysLogServer) {
+	s.RegisterService(&SysLog_ServiceDesc, srv)
 }
 
-func _Log_SysLogList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(paginator.PaginatorReq)
+func _SysLog_SysLogList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SysLogListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LogServer).SysLogList(ctx, in)
+		return srv.(SysLogServer).SysLogList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Log_SysLogList_FullMethodName,
+		FullMethod: SysLog_SysLogList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LogServer).SysLogList(ctx, req.(*paginator.PaginatorReq))
+		return srv.(SysLogServer).SysLogList(ctx, req.(*SysLogListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Log_SysLogInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysLog_SysLogInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysLogInfoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LogServer).SysLogInfo(ctx, in)
+		return srv.(SysLogServer).SysLogInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Log_SysLogInfo_FullMethodName,
+		FullMethod: SysLog_SysLogInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LogServer).SysLogInfo(ctx, req.(*SysLogInfoReq))
+		return srv.(SysLogServer).SysLogInfo(ctx, req.(*SysLogInfoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Log_SysLogStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysLog_SysLogStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysLogStoreReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LogServer).SysLogStore(ctx, in)
+		return srv.(SysLogServer).SysLogStore(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Log_SysLogStore_FullMethodName,
+		FullMethod: SysLog_SysLogStore_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LogServer).SysLogStore(ctx, req.(*SysLogStoreReq))
+		return srv.(SysLogServer).SysLogStore(ctx, req.(*SysLogStoreReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Log_ServiceDesc is the grpc.ServiceDesc for Log service.
+// SysLog_ServiceDesc is the grpc.ServiceDesc for SysLog service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Log_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.rpc_sys.v1.Log",
-	HandlerType: (*LogServer)(nil),
+var SysLog_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "api.rpc_sys.v1.SysLog",
+	HandlerType: (*SysLogServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SysLogList",
-			Handler:    _Log_SysLogList_Handler,
+			Handler:    _SysLog_SysLogList_Handler,
 		},
 		{
 			MethodName: "SysLogInfo",
-			Handler:    _Log_SysLogInfo_Handler,
+			Handler:    _SysLog_SysLogInfo_Handler,
 		},
 		{
 			MethodName: "SysLogStore",
-			Handler:    _Log_SysLogStore_Handler,
+			Handler:    _SysLog_SysLogStore_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

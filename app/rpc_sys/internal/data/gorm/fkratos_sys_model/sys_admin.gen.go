@@ -16,7 +16,7 @@ const TableNameSysAdmin = "sys_admin"
 // SysAdmin mapped from table <sys_admin>
 type SysAdmin struct {
 	ID        string         `gorm:"column:id;primaryKey;default:gen_random_uuid();comment:编号" json:"id"` // 编号
-	Username  string         `gorm:"column:username;not null;default;comment:用户名" json:"username"`        // 用户名
+	Username  string         `gorm:"column:username;not null;comment:用户名" json:"username"`                // 用户名
 	Password  string         `gorm:"column:password;not null;comment:密码" json:"password"`                 // 密码
 	Nickname  string         `gorm:"column:nickname;not null;comment:昵称" json:"nickname"`                 // 昵称
 	Avatar    string         `gorm:"column:avatar;comment:头像" json:"avatar"`                              // 头像
@@ -27,7 +27,7 @@ type SysAdmin struct {
 	DeptID    string         `gorm:"column:dept_id;comment:部门" json:"deptId"`                             // 部门
 	RoleIds   datatypes.JSON `gorm:"column:role_ids;comment:角色集" json:"roleIds"`                          // 角色集
 	Salt      string         `gorm:"column:salt;not null;comment:盐值" json:"salt"`                         // 盐值
-	Status    int16          `gorm:"column:status;not null;default:1;comment:0=禁用 1=开启" json:"status"`    // 0=禁用 1=开启
+	Status    int16          `gorm:"column:status;not null;comment:0=禁用 1=开启" json:"status"`              // 0=禁用 1=开启
 	Motto     string         `gorm:"column:motto;comment:个性签名" json:"motto"`                              // 个性签名
 	CreatedAt time.Time      `gorm:"column:created_at;not null;comment:创建时间" json:"createdAt"`            // 创建时间
 	UpdatedAt time.Time      `gorm:"column:updated_at;not null;comment:更新时间" json:"updatedAt"`            // 更新时间

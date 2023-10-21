@@ -1,10 +1,12 @@
 package data
 
 import (
+	"fkratos/app/rpc_common/internal/data/gorm/fkratos_common_repo"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
 	"fmt"
 
+	"github.com/fzf-labs/fpkg/orm/gen/cache"
 	"github.com/fzf-labs/fpkg/orm/gen/cache/rueidisdbcache"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
@@ -17,7 +19,9 @@ var ProviderSet = wire.NewSet(
 	bootstrap.NewGorm,
 	bootstrap.NewRueidis,
 	NewData,
+	NewDBCache,
 	NewSensitiveWordRepo,
+	fkratos_common_repo.NewSensitiveWordRepo,
 )
 
 type Data struct {
@@ -48,4 +52,7 @@ func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidisClient ru
 		d.rueidis.Close()
 	}
 	return d, cleanup, nil
+}
+func NewDBCache(rueidisClient rueidis.Client) cache.IDBCache {
+	return rueidisdbcache.NewRueidisDBCache(rueidisClient)
 }

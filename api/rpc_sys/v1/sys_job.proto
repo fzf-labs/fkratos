@@ -9,9 +9,9 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 后缀定义:请求req,响应reply
 
 // 岗位
-service Job {
+service SysJob {
   //岗位-列表
-  rpc SysJobList(paginator.PaginatorReq) returns (SysJobListReply);
+  rpc SysJobList(SysJobListReq) returns (SysJobListReply);
   //岗位-单个岗位信息
   rpc SysJobInfo(SysJobInfoReq) returns (SysJobInfoReply);
   //岗位-保存
@@ -30,6 +30,11 @@ message SysJobInfo {
   int32 sort = 6; // 排序值
   string createdAt = 7; // 创建时间
   string updatedAt = 8; // 更新时间
+}
+
+//响应-岗位列表
+message SysJobListReq {
+  paginator.PaginatorReq paginator = 1; //分页
 }
 
 //响应-岗位列表

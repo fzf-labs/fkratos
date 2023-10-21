@@ -19,27 +19,24 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Device_CreateDevice_FullMethodName = "/api.rpc_device.v1.Device/CreateDevice"
-	Device_UpdateDevice_FullMethodName = "/api.rpc_device.v1.Device/UpdateDevice"
-	Device_DeleteDevice_FullMethodName = "/api.rpc_device.v1.Device/DeleteDevice"
-	Device_GetDevice_FullMethodName    = "/api.rpc_device.v1.Device/GetDevice"
-	Device_ListDevice_FullMethodName   = "/api.rpc_device.v1.Device/ListDevice"
+	Device_DeviceStore_FullMethodName = "/api.rpc_device.v1.Device/DeviceStore"
+	Device_DeviceDel_FullMethodName   = "/api.rpc_device.v1.Device/DeviceDel"
+	Device_DeviceOne_FullMethodName   = "/api.rpc_device.v1.Device/DeviceOne"
+	Device_DeviceList_FullMethodName  = "/api.rpc_device.v1.Device/DeviceList"
 )
 
 // DeviceClient is the client API for Device service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DeviceClient interface {
-	// 创建设备
-	CreateDevice(ctx context.Context, in *CreateDeviceReq, opts ...grpc.CallOption) (*CreateDeviceReply, error)
-	// 更新设备
-	UpdateDevice(ctx context.Context, in *UpdateDeviceReq, opts ...grpc.CallOption) (*UpdateDeviceReply, error)
-	// 删除设备
-	DeleteDevice(ctx context.Context, in *DeleteDeviceReq, opts ...grpc.CallOption) (*DeleteDeviceReply, error)
-	// 获取单个设备
-	GetDevice(ctx context.Context, in *GetDeviceReq, opts ...grpc.CallOption) (*GetDeviceReply, error)
-	// 获取设备列表
-	ListDevice(ctx context.Context, in *ListDeviceReq, opts ...grpc.CallOption) (*ListDeviceReply, error)
+	// 设备表-创建一条数据
+	DeviceStore(ctx context.Context, in *DeviceStoreReq, opts ...grpc.CallOption) (*DeviceStoreReply, error)
+	// 设备表-删除多条数据
+	DeviceDel(ctx context.Context, in *DeviceDelReq, opts ...grpc.CallOption) (*DeviceDelReply, error)
+	// 设备表-单条数据查询
+	DeviceOne(ctx context.Context, in *DeviceOneReq, opts ...grpc.CallOption) (*DeviceOneReply, error)
+	// 设备表-列表数据查询
+	DeviceList(ctx context.Context, in *DeviceListReq, opts ...grpc.CallOption) (*DeviceListReply, error)
 }
 
 type deviceClient struct {
@@ -50,45 +47,36 @@ func NewDeviceClient(cc grpc.ClientConnInterface) DeviceClient {
 	return &deviceClient{cc}
 }
 
-func (c *deviceClient) CreateDevice(ctx context.Context, in *CreateDeviceReq, opts ...grpc.CallOption) (*CreateDeviceReply, error) {
-	out := new(CreateDeviceReply)
-	err := c.cc.Invoke(ctx, Device_CreateDevice_FullMethodName, in, out, opts...)
+func (c *deviceClient) DeviceStore(ctx context.Context, in *DeviceStoreReq, opts ...grpc.CallOption) (*DeviceStoreReply, error) {
+	out := new(DeviceStoreReply)
+	err := c.cc.Invoke(ctx, Device_DeviceStore_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deviceClient) UpdateDevice(ctx context.Context, in *UpdateDeviceReq, opts ...grpc.CallOption) (*UpdateDeviceReply, error) {
-	out := new(UpdateDeviceReply)
-	err := c.cc.Invoke(ctx, Device_UpdateDevice_FullMethodName, in, out, opts...)
+func (c *deviceClient) DeviceDel(ctx context.Context, in *DeviceDelReq, opts ...grpc.CallOption) (*DeviceDelReply, error) {
+	out := new(DeviceDelReply)
+	err := c.cc.Invoke(ctx, Device_DeviceDel_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deviceClient) DeleteDevice(ctx context.Context, in *DeleteDeviceReq, opts ...grpc.CallOption) (*DeleteDeviceReply, error) {
-	out := new(DeleteDeviceReply)
-	err := c.cc.Invoke(ctx, Device_DeleteDevice_FullMethodName, in, out, opts...)
+func (c *deviceClient) DeviceOne(ctx context.Context, in *DeviceOneReq, opts ...grpc.CallOption) (*DeviceOneReply, error) {
+	out := new(DeviceOneReply)
+	err := c.cc.Invoke(ctx, Device_DeviceOne_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deviceClient) GetDevice(ctx context.Context, in *GetDeviceReq, opts ...grpc.CallOption) (*GetDeviceReply, error) {
-	out := new(GetDeviceReply)
-	err := c.cc.Invoke(ctx, Device_GetDevice_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *deviceClient) ListDevice(ctx context.Context, in *ListDeviceReq, opts ...grpc.CallOption) (*ListDeviceReply, error) {
-	out := new(ListDeviceReply)
-	err := c.cc.Invoke(ctx, Device_ListDevice_FullMethodName, in, out, opts...)
+func (c *deviceClient) DeviceList(ctx context.Context, in *DeviceListReq, opts ...grpc.CallOption) (*DeviceListReply, error) {
+	out := new(DeviceListReply)
+	err := c.cc.Invoke(ctx, Device_DeviceList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,16 +87,14 @@ func (c *deviceClient) ListDevice(ctx context.Context, in *ListDeviceReq, opts .
 // All implementations must embed UnimplementedDeviceServer
 // for forward compatibility
 type DeviceServer interface {
-	// 创建设备
-	CreateDevice(context.Context, *CreateDeviceReq) (*CreateDeviceReply, error)
-	// 更新设备
-	UpdateDevice(context.Context, *UpdateDeviceReq) (*UpdateDeviceReply, error)
-	// 删除设备
-	DeleteDevice(context.Context, *DeleteDeviceReq) (*DeleteDeviceReply, error)
-	// 获取单个设备
-	GetDevice(context.Context, *GetDeviceReq) (*GetDeviceReply, error)
-	// 获取设备列表
-	ListDevice(context.Context, *ListDeviceReq) (*ListDeviceReply, error)
+	// 设备表-创建一条数据
+	DeviceStore(context.Context, *DeviceStoreReq) (*DeviceStoreReply, error)
+	// 设备表-删除多条数据
+	DeviceDel(context.Context, *DeviceDelReq) (*DeviceDelReply, error)
+	// 设备表-单条数据查询
+	DeviceOne(context.Context, *DeviceOneReq) (*DeviceOneReply, error)
+	// 设备表-列表数据查询
+	DeviceList(context.Context, *DeviceListReq) (*DeviceListReply, error)
 	mustEmbedUnimplementedDeviceServer()
 }
 
@@ -116,20 +102,17 @@ type DeviceServer interface {
 type UnimplementedDeviceServer struct {
 }
 
-func (UnimplementedDeviceServer) CreateDevice(context.Context, *CreateDeviceReq) (*CreateDeviceReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateDevice not implemented")
+func (UnimplementedDeviceServer) DeviceStore(context.Context, *DeviceStoreReq) (*DeviceStoreReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceStore not implemented")
 }
-func (UnimplementedDeviceServer) UpdateDevice(context.Context, *UpdateDeviceReq) (*UpdateDeviceReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateDevice not implemented")
+func (UnimplementedDeviceServer) DeviceDel(context.Context, *DeviceDelReq) (*DeviceDelReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceDel not implemented")
 }
-func (UnimplementedDeviceServer) DeleteDevice(context.Context, *DeleteDeviceReq) (*DeleteDeviceReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteDevice not implemented")
+func (UnimplementedDeviceServer) DeviceOne(context.Context, *DeviceOneReq) (*DeviceOneReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceOne not implemented")
 }
-func (UnimplementedDeviceServer) GetDevice(context.Context, *GetDeviceReq) (*GetDeviceReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDevice not implemented")
-}
-func (UnimplementedDeviceServer) ListDevice(context.Context, *ListDeviceReq) (*ListDeviceReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListDevice not implemented")
+func (UnimplementedDeviceServer) DeviceList(context.Context, *DeviceListReq) (*DeviceListReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeviceList not implemented")
 }
 func (UnimplementedDeviceServer) mustEmbedUnimplementedDeviceServer() {}
 
@@ -144,92 +127,74 @@ func RegisterDeviceServer(s grpc.ServiceRegistrar, srv DeviceServer) {
 	s.RegisterService(&Device_ServiceDesc, srv)
 }
 
-func _Device_CreateDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateDeviceReq)
+func _Device_DeviceStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceStoreReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServer).CreateDevice(ctx, in)
+		return srv.(DeviceServer).DeviceStore(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Device_CreateDevice_FullMethodName,
+		FullMethod: Device_DeviceStore_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServer).CreateDevice(ctx, req.(*CreateDeviceReq))
+		return srv.(DeviceServer).DeviceStore(ctx, req.(*DeviceStoreReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Device_UpdateDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateDeviceReq)
+func _Device_DeviceDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceDelReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServer).UpdateDevice(ctx, in)
+		return srv.(DeviceServer).DeviceDel(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Device_UpdateDevice_FullMethodName,
+		FullMethod: Device_DeviceDel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServer).UpdateDevice(ctx, req.(*UpdateDeviceReq))
+		return srv.(DeviceServer).DeviceDel(ctx, req.(*DeviceDelReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Device_DeleteDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteDeviceReq)
+func _Device_DeviceOne_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceOneReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServer).DeleteDevice(ctx, in)
+		return srv.(DeviceServer).DeviceOne(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Device_DeleteDevice_FullMethodName,
+		FullMethod: Device_DeviceOne_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServer).DeleteDevice(ctx, req.(*DeleteDeviceReq))
+		return srv.(DeviceServer).DeviceOne(ctx, req.(*DeviceOneReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Device_GetDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDeviceReq)
+func _Device_DeviceList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeviceListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeviceServer).GetDevice(ctx, in)
+		return srv.(DeviceServer).DeviceList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Device_GetDevice_FullMethodName,
+		FullMethod: Device_DeviceList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServer).GetDevice(ctx, req.(*GetDeviceReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Device_ListDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListDeviceReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DeviceServer).ListDevice(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Device_ListDevice_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeviceServer).ListDevice(ctx, req.(*ListDeviceReq))
+		return srv.(DeviceServer).DeviceList(ctx, req.(*DeviceListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -242,24 +207,20 @@ var Device_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*DeviceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateDevice",
-			Handler:    _Device_CreateDevice_Handler,
+			MethodName: "DeviceStore",
+			Handler:    _Device_DeviceStore_Handler,
 		},
 		{
-			MethodName: "UpdateDevice",
-			Handler:    _Device_UpdateDevice_Handler,
+			MethodName: "DeviceDel",
+			Handler:    _Device_DeviceDel_Handler,
 		},
 		{
-			MethodName: "DeleteDevice",
-			Handler:    _Device_DeleteDevice_Handler,
+			MethodName: "DeviceOne",
+			Handler:    _Device_DeviceOne_Handler,
 		},
 		{
-			MethodName: "GetDevice",
-			Handler:    _Device_GetDevice_Handler,
-		},
-		{
-			MethodName: "ListDevice",
-			Handler:    _Device_ListDevice_Handler,
+			MethodName: "DeviceList",
+			Handler:    _Device_DeviceList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -7,7 +7,8 @@
 package main
 
 import (
-	"fkratos/app/bff_admin/internal/data"
+	"fkratos/app/bff_admin/internal/biz"
+	"fkratos/app/bff_admin/internal/data/rpc"
 	"fkratos/app/bff_admin/internal/server"
 	"fkratos/app/bff_admin/internal/service"
 	"fkratos/internal/bootstrap/conf"
@@ -24,18 +25,19 @@ import (
 
 // wireApp init kratos application.
 func wireApp(bootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
-	rpcSysGrpc := data.NewRPCSysGrpc(bootstrap, discovery)
-	authClient := data.NewSysAuthServiceClient(rpcSysGrpc)
-	adminClient := data.NewSysAdminServiceClient(rpcSysGrpc)
-	roleClient := data.NewSysRoleServiceClient(rpcSysGrpc)
-	permissionClient := data.NewSysPermissionServiceClient(rpcSysGrpc)
-	jobClient := data.NewSysJobServiceClient(rpcSysGrpc)
-	deptClient := data.NewSysDeptServiceClient(rpcSysGrpc)
-	apiClient := data.NewSysAPIServiceClient(rpcSysGrpc)
-	logClient := data.NewSysLogServiceClient(rpcSysGrpc)
-	dashboardClient := data.NewSysDashboardServiceClient(rpcSysGrpc)
-	sysService := service.NewSysService(logger, authClient, adminClient, roleClient, permissionClient, jobClient, deptClient, apiClient, logClient, dashboardClient)
-	httpServer := server.NewHTTPServer(bootstrap, logger, authClient, sysService)
+	sysGrpc := rpc.NewRPCSysGrpc(bootstrap, discovery)
+	sysAuthClient := rpc.NewSysAuthServiceClient(sysGrpc)
+	sysAdminClient := rpc.NewSysAdminServiceClient(sysGrpc)
+	sysRoleClient := rpc.NewSysRoleServiceClient(sysGrpc)
+	sysPermissionClient := rpc.NewSysPermissionServiceClient(sysGrpc)
+	sysJobClient := rpc.NewSysJobServiceClient(sysGrpc)
+	sysDeptClient := rpc.NewSysDeptServiceClient(sysGrpc)
+	sysAPIClient := rpc.NewSysAPIServiceClient(sysGrpc)
+	sysLogClient := rpc.NewSysLogServiceClient(sysGrpc)
+	dashboardClient := rpc.NewSysDashboardServiceClient(sysGrpc)
+	sysUseCase := biz.NewSysUseCase(logger, sysAuthClient, sysAdminClient, sysRoleClient, sysPermissionClient, sysJobClient, sysDeptClient, sysAPIClient, sysLogClient, dashboardClient)
+	sysService := service.NewSysService(logger, sysUseCase)
+	httpServer := server.NewHTTPServer(bootstrap, logger, sysAuthClient, sysService)
 	app := newApp(logger, registrar, httpServer)
 	return app, func() {
 	}, nil

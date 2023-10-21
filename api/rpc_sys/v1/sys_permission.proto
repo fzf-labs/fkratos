@@ -8,7 +8,7 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 后缀定义:请求req,响应reply
 
 // 权限服务
-service Permission {
+service SysPermission {
   //权限-列表
   rpc SysPermissionList(SysPermissionListReq) returns (SysPermissionListResp);
   //权限-单个权限信息

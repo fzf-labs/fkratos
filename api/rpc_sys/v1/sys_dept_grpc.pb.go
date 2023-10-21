@@ -19,16 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Dept_SysDeptList_FullMethodName  = "/api.rpc_sys.v1.Dept/SysDeptList"
-	Dept_SysDeptInfo_FullMethodName  = "/api.rpc_sys.v1.Dept/SysDeptInfo"
-	Dept_SysDeptStore_FullMethodName = "/api.rpc_sys.v1.Dept/SysDeptStore"
-	Dept_SysDeptDel_FullMethodName   = "/api.rpc_sys.v1.Dept/SysDeptDel"
+	SysDept_SysDeptList_FullMethodName  = "/api.rpc_sys.v1.SysDept/SysDeptList"
+	SysDept_SysDeptInfo_FullMethodName  = "/api.rpc_sys.v1.SysDept/SysDeptInfo"
+	SysDept_SysDeptStore_FullMethodName = "/api.rpc_sys.v1.SysDept/SysDeptStore"
+	SysDept_SysDeptDel_FullMethodName   = "/api.rpc_sys.v1.SysDept/SysDeptDel"
 )
 
-// DeptClient is the client API for Dept service.
+// SysDeptClient is the client API for SysDept service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type DeptClient interface {
+type SysDeptClient interface {
 	// 部门-列表
 	SysDeptList(ctx context.Context, in *SysDeptListReq, opts ...grpc.CallOption) (*SysDeptListReply, error)
 	// 部门-单个部门信息
@@ -39,54 +39,54 @@ type DeptClient interface {
 	SysDeptDel(ctx context.Context, in *SysDeptDelReq, opts ...grpc.CallOption) (*SysDeptDelReply, error)
 }
 
-type deptClient struct {
+type sysDeptClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewDeptClient(cc grpc.ClientConnInterface) DeptClient {
-	return &deptClient{cc}
+func NewSysDeptClient(cc grpc.ClientConnInterface) SysDeptClient {
+	return &sysDeptClient{cc}
 }
 
-func (c *deptClient) SysDeptList(ctx context.Context, in *SysDeptListReq, opts ...grpc.CallOption) (*SysDeptListReply, error) {
+func (c *sysDeptClient) SysDeptList(ctx context.Context, in *SysDeptListReq, opts ...grpc.CallOption) (*SysDeptListReply, error) {
 	out := new(SysDeptListReply)
-	err := c.cc.Invoke(ctx, Dept_SysDeptList_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysDept_SysDeptList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deptClient) SysDeptInfo(ctx context.Context, in *SysDeptInfoReq, opts ...grpc.CallOption) (*SysDeptInfoReply, error) {
+func (c *sysDeptClient) SysDeptInfo(ctx context.Context, in *SysDeptInfoReq, opts ...grpc.CallOption) (*SysDeptInfoReply, error) {
 	out := new(SysDeptInfoReply)
-	err := c.cc.Invoke(ctx, Dept_SysDeptInfo_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysDept_SysDeptInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deptClient) SysDeptStore(ctx context.Context, in *SysDeptStoreReq, opts ...grpc.CallOption) (*SysDeptStoreReply, error) {
+func (c *sysDeptClient) SysDeptStore(ctx context.Context, in *SysDeptStoreReq, opts ...grpc.CallOption) (*SysDeptStoreReply, error) {
 	out := new(SysDeptStoreReply)
-	err := c.cc.Invoke(ctx, Dept_SysDeptStore_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysDept_SysDeptStore_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *deptClient) SysDeptDel(ctx context.Context, in *SysDeptDelReq, opts ...grpc.CallOption) (*SysDeptDelReply, error) {
+func (c *sysDeptClient) SysDeptDel(ctx context.Context, in *SysDeptDelReq, opts ...grpc.CallOption) (*SysDeptDelReply, error) {
 	out := new(SysDeptDelReply)
-	err := c.cc.Invoke(ctx, Dept_SysDeptDel_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysDept_SysDeptDel_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// DeptServer is the server API for Dept service.
-// All implementations must embed UnimplementedDeptServer
+// SysDeptServer is the server API for SysDept service.
+// All implementations must embed UnimplementedSysDeptServer
 // for forward compatibility
-type DeptServer interface {
+type SysDeptServer interface {
 	// 部门-列表
 	SysDeptList(context.Context, *SysDeptListReq) (*SysDeptListReply, error)
 	// 部门-单个部门信息
@@ -95,132 +95,132 @@ type DeptServer interface {
 	SysDeptStore(context.Context, *SysDeptStoreReq) (*SysDeptStoreReply, error)
 	// 部门-删除
 	SysDeptDel(context.Context, *SysDeptDelReq) (*SysDeptDelReply, error)
-	mustEmbedUnimplementedDeptServer()
+	mustEmbedUnimplementedSysDeptServer()
 }
 
-// UnimplementedDeptServer must be embedded to have forward compatible implementations.
-type UnimplementedDeptServer struct {
+// UnimplementedSysDeptServer must be embedded to have forward compatible implementations.
+type UnimplementedSysDeptServer struct {
 }
 
-func (UnimplementedDeptServer) SysDeptList(context.Context, *SysDeptListReq) (*SysDeptListReply, error) {
+func (UnimplementedSysDeptServer) SysDeptList(context.Context, *SysDeptListReq) (*SysDeptListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysDeptList not implemented")
 }
-func (UnimplementedDeptServer) SysDeptInfo(context.Context, *SysDeptInfoReq) (*SysDeptInfoReply, error) {
+func (UnimplementedSysDeptServer) SysDeptInfo(context.Context, *SysDeptInfoReq) (*SysDeptInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysDeptInfo not implemented")
 }
-func (UnimplementedDeptServer) SysDeptStore(context.Context, *SysDeptStoreReq) (*SysDeptStoreReply, error) {
+func (UnimplementedSysDeptServer) SysDeptStore(context.Context, *SysDeptStoreReq) (*SysDeptStoreReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysDeptStore not implemented")
 }
-func (UnimplementedDeptServer) SysDeptDel(context.Context, *SysDeptDelReq) (*SysDeptDelReply, error) {
+func (UnimplementedSysDeptServer) SysDeptDel(context.Context, *SysDeptDelReq) (*SysDeptDelReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysDeptDel not implemented")
 }
-func (UnimplementedDeptServer) mustEmbedUnimplementedDeptServer() {}
+func (UnimplementedSysDeptServer) mustEmbedUnimplementedSysDeptServer() {}
 
-// UnsafeDeptServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to DeptServer will
+// UnsafeSysDeptServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SysDeptServer will
 // result in compilation errors.
-type UnsafeDeptServer interface {
-	mustEmbedUnimplementedDeptServer()
+type UnsafeSysDeptServer interface {
+	mustEmbedUnimplementedSysDeptServer()
 }
 
-func RegisterDeptServer(s grpc.ServiceRegistrar, srv DeptServer) {
-	s.RegisterService(&Dept_ServiceDesc, srv)
+func RegisterSysDeptServer(s grpc.ServiceRegistrar, srv SysDeptServer) {
+	s.RegisterService(&SysDept_ServiceDesc, srv)
 }
 
-func _Dept_SysDeptList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysDept_SysDeptList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysDeptListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeptServer).SysDeptList(ctx, in)
+		return srv.(SysDeptServer).SysDeptList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Dept_SysDeptList_FullMethodName,
+		FullMethod: SysDept_SysDeptList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeptServer).SysDeptList(ctx, req.(*SysDeptListReq))
+		return srv.(SysDeptServer).SysDeptList(ctx, req.(*SysDeptListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Dept_SysDeptInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysDept_SysDeptInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysDeptInfoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeptServer).SysDeptInfo(ctx, in)
+		return srv.(SysDeptServer).SysDeptInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Dept_SysDeptInfo_FullMethodName,
+		FullMethod: SysDept_SysDeptInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeptServer).SysDeptInfo(ctx, req.(*SysDeptInfoReq))
+		return srv.(SysDeptServer).SysDeptInfo(ctx, req.(*SysDeptInfoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Dept_SysDeptStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysDept_SysDeptStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysDeptStoreReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeptServer).SysDeptStore(ctx, in)
+		return srv.(SysDeptServer).SysDeptStore(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Dept_SysDeptStore_FullMethodName,
+		FullMethod: SysDept_SysDeptStore_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeptServer).SysDeptStore(ctx, req.(*SysDeptStoreReq))
+		return srv.(SysDeptServer).SysDeptStore(ctx, req.(*SysDeptStoreReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Dept_SysDeptDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysDept_SysDeptDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysDeptDelReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DeptServer).SysDeptDel(ctx, in)
+		return srv.(SysDeptServer).SysDeptDel(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Dept_SysDeptDel_FullMethodName,
+		FullMethod: SysDept_SysDeptDel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DeptServer).SysDeptDel(ctx, req.(*SysDeptDelReq))
+		return srv.(SysDeptServer).SysDeptDel(ctx, req.(*SysDeptDelReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Dept_ServiceDesc is the grpc.ServiceDesc for Dept service.
+// SysDept_ServiceDesc is the grpc.ServiceDesc for SysDept service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Dept_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.rpc_sys.v1.Dept",
-	HandlerType: (*DeptServer)(nil),
+var SysDept_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "api.rpc_sys.v1.SysDept",
+	HandlerType: (*SysDeptServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SysDeptList",
-			Handler:    _Dept_SysDeptList_Handler,
+			Handler:    _SysDept_SysDeptList_Handler,
 		},
 		{
 			MethodName: "SysDeptInfo",
-			Handler:    _Dept_SysDeptInfo_Handler,
+			Handler:    _SysDept_SysDeptInfo_Handler,
 		},
 		{
 			MethodName: "SysDeptStore",
-			Handler:    _Dept_SysDeptStore_Handler,
+			Handler:    _SysDept_SysDeptStore_Handler,
 		},
 		{
 			MethodName: "SysDeptDel",
-			Handler:    _Dept_SysDeptDel_Handler,
+			Handler:    _SysDept_SysDeptDel_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

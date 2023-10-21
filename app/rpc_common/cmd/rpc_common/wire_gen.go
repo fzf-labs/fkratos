@@ -9,6 +9,7 @@ package main
 import (
 	"fkratos/app/rpc_common/internal/biz"
 	"fkratos/app/rpc_common/internal/data"
+	"fkratos/app/rpc_common/internal/data/gorm/fkratos_common_repo"
 	"fkratos/app/rpc_common/internal/server"
 	"fkratos/app/rpc_common/internal/service"
 	"fkratos/internal/bootstrap"
@@ -32,8 +33,10 @@ func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registr
 	if err != nil {
 		return nil, nil, err
 	}
-	sensitiveWordRepo := data.NewSensitiveWordRepo(dataData, logger)
-	sensitiveWordUseCase := biz.NewSensitiveWordUseCase(logger, sensitiveWordRepo)
+	idbCache := data.NewDBCache(client)
+	sensitiveWordRepo := fkratos_common_repo.NewSensitiveWordRepo(db, idbCache)
+	bizSensitiveWordRepo := data.NewSensitiveWordRepo(logger, dataData, sensitiveWordRepo)
+	sensitiveWordUseCase := biz.NewSensitiveWordUseCase(logger, bizSensitiveWordRepo)
 	sensitiveWordService := service.NewSensitiveWordService(logger, sensitiveWordUseCase)
 	grpcServer := server.NewGRPCServer(confBootstrap, logger, sensitiveWordService)
 	app := newApp(logger, registrar, grpcServer)

@@ -4,13 +4,13 @@ import "github.com/google/wire"
 
 // ProviderSet is service providers.
 var ProviderSet = wire.NewSet(
-	NewAuthService,
-	NewAdminService,
-	NewJobService,
-	NewDeptService,
-	NewLogService,
-	NewRoleService,
-	NewPermissionService,
-	NewAPIService,
 	NewDashboardService,
+	NewSysAdminService,
+	NewSysAPIService,
+	NewSysAuthService,
+	NewSysDeptService,
+	NewSysJobService,
+	NewSysLogService,
+	NewSysPermissionService,
+	NewSysRoleService,
 )

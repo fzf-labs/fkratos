@@ -19,15 +19,21 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	OfficialAccount_MenuList_FullMethodName  = "/api.rpc_wechat.v1.OfficialAccount/MenuList"
-	OfficialAccount_MenuStore_FullMethodName = "/api.rpc_wechat.v1.OfficialAccount/MenuStore"
-	OfficialAccount_MenuDel_FullMethodName   = "/api.rpc_wechat.v1.OfficialAccount/MenuDel"
+	OfficialAccount_MenuConfigInfo_FullMethodName  = "/api.rpc_wechat.v1.OfficialAccount/MenuConfigInfo"
+	OfficialAccount_MenuConfigStore_FullMethodName = "/api.rpc_wechat.v1.OfficialAccount/MenuConfigStore"
+	OfficialAccount_MenuList_FullMethodName        = "/api.rpc_wechat.v1.OfficialAccount/MenuList"
+	OfficialAccount_MenuStore_FullMethodName       = "/api.rpc_wechat.v1.OfficialAccount/MenuStore"
+	OfficialAccount_MenuDel_FullMethodName         = "/api.rpc_wechat.v1.OfficialAccount/MenuDel"
 )
 
 // OfficialAccountClient is the client API for OfficialAccount service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OfficialAccountClient interface {
+	// 公众号-配置查看
+	MenuConfigInfo(ctx context.Context, in *MenuConfigInfoReq, opts ...grpc.CallOption) (*MenuConfigInfoReply, error)
+	// 公众号-配置保存
+	MenuConfigStore(ctx context.Context, in *MenuConfigStoreReq, opts ...grpc.CallOption) (*MenuConfigStoreReply, error)
 	// 公众号-菜单查看
 	MenuList(ctx context.Context, in *MenuListReq, opts ...grpc.CallOption) (*MenuListReply, error)
 	// 公众号-菜单保存
@@ -42,6 +48,24 @@ type officialAccountClient struct {
 
 func NewOfficialAccountClient(cc grpc.ClientConnInterface) OfficialAccountClient {
 	return &officialAccountClient{cc}
+}
+
+func (c *officialAccountClient) MenuConfigInfo(ctx context.Context, in *MenuConfigInfoReq, opts ...grpc.CallOption) (*MenuConfigInfoReply, error) {
+	out := new(MenuConfigInfoReply)
+	err := c.cc.Invoke(ctx, OfficialAccount_MenuConfigInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *officialAccountClient) MenuConfigStore(ctx context.Context, in *MenuConfigStoreReq, opts ...grpc.CallOption) (*MenuConfigStoreReply, error) {
+	out := new(MenuConfigStoreReply)
+	err := c.cc.Invoke(ctx, OfficialAccount_MenuConfigStore_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *officialAccountClient) MenuList(ctx context.Context, in *MenuListReq, opts ...grpc.CallOption) (*MenuListReply, error) {
@@ -75,6 +99,10 @@ func (c *officialAccountClient) MenuDel(ctx context.Context, in *MenuDelReq, opt
 // All implementations must embed UnimplementedOfficialAccountServer
 // for forward compatibility
 type OfficialAccountServer interface {
+	// 公众号-配置查看
+	MenuConfigInfo(context.Context, *MenuConfigInfoReq) (*MenuConfigInfoReply, error)
+	// 公众号-配置保存
+	MenuConfigStore(context.Context, *MenuConfigStoreReq) (*MenuConfigStoreReply, error)
 	// 公众号-菜单查看
 	MenuList(context.Context, *MenuListReq) (*MenuListReply, error)
 	// 公众号-菜单保存
@@ -88,6 +116,12 @@ type OfficialAccountServer interface {
 type UnimplementedOfficialAccountServer struct {
 }
 
+func (UnimplementedOfficialAccountServer) MenuConfigInfo(context.Context, *MenuConfigInfoReq) (*MenuConfigInfoReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MenuConfigInfo not implemented")
+}
+func (UnimplementedOfficialAccountServer) MenuConfigStore(context.Context, *MenuConfigStoreReq) (*MenuConfigStoreReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MenuConfigStore not implemented")
+}
 func (UnimplementedOfficialAccountServer) MenuList(context.Context, *MenuListReq) (*MenuListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MenuList not implemented")
 }
@@ -108,6 +142,42 @@ type UnsafeOfficialAccountServer interface {
 
 func RegisterOfficialAccountServer(s grpc.ServiceRegistrar, srv OfficialAccountServer) {
 	s.RegisterService(&OfficialAccount_ServiceDesc, srv)
+}
+
+func _OfficialAccount_MenuConfigInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MenuConfigInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OfficialAccountServer).MenuConfigInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OfficialAccount_MenuConfigInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OfficialAccountServer).MenuConfigInfo(ctx, req.(*MenuConfigInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OfficialAccount_MenuConfigStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MenuConfigStoreReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OfficialAccountServer).MenuConfigStore(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: OfficialAccount_MenuConfigStore_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OfficialAccountServer).MenuConfigStore(ctx, req.(*MenuConfigStoreReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _OfficialAccount_MenuList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -171,6 +241,14 @@ var OfficialAccount_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "api.rpc_wechat.v1.OfficialAccount",
 	HandlerType: (*OfficialAccountServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "MenuConfigInfo",
+			Handler:    _OfficialAccount_MenuConfigInfo_Handler,
+		},
+		{
+			MethodName: "MenuConfigStore",
+			Handler:    _OfficialAccount_MenuConfigStore_Handler,
+		},
 		{
 			MethodName: "MenuList",
 			Handler:    _OfficialAccount_MenuList_Handler,

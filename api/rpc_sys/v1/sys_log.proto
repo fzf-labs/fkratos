@@ -10,9 +10,9 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 后缀定义:请求req,响应reply
 
 // 日志
-service Log {
+service SysLog {
   //日志-列表
-  rpc SysLogList(paginator.PaginatorReq) returns (SysLogListResp);
+  rpc SysLogList(SysLogListReq) returns (SysLogListResp);
   //日志-信息
   rpc SysLogInfo(SysLogInfoReq) returns (SysLogInfoResp);
   //日志-保存
@@ -35,14 +35,13 @@ message SysLogInfo {
 
 //请求-日志列表
 message SysLogListReq {
-  int32 page = 1; //页码
-  int32 pageSize = 2; //页数
+  paginator.PaginatorReq paginator = 1; //分页
 }
 
 //响应-日志列表
 message SysLogListResp {
-  repeated SysLogInfo list = 1; //管理员列表
-  paginator.PaginatorReply paginator = 2; //分页
+  paginator.PaginatorReply paginator = 1; //分页
+  repeated SysLogInfo list = 2; //管理员列表
 }
 
 //请求-单条日志

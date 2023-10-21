@@ -2,9 +2,7 @@
 package main
 
 import (
-	"fkratos/cmd/proto/biz"
-	"fkratos/cmd/proto/data"
-	"fkratos/cmd/proto/service"
+	"fkratos/cmd/proto/gen"
 	"log"
 
 	"github.com/spf13/cobra"
@@ -18,9 +16,9 @@ var CmdProto = &cobra.Command{
 }
 
 func init() {
-	CmdProto.AddCommand(service.CmdService)
-	CmdProto.AddCommand(biz.CmdService)
-	CmdProto.AddCommand(data.CmdService)
+	CmdProto.AddCommand(gen.CmdService)
+	CmdProto.AddCommand(gen.CmdBiz)
+	CmdProto.AddCommand(gen.CmdData)
 }
 
 func main() {

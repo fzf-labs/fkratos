@@ -7,11 +7,9 @@
 package v1
 
 import (
-	"context"
-	"fkratos/api/paginator"
-
-	"github.com/go-kratos/kratos/v2/transport/http"
-	"github.com/go-kratos/kratos/v2/transport/http/binding"
+	context "context"
+	http "github.com/go-kratos/kratos/v2/transport/http"
+	binding "github.com/go-kratos/kratos/v2/transport/http/binding"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -93,13 +91,13 @@ type SysHTTPServer interface {
 	// SysJobInfo岗位-单个岗位信息
 	SysJobInfo(context.Context, *SysJobInfoReq) (*SysJobInfoReply, error)
 	// SysJobList岗位-列表
-	SysJobList(context.Context, *paginator.PaginatorReq) (*SysJobListReply, error)
+	SysJobList(context.Context, *SysJobListReq) (*SysJobListReply, error)
 	// SysJobStore岗位-保存
 	SysJobStore(context.Context, *SysJobStoreReq) (*SysJobStoreReply, error)
 	// SysLogInfo日志-信息
 	SysLogInfo(context.Context, *SysLogInfoReq) (*SysLogInfoResp, error)
 	// SysLogList日志-列表
-	SysLogList(context.Context, *paginator.PaginatorReq) (*SysLogListResp, error)
+	SysLogList(context.Context, *SysLogListReq) (*SysLogListResp, error)
 	// SysLogStore日志-保存
 	SysLogStore(context.Context, *SysLogStoreReq) (*SysLogStoreResp, error)
 	// SysManageDel管理员-删除
@@ -107,7 +105,7 @@ type SysHTTPServer interface {
 	// SysManageInfo管理员-信息
 	SysManageInfo(context.Context, *SysManageInfoReq) (*SysManageInfoReply, error)
 	// SysManageList管理员-列表
-	SysManageList(context.Context, *paginator.PaginatorReq) (*SysManageListReply, error)
+	SysManageList(context.Context, *SysManageListReq) (*SysManageListReply, error)
 	// SysManageStore管理员-保存
 	SysManageStore(context.Context, *SysManageStoreReq) (*SysManageStoreReply, error)
 	// SysPermissionDel权限-删除
@@ -323,13 +321,13 @@ func _Sys_SysAdminPermission0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Cont
 
 func _Sys_SysManageList0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in paginator.PaginatorReq
+		var in SysManageListReq
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, OperationSysSysManageList)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.SysManageList(ctx, req.(*paginator.PaginatorReq))
+			return srv.SysManageList(ctx, req.(*SysManageListReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -532,13 +530,13 @@ func _Sys_SysDeptDel0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) err
 
 func _Sys_SysJobList0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in paginator.PaginatorReq
+		var in SysJobListReq
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, OperationSysSysJobList)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.SysJobList(ctx, req.(*paginator.PaginatorReq))
+			return srv.SysJobList(ctx, req.(*SysJobListReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -608,13 +606,13 @@ func _Sys_SysJobDel0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) erro
 
 func _Sys_SysLogList0_HTTP_Handler(srv SysHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in paginator.PaginatorReq
+		var in SysLogListReq
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, OperationSysSysLogList)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.SysLogList(ctx, req.(*paginator.PaginatorReq))
+			return srv.SysLogList(ctx, req.(*SysLogListReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -852,14 +850,14 @@ type SysHTTPClient interface {
 	SysDeptStore(ctx context.Context, req *SysDeptStoreReq, opts ...http.CallOption) (rsp *SysDeptStoreReply, err error)
 	SysJobDel(ctx context.Context, req *SysJobDelReq, opts ...http.CallOption) (rsp *SysJobDelReply, err error)
 	SysJobInfo(ctx context.Context, req *SysJobInfoReq, opts ...http.CallOption) (rsp *SysJobInfoReply, err error)
-	SysJobList(ctx context.Context, req *paginator.PaginatorReq, opts ...http.CallOption) (rsp *SysJobListReply, err error)
+	SysJobList(ctx context.Context, req *SysJobListReq, opts ...http.CallOption) (rsp *SysJobListReply, err error)
 	SysJobStore(ctx context.Context, req *SysJobStoreReq, opts ...http.CallOption) (rsp *SysJobStoreReply, err error)
 	SysLogInfo(ctx context.Context, req *SysLogInfoReq, opts ...http.CallOption) (rsp *SysLogInfoResp, err error)
-	SysLogList(ctx context.Context, req *paginator.PaginatorReq, opts ...http.CallOption) (rsp *SysLogListResp, err error)
+	SysLogList(ctx context.Context, req *SysLogListReq, opts ...http.CallOption) (rsp *SysLogListResp, err error)
 	SysLogStore(ctx context.Context, req *SysLogStoreReq, opts ...http.CallOption) (rsp *SysLogStoreResp, err error)
 	SysManageDel(ctx context.Context, req *SysManageDelReq, opts ...http.CallOption) (rsp *SysManageDelReply, err error)
 	SysManageInfo(ctx context.Context, req *SysManageInfoReq, opts ...http.CallOption) (rsp *SysManageInfoReply, err error)
-	SysManageList(ctx context.Context, req *paginator.PaginatorReq, opts ...http.CallOption) (rsp *SysManageListReply, err error)
+	SysManageList(ctx context.Context, req *SysManageListReq, opts ...http.CallOption) (rsp *SysManageListReply, err error)
 	SysManageStore(ctx context.Context, req *SysManageStoreReq, opts ...http.CallOption) (rsp *SysManageStoreReply, err error)
 	SysPermissionDel(ctx context.Context, req *SysPermissionDelReq, opts ...http.CallOption) (rsp *SysPermissionDelResp, err error)
 	SysPermissionInfo(ctx context.Context, req *SysPermissionInfoReq, opts ...http.CallOption) (rsp *SysPermissionInfoResp, err error)
@@ -1101,7 +1099,7 @@ func (c *SysHTTPClientImpl) SysJobInfo(ctx context.Context, in *SysJobInfoReq, o
 	return &out, err
 }
 
-func (c *SysHTTPClientImpl) SysJobList(ctx context.Context, in *paginator.PaginatorReq, opts ...http.CallOption) (*SysJobListReply, error) {
+func (c *SysHTTPClientImpl) SysJobList(ctx context.Context, in *SysJobListReq, opts ...http.CallOption) (*SysJobListReply, error) {
 	var out SysJobListReply
 	pattern := "/admin/v1/sys/sys_job_list"
 	path := binding.EncodeURL(pattern, in, true)
@@ -1140,7 +1138,7 @@ func (c *SysHTTPClientImpl) SysLogInfo(ctx context.Context, in *SysLogInfoReq, o
 	return &out, err
 }
 
-func (c *SysHTTPClientImpl) SysLogList(ctx context.Context, in *paginator.PaginatorReq, opts ...http.CallOption) (*SysLogListResp, error) {
+func (c *SysHTTPClientImpl) SysLogList(ctx context.Context, in *SysLogListReq, opts ...http.CallOption) (*SysLogListResp, error) {
 	var out SysLogListResp
 	pattern := "/admin/v1/sys/sys_log_list"
 	path := binding.EncodeURL(pattern, in, true)
@@ -1192,7 +1190,7 @@ func (c *SysHTTPClientImpl) SysManageInfo(ctx context.Context, in *SysManageInfo
 	return &out, err
 }
 
-func (c *SysHTTPClientImpl) SysManageList(ctx context.Context, in *paginator.PaginatorReq, opts ...http.CallOption) (*SysManageListReply, error) {
+func (c *SysHTTPClientImpl) SysManageList(ctx context.Context, in *SysManageListReq, opts ...http.CallOption) (*SysManageListReply, error) {
 	var out SysManageListReply
 	pattern := "/admin/v1/sys/sys_manage_list"
 	path := binding.EncodeURL(pattern, in, true)

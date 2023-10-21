@@ -20,6 +20,342 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type MenuConfigInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id                 string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`                                 // ID
+	AppID              string `protobuf:"bytes,2,opt,name=appID,proto3" json:"appID,omitempty"`                           // 开发者ID(AppID)
+	AppSecret          string `protobuf:"bytes,3,opt,name=appSecret,proto3" json:"appSecret,omitempty"`                   // 开发者密码(AppSecret)
+	AccountID          string `protobuf:"bytes,4,opt,name=accountID,proto3" json:"accountID,omitempty"`                   // 账号id
+	BusinessID         string `protobuf:"bytes,5,opt,name=businessID,proto3" json:"businessID,omitempty"`                 // 业务主账号id
+	Name               string `protobuf:"bytes,6,opt,name=name,proto3" json:"name,omitempty"`                             // 公众号名称
+	ExpiresAccessToken string `protobuf:"bytes,7,opt,name=expiresAccessToken,proto3" json:"expiresAccessToken,omitempty"` // 获取access_token时间
+	ExpiresJsapiTicket string `protobuf:"bytes,8,opt,name=expiresJsapiTicket,proto3" json:"expiresJsapiTicket,omitempty"` // 获取jsapi_ticket时间
+	AccessToken        string `protobuf:"bytes,9,opt,name=accessToken,proto3" json:"accessToken,omitempty"`               // access_token
+	JsapiTicket        string `protobuf:"bytes,10,opt,name=jsapiTicket,proto3" json:"jsapiTicket,omitempty"`              // jsapi_ticket
+	Qrcode             string `protobuf:"bytes,11,opt,name=qrcode,proto3" json:"qrcode,omitempty"`                        // 二维码
+	Token              string `protobuf:"bytes,12,opt,name=token,proto3" json:"token,omitempty"`                          // Token 长度为3-32字符
+	EncodingAseKey     string `protobuf:"bytes,13,opt,name=encodingAseKey,proto3" json:"encodingAseKey,omitempty"`        // 消息加密密钥由43位字符组成
+	Remark             string `protobuf:"bytes,14,opt,name=remark,proto3" json:"remark,omitempty"`                        // 备注
+	CreatedAt          string `protobuf:"bytes,15,opt,name=createdAt,proto3" json:"createdAt,omitempty"`                  // 创建时间
+	UpdatedAt          string `protobuf:"bytes,16,opt,name=updatedAt,proto3" json:"updatedAt,omitempty"`                  // 更新时间
+	DeletedAt          string `protobuf:"bytes,17,opt,name=deletedAt,proto3" json:"deletedAt,omitempty"`                  // 删除时间
+}
+
+func (x *MenuConfigInfo) Reset() {
+	*x = MenuConfigInfo{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MenuConfigInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MenuConfigInfo) ProtoMessage() {}
+
+func (x *MenuConfigInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MenuConfigInfo.ProtoReflect.Descriptor instead.
+func (*MenuConfigInfo) Descriptor() ([]byte, []int) {
+	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *MenuConfigInfo) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetAppID() string {
+	if x != nil {
+		return x.AppID
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetAppSecret() string {
+	if x != nil {
+		return x.AppSecret
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetAccountID() string {
+	if x != nil {
+		return x.AccountID
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetBusinessID() string {
+	if x != nil {
+		return x.BusinessID
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetExpiresAccessToken() string {
+	if x != nil {
+		return x.ExpiresAccessToken
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetExpiresJsapiTicket() string {
+	if x != nil {
+		return x.ExpiresJsapiTicket
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetAccessToken() string {
+	if x != nil {
+		return x.AccessToken
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetJsapiTicket() string {
+	if x != nil {
+		return x.JsapiTicket
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetQrcode() string {
+	if x != nil {
+		return x.Qrcode
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetEncodingAseKey() string {
+	if x != nil {
+		return x.EncodingAseKey
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetRemark() string {
+	if x != nil {
+		return x.Remark
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetUpdatedAt() string {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return ""
+}
+
+func (x *MenuConfigInfo) GetDeletedAt() string {
+	if x != nil {
+		return x.DeletedAt
+	}
+	return ""
+}
+
+type MenuConfigInfoReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *MenuConfigInfoReq) Reset() {
+	*x = MenuConfigInfoReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MenuConfigInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MenuConfigInfoReq) ProtoMessage() {}
+
+func (x *MenuConfigInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MenuConfigInfoReq.ProtoReflect.Descriptor instead.
+func (*MenuConfigInfoReq) Descriptor() ([]byte, []int) {
+	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{1}
+}
+
+type MenuConfigInfoReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Info *MenuConfigInfo `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
+}
+
+func (x *MenuConfigInfoReply) Reset() {
+	*x = MenuConfigInfoReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MenuConfigInfoReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MenuConfigInfoReply) ProtoMessage() {}
+
+func (x *MenuConfigInfoReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MenuConfigInfoReply.ProtoReflect.Descriptor instead.
+func (*MenuConfigInfoReply) Descriptor() ([]byte, []int) {
+	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *MenuConfigInfoReply) GetInfo() *MenuConfigInfo {
+	if x != nil {
+		return x.Info
+	}
+	return nil
+}
+
+type MenuConfigStoreReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *MenuConfigStoreReq) Reset() {
+	*x = MenuConfigStoreReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MenuConfigStoreReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MenuConfigStoreReq) ProtoMessage() {}
+
+func (x *MenuConfigStoreReq) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MenuConfigStoreReq.ProtoReflect.Descriptor instead.
+func (*MenuConfigStoreReq) Descriptor() ([]byte, []int) {
+	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{3}
+}
+
+type MenuConfigStoreReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *MenuConfigStoreReply) Reset() {
+	*x = MenuConfigStoreReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MenuConfigStoreReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MenuConfigStoreReply) ProtoMessage() {}
+
+func (x *MenuConfigStoreReply) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MenuConfigStoreReply.ProtoReflect.Descriptor instead.
+func (*MenuConfigStoreReply) Descriptor() ([]byte, []int) {
+	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{4}
+}
+
 type MenuListReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -29,7 +365,7 @@ type MenuListReq struct {
 func (x *MenuListReq) Reset() {
 	*x = MenuListReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[0]
+		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -42,7 +378,7 @@ func (x *MenuListReq) String() string {
 func (*MenuListReq) ProtoMessage() {}
 
 func (x *MenuListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[0]
+	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,7 +391,7 @@ func (x *MenuListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MenuListReq.ProtoReflect.Descriptor instead.
 func (*MenuListReq) Descriptor() ([]byte, []int) {
-	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{0}
+	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{5}
 }
 
 type MenuListReply struct {
@@ -67,7 +403,7 @@ type MenuListReply struct {
 func (x *MenuListReply) Reset() {
 	*x = MenuListReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[1]
+		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -80,7 +416,7 @@ func (x *MenuListReply) String() string {
 func (*MenuListReply) ProtoMessage() {}
 
 func (x *MenuListReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[1]
+	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -93,7 +429,7 @@ func (x *MenuListReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MenuListReply.ProtoReflect.Descriptor instead.
 func (*MenuListReply) Descriptor() ([]byte, []int) {
-	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{1}
+	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{6}
 }
 
 type MenuStoreReq struct {
@@ -105,7 +441,7 @@ type MenuStoreReq struct {
 func (x *MenuStoreReq) Reset() {
 	*x = MenuStoreReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[2]
+		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -118,7 +454,7 @@ func (x *MenuStoreReq) String() string {
 func (*MenuStoreReq) ProtoMessage() {}
 
 func (x *MenuStoreReq) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[2]
+	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -131,7 +467,7 @@ func (x *MenuStoreReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MenuStoreReq.ProtoReflect.Descriptor instead.
 func (*MenuStoreReq) Descriptor() ([]byte, []int) {
-	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{2}
+	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{7}
 }
 
 type MenuStoreReply struct {
@@ -143,7 +479,7 @@ type MenuStoreReply struct {
 func (x *MenuStoreReply) Reset() {
 	*x = MenuStoreReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[3]
+		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -156,7 +492,7 @@ func (x *MenuStoreReply) String() string {
 func (*MenuStoreReply) ProtoMessage() {}
 
 func (x *MenuStoreReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[3]
+	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -169,7 +505,7 @@ func (x *MenuStoreReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MenuStoreReply.ProtoReflect.Descriptor instead.
 func (*MenuStoreReply) Descriptor() ([]byte, []int) {
-	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{3}
+	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{8}
 }
 
 type MenuDelReq struct {
@@ -181,7 +517,7 @@ type MenuDelReq struct {
 func (x *MenuDelReq) Reset() {
 	*x = MenuDelReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[4]
+		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -194,7 +530,7 @@ func (x *MenuDelReq) String() string {
 func (*MenuDelReq) ProtoMessage() {}
 
 func (x *MenuDelReq) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[4]
+	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -207,7 +543,7 @@ func (x *MenuDelReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MenuDelReq.ProtoReflect.Descriptor instead.
 func (*MenuDelReq) Descriptor() ([]byte, []int) {
-	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{4}
+	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{9}
 }
 
 type MenuDelReply struct {
@@ -219,7 +555,7 @@ type MenuDelReply struct {
 func (x *MenuDelReply) Reset() {
 	*x = MenuDelReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[5]
+		mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -232,7 +568,7 @@ func (x *MenuDelReply) String() string {
 func (*MenuDelReply) ProtoMessage() {}
 
 func (x *MenuDelReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[5]
+	mi := &file_rpc_wechat_v1_officialaccount_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -245,7 +581,7 @@ func (x *MenuDelReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MenuDelReply.ProtoReflect.Descriptor instead.
 func (*MenuDelReply) Descriptor() ([]byte, []int) {
-	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{5}
+	return file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP(), []int{10}
 }
 
 var File_rpc_wechat_v1_officialaccount_proto protoreflect.FileDescriptor
@@ -254,31 +590,86 @@ var file_rpc_wechat_v1_officialaccount_proto_rawDesc = []byte{
 	0x0a, 0x23, 0x72, 0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2f, 0x76, 0x31, 0x2f,
 	0x6f, 0x66, 0x66, 0x69, 0x63, 0x69, 0x61, 0x6c, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x2e,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x11, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x77,
-	0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31, 0x22, 0x0d, 0x0a, 0x0b, 0x4d, 0x65, 0x6e, 0x75,
-	0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x0f, 0x0a, 0x0d, 0x4d, 0x65, 0x6e, 0x75, 0x4c,
-	0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x0e, 0x0a, 0x0c, 0x4d, 0x65, 0x6e, 0x75,
-	0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x22, 0x10, 0x0a, 0x0e, 0x4d, 0x65, 0x6e, 0x75,
-	0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x0c, 0x0a, 0x0a, 0x4d, 0x65,
-	0x6e, 0x75, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x22, 0x0e, 0x0a, 0x0c, 0x4d, 0x65, 0x6e, 0x75,
-	0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0xfb, 0x01, 0x0a, 0x0f, 0x4f, 0x66, 0x66,
-	0x69, 0x63, 0x69, 0x61, 0x6c, 0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x4c, 0x0a, 0x08,
-	0x4d, 0x65, 0x6e, 0x75, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72,
-	0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e,
-	0x75, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x20, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72,
-	0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e,
-	0x75, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x4f, 0x0a, 0x09, 0x4d, 0x65,
-	0x6e, 0x75, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x1f, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70,
+	0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31, 0x22, 0x92, 0x04, 0x0a, 0x0e, 0x4d, 0x65, 0x6e,
+	0x75, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x61,
+	0x70, 0x70, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x61, 0x70, 0x70, 0x49,
+	0x44, 0x12, 0x1c, 0x0a, 0x09, 0x61, 0x70, 0x70, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x61, 0x70, 0x70, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x12,
+	0x1c, 0x0a, 0x09, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x49, 0x44, 0x18, 0x04, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x09, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x49, 0x44, 0x12, 0x1e, 0x0a,
+	0x0a, 0x62, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x49, 0x44, 0x18, 0x05, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x0a, 0x62, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x49, 0x44, 0x12, 0x12, 0x0a,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d,
+	0x65, 0x12, 0x2e, 0x0a, 0x12, 0x65, 0x78, 0x70, 0x69, 0x72, 0x65, 0x73, 0x41, 0x63, 0x63, 0x65,
+	0x73, 0x73, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x12, 0x65,
+	0x78, 0x70, 0x69, 0x72, 0x65, 0x73, 0x41, 0x63, 0x63, 0x65, 0x73, 0x73, 0x54, 0x6f, 0x6b, 0x65,
+	0x6e, 0x12, 0x2e, 0x0a, 0x12, 0x65, 0x78, 0x70, 0x69, 0x72, 0x65, 0x73, 0x4a, 0x73, 0x61, 0x70,
+	0x69, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52, 0x12, 0x65,
+	0x78, 0x70, 0x69, 0x72, 0x65, 0x73, 0x4a, 0x73, 0x61, 0x70, 0x69, 0x54, 0x69, 0x63, 0x6b, 0x65,
+	0x74, 0x12, 0x20, 0x0a, 0x0b, 0x61, 0x63, 0x63, 0x65, 0x73, 0x73, 0x54, 0x6f, 0x6b, 0x65, 0x6e,
+	0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x61, 0x63, 0x63, 0x65, 0x73, 0x73, 0x54, 0x6f,
+	0x6b, 0x65, 0x6e, 0x12, 0x20, 0x0a, 0x0b, 0x6a, 0x73, 0x61, 0x70, 0x69, 0x54, 0x69, 0x63, 0x6b,
+	0x65, 0x74, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x6a, 0x73, 0x61, 0x70, 0x69, 0x54,
+	0x69, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x71, 0x72, 0x63, 0x6f, 0x64, 0x65, 0x18,
+	0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x71, 0x72, 0x63, 0x6f, 0x64, 0x65, 0x12, 0x14, 0x0a,
+	0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f,
+	0x6b, 0x65, 0x6e, 0x12, 0x26, 0x0a, 0x0e, 0x65, 0x6e, 0x63, 0x6f, 0x64, 0x69, 0x6e, 0x67, 0x41,
+	0x73, 0x65, 0x4b, 0x65, 0x79, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x65, 0x6e, 0x63,
+	0x6f, 0x64, 0x69, 0x6e, 0x67, 0x41, 0x73, 0x65, 0x4b, 0x65, 0x79, 0x12, 0x16, 0x0a, 0x06, 0x72,
+	0x65, 0x6d, 0x61, 0x72, 0x6b, 0x18, 0x0e, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x72, 0x65, 0x6d,
+	0x61, 0x72, 0x6b, 0x12, 0x1c, 0x0a, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74,
+	0x18, 0x0f, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41,
+	0x74, 0x12, 0x1c, 0x0a, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0x10,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12,
+	0x1c, 0x0a, 0x09, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0x11, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x09, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x64, 0x41, 0x74, 0x22, 0x13, 0x0a,
+	0x11, 0x4d, 0x65, 0x6e, 0x75, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x49, 0x6e, 0x66, 0x6f, 0x52,
+	0x65, 0x71, 0x22, 0x4c, 0x0a, 0x13, 0x4d, 0x65, 0x6e, 0x75, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67,
+	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x35, 0x0a, 0x04, 0x69, 0x6e, 0x66,
+	0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70,
 	0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e, 0x75,
-	0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x21, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72,
-	0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e,
-	0x75, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x49, 0x0a, 0x07, 0x4d,
-	0x65, 0x6e, 0x75, 0x44, 0x65, 0x6c, 0x12, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63,
-	0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x44,
-	0x65, 0x6c, 0x52, 0x65, 0x71, 0x1a, 0x1f, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f,
-	0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x44, 0x65,
-	0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x42, 0x1e, 0x5a, 0x1c, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f,
-	0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x72, 0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74,
-	0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04, 0x69, 0x6e, 0x66, 0x6f,
+	0x22, 0x14, 0x0a, 0x12, 0x4d, 0x65, 0x6e, 0x75, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x53, 0x74,
+	0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x22, 0x16, 0x0a, 0x14, 0x4d, 0x65, 0x6e, 0x75, 0x43, 0x6f,
+	0x6e, 0x66, 0x69, 0x67, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x0d,
+	0x0a, 0x0b, 0x4d, 0x65, 0x6e, 0x75, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x0f, 0x0a,
+	0x0d, 0x4d, 0x65, 0x6e, 0x75, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x0e,
+	0x0a, 0x0c, 0x4d, 0x65, 0x6e, 0x75, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x22, 0x10,
+	0x0a, 0x0e, 0x4d, 0x65, 0x6e, 0x75, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x22, 0x0c, 0x0a, 0x0a, 0x4d, 0x65, 0x6e, 0x75, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x22, 0x0e,
+	0x0a, 0x0c, 0x4d, 0x65, 0x6e, 0x75, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0xbe,
+	0x03, 0x0a, 0x0f, 0x4f, 0x66, 0x66, 0x69, 0x63, 0x69, 0x61, 0x6c, 0x41, 0x63, 0x63, 0x6f, 0x75,
+	0x6e, 0x74, 0x12, 0x5e, 0x0a, 0x0e, 0x4d, 0x65, 0x6e, 0x75, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67,
+	0x49, 0x6e, 0x66, 0x6f, 0x12, 0x24, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x77,
+	0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x43, 0x6f, 0x6e,
+	0x66, 0x69, 0x67, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x1a, 0x26, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x72, 0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d,
+	0x65, 0x6e, 0x75, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70,
+	0x6c, 0x79, 0x12, 0x61, 0x0a, 0x0f, 0x4d, 0x65, 0x6e, 0x75, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67,
+	0x53, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x25, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f,
+	0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x43, 0x6f,
+	0x6e, 0x66, 0x69, 0x67, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x27, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2e, 0x76, 0x31,
+	0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x53, 0x74, 0x6f, 0x72, 0x65,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x4c, 0x0a, 0x08, 0x4d, 0x65, 0x6e, 0x75, 0x4c, 0x69, 0x73,
+	0x74, 0x12, 0x1e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68,
+	0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65,
+	0x71, 0x1a, 0x20, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68,
+	0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65,
+	0x70, 0x6c, 0x79, 0x12, 0x4f, 0x0a, 0x09, 0x4d, 0x65, 0x6e, 0x75, 0x53, 0x74, 0x6f, 0x72, 0x65,
+	0x12, 0x1f, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61,
+	0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65,
+	0x71, 0x1a, 0x21, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68,
+	0x61, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x49, 0x0a, 0x07, 0x4d, 0x65, 0x6e, 0x75, 0x44, 0x65, 0x6c, 0x12,
+	0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74,
+	0x2e, 0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x71, 0x1a, 0x1f,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x72, 0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2e,
+	0x76, 0x31, 0x2e, 0x4d, 0x65, 0x6e, 0x75, 0x44, 0x65, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x42,
+	0x1e, 0x5a, 0x1c, 0x66, 0x6b, 0x72, 0x61, 0x74, 0x6f, 0x73, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x72,
+	0x70, 0x63, 0x5f, 0x77, 0x65, 0x63, 0x68, 0x61, 0x74, 0x2f, 0x76, 0x31, 0x3b, 0x76, 0x31, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -293,27 +684,37 @@ func file_rpc_wechat_v1_officialaccount_proto_rawDescGZIP() []byte {
 	return file_rpc_wechat_v1_officialaccount_proto_rawDescData
 }
 
-var file_rpc_wechat_v1_officialaccount_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_rpc_wechat_v1_officialaccount_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_rpc_wechat_v1_officialaccount_proto_goTypes = []interface{}{
-	(*MenuListReq)(nil),    // 0: api.rpc_wechat.v1.MenuListReq
-	(*MenuListReply)(nil),  // 1: api.rpc_wechat.v1.MenuListReply
-	(*MenuStoreReq)(nil),   // 2: api.rpc_wechat.v1.MenuStoreReq
-	(*MenuStoreReply)(nil), // 3: api.rpc_wechat.v1.MenuStoreReply
-	(*MenuDelReq)(nil),     // 4: api.rpc_wechat.v1.MenuDelReq
-	(*MenuDelReply)(nil),   // 5: api.rpc_wechat.v1.MenuDelReply
+	(*MenuConfigInfo)(nil),       // 0: api.rpc_wechat.v1.MenuConfigInfo
+	(*MenuConfigInfoReq)(nil),    // 1: api.rpc_wechat.v1.MenuConfigInfoReq
+	(*MenuConfigInfoReply)(nil),  // 2: api.rpc_wechat.v1.MenuConfigInfoReply
+	(*MenuConfigStoreReq)(nil),   // 3: api.rpc_wechat.v1.MenuConfigStoreReq
+	(*MenuConfigStoreReply)(nil), // 4: api.rpc_wechat.v1.MenuConfigStoreReply
+	(*MenuListReq)(nil),          // 5: api.rpc_wechat.v1.MenuListReq
+	(*MenuListReply)(nil),        // 6: api.rpc_wechat.v1.MenuListReply
+	(*MenuStoreReq)(nil),         // 7: api.rpc_wechat.v1.MenuStoreReq
+	(*MenuStoreReply)(nil),       // 8: api.rpc_wechat.v1.MenuStoreReply
+	(*MenuDelReq)(nil),           // 9: api.rpc_wechat.v1.MenuDelReq
+	(*MenuDelReply)(nil),         // 10: api.rpc_wechat.v1.MenuDelReply
 }
 var file_rpc_wechat_v1_officialaccount_proto_depIdxs = []int32{
-	0, // 0: api.rpc_wechat.v1.OfficialAccount.MenuList:input_type -> api.rpc_wechat.v1.MenuListReq
-	2, // 1: api.rpc_wechat.v1.OfficialAccount.MenuStore:input_type -> api.rpc_wechat.v1.MenuStoreReq
-	4, // 2: api.rpc_wechat.v1.OfficialAccount.MenuDel:input_type -> api.rpc_wechat.v1.MenuDelReq
-	1, // 3: api.rpc_wechat.v1.OfficialAccount.MenuList:output_type -> api.rpc_wechat.v1.MenuListReply
-	3, // 4: api.rpc_wechat.v1.OfficialAccount.MenuStore:output_type -> api.rpc_wechat.v1.MenuStoreReply
-	5, // 5: api.rpc_wechat.v1.OfficialAccount.MenuDel:output_type -> api.rpc_wechat.v1.MenuDelReply
-	3, // [3:6] is the sub-list for method output_type
-	0, // [0:3] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: api.rpc_wechat.v1.MenuConfigInfoReply.info:type_name -> api.rpc_wechat.v1.MenuConfigInfo
+	1,  // 1: api.rpc_wechat.v1.OfficialAccount.MenuConfigInfo:input_type -> api.rpc_wechat.v1.MenuConfigInfoReq
+	3,  // 2: api.rpc_wechat.v1.OfficialAccount.MenuConfigStore:input_type -> api.rpc_wechat.v1.MenuConfigStoreReq
+	5,  // 3: api.rpc_wechat.v1.OfficialAccount.MenuList:input_type -> api.rpc_wechat.v1.MenuListReq
+	7,  // 4: api.rpc_wechat.v1.OfficialAccount.MenuStore:input_type -> api.rpc_wechat.v1.MenuStoreReq
+	9,  // 5: api.rpc_wechat.v1.OfficialAccount.MenuDel:input_type -> api.rpc_wechat.v1.MenuDelReq
+	2,  // 6: api.rpc_wechat.v1.OfficialAccount.MenuConfigInfo:output_type -> api.rpc_wechat.v1.MenuConfigInfoReply
+	4,  // 7: api.rpc_wechat.v1.OfficialAccount.MenuConfigStore:output_type -> api.rpc_wechat.v1.MenuConfigStoreReply
+	6,  // 8: api.rpc_wechat.v1.OfficialAccount.MenuList:output_type -> api.rpc_wechat.v1.MenuListReply
+	8,  // 9: api.rpc_wechat.v1.OfficialAccount.MenuStore:output_type -> api.rpc_wechat.v1.MenuStoreReply
+	10, // 10: api.rpc_wechat.v1.OfficialAccount.MenuDel:output_type -> api.rpc_wechat.v1.MenuDelReply
+	6,  // [6:11] is the sub-list for method output_type
+	1,  // [1:6] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_rpc_wechat_v1_officialaccount_proto_init() }
@@ -323,7 +724,7 @@ func file_rpc_wechat_v1_officialaccount_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_rpc_wechat_v1_officialaccount_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MenuListReq); i {
+			switch v := v.(*MenuConfigInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -335,7 +736,7 @@ func file_rpc_wechat_v1_officialaccount_proto_init() {
 			}
 		}
 		file_rpc_wechat_v1_officialaccount_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MenuListReply); i {
+			switch v := v.(*MenuConfigInfoReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -347,7 +748,7 @@ func file_rpc_wechat_v1_officialaccount_proto_init() {
 			}
 		}
 		file_rpc_wechat_v1_officialaccount_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MenuStoreReq); i {
+			switch v := v.(*MenuConfigInfoReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -359,7 +760,7 @@ func file_rpc_wechat_v1_officialaccount_proto_init() {
 			}
 		}
 		file_rpc_wechat_v1_officialaccount_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MenuStoreReply); i {
+			switch v := v.(*MenuConfigStoreReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -371,7 +772,7 @@ func file_rpc_wechat_v1_officialaccount_proto_init() {
 			}
 		}
 		file_rpc_wechat_v1_officialaccount_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MenuDelReq); i {
+			switch v := v.(*MenuConfigStoreReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -383,6 +784,66 @@ func file_rpc_wechat_v1_officialaccount_proto_init() {
 			}
 		}
 		file_rpc_wechat_v1_officialaccount_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MenuListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_wechat_v1_officialaccount_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MenuListReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_wechat_v1_officialaccount_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MenuStoreReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_wechat_v1_officialaccount_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MenuStoreReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_wechat_v1_officialaccount_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MenuDelReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_wechat_v1_officialaccount_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MenuDelReply); i {
 			case 0:
 				return &v.state
@@ -401,7 +862,7 @@ func file_rpc_wechat_v1_officialaccount_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_wechat_v1_officialaccount_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

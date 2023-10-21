@@ -5,6 +5,7 @@
 package fkratos_device_model
 
 import (
+	"database/sql"
 	"time"
 
 	"gorm.io/gorm"
@@ -14,14 +15,21 @@ const TableNameDevice = "device"
 
 // Device mapped from table <device>
 type Device struct {
-	ID          string         `gorm:"column:id;primaryKey;default:gen_random_uuid();comment:记录ID" json:"id"` // 记录ID
-	SNID        string         `gorm:"column:SNId;not null;comment:设备SN唯一标识码" json:"snid"`                    // 设备SN唯一标识码
-	DeviceBrand string         `gorm:"column:deviceBrand;comment:设备品牌" json:"deviceBrand"`                    // 设备品牌
-	ModelDevice string         `gorm:"column:modelDevice;comment:设备型号" json:"modelDevice"`                    // 设备型号
-	Status      int16          `gorm:"column:status;comment:状态" json:"status"`                                // 状态
-	CreatedAt   time.Time      `gorm:"column:created_at;not null;comment:创建时间" json:"createdAt"`              // 创建时间
-	UpdatedAt   time.Time      `gorm:"column:updated_at;not null;comment:更新时间" json:"updatedAt"`              // 更新时间
-	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`                       // 删除时间
+	ID              string         `gorm:"column:id;primaryKey;default:gen_random_uuid();comment:记录ID" json:"id"` // 记录ID
+	Sn              string         `gorm:"column:sn;not null;comment:设备的唯一标识序列号" json:"sn"`                       // 设备的唯一标识序列号
+	DeviceName      string         `gorm:"column:device_name;not null;comment:设备名称" json:"deviceName"`            // 设备名称
+	DeviceType      string         `gorm:"column:device_type;not null;comment:设备类型" json:"deviceType"`            // 设备类型
+	DeviceModel     string         `gorm:"column:device_model;not null;comment:设备型号" json:"deviceModel"`          // 设备型号
+	Desc            string         `gorm:"column:desc;comment:描述" json:"desc"`                                    // 描述
+	Certificate     string         `gorm:"column:certificate;not null;comment:设备证书" json:"certificate"`           // 设备证书
+	SecureKey       string         `gorm:"column:secure_key;not null;comment:设备密钥" json:"secureKey"`              // 设备密钥
+	FirmwareVersion string         `gorm:"column:firmware_version;comment:固件版本号" json:"firmwareVersion"`          // 固件版本号
+	SoftwareVersion string         `gorm:"column:software_version;comment:软件版本号" json:"softwareVersion"`          // 软件版本号
+	RegistryTime    sql.NullTime   `gorm:"column:registry_time;comment:激活时间" json:"registryTime"`                 // 激活时间
+	Status          int16          `gorm:"column:status;not null;comment:状态" json:"status"`                       // 状态
+	CreatedAt       time.Time      `gorm:"column:created_at;not null;comment:创建时间" json:"createdAt"`              // 创建时间
+	UpdatedAt       time.Time      `gorm:"column:updated_at;not null;comment:更新时间" json:"updatedAt"`              // 更新时间
+	DeletedAt       gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deletedAt"`                       // 删除时间
 }
 
 // TableName Device's table name

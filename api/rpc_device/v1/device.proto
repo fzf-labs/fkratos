@@ -2,53 +2,106 @@ syntax = "proto3";
 
 package api.rpc_device.v1;
 
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "paginator/paginator.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "validate/validate.proto";
+
 option go_package = "fkratos/api/rpc_device/v1;v1";
-option java_multiple_files = true;
-option java_package = "api.rpc_sys.v1";
 
-// 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
-// 后缀定义:请求req,响应reply
-
-// 设备服务
 service Device {
-  //创建设备
-  rpc CreateDevice(CreateDeviceReq) returns (CreateDeviceReply);
-  //更新设备
-  rpc UpdateDevice(UpdateDeviceReq) returns (UpdateDeviceReply);
-  //删除设备
-  rpc DeleteDevice(DeleteDeviceReq) returns (DeleteDeviceReply);
-  //获取单个设备
-  rpc GetDevice(GetDeviceReq) returns (GetDeviceReply);
-  //获取设备列表
-  rpc ListDevice(ListDeviceReq) returns (ListDeviceReply);
+  //设备表-创建一条数据
+  rpc DeviceStore(DeviceStoreReq) returns (DeviceStoreReply) {
+    option (google.api.http) = {
+      post: "/device/v1/device_store"
+      body: "*"
+    };
+  }
+  //设备表-删除多条数据
+  rpc DeviceDel(DeviceDelReq) returns (DeviceDelReply) {
+    option (google.api.http) = {
+      post: "/device/v1/device_del"
+      body: "*"
+    };
+  }
+  //设备表-单条数据查询
+  rpc DeviceOne(DeviceOneReq) returns (DeviceOneReply) {
+    option (google.api.http) = {get: "/device/v1/device_info"};
+  }
+  //设备表-列表数据查询
+  rpc DeviceList(DeviceListReq) returns (DeviceListReply) {
+    option (google.api.http) = {
+      post: "/device/v1/device_list",
+      body: "*"
+    };
+  }
 }
 
-//请求-创建设备
-message CreateDeviceReq {}
+//设备表信息
+message DeviceInfo {
+  string ID = 1; // 记录ID
+  string sn = 2; // 设备的唯一标识序列号
+  string deviceName = 3; // 设备名称
+  string deviceType = 4; // 设备类型
+  string deviceModel = 5; // 设备型号
+  string desc = 6; // 描述
+  string certificate = 7; // 设备证书
+  string secureKey = 8; // 设备密钥
+  string firmwareVersion = 9; // 固件版本号
+  string softwareVersion = 10; // 软件版本号
+  google.protobuf.Timestamp registryTime = 11; // 激活时间
+  int32 status = 12; // 状态
+  google.protobuf.Timestamp createdAt = 13; // 创建时间
+  google.protobuf.Timestamp updatedAt = 14; // 更新时间
+}
 
-//响应-创建设备
-message CreateDeviceReply {}
+//请求-设备表-创建一条数据
+message DeviceStoreReq {
+  string ID = 1; // 记录ID
+  string sn = 2; // 设备的唯一标识序列号
+  string deviceName = 3; // 设备名称
+  string deviceType = 4; // 设备类型
+  string deviceModel = 5; // 设备型号
+  string desc = 6; // 描述
+  string certificate = 7; // 设备证书
+  string secureKey = 8; // 设备密钥
+  string firmwareVersion = 9; // 固件版本号
+  string softwareVersion = 10; // 软件版本号
+  google.protobuf.Timestamp registryTime = 11; // 激活时间
+  int32 status = 12; // 状态
+}
 
-//请求-更新设备
-message UpdateDeviceReq {}
+//响应-设备表-创建一条数据
+message DeviceStoreReply {
+  string ID = 1; // 记录ID
+}
 
-//响应-更新设备
-message UpdateDeviceReply {}
+//请求-设备表-删除多条数据
+message DeviceDelReq {
+  repeated string IDS = 1; // 记录ID集合
+}
 
-//请求-删除设备
-message DeleteDeviceReq {}
+//响应-设备表-删除多条数据
+message DeviceDelReply {}
 
-//响应-删除设备
-message DeleteDeviceReply {}
+//请求-设备表-单条数据查询
+message DeviceOneReq {
+  string ID = 1; // 记录ID
+}
 
-//请求-获取单个设备
-message GetDeviceReq {}
+//响应-设备表-单条数据查询
+message DeviceOneReply {
+  DeviceInfo info = 1;
+}
 
-//响应-获取单个设备
-message GetDeviceReply {}
+//请求-设备表-列表数据查询
+message DeviceListReq {
+  paginator.PaginatorReq paginator = 1; //分页
+}
 
-//请求-获取设备列表
-message ListDeviceReq {}
-
-//响应-获取设备列表
-message ListDeviceReply {}
+//响应-设备表-列表数据查询
+message DeviceListReply {
+  paginator.PaginatorReply paginator = 1; // 分页
+  repeated DeviceInfo list = 2; // 列表数据
+}

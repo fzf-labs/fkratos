@@ -544,30 +544,23 @@
         },
         "parameters": [
           {
-            "name": "page",
+            "name": "paginator.page",
             "description": "页码",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
-            "name": "pageSize",
+            "name": "paginator.pageSize",
             "description": "页数",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
-            "name": "quickSearch",
-            "description": "快捷搜索",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "order",
+            "name": "paginator.order",
             "description": "排序",
             "in": "query",
             "required": false,
@@ -664,30 +657,23 @@
         },
         "parameters": [
           {
-            "name": "page",
+            "name": "paginator.page",
             "description": "页码",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
-            "name": "pageSize",
+            "name": "paginator.pageSize",
             "description": "页数",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
-            "name": "quickSearch",
-            "description": "快捷搜索",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "order",
+            "name": "paginator.order",
             "description": "排序",
             "in": "query",
             "required": false,
@@ -817,30 +803,23 @@
         },
         "parameters": [
           {
-            "name": "page",
+            "name": "paginator.page",
             "description": "页码",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
-            "name": "pageSize",
+            "name": "paginator.pageSize",
             "description": "页数",
             "in": "query",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int32"
           },
           {
-            "name": "quickSearch",
-            "description": "快捷搜索",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "order",
+            "name": "paginator.order",
             "description": "排序",
             "in": "query",
             "required": false,
@@ -1198,6 +1177,38 @@
       },
       "title": "分页响应"
     },
+    "paginatorPaginatorReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "title": "页码"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "title": "页数"
+        },
+        "order": {
+          "type": "string",
+          "title": "排序"
+        },
+        "search": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/paginatorSearchParam"
+          },
+          "title": "详细搜索"
+        }
+      },
+      "title": "分页请求",
+      "required": [
+        "page",
+        "pageSize"
+      ]
+    },
     "paginatorSearchParam": {
       "type": "object",
       "properties": {
@@ -1209,9 +1220,13 @@
           "type": "string",
           "title": "值"
         },
-        "operator": {
+        "exp": {
           "type": "string",
           "title": "操作"
+        },
+        "logic": {
+          "type": "string",
+          "title": "逻辑关系"
         }
       },
       "title": "搜索参数"

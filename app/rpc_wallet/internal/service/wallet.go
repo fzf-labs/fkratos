@@ -7,16 +7,19 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 )
 
-type WalletService struct {
-	pb.UnimplementedWalletServer
-	log           *log.Helper
-	walletUseCase *biz.WalletUseCase
-}
-
-func NewWalletService(logger log.Logger, walletUseCase *biz.WalletUseCase) *WalletService {
+func NewWalletService(
+	logger log.Logger,
+	walletUseCase *biz.WalletUseCase,
+) *WalletService {
 	l := log.NewHelper(log.With(logger, "module", "service/wallet"))
 	return &WalletService{
 		log:           l,
 		walletUseCase: walletUseCase,
 	}
+}
+
+type WalletService struct {
+	pb.UnimplementedWalletServer
+	log           *log.Helper
+	walletUseCase *biz.WalletUseCase
 }

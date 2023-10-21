@@ -8,7 +8,7 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 后缀定义:请求req,响应reply
 
 // 角色
-service Role {
+service SysRole {
   //角色-列表
   rpc SysRoleList(SysRoleListReq) returns (SysRoleListResp);
   //角色-信息

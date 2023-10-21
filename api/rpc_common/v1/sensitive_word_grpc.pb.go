@@ -7,12 +7,10 @@
 package v1
 
 import (
-	"context"
-	"fkratos/api/paginator"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
+	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -32,7 +30,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SensitiveWordClient interface {
 	// 敏感词-列表
-	SensitiveWordList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SensitiveWordListReply, error)
+	SensitiveWordList(ctx context.Context, in *SensitiveWordListReq, opts ...grpc.CallOption) (*SensitiveWordListReply, error)
 	// 敏感词-保存
 	SensitiveWordStore(ctx context.Context, in *SensitiveWordStoreReq, opts ...grpc.CallOption) (*SensitiveWordStoreReply, error)
 	// 敏感词-删除
@@ -49,7 +47,7 @@ func NewSensitiveWordClient(cc grpc.ClientConnInterface) SensitiveWordClient {
 	return &sensitiveWordClient{cc}
 }
 
-func (c *sensitiveWordClient) SensitiveWordList(ctx context.Context, in *paginator.PaginatorReq, opts ...grpc.CallOption) (*SensitiveWordListReply, error) {
+func (c *sensitiveWordClient) SensitiveWordList(ctx context.Context, in *SensitiveWordListReq, opts ...grpc.CallOption) (*SensitiveWordListReply, error) {
 	out := new(SensitiveWordListReply)
 	err := c.cc.Invoke(ctx, SensitiveWord_SensitiveWordList_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -90,7 +88,7 @@ func (c *sensitiveWordClient) SensitiveWordCheck(ctx context.Context, in *Sensit
 // for forward compatibility
 type SensitiveWordServer interface {
 	// 敏感词-列表
-	SensitiveWordList(context.Context, *paginator.PaginatorReq) (*SensitiveWordListReply, error)
+	SensitiveWordList(context.Context, *SensitiveWordListReq) (*SensitiveWordListReply, error)
 	// 敏感词-保存
 	SensitiveWordStore(context.Context, *SensitiveWordStoreReq) (*SensitiveWordStoreReply, error)
 	// 敏感词-删除
@@ -104,7 +102,7 @@ type SensitiveWordServer interface {
 type UnimplementedSensitiveWordServer struct {
 }
 
-func (UnimplementedSensitiveWordServer) SensitiveWordList(context.Context, *paginator.PaginatorReq) (*SensitiveWordListReply, error) {
+func (UnimplementedSensitiveWordServer) SensitiveWordList(context.Context, *SensitiveWordListReq) (*SensitiveWordListReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SensitiveWordList not implemented")
 }
 func (UnimplementedSensitiveWordServer) SensitiveWordStore(context.Context, *SensitiveWordStoreReq) (*SensitiveWordStoreReply, error) {
@@ -130,7 +128,7 @@ func RegisterSensitiveWordServer(s grpc.ServiceRegistrar, srv SensitiveWordServe
 }
 
 func _SensitiveWord_SensitiveWordList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(paginator.PaginatorReq)
+	in := new(SensitiveWordListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -142,7 +140,7 @@ func _SensitiveWord_SensitiveWordList_Handler(srv interface{}, ctx context.Conte
 		FullMethod: SensitiveWord_SensitiveWordList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SensitiveWordServer).SensitiveWordList(ctx, req.(*paginator.PaginatorReq))
+		return srv.(SensitiveWordServer).SensitiveWordList(ctx, req.(*SensitiveWordListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

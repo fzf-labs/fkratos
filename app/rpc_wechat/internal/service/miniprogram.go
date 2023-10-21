@@ -7,16 +7,19 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 )
 
-type MiniProgramService struct {
-	pb.UnimplementedMiniProgramServer
-	log                *log.Helper
-	miniProgramUseCase *biz.MiniProgramUseCase
-}
-
-func NewMiniProgramService(logger log.Logger, miniProgramUseCase *biz.MiniProgramUseCase) *MiniProgramService {
+func NewMiniProgramService(
+	logger log.Logger,
+	miniProgramUseCase *biz.MiniProgramUseCase,
+) *MiniProgramService {
 	l := log.NewHelper(log.With(logger, "module", "service/miniProgram"))
 	return &MiniProgramService{
 		log:                l,
 		miniProgramUseCase: miniProgramUseCase,
 	}
+}
+
+type MiniProgramService struct {
+	pb.UnimplementedMiniProgramServer
+	log                *log.Helper
+	miniProgramUseCase *biz.MiniProgramUseCase
 }

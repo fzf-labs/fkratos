@@ -19,16 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Auth_SysAuthLoginCaptcha_FullMethodName  = "/api.rpc_sys.v1.Auth/SysAuthLoginCaptcha"
-	Auth_SysAuthLogin_FullMethodName         = "/api.rpc_sys.v1.Auth/SysAuthLogin"
-	Auth_SysAuthLogout_FullMethodName        = "/api.rpc_sys.v1.Auth/SysAuthLogout"
-	Auth_SysAuthJwtTokenCheck_FullMethodName = "/api.rpc_sys.v1.Auth/SysAuthJwtTokenCheck"
+	SysAuth_SysAuthLoginCaptcha_FullMethodName  = "/api.rpc_sys.v1.SysAuth/SysAuthLoginCaptcha"
+	SysAuth_SysAuthLogin_FullMethodName         = "/api.rpc_sys.v1.SysAuth/SysAuthLogin"
+	SysAuth_SysAuthLogout_FullMethodName        = "/api.rpc_sys.v1.SysAuth/SysAuthLogout"
+	SysAuth_SysAuthJwtTokenCheck_FullMethodName = "/api.rpc_sys.v1.SysAuth/SysAuthJwtTokenCheck"
 )
 
-// AuthClient is the client API for Auth service.
+// SysAuthClient is the client API for SysAuth service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type AuthClient interface {
+type SysAuthClient interface {
 	// Auth-验证码
 	SysAuthLoginCaptcha(ctx context.Context, in *SysAuthLoginCaptchaReq, opts ...grpc.CallOption) (*SysAuthLoginCaptchaReply, error)
 	// Auth-登录
@@ -39,54 +39,54 @@ type AuthClient interface {
 	SysAuthJwtTokenCheck(ctx context.Context, in *SysAuthJwtTokenCheckReq, opts ...grpc.CallOption) (*SysAuthJwtTokenCheckReply, error)
 }
 
-type authClient struct {
+type sysAuthClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewAuthClient(cc grpc.ClientConnInterface) AuthClient {
-	return &authClient{cc}
+func NewSysAuthClient(cc grpc.ClientConnInterface) SysAuthClient {
+	return &sysAuthClient{cc}
 }
 
-func (c *authClient) SysAuthLoginCaptcha(ctx context.Context, in *SysAuthLoginCaptchaReq, opts ...grpc.CallOption) (*SysAuthLoginCaptchaReply, error) {
+func (c *sysAuthClient) SysAuthLoginCaptcha(ctx context.Context, in *SysAuthLoginCaptchaReq, opts ...grpc.CallOption) (*SysAuthLoginCaptchaReply, error) {
 	out := new(SysAuthLoginCaptchaReply)
-	err := c.cc.Invoke(ctx, Auth_SysAuthLoginCaptcha_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAuth_SysAuthLoginCaptcha_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authClient) SysAuthLogin(ctx context.Context, in *SysAuthLoginReq, opts ...grpc.CallOption) (*SysAuthLoginReply, error) {
+func (c *sysAuthClient) SysAuthLogin(ctx context.Context, in *SysAuthLoginReq, opts ...grpc.CallOption) (*SysAuthLoginReply, error) {
 	out := new(SysAuthLoginReply)
-	err := c.cc.Invoke(ctx, Auth_SysAuthLogin_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAuth_SysAuthLogin_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authClient) SysAuthLogout(ctx context.Context, in *SysAuthLogoutReq, opts ...grpc.CallOption) (*SysAuthLogoutReply, error) {
+func (c *sysAuthClient) SysAuthLogout(ctx context.Context, in *SysAuthLogoutReq, opts ...grpc.CallOption) (*SysAuthLogoutReply, error) {
 	out := new(SysAuthLogoutReply)
-	err := c.cc.Invoke(ctx, Auth_SysAuthLogout_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAuth_SysAuthLogout_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authClient) SysAuthJwtTokenCheck(ctx context.Context, in *SysAuthJwtTokenCheckReq, opts ...grpc.CallOption) (*SysAuthJwtTokenCheckReply, error) {
+func (c *sysAuthClient) SysAuthJwtTokenCheck(ctx context.Context, in *SysAuthJwtTokenCheckReq, opts ...grpc.CallOption) (*SysAuthJwtTokenCheckReply, error) {
 	out := new(SysAuthJwtTokenCheckReply)
-	err := c.cc.Invoke(ctx, Auth_SysAuthJwtTokenCheck_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysAuth_SysAuthJwtTokenCheck_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// AuthServer is the server API for Auth service.
-// All implementations must embed UnimplementedAuthServer
+// SysAuthServer is the server API for SysAuth service.
+// All implementations must embed UnimplementedSysAuthServer
 // for forward compatibility
-type AuthServer interface {
+type SysAuthServer interface {
 	// Auth-验证码
 	SysAuthLoginCaptcha(context.Context, *SysAuthLoginCaptchaReq) (*SysAuthLoginCaptchaReply, error)
 	// Auth-登录
@@ -95,132 +95,132 @@ type AuthServer interface {
 	SysAuthLogout(context.Context, *SysAuthLogoutReq) (*SysAuthLogoutReply, error)
 	// Auth-Token校验
 	SysAuthJwtTokenCheck(context.Context, *SysAuthJwtTokenCheckReq) (*SysAuthJwtTokenCheckReply, error)
-	mustEmbedUnimplementedAuthServer()
+	mustEmbedUnimplementedSysAuthServer()
 }
 
-// UnimplementedAuthServer must be embedded to have forward compatible implementations.
-type UnimplementedAuthServer struct {
+// UnimplementedSysAuthServer must be embedded to have forward compatible implementations.
+type UnimplementedSysAuthServer struct {
 }
 
-func (UnimplementedAuthServer) SysAuthLoginCaptcha(context.Context, *SysAuthLoginCaptchaReq) (*SysAuthLoginCaptchaReply, error) {
+func (UnimplementedSysAuthServer) SysAuthLoginCaptcha(context.Context, *SysAuthLoginCaptchaReq) (*SysAuthLoginCaptchaReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAuthLoginCaptcha not implemented")
 }
-func (UnimplementedAuthServer) SysAuthLogin(context.Context, *SysAuthLoginReq) (*SysAuthLoginReply, error) {
+func (UnimplementedSysAuthServer) SysAuthLogin(context.Context, *SysAuthLoginReq) (*SysAuthLoginReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAuthLogin not implemented")
 }
-func (UnimplementedAuthServer) SysAuthLogout(context.Context, *SysAuthLogoutReq) (*SysAuthLogoutReply, error) {
+func (UnimplementedSysAuthServer) SysAuthLogout(context.Context, *SysAuthLogoutReq) (*SysAuthLogoutReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAuthLogout not implemented")
 }
-func (UnimplementedAuthServer) SysAuthJwtTokenCheck(context.Context, *SysAuthJwtTokenCheckReq) (*SysAuthJwtTokenCheckReply, error) {
+func (UnimplementedSysAuthServer) SysAuthJwtTokenCheck(context.Context, *SysAuthJwtTokenCheckReq) (*SysAuthJwtTokenCheckReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysAuthJwtTokenCheck not implemented")
 }
-func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
+func (UnimplementedSysAuthServer) mustEmbedUnimplementedSysAuthServer() {}
 
-// UnsafeAuthServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to AuthServer will
+// UnsafeSysAuthServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SysAuthServer will
 // result in compilation errors.
-type UnsafeAuthServer interface {
-	mustEmbedUnimplementedAuthServer()
+type UnsafeSysAuthServer interface {
+	mustEmbedUnimplementedSysAuthServer()
 }
 
-func RegisterAuthServer(s grpc.ServiceRegistrar, srv AuthServer) {
-	s.RegisterService(&Auth_ServiceDesc, srv)
+func RegisterSysAuthServer(s grpc.ServiceRegistrar, srv SysAuthServer) {
+	s.RegisterService(&SysAuth_ServiceDesc, srv)
 }
 
-func _Auth_SysAuthLoginCaptcha_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysAuth_SysAuthLoginCaptcha_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysAuthLoginCaptchaReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServer).SysAuthLoginCaptcha(ctx, in)
+		return srv.(SysAuthServer).SysAuthLoginCaptcha(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Auth_SysAuthLoginCaptcha_FullMethodName,
+		FullMethod: SysAuth_SysAuthLoginCaptcha_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).SysAuthLoginCaptcha(ctx, req.(*SysAuthLoginCaptchaReq))
+		return srv.(SysAuthServer).SysAuthLoginCaptcha(ctx, req.(*SysAuthLoginCaptchaReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Auth_SysAuthLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysAuth_SysAuthLogin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysAuthLoginReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServer).SysAuthLogin(ctx, in)
+		return srv.(SysAuthServer).SysAuthLogin(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Auth_SysAuthLogin_FullMethodName,
+		FullMethod: SysAuth_SysAuthLogin_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).SysAuthLogin(ctx, req.(*SysAuthLoginReq))
+		return srv.(SysAuthServer).SysAuthLogin(ctx, req.(*SysAuthLoginReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Auth_SysAuthLogout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysAuth_SysAuthLogout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysAuthLogoutReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServer).SysAuthLogout(ctx, in)
+		return srv.(SysAuthServer).SysAuthLogout(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Auth_SysAuthLogout_FullMethodName,
+		FullMethod: SysAuth_SysAuthLogout_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).SysAuthLogout(ctx, req.(*SysAuthLogoutReq))
+		return srv.(SysAuthServer).SysAuthLogout(ctx, req.(*SysAuthLogoutReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Auth_SysAuthJwtTokenCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysAuth_SysAuthJwtTokenCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysAuthJwtTokenCheckReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServer).SysAuthJwtTokenCheck(ctx, in)
+		return srv.(SysAuthServer).SysAuthJwtTokenCheck(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Auth_SysAuthJwtTokenCheck_FullMethodName,
+		FullMethod: SysAuth_SysAuthJwtTokenCheck_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).SysAuthJwtTokenCheck(ctx, req.(*SysAuthJwtTokenCheckReq))
+		return srv.(SysAuthServer).SysAuthJwtTokenCheck(ctx, req.(*SysAuthJwtTokenCheckReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
+// SysAuth_ServiceDesc is the grpc.ServiceDesc for SysAuth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Auth_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.rpc_sys.v1.Auth",
-	HandlerType: (*AuthServer)(nil),
+var SysAuth_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "api.rpc_sys.v1.SysAuth",
+	HandlerType: (*SysAuthServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SysAuthLoginCaptcha",
-			Handler:    _Auth_SysAuthLoginCaptcha_Handler,
+			Handler:    _SysAuth_SysAuthLoginCaptcha_Handler,
 		},
 		{
 			MethodName: "SysAuthLogin",
-			Handler:    _Auth_SysAuthLogin_Handler,
+			Handler:    _SysAuth_SysAuthLogin_Handler,
 		},
 		{
 			MethodName: "SysAuthLogout",
-			Handler:    _Auth_SysAuthLogout_Handler,
+			Handler:    _SysAuth_SysAuthLogout_Handler,
 		},
 		{
 			MethodName: "SysAuthJwtTokenCheck",
-			Handler:    _Auth_SysAuthJwtTokenCheck_Handler,
+			Handler:    _SysAuth_SysAuthJwtTokenCheck_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

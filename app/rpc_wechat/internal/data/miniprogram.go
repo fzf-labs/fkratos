@@ -8,7 +8,10 @@ import (
 
 var _ biz.MiniProgramRepo = (*MiniProgramRepo)(nil)
 
-func NewMiniProgramRepo(logger log.Logger, data *Data) biz.MiniProgramRepo {
+func NewMiniProgramRepo(
+	logger log.Logger,
+	data *Data,
+) biz.MiniProgramRepo {
 	l := log.NewHelper(log.With(logger, "module", "data/miniProgram"))
 	return &MiniProgramRepo{
 		log:  l,

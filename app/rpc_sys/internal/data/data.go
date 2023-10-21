@@ -17,10 +17,10 @@ import (
 
 // ProviderSet is data providers.
 var ProviderSet = wire.NewSet(
-	NewData,
 	bootstrap.NewGorm,
 	bootstrap.NewRueidis,
 	bootstrap.NewAysnqClient,
+	NewData,
 	NewDBCache,
 	fkratos_sys_repo.NewSysAdminRepo,
 	fkratos_sys_repo.NewSysDeptRepo,

@@ -35,11 +35,6 @@ conf:
 wire:
 	@go run -mod=mod github.com/google/wire/cmd/wire ./cmd/${APP_NAME}
 
-.PHONY: proto
-# 新增 protobuf 文件 make proto PROTO_NAME=demo
-proto:
-	@cd ../../ && kratos proto add api/${APP_NAME}/v1/${PROTO_NAME}.proto
-
 .PHONY: api
 # protobuf 生成 Go 代码
 api: buf
@@ -81,10 +76,14 @@ common:
  	       --validate_out=paths=source_relative,lang=go:./api \
 	       $$files
 
-.PHONY: service
-# 通过 proto 文件，生成对应的 Service 实现代码 make service PROTO_NAME=demo
-service:
-	@go run ../../cmd/proto/main.go service ../../api/${APP_NAME}/v1/${PROTO_NAME}.proto -t internal/service
+.PHONY: protocode
+# 通过 proto 文件，生成对应的 data,biz,service 代码 make protocode
+protocode:
+	@echo "proto code start";
+	@go run ../../cmd/proto/main.go biz ../../api/${APP_NAME} -t internal/biz
+	@go run ../../cmd/proto/main.go service ../../api/${APP_NAME} -t internal/service
+	@echo "proto code finish";
+
 
 .PHONY: run
 # run

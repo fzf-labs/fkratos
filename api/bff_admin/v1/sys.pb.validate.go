@@ -892,7 +892,7 @@ func (m *SysAdminInfo) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for Username
 
@@ -1708,7 +1708,7 @@ func (m *SysManageInfo) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for Username
 
@@ -1846,7 +1846,7 @@ func (m *SysAdminPermission) validate(all bool) error {
 
 	// no validation rules for Title
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for Path
 
@@ -2211,6 +2211,135 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SysAdminPermissionReplyValidationError{}
+
+// Validate checks the field values on SysManageListReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SysManageListReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysManageListReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SysManageListReqMultiError, or nil if none found.
+func (m *SysManageListReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysManageListReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPaginator()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SysManageListReqValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SysManageListReqValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPaginator()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SysManageListReqValidationError{
+				field:  "Paginator",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return SysManageListReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysManageListReqMultiError is an error wrapping multiple validation errors
+// returned by SysManageListReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysManageListReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysManageListReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysManageListReqMultiError) AllErrors() []error { return m }
+
+// SysManageListReqValidationError is the validation error returned by
+// SysManageListReq.Validate if the designated constraints aren't met.
+type SysManageListReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysManageListReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysManageListReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysManageListReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysManageListReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysManageListReqValidationError) ErrorName() string { return "SysManageListReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysManageListReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysManageListReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysManageListReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysManageListReqValidationError{}
 
 // Validate checks the field values on SysManageListReply with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2650,7 +2779,7 @@ func (m *SysManageStoreReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for Username
 
@@ -3080,7 +3209,7 @@ func (m *SysAPIInfo) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for PermissionID
 
@@ -3429,7 +3558,7 @@ func (m *SysAPIStoreReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for PermissionID
 
@@ -3539,7 +3668,7 @@ func (m *SysAPIStoreReply) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return SysAPIStoreReplyMultiError(errors)
@@ -3840,11 +3969,11 @@ func (m *SysDeptInfo) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for Pid
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for FullName
 
@@ -4231,7 +4360,7 @@ func (m *SysDeptInfoReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return SysDeptInfoReqMultiError(errors)
@@ -4462,11 +4591,11 @@ func (m *SysDeptStoreReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for Pid
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for FullName
 
@@ -4884,9 +5013,9 @@ func (m *SysJobInfo) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for Code
 
@@ -4976,6 +5105,135 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SysJobInfoValidationError{}
+
+// Validate checks the field values on SysJobListReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *SysJobListReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SysJobListReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in SysJobListReqMultiError, or
+// nil if none found.
+func (m *SysJobListReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SysJobListReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetPaginator()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SysJobListReqValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SysJobListReqValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPaginator()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SysJobListReqValidationError{
+				field:  "Paginator",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return SysJobListReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SysJobListReqMultiError is an error wrapping multiple validation errors
+// returned by SysJobListReq.ValidateAll() if the designated constraints
+// aren't met.
+type SysJobListReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SysJobListReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SysJobListReqMultiError) AllErrors() []error { return m }
+
+// SysJobListReqValidationError is the validation error returned by
+// SysJobListReq.Validate if the designated constraints aren't met.
+type SysJobListReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SysJobListReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SysJobListReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SysJobListReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SysJobListReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SysJobListReqValidationError) ErrorName() string { return "SysJobListReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e SysJobListReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSysJobListReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SysJobListReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SysJobListReqValidationError{}
 
 // Validate checks the field values on SysJobListReply with the rules defined
 // in the proto definition for this message. If any rules are violated, the
@@ -5162,7 +5420,7 @@ func (m *SysJobInfoReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return SysJobInfoReqMultiError(errors)
@@ -5393,9 +5651,9 @@ func (m *SysJobStoreReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for Code
 
@@ -5804,7 +6062,7 @@ func (m *SysLogInfo) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for AdminID
 
@@ -5923,9 +6181,34 @@ func (m *SysLogListReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Page
-
-	// no validation rules for PageSize
+	if all {
+		switch v := interface{}(m.GetPaginator()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SysLogListReqValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SysLogListReqValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPaginator()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SysLogListReqValidationError{
+				field:  "Paginator",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return SysLogListReqMultiError(errors)
@@ -6190,7 +6473,7 @@ func (m *SysLogInfoReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return SysLogInfoReqMultiError(errors)
@@ -6666,7 +6949,7 @@ func (m *SysPermissionInfo) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for Pid
 
@@ -6674,7 +6957,7 @@ func (m *SysPermissionInfo) validate(all bool) error {
 
 	// no validation rules for Title
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for Path
 
@@ -7074,7 +7357,7 @@ func (m *SysPermissionInfoReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return SysPermissionInfoReqMultiError(errors)
@@ -7309,7 +7592,7 @@ func (m *SysPermissionStoreReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for Pid
 
@@ -7317,7 +7600,7 @@ func (m *SysPermissionStoreReq) validate(all bool) error {
 
 	// no validation rules for Title
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for Path
 
@@ -7747,7 +8030,7 @@ func (m *SysPermissionStatusReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for Status
 
@@ -7955,11 +8238,11 @@ func (m *SysRoleInfo) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for Pid
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for Remark
 
@@ -8338,7 +8621,7 @@ func (m *SysRoleInfoReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	if len(errors) > 0 {
 		return SysRoleInfoReqMultiError(errors)
@@ -8569,11 +8852,11 @@ func (m *SysRoleStoreReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ID
+	// no validation rules for Id
 
 	// no validation rules for Pid
 
-	// no validation rules for UpperName
+	// no validation rules for Name
 
 	// no validation rules for Remark
 

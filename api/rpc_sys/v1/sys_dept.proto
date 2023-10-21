@@ -8,7 +8,7 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 后缀定义:请求req,响应reply
 
 // 部门
-service Dept {
+service SysDept {
   //部门-列表
   rpc SysDeptList(SysDeptListReq) returns (SysDeptListReply);
   //部门-单个部门信息

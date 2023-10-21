@@ -165,7 +165,7 @@ func (u *UserGroupRepo) UpdateOneByTx(ctx context.Context, tx *fkratos_user_dao.
 // UpdateOneWithZero 更新一条数据,包含零值
 func (u *UserGroupRepo) UpdateOneWithZero(ctx context.Context, data *fkratos_user_model.UserGroup) error {
 	dao := fkratos_user_dao.Use(u.db).UserGroup
-	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL).Updates(data)
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -179,7 +179,7 @@ func (u *UserGroupRepo) UpdateOneWithZero(ctx context.Context, data *fkratos_use
 // UpdateOneWithZeroByTx 更新一条数据(事务),包含零值
 func (u *UserGroupRepo) UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_user_dao.Query, data *fkratos_user_model.UserGroup) error {
 	dao := tx.UserGroup
-	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL).Updates(data)
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -425,24 +425,19 @@ func (u *UserGroupRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fk
 func (u *UserGroupRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_user_model.UserGroup, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_user_model.UserGroup, 0)
 	var total int64
-	queryStr, args, err := paginatorReq.ConvertToGormConditions()
+	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_user_model.UserGroup{})
 	if err != nil {
-		return result, nil, err
+		return nil, nil, err
 	}
-	err = u.db.WithContext(ctx).Model(&fkratos_user_model.UserGroup{}).Select([]string{"id"}).Where(queryStr, args...).Count(&total).Error
+	err = u.db.WithContext(ctx).Model(&fkratos_user_model.UserGroup{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {
 		return result, nil, err
 	}
 	if total == 0 {
 		return result, nil, nil
 	}
-	query := u.db.WithContext(ctx)
-	order := paginatorReq.ConvertToOrder()
-	if order != "" {
-		query = query.Order(order)
-	}
 	paginatorReply := paginatorReq.ConvertToPage(int(total))
-	err = query.Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Where(queryStr, args...).Find(&result).Error
+	err = u.db.WithContext(ctx).Model(&fkratos_user_model.UserGroup{}).Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Clauses(whereExpressions...).Clauses(orderExpressions...).Find(&result).Error
 	if err != nil {
 		return result, nil, err
 	}

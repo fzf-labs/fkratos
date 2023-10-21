@@ -9,7 +9,11 @@ import (
 
 var _ biz.UserRepo = (*UserRepo)(nil)
 
-func NewUserRepo(logger log.Logger, data *Data, userRepo *fkratos_user_repo.UserRepo) biz.UserRepo {
+func NewUserRepo(
+	logger log.Logger,
+	data *Data,
+	userRepo *fkratos_user_repo.UserRepo,
+) biz.UserRepo {
 	l := log.NewHelper(log.With(logger, "module", "data/user"))
 	return &UserRepo{
 		log:      l,

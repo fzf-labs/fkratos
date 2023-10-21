@@ -28,12 +28,20 @@ type (
 		CreateOne(ctx context.Context, data *fkratos_common_model.DictType) error
 		// CreateOneByTx 创建一条数据(事务)
 		CreateOneByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.DictType) error
+		// UpsertOne Upsert一条数据
+		UpsertOne(ctx context.Context, data *fkratos_common_model.DictType) error
+		// UpsertOneByTx Upsert一条数据(事务)
+		UpsertOneByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.DictType) error
 		// CreateBatch 批量创建数据
 		CreateBatch(ctx context.Context, data []*fkratos_common_model.DictType, batchSize int) error
 		// UpdateOne 更新一条数据
 		UpdateOne(ctx context.Context, data *fkratos_common_model.DictType) error
 		// UpdateOne 更新一条数据(事务)
 		UpdateOneByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.DictType) error
+		// UpdateOneWithZero 更新一条数据,包含零值
+		UpdateOneWithZero(ctx context.Context, data *fkratos_common_model.DictType) error
+		// UpdateOneWithZero 更新一条数据,包含零值(事务)
+		UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.DictType) error
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_common_model.DictType, error)
 		// FindOneByID 根据ID查询一条数据
@@ -96,6 +104,26 @@ func (d *DictTypeRepo) CreateOneByTx(ctx context.Context, tx *fkratos_common_dao
 	return nil
 }
 
+// UpsertOne Upsert一条数据
+func (d *DictTypeRepo) UpsertOne(ctx context.Context, data *fkratos_common_model.DictType) error {
+	dao := fkratos_common_dao.Use(d.db).DictType
+	err := dao.WithContext(ctx).Save(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UpsertOneByTx Upsert一条数据(事务)
+func (d *DictTypeRepo) UpsertOneByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.DictType) error {
+	dao := tx.DictType
+	err := dao.WithContext(ctx).Save(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // CreateBatch 批量创建数据
 func (d *DictTypeRepo) CreateBatch(ctx context.Context, data []*fkratos_common_model.DictType, batchSize int) error {
 	dao := fkratos_common_dao.Use(d.db).DictType
@@ -124,6 +152,34 @@ func (d *DictTypeRepo) UpdateOne(ctx context.Context, data *fkratos_common_model
 func (d *DictTypeRepo) UpdateOneByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.DictType) error {
 	dao := tx.DictType
 	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Updates(data)
+	if err != nil {
+		return err
+	}
+	err = d.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.DictType{data})
+	if err != nil {
+		return err
+	}
+	return err
+}
+
+// UpdateOneWithZero 更新一条数据,包含零值
+func (d *DictTypeRepo) UpdateOneWithZero(ctx context.Context, data *fkratos_common_model.DictType) error {
+	dao := fkratos_common_dao.Use(d.db).DictType
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
+	if err != nil {
+		return err
+	}
+	err = d.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.DictType{data})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UpdateOneWithZeroByTx 更新一条数据(事务),包含零值
+func (d *DictTypeRepo) UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.DictType) error {
+	dao := tx.DictType
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -369,26 +425,21 @@ func (d *DictTypeRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkr
 func (d *DictTypeRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_common_model.DictType, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_common_model.DictType, 0)
 	var total int64
-	queryStr, args, err := paginatorReq.ConvertToGormConditions()
+	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_common_model.DictType{})
 	if err != nil {
 		return nil, nil, err
 	}
-	err = d.db.WithContext(ctx).Model(&fkratos_common_model.DictType{}).Select([]string{"id"}).Where(queryStr, args...).Count(&total).Error
+	err = d.db.WithContext(ctx).Model(&fkratos_common_model.DictType{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	if total == 0 {
-		return nil, nil, nil
-	}
-	query := d.db.WithContext(ctx)
-	order := paginatorReq.ConvertToOrder()
-	if order != "" {
-		query = query.Order(order)
+		return result, nil, nil
 	}
 	paginatorReply := paginatorReq.ConvertToPage(int(total))
-	err = query.Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Where(queryStr, args...).Find(&result).Error
+	err = d.db.WithContext(ctx).Model(&fkratos_common_model.DictType{}).Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Clauses(whereExpressions...).Clauses(orderExpressions...).Find(&result).Error
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	return result, paginatorReply, err
 }

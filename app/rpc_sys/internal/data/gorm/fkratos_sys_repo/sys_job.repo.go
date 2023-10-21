@@ -28,12 +28,20 @@ type (
 		CreateOne(ctx context.Context, data *fkratos_sys_model.SysJob) error
 		// CreateOneByTx 创建一条数据(事务)
 		CreateOneByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysJob) error
+		// UpsertOne Upsert一条数据
+		UpsertOne(ctx context.Context, data *fkratos_sys_model.SysJob) error
+		// UpsertOneByTx Upsert一条数据(事务)
+		UpsertOneByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysJob) error
 		// CreateBatch 批量创建数据
 		CreateBatch(ctx context.Context, data []*fkratos_sys_model.SysJob, batchSize int) error
 		// UpdateOne 更新一条数据
 		UpdateOne(ctx context.Context, data *fkratos_sys_model.SysJob) error
 		// UpdateOne 更新一条数据(事务)
 		UpdateOneByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysJob) error
+		// UpdateOneWithZero 更新一条数据,包含零值
+		UpdateOneWithZero(ctx context.Context, data *fkratos_sys_model.SysJob) error
+		// UpdateOneWithZero 更新一条数据,包含零值(事务)
+		UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysJob) error
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysJob, error)
 		// FindOneByID 根据ID查询一条数据
@@ -96,6 +104,26 @@ func (s *SysJobRepo) CreateOneByTx(ctx context.Context, tx *fkratos_sys_dao.Quer
 	return nil
 }
 
+// UpsertOne Upsert一条数据
+func (s *SysJobRepo) UpsertOne(ctx context.Context, data *fkratos_sys_model.SysJob) error {
+	dao := fkratos_sys_dao.Use(s.db).SysJob
+	err := dao.WithContext(ctx).Save(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UpsertOneByTx Upsert一条数据(事务)
+func (s *SysJobRepo) UpsertOneByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysJob) error {
+	dao := tx.SysJob
+	err := dao.WithContext(ctx).Save(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // CreateBatch 批量创建数据
 func (s *SysJobRepo) CreateBatch(ctx context.Context, data []*fkratos_sys_model.SysJob, batchSize int) error {
 	dao := fkratos_sys_dao.Use(s.db).SysJob
@@ -124,6 +152,34 @@ func (s *SysJobRepo) UpdateOne(ctx context.Context, data *fkratos_sys_model.SysJ
 func (s *SysJobRepo) UpdateOneByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysJob) error {
 	dao := tx.SysJob
 	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Updates(data)
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysJob{data})
+	if err != nil {
+		return err
+	}
+	return err
+}
+
+// UpdateOneWithZero 更新一条数据,包含零值
+func (s *SysJobRepo) UpdateOneWithZero(ctx context.Context, data *fkratos_sys_model.SysJob) error {
+	dao := fkratos_sys_dao.Use(s.db).SysJob
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysJob{data})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UpdateOneWithZeroByTx 更新一条数据(事务),包含零值
+func (s *SysJobRepo) UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysJob) error {
+	dao := tx.SysJob
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -369,26 +425,21 @@ func (s *SysJobRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkrat
 func (s *SysJobRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_sys_model.SysJob, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_sys_model.SysJob, 0)
 	var total int64
-	queryStr, args, err := paginatorReq.ConvertToGormConditions()
+	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_sys_model.SysJob{})
 	if err != nil {
 		return nil, nil, err
 	}
-	err = s.db.WithContext(ctx).Model(&fkratos_sys_model.SysJob{}).Select([]string{"id"}).Where(queryStr, args...).Count(&total).Error
+	err = s.db.WithContext(ctx).Model(&fkratos_sys_model.SysJob{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	if total == 0 {
-		return nil, nil, nil
-	}
-	query := s.db.WithContext(ctx)
-	order := paginatorReq.ConvertToOrder()
-	if order != "" {
-		query = query.Order(order)
+		return result, nil, nil
 	}
 	paginatorReply := paginatorReq.ConvertToPage(int(total))
-	err = query.Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Where(queryStr, args...).Find(&result).Error
+	err = s.db.WithContext(ctx).Model(&fkratos_sys_model.SysJob{}).Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Clauses(whereExpressions...).Clauses(orderExpressions...).Find(&result).Error
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	return result, paginatorReply, err
 }

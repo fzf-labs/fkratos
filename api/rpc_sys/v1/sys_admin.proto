@@ -12,7 +12,7 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 后缀定义:请求req,响应reply
 
 // 管理员
-service Admin {
+service SysAdmin {
   //管理员-个人信息
   rpc SysAdminInfo(SysAdminInfoReq) returns (SysAdminInfoReply);
   //管理员-个人信息更新
@@ -23,7 +23,7 @@ service Admin {
   rpc SysAdminPermission(SysAdminPermissionReq) returns (SysAdminPermissionReply);
 
   //管理员-列表
-  rpc SysManageList(paginator.PaginatorReq) returns (SysManageListReply);
+  rpc SysManageList(SysManageListReq) returns (SysManageListReply);
   //管理员-信息
   rpc SysManageInfo(SysManageInfoReq) returns (SysManageInfoReply);
   //管理员-保存
@@ -124,6 +124,10 @@ message SysAdminPermissionReq {
 //响应-权限
 message SysAdminPermissionReply {
   repeated SysPermissionInfo list = 1; //列表
+}
+
+message SysManageListReq {
+  paginator.PaginatorReq paginator = 1; //分页
 }
 
 //响应-管理员列表

@@ -16,10 +16,10 @@ func main() {
 	flag.Parse()
 	dsn := GetDsn(*configFile)
 	connectDB := gen.ConnectDB("postgres", dsn)
-	outPutPath := fmt.Sprintf("../../api/%s/v1/", *service)
+	outPutPath := fmt.Sprintf("../../api/%s/v1", *service)
 	packageStr := fmt.Sprintf("api.%s.v1", *service)
 	goPackageStr := fmt.Sprintf("fkratos/api/%s/v1;v1", *service)
-	gen.NewGenerationPb(connectDB, outPutPath, packageStr, goPackageStr, gen.WithPbOpts(gen.ModelOptionRemoveDefault(), gen.ModelOptionUnderline("UL"))).Do()
+	gen.NewGenerationPB(connectDB, outPutPath, packageStr, goPackageStr, gen.WithPBOpts(gen.ModelOptionRemoveDefault(), gen.ModelOptionUnderline("UL"))).Do()
 }
 
 func GetDsn(configFile string) string {

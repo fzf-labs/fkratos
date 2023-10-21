@@ -14,18 +14,22 @@ import (
 
 var _ biz.SensitiveWordRepo = (*SensitiveWordRepo)(nil)
 
-func NewSensitiveWordRepo(data *Data, logger log.Logger) biz.SensitiveWordRepo {
-	l := log.NewHelper(log.With(logger, "module", "rpc_common/data/sensitive_word"))
+func NewSensitiveWordRepo(
+	logger log.Logger,
+	data *Data,
+	sensitiveWordRepo *fkratos_common_repo.SensitiveWordRepo,
+) biz.SensitiveWordRepo {
+	l := log.NewHelper(log.With(logger, "module", "data/sensitiveWord"))
 	return &SensitiveWordRepo{
-		data:              data,
 		log:               l,
-		SensitiveWordRepo: fkratos_common_repo.NewSensitiveWordRepo(data.db, data.rueidisdbcache),
+		data:              data,
+		SensitiveWordRepo: sensitiveWordRepo,
 	}
 }
 
 type SensitiveWordRepo struct {
-	data *Data
 	log  *log.Helper
+	data *Data
 	*fkratos_common_repo.SensitiveWordRepo
 }
 
@@ -63,7 +67,7 @@ func (s *SensitiveWordRepo) SensitiveWordsCache(ctx context.Context) ([]string, 
 		if err != nil {
 			return "", err
 		}
-		encode, err := jsonutil.Encode(sensitiveWordsQuery)
+		encode, err := jsonutil.Marshal(sensitiveWordsQuery)
 		if err != nil {
 			return "", err
 		}
@@ -72,7 +76,7 @@ func (s *SensitiveWordRepo) SensitiveWordsCache(ctx context.Context) ([]string, 
 	if err != nil {
 		return nil, err
 	}
-	err = jsonutil.DecodeString(resp, result)
+	err = jsonutil.UnmarshalString(resp, result)
 	if err != nil {
 		return nil, err
 	}

@@ -1,10 +1,12 @@
 package data
 
 import (
+	"fkratos/app/rpc_device/internal/data/gorm/fkratos_device_repo"
 	"fkratos/internal/bootstrap"
 	"fkratos/internal/bootstrap/conf"
 	"fmt"
 
+	"github.com/fzf-labs/fpkg/orm/gen/cache"
 	"github.com/fzf-labs/fpkg/orm/gen/cache/rueidisdbcache"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"
@@ -14,10 +16,12 @@ import (
 
 // ProviderSet is data providers.
 var ProviderSet = wire.NewSet(
-	NewData,
 	bootstrap.NewGorm,
 	bootstrap.NewRueidis,
+	NewData,
+	NewDBCache,
 	NewDeviceRepo,
+	fkratos_device_repo.NewDeviceRepo,
 )
 
 type Data struct {
@@ -48,4 +52,7 @@ func NewData(c *conf.Bootstrap, logger log.Logger, db *gorm.DB, rueidisClient ru
 		d.rueidis.Close()
 	}
 	return d, cleanup, nil
+}
+func NewDBCache(rueidisClient rueidis.Client) cache.IDBCache {
+	return rueidisdbcache.NewRueidisDBCache(rueidisClient)
 }

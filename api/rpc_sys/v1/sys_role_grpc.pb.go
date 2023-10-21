@@ -19,16 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Role_SysRoleList_FullMethodName  = "/api.rpc_sys.v1.Role/SysRoleList"
-	Role_SysRoleInfo_FullMethodName  = "/api.rpc_sys.v1.Role/SysRoleInfo"
-	Role_SysRoleStore_FullMethodName = "/api.rpc_sys.v1.Role/SysRoleStore"
-	Role_SysRoleDel_FullMethodName   = "/api.rpc_sys.v1.Role/SysRoleDel"
+	SysRole_SysRoleList_FullMethodName  = "/api.rpc_sys.v1.SysRole/SysRoleList"
+	SysRole_SysRoleInfo_FullMethodName  = "/api.rpc_sys.v1.SysRole/SysRoleInfo"
+	SysRole_SysRoleStore_FullMethodName = "/api.rpc_sys.v1.SysRole/SysRoleStore"
+	SysRole_SysRoleDel_FullMethodName   = "/api.rpc_sys.v1.SysRole/SysRoleDel"
 )
 
-// RoleClient is the client API for Role service.
+// SysRoleClient is the client API for SysRole service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type RoleClient interface {
+type SysRoleClient interface {
 	// 角色-列表
 	SysRoleList(ctx context.Context, in *SysRoleListReq, opts ...grpc.CallOption) (*SysRoleListResp, error)
 	// 角色-信息
@@ -39,54 +39,54 @@ type RoleClient interface {
 	SysRoleDel(ctx context.Context, in *SysRoleDelReq, opts ...grpc.CallOption) (*SysRoleDelResp, error)
 }
 
-type roleClient struct {
+type sysRoleClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewRoleClient(cc grpc.ClientConnInterface) RoleClient {
-	return &roleClient{cc}
+func NewSysRoleClient(cc grpc.ClientConnInterface) SysRoleClient {
+	return &sysRoleClient{cc}
 }
 
-func (c *roleClient) SysRoleList(ctx context.Context, in *SysRoleListReq, opts ...grpc.CallOption) (*SysRoleListResp, error) {
+func (c *sysRoleClient) SysRoleList(ctx context.Context, in *SysRoleListReq, opts ...grpc.CallOption) (*SysRoleListResp, error) {
 	out := new(SysRoleListResp)
-	err := c.cc.Invoke(ctx, Role_SysRoleList_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysRole_SysRoleList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *roleClient) SysRoleInfo(ctx context.Context, in *SysRoleInfoReq, opts ...grpc.CallOption) (*SysRoleInfoResp, error) {
+func (c *sysRoleClient) SysRoleInfo(ctx context.Context, in *SysRoleInfoReq, opts ...grpc.CallOption) (*SysRoleInfoResp, error) {
 	out := new(SysRoleInfoResp)
-	err := c.cc.Invoke(ctx, Role_SysRoleInfo_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysRole_SysRoleInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *roleClient) SysRoleStore(ctx context.Context, in *SysRoleStoreReq, opts ...grpc.CallOption) (*SysRoleStoreResp, error) {
+func (c *sysRoleClient) SysRoleStore(ctx context.Context, in *SysRoleStoreReq, opts ...grpc.CallOption) (*SysRoleStoreResp, error) {
 	out := new(SysRoleStoreResp)
-	err := c.cc.Invoke(ctx, Role_SysRoleStore_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysRole_SysRoleStore_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *roleClient) SysRoleDel(ctx context.Context, in *SysRoleDelReq, opts ...grpc.CallOption) (*SysRoleDelResp, error) {
+func (c *sysRoleClient) SysRoleDel(ctx context.Context, in *SysRoleDelReq, opts ...grpc.CallOption) (*SysRoleDelResp, error) {
 	out := new(SysRoleDelResp)
-	err := c.cc.Invoke(ctx, Role_SysRoleDel_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysRole_SysRoleDel_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// RoleServer is the server API for Role service.
-// All implementations must embed UnimplementedRoleServer
+// SysRoleServer is the server API for SysRole service.
+// All implementations must embed UnimplementedSysRoleServer
 // for forward compatibility
-type RoleServer interface {
+type SysRoleServer interface {
 	// 角色-列表
 	SysRoleList(context.Context, *SysRoleListReq) (*SysRoleListResp, error)
 	// 角色-信息
@@ -95,132 +95,132 @@ type RoleServer interface {
 	SysRoleStore(context.Context, *SysRoleStoreReq) (*SysRoleStoreResp, error)
 	// 角色-删除
 	SysRoleDel(context.Context, *SysRoleDelReq) (*SysRoleDelResp, error)
-	mustEmbedUnimplementedRoleServer()
+	mustEmbedUnimplementedSysRoleServer()
 }
 
-// UnimplementedRoleServer must be embedded to have forward compatible implementations.
-type UnimplementedRoleServer struct {
+// UnimplementedSysRoleServer must be embedded to have forward compatible implementations.
+type UnimplementedSysRoleServer struct {
 }
 
-func (UnimplementedRoleServer) SysRoleList(context.Context, *SysRoleListReq) (*SysRoleListResp, error) {
+func (UnimplementedSysRoleServer) SysRoleList(context.Context, *SysRoleListReq) (*SysRoleListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysRoleList not implemented")
 }
-func (UnimplementedRoleServer) SysRoleInfo(context.Context, *SysRoleInfoReq) (*SysRoleInfoResp, error) {
+func (UnimplementedSysRoleServer) SysRoleInfo(context.Context, *SysRoleInfoReq) (*SysRoleInfoResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysRoleInfo not implemented")
 }
-func (UnimplementedRoleServer) SysRoleStore(context.Context, *SysRoleStoreReq) (*SysRoleStoreResp, error) {
+func (UnimplementedSysRoleServer) SysRoleStore(context.Context, *SysRoleStoreReq) (*SysRoleStoreResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysRoleStore not implemented")
 }
-func (UnimplementedRoleServer) SysRoleDel(context.Context, *SysRoleDelReq) (*SysRoleDelResp, error) {
+func (UnimplementedSysRoleServer) SysRoleDel(context.Context, *SysRoleDelReq) (*SysRoleDelResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysRoleDel not implemented")
 }
-func (UnimplementedRoleServer) mustEmbedUnimplementedRoleServer() {}
+func (UnimplementedSysRoleServer) mustEmbedUnimplementedSysRoleServer() {}
 
-// UnsafeRoleServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to RoleServer will
+// UnsafeSysRoleServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SysRoleServer will
 // result in compilation errors.
-type UnsafeRoleServer interface {
-	mustEmbedUnimplementedRoleServer()
+type UnsafeSysRoleServer interface {
+	mustEmbedUnimplementedSysRoleServer()
 }
 
-func RegisterRoleServer(s grpc.ServiceRegistrar, srv RoleServer) {
-	s.RegisterService(&Role_ServiceDesc, srv)
+func RegisterSysRoleServer(s grpc.ServiceRegistrar, srv SysRoleServer) {
+	s.RegisterService(&SysRole_ServiceDesc, srv)
 }
 
-func _Role_SysRoleList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysRole_SysRoleList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysRoleListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RoleServer).SysRoleList(ctx, in)
+		return srv.(SysRoleServer).SysRoleList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Role_SysRoleList_FullMethodName,
+		FullMethod: SysRole_SysRoleList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RoleServer).SysRoleList(ctx, req.(*SysRoleListReq))
+		return srv.(SysRoleServer).SysRoleList(ctx, req.(*SysRoleListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Role_SysRoleInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysRole_SysRoleInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysRoleInfoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RoleServer).SysRoleInfo(ctx, in)
+		return srv.(SysRoleServer).SysRoleInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Role_SysRoleInfo_FullMethodName,
+		FullMethod: SysRole_SysRoleInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RoleServer).SysRoleInfo(ctx, req.(*SysRoleInfoReq))
+		return srv.(SysRoleServer).SysRoleInfo(ctx, req.(*SysRoleInfoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Role_SysRoleStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysRole_SysRoleStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysRoleStoreReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RoleServer).SysRoleStore(ctx, in)
+		return srv.(SysRoleServer).SysRoleStore(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Role_SysRoleStore_FullMethodName,
+		FullMethod: SysRole_SysRoleStore_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RoleServer).SysRoleStore(ctx, req.(*SysRoleStoreReq))
+		return srv.(SysRoleServer).SysRoleStore(ctx, req.(*SysRoleStoreReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Role_SysRoleDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysRole_SysRoleDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysRoleDelReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RoleServer).SysRoleDel(ctx, in)
+		return srv.(SysRoleServer).SysRoleDel(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Role_SysRoleDel_FullMethodName,
+		FullMethod: SysRole_SysRoleDel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RoleServer).SysRoleDel(ctx, req.(*SysRoleDelReq))
+		return srv.(SysRoleServer).SysRoleDel(ctx, req.(*SysRoleDelReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Role_ServiceDesc is the grpc.ServiceDesc for Role service.
+// SysRole_ServiceDesc is the grpc.ServiceDesc for SysRole service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Role_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.rpc_sys.v1.Role",
-	HandlerType: (*RoleServer)(nil),
+var SysRole_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "api.rpc_sys.v1.SysRole",
+	HandlerType: (*SysRoleServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SysRoleList",
-			Handler:    _Role_SysRoleList_Handler,
+			Handler:    _SysRole_SysRoleList_Handler,
 		},
 		{
 			MethodName: "SysRoleInfo",
-			Handler:    _Role_SysRoleInfo_Handler,
+			Handler:    _SysRole_SysRoleInfo_Handler,
 		},
 		{
 			MethodName: "SysRoleStore",
-			Handler:    _Role_SysRoleStore_Handler,
+			Handler:    _SysRole_SysRoleStore_Handler,
 		},
 		{
 			MethodName: "SysRoleDel",
-			Handler:    _Role_SysRoleDel_Handler,
+			Handler:    _SysRole_SysRoleDel_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

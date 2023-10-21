@@ -28,9 +28,16 @@ func newDevice(db *gorm.DB, opts ...gen.DOOption) device {
 	tableName := _device.deviceDo.TableName()
 	_device.ALL = field.NewAsterisk(tableName)
 	_device.ID = field.NewString(tableName, "id")
-	_device.SNID = field.NewString(tableName, "SNId")
-	_device.DeviceBrand = field.NewString(tableName, "deviceBrand")
-	_device.ModelDevice = field.NewString(tableName, "modelDevice")
+	_device.Sn = field.NewString(tableName, "sn")
+	_device.DeviceName = field.NewString(tableName, "device_name")
+	_device.DeviceType = field.NewString(tableName, "device_type")
+	_device.DeviceModel = field.NewString(tableName, "device_model")
+	_device.Desc = field.NewString(tableName, "desc")
+	_device.Certificate = field.NewString(tableName, "certificate")
+	_device.SecureKey = field.NewString(tableName, "secure_key")
+	_device.FirmwareVersion = field.NewString(tableName, "firmware_version")
+	_device.SoftwareVersion = field.NewString(tableName, "software_version")
+	_device.RegistryTime = field.NewField(tableName, "registry_time")
 	_device.Status = field.NewInt16(tableName, "status")
 	_device.CreatedAt = field.NewTime(tableName, "created_at")
 	_device.UpdatedAt = field.NewTime(tableName, "updated_at")
@@ -44,15 +51,22 @@ func newDevice(db *gorm.DB, opts ...gen.DOOption) device {
 type device struct {
 	deviceDo deviceDo
 
-	ALL         field.Asterisk
-	ID          field.String // 记录ID
-	SNID        field.String // 设备SN唯一标识码
-	DeviceBrand field.String // 设备品牌
-	ModelDevice field.String // 设备型号
-	Status      field.Int16  // 状态
-	CreatedAt   field.Time   // 创建时间
-	UpdatedAt   field.Time   // 更新时间
-	DeletedAt   field.Field  // 删除时间
+	ALL             field.Asterisk
+	ID              field.String // 记录ID
+	Sn              field.String // 设备的唯一标识序列号
+	DeviceName      field.String // 设备名称
+	DeviceType      field.String // 设备类型
+	DeviceModel     field.String // 设备型号
+	Desc            field.String // 描述
+	Certificate     field.String // 设备证书
+	SecureKey       field.String // 设备密钥
+	FirmwareVersion field.String // 固件版本号
+	SoftwareVersion field.String // 软件版本号
+	RegistryTime    field.Field  // 激活时间
+	Status          field.Int16  // 状态
+	CreatedAt       field.Time   // 创建时间
+	UpdatedAt       field.Time   // 更新时间
+	DeletedAt       field.Field  // 删除时间
 
 	fieldMap map[string]field.Expr
 }
@@ -70,9 +84,16 @@ func (d device) As(alias string) *device {
 func (d *device) updateTableName(table string) *device {
 	d.ALL = field.NewAsterisk(table)
 	d.ID = field.NewString(table, "id")
-	d.SNID = field.NewString(table, "SNId")
-	d.DeviceBrand = field.NewString(table, "deviceBrand")
-	d.ModelDevice = field.NewString(table, "modelDevice")
+	d.Sn = field.NewString(table, "sn")
+	d.DeviceName = field.NewString(table, "device_name")
+	d.DeviceType = field.NewString(table, "device_type")
+	d.DeviceModel = field.NewString(table, "device_model")
+	d.Desc = field.NewString(table, "desc")
+	d.Certificate = field.NewString(table, "certificate")
+	d.SecureKey = field.NewString(table, "secure_key")
+	d.FirmwareVersion = field.NewString(table, "firmware_version")
+	d.SoftwareVersion = field.NewString(table, "software_version")
+	d.RegistryTime = field.NewField(table, "registry_time")
 	d.Status = field.NewInt16(table, "status")
 	d.CreatedAt = field.NewTime(table, "created_at")
 	d.UpdatedAt = field.NewTime(table, "updated_at")
@@ -101,11 +122,18 @@ func (d *device) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (d *device) fillFieldMap() {
-	d.fieldMap = make(map[string]field.Expr, 8)
+	d.fieldMap = make(map[string]field.Expr, 15)
 	d.fieldMap["id"] = d.ID
-	d.fieldMap["SNId"] = d.SNID
-	d.fieldMap["deviceBrand"] = d.DeviceBrand
-	d.fieldMap["modelDevice"] = d.ModelDevice
+	d.fieldMap["sn"] = d.Sn
+	d.fieldMap["device_name"] = d.DeviceName
+	d.fieldMap["device_type"] = d.DeviceType
+	d.fieldMap["device_model"] = d.DeviceModel
+	d.fieldMap["desc"] = d.Desc
+	d.fieldMap["certificate"] = d.Certificate
+	d.fieldMap["secure_key"] = d.SecureKey
+	d.fieldMap["firmware_version"] = d.FirmwareVersion
+	d.fieldMap["software_version"] = d.SoftwareVersion
+	d.fieldMap["registry_time"] = d.RegistryTime
 	d.fieldMap["status"] = d.Status
 	d.fieldMap["created_at"] = d.CreatedAt
 	d.fieldMap["updated_at"] = d.UpdatedAt

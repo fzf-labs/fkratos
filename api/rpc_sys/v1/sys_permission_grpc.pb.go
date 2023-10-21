@@ -19,17 +19,17 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Permission_SysPermissionList_FullMethodName   = "/api.rpc_sys.v1.Permission/SysPermissionList"
-	Permission_SysPermissionInfo_FullMethodName   = "/api.rpc_sys.v1.Permission/SysPermissionInfo"
-	Permission_SysPermissionStore_FullMethodName  = "/api.rpc_sys.v1.Permission/SysPermissionStore"
-	Permission_SysPermissionDel_FullMethodName    = "/api.rpc_sys.v1.Permission/SysPermissionDel"
-	Permission_SysPermissionStatus_FullMethodName = "/api.rpc_sys.v1.Permission/SysPermissionStatus"
+	SysPermission_SysPermissionList_FullMethodName   = "/api.rpc_sys.v1.SysPermission/SysPermissionList"
+	SysPermission_SysPermissionInfo_FullMethodName   = "/api.rpc_sys.v1.SysPermission/SysPermissionInfo"
+	SysPermission_SysPermissionStore_FullMethodName  = "/api.rpc_sys.v1.SysPermission/SysPermissionStore"
+	SysPermission_SysPermissionDel_FullMethodName    = "/api.rpc_sys.v1.SysPermission/SysPermissionDel"
+	SysPermission_SysPermissionStatus_FullMethodName = "/api.rpc_sys.v1.SysPermission/SysPermissionStatus"
 )
 
-// PermissionClient is the client API for Permission service.
+// SysPermissionClient is the client API for SysPermission service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type PermissionClient interface {
+type SysPermissionClient interface {
 	// 权限-列表
 	SysPermissionList(ctx context.Context, in *SysPermissionListReq, opts ...grpc.CallOption) (*SysPermissionListResp, error)
 	// 权限-单个权限信息
@@ -42,63 +42,63 @@ type PermissionClient interface {
 	SysPermissionStatus(ctx context.Context, in *SysPermissionStatusReq, opts ...grpc.CallOption) (*SysPermissionStatusResp, error)
 }
 
-type permissionClient struct {
+type sysPermissionClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewPermissionClient(cc grpc.ClientConnInterface) PermissionClient {
-	return &permissionClient{cc}
+func NewSysPermissionClient(cc grpc.ClientConnInterface) SysPermissionClient {
+	return &sysPermissionClient{cc}
 }
 
-func (c *permissionClient) SysPermissionList(ctx context.Context, in *SysPermissionListReq, opts ...grpc.CallOption) (*SysPermissionListResp, error) {
+func (c *sysPermissionClient) SysPermissionList(ctx context.Context, in *SysPermissionListReq, opts ...grpc.CallOption) (*SysPermissionListResp, error) {
 	out := new(SysPermissionListResp)
-	err := c.cc.Invoke(ctx, Permission_SysPermissionList_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysPermission_SysPermissionList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionClient) SysPermissionInfo(ctx context.Context, in *SysPermissionInfoReq, opts ...grpc.CallOption) (*SysPermissionInfoResp, error) {
+func (c *sysPermissionClient) SysPermissionInfo(ctx context.Context, in *SysPermissionInfoReq, opts ...grpc.CallOption) (*SysPermissionInfoResp, error) {
 	out := new(SysPermissionInfoResp)
-	err := c.cc.Invoke(ctx, Permission_SysPermissionInfo_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysPermission_SysPermissionInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionClient) SysPermissionStore(ctx context.Context, in *SysPermissionStoreReq, opts ...grpc.CallOption) (*SysPermissionStoreResp, error) {
+func (c *sysPermissionClient) SysPermissionStore(ctx context.Context, in *SysPermissionStoreReq, opts ...grpc.CallOption) (*SysPermissionStoreResp, error) {
 	out := new(SysPermissionStoreResp)
-	err := c.cc.Invoke(ctx, Permission_SysPermissionStore_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysPermission_SysPermissionStore_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionClient) SysPermissionDel(ctx context.Context, in *SysPermissionDelReq, opts ...grpc.CallOption) (*SysPermissionDelResp, error) {
+func (c *sysPermissionClient) SysPermissionDel(ctx context.Context, in *SysPermissionDelReq, opts ...grpc.CallOption) (*SysPermissionDelResp, error) {
 	out := new(SysPermissionDelResp)
-	err := c.cc.Invoke(ctx, Permission_SysPermissionDel_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysPermission_SysPermissionDel_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *permissionClient) SysPermissionStatus(ctx context.Context, in *SysPermissionStatusReq, opts ...grpc.CallOption) (*SysPermissionStatusResp, error) {
+func (c *sysPermissionClient) SysPermissionStatus(ctx context.Context, in *SysPermissionStatusReq, opts ...grpc.CallOption) (*SysPermissionStatusResp, error) {
 	out := new(SysPermissionStatusResp)
-	err := c.cc.Invoke(ctx, Permission_SysPermissionStatus_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, SysPermission_SysPermissionStatus_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// PermissionServer is the server API for Permission service.
-// All implementations must embed UnimplementedPermissionServer
+// SysPermissionServer is the server API for SysPermission service.
+// All implementations must embed UnimplementedSysPermissionServer
 // for forward compatibility
-type PermissionServer interface {
+type SysPermissionServer interface {
 	// 权限-列表
 	SysPermissionList(context.Context, *SysPermissionListReq) (*SysPermissionListResp, error)
 	// 权限-单个权限信息
@@ -109,157 +109,157 @@ type PermissionServer interface {
 	SysPermissionDel(context.Context, *SysPermissionDelReq) (*SysPermissionDelResp, error)
 	// 权限-修改状态
 	SysPermissionStatus(context.Context, *SysPermissionStatusReq) (*SysPermissionStatusResp, error)
-	mustEmbedUnimplementedPermissionServer()
+	mustEmbedUnimplementedSysPermissionServer()
 }
 
-// UnimplementedPermissionServer must be embedded to have forward compatible implementations.
-type UnimplementedPermissionServer struct {
+// UnimplementedSysPermissionServer must be embedded to have forward compatible implementations.
+type UnimplementedSysPermissionServer struct {
 }
 
-func (UnimplementedPermissionServer) SysPermissionList(context.Context, *SysPermissionListReq) (*SysPermissionListResp, error) {
+func (UnimplementedSysPermissionServer) SysPermissionList(context.Context, *SysPermissionListReq) (*SysPermissionListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysPermissionList not implemented")
 }
-func (UnimplementedPermissionServer) SysPermissionInfo(context.Context, *SysPermissionInfoReq) (*SysPermissionInfoResp, error) {
+func (UnimplementedSysPermissionServer) SysPermissionInfo(context.Context, *SysPermissionInfoReq) (*SysPermissionInfoResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysPermissionInfo not implemented")
 }
-func (UnimplementedPermissionServer) SysPermissionStore(context.Context, *SysPermissionStoreReq) (*SysPermissionStoreResp, error) {
+func (UnimplementedSysPermissionServer) SysPermissionStore(context.Context, *SysPermissionStoreReq) (*SysPermissionStoreResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysPermissionStore not implemented")
 }
-func (UnimplementedPermissionServer) SysPermissionDel(context.Context, *SysPermissionDelReq) (*SysPermissionDelResp, error) {
+func (UnimplementedSysPermissionServer) SysPermissionDel(context.Context, *SysPermissionDelReq) (*SysPermissionDelResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysPermissionDel not implemented")
 }
-func (UnimplementedPermissionServer) SysPermissionStatus(context.Context, *SysPermissionStatusReq) (*SysPermissionStatusResp, error) {
+func (UnimplementedSysPermissionServer) SysPermissionStatus(context.Context, *SysPermissionStatusReq) (*SysPermissionStatusResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SysPermissionStatus not implemented")
 }
-func (UnimplementedPermissionServer) mustEmbedUnimplementedPermissionServer() {}
+func (UnimplementedSysPermissionServer) mustEmbedUnimplementedSysPermissionServer() {}
 
-// UnsafePermissionServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to PermissionServer will
+// UnsafeSysPermissionServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SysPermissionServer will
 // result in compilation errors.
-type UnsafePermissionServer interface {
-	mustEmbedUnimplementedPermissionServer()
+type UnsafeSysPermissionServer interface {
+	mustEmbedUnimplementedSysPermissionServer()
 }
 
-func RegisterPermissionServer(s grpc.ServiceRegistrar, srv PermissionServer) {
-	s.RegisterService(&Permission_ServiceDesc, srv)
+func RegisterSysPermissionServer(s grpc.ServiceRegistrar, srv SysPermissionServer) {
+	s.RegisterService(&SysPermission_ServiceDesc, srv)
 }
 
-func _Permission_SysPermissionList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysPermission_SysPermissionList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysPermissionListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServer).SysPermissionList(ctx, in)
+		return srv.(SysPermissionServer).SysPermissionList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permission_SysPermissionList_FullMethodName,
+		FullMethod: SysPermission_SysPermissionList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServer).SysPermissionList(ctx, req.(*SysPermissionListReq))
+		return srv.(SysPermissionServer).SysPermissionList(ctx, req.(*SysPermissionListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Permission_SysPermissionInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysPermission_SysPermissionInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysPermissionInfoReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServer).SysPermissionInfo(ctx, in)
+		return srv.(SysPermissionServer).SysPermissionInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permission_SysPermissionInfo_FullMethodName,
+		FullMethod: SysPermission_SysPermissionInfo_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServer).SysPermissionInfo(ctx, req.(*SysPermissionInfoReq))
+		return srv.(SysPermissionServer).SysPermissionInfo(ctx, req.(*SysPermissionInfoReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Permission_SysPermissionStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysPermission_SysPermissionStore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysPermissionStoreReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServer).SysPermissionStore(ctx, in)
+		return srv.(SysPermissionServer).SysPermissionStore(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permission_SysPermissionStore_FullMethodName,
+		FullMethod: SysPermission_SysPermissionStore_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServer).SysPermissionStore(ctx, req.(*SysPermissionStoreReq))
+		return srv.(SysPermissionServer).SysPermissionStore(ctx, req.(*SysPermissionStoreReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Permission_SysPermissionDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysPermission_SysPermissionDel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysPermissionDelReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServer).SysPermissionDel(ctx, in)
+		return srv.(SysPermissionServer).SysPermissionDel(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permission_SysPermissionDel_FullMethodName,
+		FullMethod: SysPermission_SysPermissionDel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServer).SysPermissionDel(ctx, req.(*SysPermissionDelReq))
+		return srv.(SysPermissionServer).SysPermissionDel(ctx, req.(*SysPermissionDelReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Permission_SysPermissionStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SysPermission_SysPermissionStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SysPermissionStatusReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PermissionServer).SysPermissionStatus(ctx, in)
+		return srv.(SysPermissionServer).SysPermissionStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Permission_SysPermissionStatus_FullMethodName,
+		FullMethod: SysPermission_SysPermissionStatus_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PermissionServer).SysPermissionStatus(ctx, req.(*SysPermissionStatusReq))
+		return srv.(SysPermissionServer).SysPermissionStatus(ctx, req.(*SysPermissionStatusReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Permission_ServiceDesc is the grpc.ServiceDesc for Permission service.
+// SysPermission_ServiceDesc is the grpc.ServiceDesc for SysPermission service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Permission_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "api.rpc_sys.v1.Permission",
-	HandlerType: (*PermissionServer)(nil),
+var SysPermission_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "api.rpc_sys.v1.SysPermission",
+	HandlerType: (*SysPermissionServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "SysPermissionList",
-			Handler:    _Permission_SysPermissionList_Handler,
+			Handler:    _SysPermission_SysPermissionList_Handler,
 		},
 		{
 			MethodName: "SysPermissionInfo",
-			Handler:    _Permission_SysPermissionInfo_Handler,
+			Handler:    _SysPermission_SysPermissionInfo_Handler,
 		},
 		{
 			MethodName: "SysPermissionStore",
-			Handler:    _Permission_SysPermissionStore_Handler,
+			Handler:    _SysPermission_SysPermissionStore_Handler,
 		},
 		{
 			MethodName: "SysPermissionDel",
-			Handler:    _Permission_SysPermissionDel_Handler,
+			Handler:    _SysPermission_SysPermissionDel_Handler,
 		},
 		{
 			MethodName: "SysPermissionStatus",
-			Handler:    _Permission_SysPermissionStatus_Handler,
+			Handler:    _SysPermission_SysPermissionStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -26,13 +26,13 @@ func WhiteListMatcher() selector.MatchFunc {
 	}
 }
 
-func SelectorMiddleware(authClient sysV1.AuthClient) middleware.Middleware {
+func SelectorMiddleware(authClient sysV1.SysAuthClient) middleware.Middleware {
 	return selector.Server(
 		Auth(authClient),
 	).Match(WhiteListMatcher()).Build()
 }
 
-func Auth(authClient sysV1.AuthClient) middleware.Middleware {
+func Auth(authClient sysV1.SysAuthClient) middleware.Middleware {
 	return func(handler middleware.Handler) middleware.Handler {
 		return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
 			if tr, ok := http.RequestFromServerContext(ctx); ok {

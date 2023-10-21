@@ -10,7 +10,7 @@ option go_package = "fkratos/api/rpc_sys/v1;v1";
 // 后缀定义:请求req,响应reply
 
 // Auth
-service Auth {
+service SysAuth {
   //Auth-验证码
   rpc SysAuthLoginCaptcha(SysAuthLoginCaptchaReq) returns (SysAuthLoginCaptchaReply);
   //Auth-登录

@@ -29,12 +29,20 @@ type (
 		CreateOne(ctx context.Context, data *fkratos_common_model.SensitiveWord) error
 		// CreateOneByTx 创建一条数据(事务)
 		CreateOneByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.SensitiveWord) error
+		// UpsertOne Upsert一条数据
+		UpsertOne(ctx context.Context, data *fkratos_common_model.SensitiveWord) error
+		// UpsertOneByTx Upsert一条数据(事务)
+		UpsertOneByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.SensitiveWord) error
 		// CreateBatch 批量创建数据
 		CreateBatch(ctx context.Context, data []*fkratos_common_model.SensitiveWord, batchSize int) error
 		// UpdateOne 更新一条数据
 		UpdateOne(ctx context.Context, data *fkratos_common_model.SensitiveWord) error
 		// UpdateOne 更新一条数据(事务)
 		UpdateOneByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.SensitiveWord) error
+		// UpdateOneWithZero 更新一条数据,包含零值
+		UpdateOneWithZero(ctx context.Context, data *fkratos_common_model.SensitiveWord) error
+		// UpdateOneWithZero 更新一条数据,包含零值(事务)
+		UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.SensitiveWord) error
 		// FindOneCacheByWord 根据word查询一条数据并设置缓存
 		FindOneCacheByWord(ctx context.Context, word string) (*fkratos_common_model.SensitiveWord, error)
 		// FindOneByWord 根据word查询一条数据
@@ -121,6 +129,26 @@ func (s *SensitiveWordRepo) CreateOneByTx(ctx context.Context, tx *fkratos_commo
 	return nil
 }
 
+// UpsertOne Upsert一条数据
+func (s *SensitiveWordRepo) UpsertOne(ctx context.Context, data *fkratos_common_model.SensitiveWord) error {
+	dao := fkratos_common_dao.Use(s.db).SensitiveWord
+	err := dao.WithContext(ctx).Save(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UpsertOneByTx Upsert一条数据(事务)
+func (s *SensitiveWordRepo) UpsertOneByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.SensitiveWord) error {
+	dao := tx.SensitiveWord
+	err := dao.WithContext(ctx).Save(data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // CreateBatch 批量创建数据
 func (s *SensitiveWordRepo) CreateBatch(ctx context.Context, data []*fkratos_common_model.SensitiveWord, batchSize int) error {
 	dao := fkratos_common_dao.Use(s.db).SensitiveWord
@@ -149,6 +177,34 @@ func (s *SensitiveWordRepo) UpdateOne(ctx context.Context, data *fkratos_common_
 func (s *SensitiveWordRepo) UpdateOneByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.SensitiveWord) error {
 	dao := tx.SensitiveWord
 	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Updates(data)
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.SensitiveWord{data})
+	if err != nil {
+		return err
+	}
+	return err
+}
+
+// UpdateOneWithZero 更新一条数据,包含零值
+func (s *SensitiveWordRepo) UpdateOneWithZero(ctx context.Context, data *fkratos_common_model.SensitiveWord) error {
+	dao := fkratos_common_dao.Use(s.db).SensitiveWord
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.SensitiveWord{data})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// UpdateOneWithZeroByTx 更新一条数据(事务),包含零值
+func (s *SensitiveWordRepo) UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.SensitiveWord) error {
+	dao := tx.SensitiveWord
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -612,26 +668,21 @@ func (s *SensitiveWordRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([
 func (s *SensitiveWordRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_common_model.SensitiveWord, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_common_model.SensitiveWord, 0)
 	var total int64
-	queryStr, args, err := paginatorReq.ConvertToGormConditions()
+	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_common_model.SensitiveWord{})
 	if err != nil {
 		return nil, nil, err
 	}
-	err = s.db.WithContext(ctx).Model(&fkratos_common_model.SensitiveWord{}).Select([]string{"id"}).Where(queryStr, args...).Count(&total).Error
+	err = s.db.WithContext(ctx).Model(&fkratos_common_model.SensitiveWord{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	if total == 0 {
-		return nil, nil, nil
-	}
-	query := s.db.WithContext(ctx)
-	order := paginatorReq.ConvertToOrder()
-	if order != "" {
-		query = query.Order(order)
+		return result, nil, nil
 	}
 	paginatorReply := paginatorReq.ConvertToPage(int(total))
-	err = query.Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Where(queryStr, args...).Find(&result).Error
+	err = s.db.WithContext(ctx).Model(&fkratos_common_model.SensitiveWord{}).Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Clauses(whereExpressions...).Clauses(orderExpressions...).Find(&result).Error
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	return result, paginatorReply, err
 }

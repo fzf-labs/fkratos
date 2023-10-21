@@ -227,7 +227,7 @@ func (u *UserRepo) UpdateOneByTx(ctx context.Context, tx *fkratos_user_dao.Query
 // UpdateOneWithZero 更新一条数据,包含零值
 func (u *UserRepo) UpdateOneWithZero(ctx context.Context, data *fkratos_user_model.User) error {
 	dao := fkratos_user_dao.Use(u.db).User
-	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL).Updates(data)
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -241,7 +241,7 @@ func (u *UserRepo) UpdateOneWithZero(ctx context.Context, data *fkratos_user_mod
 // UpdateOneWithZeroByTx 更新一条数据(事务),包含零值
 func (u *UserRepo) UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_user_dao.Query, data *fkratos_user_model.User) error {
 	dao := tx.User
-	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL).Updates(data)
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(data.ID)).Select(dao.ALL.WithTable("")).Updates(data)
 	if err != nil {
 		return err
 	}
@@ -983,24 +983,19 @@ func (u *UserRepo) FindMultiByEmails(ctx context.Context, emails []string) ([]*f
 func (u *UserRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_user_model.User, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_user_model.User, 0)
 	var total int64
-	queryStr, args, err := paginatorReq.ConvertToGormConditions()
+	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_user_model.User{})
 	if err != nil {
-		return result, nil, err
+		return nil, nil, err
 	}
-	err = u.db.WithContext(ctx).Model(&fkratos_user_model.User{}).Select([]string{"id"}).Where(queryStr, args...).Count(&total).Error
+	err = u.db.WithContext(ctx).Model(&fkratos_user_model.User{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {
 		return result, nil, err
 	}
 	if total == 0 {
 		return result, nil, nil
 	}
-	query := u.db.WithContext(ctx)
-	order := paginatorReq.ConvertToOrder()
-	if order != "" {
-		query = query.Order(order)
-	}
 	paginatorReply := paginatorReq.ConvertToPage(int(total))
-	err = query.Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Where(queryStr, args...).Find(&result).Error
+	err = u.db.WithContext(ctx).Model(&fkratos_user_model.User{}).Limit(paginatorReply.Limit).Offset(paginatorReply.Offset).Clauses(whereExpressions...).Clauses(orderExpressions...).Find(&result).Error
 	if err != nil {
 		return result, nil, err
 	}

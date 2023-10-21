@@ -9,7 +9,11 @@ import (
 
 var _ biz.UserRuleRepo = (*UserRuleRepo)(nil)
 
-func NewUserRuleRepo(logger log.Logger, data *Data, userRuleRepo *fkratos_user_repo.UserRuleRepo) biz.UserRuleRepo {
+func NewUserRuleRepo(
+	logger log.Logger,
+	data *Data,
+	userRuleRepo *fkratos_user_repo.UserRuleRepo,
+) biz.UserRuleRepo {
 	l := log.NewHelper(log.With(logger, "module", "data/userRule"))
 	return &UserRuleRepo{
 		log:          l,

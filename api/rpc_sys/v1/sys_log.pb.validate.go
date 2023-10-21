@@ -176,9 +176,34 @@ func (m *SysLogListReq) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Page
-
-	// no validation rules for PageSize
+	if all {
+		switch v := interface{}(m.GetPaginator()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SysLogListReqValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SysLogListReqValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPaginator()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SysLogListReqValidationError{
+				field:  "Paginator",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return SysLogListReqMultiError(errors)
@@ -280,6 +305,35 @@ func (m *SysLogListResp) validate(all bool) error {
 
 	var errors []error
 
+	if all {
+		switch v := interface{}(m.GetPaginator()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SysLogListRespValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SysLogListRespValidationError{
+					field:  "Paginator",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetPaginator()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SysLogListRespValidationError{
+				field:  "Paginator",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	for idx, item := range m.GetList() {
 		_, _ = idx, item
 
@@ -312,35 +366,6 @@ func (m *SysLogListResp) validate(all bool) error {
 			}
 		}
 
-	}
-
-	if all {
-		switch v := interface{}(m.GetPaginator()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, SysLogListRespValidationError{
-					field:  "Paginator",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, SysLogListRespValidationError{
-					field:  "Paginator",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetPaginator()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SysLogListRespValidationError{
-				field:  "Paginator",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
 	}
 
 	if len(errors) > 0 {
