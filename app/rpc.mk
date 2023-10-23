@@ -91,9 +91,9 @@ common:
 # 通过 proto 文件，生成对应的 data,biz,service 代码 make protocode
 protocode:
 	@echo "proto code start";
-	@go run ../../cmd/proto/main.go biz ../../api/${APP_NAME} -t internal/biz
-	@go run ../../cmd/proto/main.go data ../../api/${APP_NAME} -t internal/data
-	@go run ../../cmd/proto/main.go service ../../api/${APP_NAME} -t internal/service
+	@go run ../../cmd/proto/main.go data -f configs/config.yaml -d internal/data
+	@go run ../../cmd/proto/main.go biz -p ../../api/${APP_NAME} -d internal/biz
+	@go run ../../cmd/proto/main.go service  -p ../../api/${APP_NAME} -d internal/service
 	@echo "proto code finish";
 
 .PHONY: run

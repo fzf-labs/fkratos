@@ -19,10 +19,13 @@ var CmdService = &cobra.Command{
 	Long:  "Generate the proto service implementations. Example: kratos proto service api/xxx.proto --target-dir=internal/service",
 	Run:   runService,
 }
+
+var pbServiceDir string
 var targetServiceDir string
 
 func init() {
-	CmdService.Flags().StringVarP(&targetServiceDir, "target-dir", "t", "internal/service", "generate target directory")
+	CmdService.Flags().StringVarP(&pbServiceDir, "pb-dir", "p", "", "pb directory")
+	CmdService.Flags().StringVarP(&targetServiceDir, "target-dir", "d", "internal/service", "generate target directory")
 }
 
 var serviceWireTemplate = `
@@ -151,11 +154,11 @@ func ({{.FirstChar}} *{{ .UpperName }}Service) {{ .Name }}(req {{ if eq .Request
 `
 
 func runService(_ *cobra.Command, args []string) {
-	if len(args) == 0 {
+	if pbServiceDir == "" {
 		fmt.Fprintln(os.Stderr, "Please specify the proto path.")
 		return
 	}
-	pbFiles, err := pb.GetPathPbFiles(args[0])
+	pbFiles, err := pb.GetPathPbFiles(pbServiceDir)
 	if err != nil {
 		return
 	}

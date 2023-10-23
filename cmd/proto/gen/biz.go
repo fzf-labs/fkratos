@@ -19,7 +19,13 @@ var CmdBiz = &cobra.Command{
 	Long:  "Generate the proto biz implementations. Example: xxx proto biz api/xxx.proto --target-dir=internal/biz",
 	Run:   runBiz,
 }
+var pbBizDir string
 var targetBizDir string
+
+func init() {
+	CmdService.Flags().StringVarP(&pbBizDir, "pb-dir", "p", "", "pb directory")
+	CmdBiz.Flags().StringVarP(&targetBizDir, "target-dir", "d", "internal/biz", "generate target directory")
+}
 
 var bizWireTemplate = `
 {{- /* delete empty line */ -}}
@@ -153,16 +159,12 @@ func ({{.FirstChar}} *{{ .UpperName }}UseCase) {{ .Name }}(req {{ if eq .Request
 {{- end }}
 `
 
-func init() {
-	CmdBiz.Flags().StringVarP(&targetBizDir, "target-dir", "t", "internal/biz", "generate target directory")
-}
-
 func runBiz(_ *cobra.Command, args []string) {
-	if len(args) == 0 {
+	if pbBizDir == "" {
 		fmt.Fprintln(os.Stderr, "Please specify the proto path.")
 		return
 	}
-	pbFiles, err := pb.GetPathPbFiles(args[0])
+	pbFiles, err := pb.GetPathPbFiles(pbBizDir)
 	if err != nil {
 		return
 	}
