@@ -69,8 +69,12 @@ type DB struct {
 }
 
 func runData(_ *cobra.Command, args []string) {
-	if len(args) == 0 {
-		fmt.Fprintln(os.Stderr, "Please specify the proto file. Example: xxx proto service api/xxx.proto")
+	if targetConfigFile == "" {
+		fmt.Fprintln(os.Stderr, "Please specify the configs file")
+		return
+	}
+	if targetDataDir == "" {
+		fmt.Fprintln(os.Stderr, "Please specify the target directory")
 		return
 	}
 	dsn := GetDsn(targetConfigFile)

@@ -23,7 +23,7 @@ var pbBizDir string
 var targetBizDir string
 
 func init() {
-	CmdService.Flags().StringVarP(&pbBizDir, "pb-dir", "p", "", "pb directory")
+	CmdBiz.Flags().StringVarP(&pbBizDir, "pb-dir", "p", "", "pb directory")
 	CmdBiz.Flags().StringVarP(&targetBizDir, "target-dir", "d", "internal/biz", "generate target directory")
 }
 
