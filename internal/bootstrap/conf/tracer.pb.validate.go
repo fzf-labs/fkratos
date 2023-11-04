@@ -60,6 +60,8 @@ func (m *Tracer) validate(all bool) error {
 
 	// no validation rules for Endpoint
 
+	// no validation rules for Insecure
+
 	// no validation rules for Sampler
 
 	// no validation rules for Env

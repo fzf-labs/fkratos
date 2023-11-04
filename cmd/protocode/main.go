@@ -2,7 +2,7 @@
 package main
 
 import (
-	"fkratos/cmd/proto/gen"
+	"fkratos/cmd/protocode/gen"
 	"log"
 
 	"github.com/spf13/cobra"

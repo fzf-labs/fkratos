@@ -2,7 +2,7 @@
 package gen
 
 import (
-	"fkratos/cmd/proto/pb"
+	"fkratos/cmd/protocode/pb"
 	"fmt"
 	"log"
 	"os"

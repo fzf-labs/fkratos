@@ -1,48 +1,21 @@
 package bootstrap
 
 import (
+	"context"
 	"errors"
 	"fkratos/internal/bootstrap/conf"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/exporters/jaeger"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
 	"go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
 	"go.opentelemetry.io/otel/exporters/zipkin"
 	"go.opentelemetry.io/otel/sdk/resource"
-
 	traceSdk "go.opentelemetry.io/otel/sdk/trace"
 	semConv "go.opentelemetry.io/otel/semconv/v1.4.0"
 )
-
-func NewStdoutExporter() (traceSdk.SpanExporter, error) {
-	return stdouttrace.New()
-}
-
-// NewJaegerExporter 创建一个jaeger导出器
-func NewJaegerExporter(endpoint string) (traceSdk.SpanExporter, error) {
-	return jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(endpoint)))
-}
-
-// NewZipkinExporter 创建一个zipkin导出器
-func NewZipkinExporter(endpoint string) (traceSdk.SpanExporter, error) {
-	return zipkin.New(endpoint)
-}
-
-// NewTracerExporter 创建一个导出器，支持：jaeger和zipkin
-func NewTracerExporter(exporterName, endpoint string) (traceSdk.SpanExporter, error) {
-	if exporterName == "" {
-		exporterName = "jaeger"
-	}
-	switch exporterName {
-	case "jaeger":
-		return NewJaegerExporter(endpoint)
-	case "zipkin":
-		return NewZipkinExporter(endpoint)
-	default:
-		return nil, errors.New("exporter type not support")
-	}
-}
 
 // NewTracerProvider 创建一个链路追踪器
 func NewTracerProvider(cfg *conf.Tracer, serviceInfo *Service) error {
@@ -67,7 +40,7 @@ func NewTracerProvider(cfg *conf.Tracer, serviceInfo *Service) error {
 	}
 	if len(cfg.Endpoint) > 0 {
 		// 初始化采集器
-		exp, err := NewTracerExporter(cfg.Batcher, cfg.Endpoint)
+		exp, err := NewTracerExporter(cfg.Batcher, cfg.Endpoint, cfg.Insecure)
 		if err != nil {
 			panic(err)
 		}
@@ -80,4 +53,67 @@ func NewTracerProvider(cfg *conf.Tracer, serviceInfo *Service) error {
 	}
 	otel.SetTracerProvider(tp)
 	return nil
+}
+
+// NewTracerExporter 创建一个导出器，支持：zipkin、otlp-http、otlp-grpc
+func NewTracerExporter(exporterName, endpoint string, insecure bool) (traceSdk.SpanExporter, error) {
+	ctx := context.Background()
+	switch exporterName {
+	case "zipkin":
+		return NewZipkinExporter(endpoint)
+	case "jaeger":
+		return nil, errors.New("jaeger exporter is no longer supported, please use otlp-http or otlp-grpc replace it")
+	case "otlp-http":
+		return NewOtlpHttpExporter(ctx, endpoint, insecure)
+	case "otlp-grpc":
+		return NewOtlpGrpcExporter(ctx, endpoint, insecure)
+	default:
+		fallthrough
+	case "stdout":
+		return NewStdoutExporter()
+	}
+}
+
+// NewStdoutExporter 创建一个标准输出导出器
+func NewStdoutExporter() (traceSdk.SpanExporter, error) {
+	return stdouttrace.New()
+}
+
+// NewOtlpHttpExporter 创建OTLP/HTTP导出器，默认端口：4318
+func NewOtlpHttpExporter(ctx context.Context, endpoint string, insecure bool, options ...otlptracehttp.Option) (traceSdk.SpanExporter, error) {
+	var opts []otlptracehttp.Option
+	opts = append(opts, otlptracehttp.WithEndpoint(endpoint))
+
+	if insecure {
+		opts = append(opts, otlptracehttp.WithInsecure())
+	}
+
+	opts = append(opts, options...)
+
+	return otlptrace.New(
+		ctx,
+		otlptracehttp.NewClient(opts...),
+	)
+}
+
+// NewOtlpGrpcExporter 创建OTLP/gRPC导出器，默认端口：4317
+func NewOtlpGrpcExporter(ctx context.Context, endpoint string, insecure bool, options ...otlptracegrpc.Option) (traceSdk.SpanExporter, error) {
+	var opts []otlptracegrpc.Option
+	opts = append(opts, otlptracegrpc.WithEndpoint(endpoint))
+
+	if insecure {
+		opts = append(opts, otlptracegrpc.WithInsecure())
+	}
+
+	opts = append(opts, options...)
+
+	return otlptrace.New(
+		ctx,
+		otlptracegrpc.NewClient(opts...),
+	)
+}
+
+// NewZipkinExporter 创建一个zipkin导出器
+func NewZipkinExporter(endpoint string) (traceSdk.SpanExporter, error) {
+	return zipkin.New(endpoint)
 }
