@@ -23,3 +23,7 @@ type SysLogService struct {
 	log           *log.Helper
 	sysLogUseCase *biz.SysLogUseCase
 }
+
+func (s *SysLogService) SysLogStoreConsumer(payload []byte) error {
+	return s.sysLogUseCase.SysLogStoreConsumer(payload)
+}

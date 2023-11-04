@@ -427,7 +427,7 @@ func (m *MiniprogramRepo) FindMultiByPaginator(ctx context.Context, paginatorReq
 	var total int64
 	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_wechat_model.Miniprogram{})
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	err = m.db.WithContext(ctx).Model(&fkratos_wechat_model.Miniprogram{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {

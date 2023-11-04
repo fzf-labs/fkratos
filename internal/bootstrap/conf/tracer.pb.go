@@ -28,7 +28,7 @@ type Tracer struct {
 
 	Batcher  string  `protobuf:"bytes,1,opt,name=batcher,proto3" json:"batcher,omitempty"`    // jaeger或者zipkin
 	Endpoint string  `protobuf:"bytes,2,opt,name=endpoint,proto3" json:"endpoint,omitempty"`  // 端口
-	Insecure bool    `protobuf:"varint,3,opt,name=insecure,proto3" json:"insecure,omitempty"` // 端口
+	Insecure bool    `protobuf:"varint,3,opt,name=insecure,proto3" json:"insecure,omitempty"` // 是否不安全
 	Sampler  float64 `protobuf:"fixed64,4,opt,name=sampler,proto3" json:"sampler,omitempty"`  // 采样率，默认：1.0
 	Env      string  `protobuf:"bytes,5,opt,name=env,proto3" json:"env,omitempty"`            // 运行环境：dev、debug、product
 }

@@ -19,9 +19,9 @@ import (
 var _ IUserRepo = (*UserRepo)(nil)
 
 var (
-	cacheUserByUsernamePrefix = "DBCache:fkratos_user:UserByUsername"
-	cacheUserByUIDPrefix      = "DBCache:fkratos_user:UserByUID"
 	cacheUserByIDPrefix       = "DBCache:fkratos_user:UserByID"
+	cacheUserByUIDPrefix      = "DBCache:fkratos_user:UserByUID"
+	cacheUserByUsernamePrefix = "DBCache:fkratos_user:UserByUsername"
 )
 
 type (
@@ -44,26 +44,6 @@ type (
 		UpdateOneWithZero(ctx context.Context, data *fkratos_user_model.User) error
 		// UpdateOneWithZero 更新一条数据,包含零值(事务)
 		UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_user_dao.Query, data *fkratos_user_model.User) error
-		// FindOneCacheByUsername 根据username查询一条数据并设置缓存
-		FindOneCacheByUsername(ctx context.Context, username string) (*fkratos_user_model.User, error)
-		// FindOneByUsername 根据username查询一条数据
-		FindOneByUsername(ctx context.Context, username string) (*fkratos_user_model.User, error)
-		// FindMultiCacheByUsernames 根据usernames查询多条数据并设置缓存
-		FindMultiCacheByUsernames(ctx context.Context, usernames []string) ([]*fkratos_user_model.User, error)
-		// FindMultiByUsernames 根据usernames查询多条数据
-		FindMultiByUsernames(ctx context.Context, usernames []string) ([]*fkratos_user_model.User, error)
-		// FindMultiByUserGroupID 根据userGroupID查询多条数据
-		FindMultiByUserGroupID(ctx context.Context, userGroupID string) ([]*fkratos_user_model.User, error)
-		// FindMultiByUserGroupIDS 根据userGroupIDS查询多条数据
-		FindMultiByUserGroupIDS(ctx context.Context, userGroupIDS []string) ([]*fkratos_user_model.User, error)
-		// FindOneCacheByUID 根据UID查询一条数据并设置缓存
-		FindOneCacheByUID(ctx context.Context, UID string) (*fkratos_user_model.User, error)
-		// FindOneByUID 根据UID查询一条数据
-		FindOneByUID(ctx context.Context, UID string) (*fkratos_user_model.User, error)
-		// FindMultiCacheByUIDS 根据UIDS查询多条数据并设置缓存
-		FindMultiCacheByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_user_model.User, error)
-		// FindMultiByUIDS 根据UIDS查询多条数据
-		FindMultiByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_user_model.User, error)
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_user_model.User, error)
 		// FindOneByID 根据ID查询一条数据
@@ -72,48 +52,36 @@ type (
 		FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_user_model.User, error)
 		// FindMultiByIDS 根据IDS查询多条数据
 		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_user_model.User, error)
-		// FindMultiByPhone 根据phone查询多条数据
-		FindMultiByPhone(ctx context.Context, phone string) ([]*fkratos_user_model.User, error)
-		// FindMultiByPhones 根据phones查询多条数据
-		FindMultiByPhones(ctx context.Context, phones []string) ([]*fkratos_user_model.User, error)
+		// FindOneCacheByUID 根据UID查询一条数据并设置缓存
+		FindOneCacheByUID(ctx context.Context, UID string) (*fkratos_user_model.User, error)
+		// FindOneByUID 根据UID查询一条数据
+		FindOneByUID(ctx context.Context, UID string) (*fkratos_user_model.User, error)
+		// FindMultiCacheByUIDS 根据UIDS查询多条数据并设置缓存
+		FindMultiCacheByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_user_model.User, error)
+		// FindMultiByUIDS 根据UIDS查询多条数据
+		FindMultiByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_user_model.User, error)
+		// FindOneCacheByUsername 根据username查询一条数据并设置缓存
+		FindOneCacheByUsername(ctx context.Context, username string) (*fkratos_user_model.User, error)
+		// FindOneByUsername 根据username查询一条数据
+		FindOneByUsername(ctx context.Context, username string) (*fkratos_user_model.User, error)
+		// FindMultiCacheByUsernames 根据usernames查询多条数据并设置缓存
+		FindMultiCacheByUsernames(ctx context.Context, usernames []string) ([]*fkratos_user_model.User, error)
+		// FindMultiByUsernames 根据usernames查询多条数据
+		FindMultiByUsernames(ctx context.Context, usernames []string) ([]*fkratos_user_model.User, error)
 		// FindMultiByEmail 根据email查询多条数据
 		FindMultiByEmail(ctx context.Context, email string) ([]*fkratos_user_model.User, error)
 		// FindMultiByEmails 根据emails查询多条数据
 		FindMultiByEmails(ctx context.Context, emails []string) ([]*fkratos_user_model.User, error)
+		// FindMultiByPhone 根据phone查询多条数据
+		FindMultiByPhone(ctx context.Context, phone string) ([]*fkratos_user_model.User, error)
+		// FindMultiByPhones 根据phones查询多条数据
+		FindMultiByPhones(ctx context.Context, phones []string) ([]*fkratos_user_model.User, error)
+		// FindMultiByUserGroupID 根据userGroupID查询多条数据
+		FindMultiByUserGroupID(ctx context.Context, userGroupID string) ([]*fkratos_user_model.User, error)
+		// FindMultiByUserGroupIDS 根据userGroupIDS查询多条数据
+		FindMultiByUserGroupIDS(ctx context.Context, userGroupIDS []string) ([]*fkratos_user_model.User, error)
 		// FindMultiByPaginator 查询分页数据(通用)
 		FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_user_model.User, *orm.PaginatorReply, error)
-		// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
-		DeleteOneCacheByUsername(ctx context.Context, username string) error
-		// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
-		DeleteOneCacheByUsernameTx(ctx context.Context, tx *fkratos_user_dao.Query, username string) error
-		// DeleteOneByUsername 根据username删除一条数据
-		DeleteOneByUsername(ctx context.Context, username string) error
-		// DeleteOneByUsername 根据username删除一条数据
-		DeleteOneByUsernameTx(ctx context.Context, tx *fkratos_user_dao.Query, username string) error
-		// DeleteMultiCacheByUsernames 根据Usernames删除多条数据并清理缓存
-		DeleteMultiCacheByUsernames(ctx context.Context, usernames []string) error
-		// DeleteMultiCacheByUsernames 根据Usernames删除多条数据并清理缓存
-		DeleteMultiCacheByUsernamesTx(ctx context.Context, tx *fkratos_user_dao.Query, usernames []string) error
-		// DeleteMultiByUsernames 根据Usernames删除多条数据
-		DeleteMultiByUsernames(ctx context.Context, usernames []string) error
-		// DeleteMultiByUsernames 根据Usernames删除多条数据
-		DeleteMultiByUsernamesTx(ctx context.Context, tx *fkratos_user_dao.Query, usernames []string) error
-		// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
-		DeleteOneCacheByUID(ctx context.Context, UID string) error
-		// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
-		DeleteOneCacheByUIDTx(ctx context.Context, tx *fkratos_user_dao.Query, UID string) error
-		// DeleteOneByUID 根据UID删除一条数据
-		DeleteOneByUID(ctx context.Context, UID string) error
-		// DeleteOneByUID 根据UID删除一条数据
-		DeleteOneByUIDTx(ctx context.Context, tx *fkratos_user_dao.Query, UID string) error
-		// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
-		DeleteMultiCacheByUIDS(ctx context.Context, UIDS []string) error
-		// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
-		DeleteMultiCacheByUIDSTx(ctx context.Context, tx *fkratos_user_dao.Query, UIDS []string) error
-		// DeleteMultiByUIDS 根据UIDS删除多条数据
-		DeleteMultiByUIDS(ctx context.Context, UIDS []string) error
-		// DeleteMultiByUIDS 根据UIDS删除多条数据
-		DeleteMultiByUIDSTx(ctx context.Context, tx *fkratos_user_dao.Query, UIDS []string) error
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
 		DeleteOneCacheByID(ctx context.Context, ID string) error
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
@@ -130,6 +98,38 @@ type (
 		DeleteMultiByIDS(ctx context.Context, IDS []string) error
 		// DeleteMultiByIDS 根据IDS删除多条数据
 		DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_user_dao.Query, IDS []string) error
+		// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
+		DeleteOneCacheByUID(ctx context.Context, UID string) error
+		// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
+		DeleteOneCacheByUIDTx(ctx context.Context, tx *fkratos_user_dao.Query, UID string) error
+		// DeleteOneByUID 根据UID删除一条数据
+		DeleteOneByUID(ctx context.Context, UID string) error
+		// DeleteOneByUID 根据UID删除一条数据
+		DeleteOneByUIDTx(ctx context.Context, tx *fkratos_user_dao.Query, UID string) error
+		// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
+		DeleteMultiCacheByUIDS(ctx context.Context, UIDS []string) error
+		// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
+		DeleteMultiCacheByUIDSTx(ctx context.Context, tx *fkratos_user_dao.Query, UIDS []string) error
+		// DeleteMultiByUIDS 根据UIDS删除多条数据
+		DeleteMultiByUIDS(ctx context.Context, UIDS []string) error
+		// DeleteMultiByUIDS 根据UIDS删除多条数据
+		DeleteMultiByUIDSTx(ctx context.Context, tx *fkratos_user_dao.Query, UIDS []string) error
+		// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
+		DeleteOneCacheByUsername(ctx context.Context, username string) error
+		// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
+		DeleteOneCacheByUsernameTx(ctx context.Context, tx *fkratos_user_dao.Query, username string) error
+		// DeleteOneByUsername 根据username删除一条数据
+		DeleteOneByUsername(ctx context.Context, username string) error
+		// DeleteOneByUsername 根据username删除一条数据
+		DeleteOneByUsernameTx(ctx context.Context, tx *fkratos_user_dao.Query, username string) error
+		// DeleteMultiCacheByUsernames 根据Usernames删除多条数据并清理缓存
+		DeleteMultiCacheByUsernames(ctx context.Context, usernames []string) error
+		// DeleteMultiCacheByUsernames 根据Usernames删除多条数据并清理缓存
+		DeleteMultiCacheByUsernamesTx(ctx context.Context, tx *fkratos_user_dao.Query, usernames []string) error
+		// DeleteMultiByUsernames 根据Usernames删除多条数据
+		DeleteMultiByUsernames(ctx context.Context, usernames []string) error
+		// DeleteMultiByUsernames 根据Usernames删除多条数据
+		DeleteMultiByUsernamesTx(ctx context.Context, tx *fkratos_user_dao.Query, usernames []string) error
 		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
 		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_user_model.User) error
 	}
@@ -252,17 +252,17 @@ func (u *UserRepo) UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_user_d
 	return err
 }
 
-// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
-func (u *UserRepo) DeleteOneCacheByUsername(ctx context.Context, username string) error {
+// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
+func (u *UserRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
 	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
+	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
 	if result == nil {
 		return nil
 	}
-	_, err = dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
+	_, err = dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
 	if err != nil {
 		return err
 	}
@@ -273,17 +273,17 @@ func (u *UserRepo) DeleteOneCacheByUsername(ctx context.Context, username string
 	return nil
 }
 
-// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
-func (u *UserRepo) DeleteOneCacheByUsernameTx(ctx context.Context, tx *fkratos_user_dao.Query, username string) error {
+// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
+func (u *UserRepo) DeleteOneCacheByIDTx(ctx context.Context, tx *fkratos_user_dao.Query, ID string) error {
 	dao := tx.User
-	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
+	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
 	if result == nil {
 		return nil
 	}
-	_, err = dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
+	_, err = dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
 	if err != nil {
 		return err
 	}
@@ -294,37 +294,37 @@ func (u *UserRepo) DeleteOneCacheByUsernameTx(ctx context.Context, tx *fkratos_u
 	return nil
 }
 
-// DeleteOneByUsername 根据username删除一条数据
-func (u *UserRepo) DeleteOneByUsername(ctx context.Context, username string) error {
+// DeleteOneByID 根据ID删除一条数据
+func (u *UserRepo) DeleteOneByID(ctx context.Context, ID string) error {
 	dao := fkratos_user_dao.Use(u.db).User
-	_, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// DeleteOneByUsername 根据username删除一条数据
-func (u *UserRepo) DeleteOneByUsernameTx(ctx context.Context, tx *fkratos_user_dao.Query, username string) error {
+// DeleteOneByID 根据ID删除一条数据
+func (u *UserRepo) DeleteOneByIDTx(ctx context.Context, tx *fkratos_user_dao.Query, ID string) error {
 	dao := tx.User
-	_, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
+	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// DeleteMultiCacheByUsernames 根据usernames删除多条数据并清理缓存
-func (u *UserRepo) DeleteMultiCacheByUsernames(ctx context.Context, usernames []string) error {
+// DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
+func (u *UserRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error {
 	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
+	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
 	if err != nil {
 		return err
 	}
 	if len(result) == 0 {
 		return nil
 	}
-	_, err = dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
+	_, err = dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
 	if err != nil {
 		return err
 	}
@@ -335,17 +335,17 @@ func (u *UserRepo) DeleteMultiCacheByUsernames(ctx context.Context, usernames []
 	return nil
 }
 
-// DeleteMultiCacheByUsernames 根据usernames删除多条数据并清理缓存
-func (u *UserRepo) DeleteMultiCacheByUsernamesTx(ctx context.Context, tx *fkratos_user_dao.Query, usernames []string) error {
+// DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
+func (u *UserRepo) DeleteMultiCacheByIDSTx(ctx context.Context, tx *fkratos_user_dao.Query, IDS []string) error {
 	dao := tx.User
-	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
+	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
 	if err != nil {
 		return err
 	}
 	if len(result) == 0 {
 		return nil
 	}
-	_, err = dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
+	_, err = dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
 	if err != nil {
 		return err
 	}
@@ -356,20 +356,20 @@ func (u *UserRepo) DeleteMultiCacheByUsernamesTx(ctx context.Context, tx *fkrato
 	return nil
 }
 
-// DeleteMultiByUsernames 根据usernames删除多条数据
-func (u *UserRepo) DeleteMultiByUsernames(ctx context.Context, usernames []string) error {
+// DeleteMultiByIDS 根据IDS删除多条数据
+func (u *UserRepo) DeleteMultiByIDS(ctx context.Context, IDS []string) error {
 	dao := fkratos_user_dao.Use(u.db).User
-	_, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
+	_, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// DeleteMultiByUsernames 根据usernames删除多条数据
-func (u *UserRepo) DeleteMultiByUsernamesTx(ctx context.Context, tx *fkratos_user_dao.Query, usernames []string) error {
+// DeleteMultiByIDS 根据IDS删除多条数据
+func (u *UserRepo) DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_user_dao.Query, IDS []string) error {
 	dao := tx.User
-	_, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
+	_, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
 	if err != nil {
 		return err
 	}
@@ -500,17 +500,17 @@ func (u *UserRepo) DeleteMultiByUIDSTx(ctx context.Context, tx *fkratos_user_dao
 	return nil
 }
 
-// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
-func (u *UserRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
+// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
+func (u *UserRepo) DeleteOneCacheByUsername(ctx context.Context, username string) error {
 	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
+	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
 	if result == nil {
 		return nil
 	}
-	_, err = dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
+	_, err = dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
 	if err != nil {
 		return err
 	}
@@ -521,17 +521,17 @@ func (u *UserRepo) DeleteOneCacheByID(ctx context.Context, ID string) error {
 	return nil
 }
 
-// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
-func (u *UserRepo) DeleteOneCacheByIDTx(ctx context.Context, tx *fkratos_user_dao.Query, ID string) error {
+// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
+func (u *UserRepo) DeleteOneCacheByUsernameTx(ctx context.Context, tx *fkratos_user_dao.Query, username string) error {
 	dao := tx.User
-	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
+	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return err
 	}
 	if result == nil {
 		return nil
 	}
-	_, err = dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
+	_, err = dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
 	if err != nil {
 		return err
 	}
@@ -542,37 +542,37 @@ func (u *UserRepo) DeleteOneCacheByIDTx(ctx context.Context, tx *fkratos_user_da
 	return nil
 }
 
-// DeleteOneByID 根据ID删除一条数据
-func (u *UserRepo) DeleteOneByID(ctx context.Context, ID string) error {
+// DeleteOneByUsername 根据username删除一条数据
+func (u *UserRepo) DeleteOneByUsername(ctx context.Context, username string) error {
 	dao := fkratos_user_dao.Use(u.db).User
-	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
+	_, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// DeleteOneByID 根据ID删除一条数据
-func (u *UserRepo) DeleteOneByIDTx(ctx context.Context, tx *fkratos_user_dao.Query, ID string) error {
+// DeleteOneByUsername 根据username删除一条数据
+func (u *UserRepo) DeleteOneByUsernameTx(ctx context.Context, tx *fkratos_user_dao.Query, username string) error {
 	dao := tx.User
-	_, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).Delete()
+	_, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
-func (u *UserRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) error {
+// DeleteMultiCacheByUsernames 根据usernames删除多条数据并清理缓存
+func (u *UserRepo) DeleteMultiCacheByUsernames(ctx context.Context, usernames []string) error {
 	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
+	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
 	if err != nil {
 		return err
 	}
 	if len(result) == 0 {
 		return nil
 	}
-	_, err = dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
+	_, err = dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
 	if err != nil {
 		return err
 	}
@@ -583,17 +583,17 @@ func (u *UserRepo) DeleteMultiCacheByIDS(ctx context.Context, IDS []string) erro
 	return nil
 }
 
-// DeleteMultiCacheByIDS 根据IDS删除多条数据并清理缓存
-func (u *UserRepo) DeleteMultiCacheByIDSTx(ctx context.Context, tx *fkratos_user_dao.Query, IDS []string) error {
+// DeleteMultiCacheByUsernames 根据usernames删除多条数据并清理缓存
+func (u *UserRepo) DeleteMultiCacheByUsernamesTx(ctx context.Context, tx *fkratos_user_dao.Query, usernames []string) error {
 	dao := tx.User
-	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
+	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
 	if err != nil {
 		return err
 	}
 	if len(result) == 0 {
 		return nil
 	}
-	_, err = dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
+	_, err = dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
 	if err != nil {
 		return err
 	}
@@ -604,20 +604,20 @@ func (u *UserRepo) DeleteMultiCacheByIDSTx(ctx context.Context, tx *fkratos_user
 	return nil
 }
 
-// DeleteMultiByIDS 根据IDS删除多条数据
-func (u *UserRepo) DeleteMultiByIDS(ctx context.Context, IDS []string) error {
+// DeleteMultiByUsernames 根据usernames删除多条数据
+func (u *UserRepo) DeleteMultiByUsernames(ctx context.Context, usernames []string) error {
 	dao := fkratos_user_dao.Use(u.db).User
-	_, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
+	_, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// DeleteMultiByIDS 根据IDS删除多条数据
-func (u *UserRepo) DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_user_dao.Query, IDS []string) error {
+// DeleteMultiByUsernames 根据usernames删除多条数据
+func (u *UserRepo) DeleteMultiByUsernamesTx(ctx context.Context, tx *fkratos_user_dao.Query, usernames []string) error {
 	dao := tx.User
-	_, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Delete()
+	_, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
 	if err != nil {
 		return err
 	}
@@ -628,9 +628,9 @@ func (u *UserRepo) DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_user_dao.
 func (u *UserRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_user_model.User) error {
 	keys := make([]string, 0)
 	for _, v := range data {
-		keys = append(keys, u.cache.Key(cacheUserByUsernamePrefix, v.Username))
-		keys = append(keys, u.cache.Key(cacheUserByUIDPrefix, v.UID))
 		keys = append(keys, u.cache.Key(cacheUserByIDPrefix, v.ID))
+		keys = append(keys, u.cache.Key(cacheUserByUIDPrefix, v.UID))
+		keys = append(keys, u.cache.Key(cacheUserByUsernamePrefix, v.Username))
 
 	}
 	err := u.cache.DelBatch(ctx, keys)
@@ -640,13 +640,13 @@ func (u *UserRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_u
 	return nil
 }
 
-// FindOneCacheByUsername 根据username查询一条数据并设置缓存
-func (u *UserRepo) FindOneCacheByUsername(ctx context.Context, username string) (*fkratos_user_model.User, error) {
+// FindOneCacheByID 根据ID查询一条数据并设置缓存
+func (u *UserRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_user_model.User, error) {
 	resp := new(fkratos_user_model.User)
-	cacheKey := u.cache.Key(cacheUserByUsernamePrefix, username)
+	cacheKey := u.cache.Key(cacheUserByIDPrefix, ID)
 	cacheValue, err := u.cache.Fetch(ctx, cacheKey, func() (string, error) {
 		dao := fkratos_user_dao.Use(u.db).User
-		result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
+		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return "", err
 		}
@@ -666,23 +666,23 @@ func (u *UserRepo) FindOneCacheByUsername(ctx context.Context, username string) 
 	return resp, nil
 }
 
-// FindOneByUsername 根据username查询一条数据
-func (u *UserRepo) FindOneByUsername(ctx context.Context, username string) (*fkratos_user_model.User, error) {
+// FindOneByID 根据ID查询一条数据
+func (u *UserRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_user_model.User, error) {
 	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
+	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
 	return result, nil
 }
 
-// FindMultiCacheByUsernames 根据usernames查询多条数据并设置缓存
-func (u *UserRepo) FindMultiCacheByUsernames(ctx context.Context, usernames []string) ([]*fkratos_user_model.User, error) {
+// FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
+func (u *UserRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_user_model.User, error) {
 	resp := make([]*fkratos_user_model.User, 0)
 	cacheKeys := make([]string, 0)
 	keyToParam := make(map[string]string)
-	for _, v := range usernames {
-		cacheKey := u.cache.Key(cacheUserByUsernamePrefix, v)
+	for _, v := range IDS {
+		cacheKey := u.cache.Key(cacheUserByIDPrefix, v)
 		cacheKeys = append(cacheKeys, cacheKey)
 		keyToParam[cacheKey] = v
 	}
@@ -692,7 +692,7 @@ func (u *UserRepo) FindMultiCacheByUsernames(ctx context.Context, usernames []st
 			parameters = append(parameters, keyToParam[v])
 		}
 		dao := fkratos_user_dao.Use(u.db).User
-		result, err := dao.WithContext(ctx).Where(dao.Username.In(parameters...)).Find()
+		result, err := dao.WithContext(ctx).Where(dao.ID.In(parameters...)).Find()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, err
 		}
@@ -705,7 +705,7 @@ func (u *UserRepo) FindMultiCacheByUsernames(ctx context.Context, usernames []st
 			if err != nil {
 				return nil, err
 			}
-			value[u.cache.Key(cacheUserByUsernamePrefix, v.Username)] = string(marshal)
+			value[u.cache.Key(cacheUserByIDPrefix, v.ID)] = string(marshal)
 		}
 		return value, nil
 	})
@@ -723,30 +723,10 @@ func (u *UserRepo) FindMultiCacheByUsernames(ctx context.Context, usernames []st
 	return resp, nil
 }
 
-// FindMultiByUsernames 根据usernames查询多条数据
-func (u *UserRepo) FindMultiByUsernames(ctx context.Context, usernames []string) ([]*fkratos_user_model.User, error) {
+// FindMultiByIDS 根据IDS查询多条数据
+func (u *UserRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_user_model.User, error) {
 	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
-// FindMultiByUserGroupID 根据userGroupID查询多条数据
-func (u *UserRepo) FindMultiByUserGroupID(ctx context.Context, userGroupID string) ([]*fkratos_user_model.User, error) {
-	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.UserGroupID.Eq(userGroupID)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
-// FindMultiByUserGroupIDS 根据userGroupIDS查询多条数据
-func (u *UserRepo) FindMultiByUserGroupIDS(ctx context.Context, userGroupIDS []string) ([]*fkratos_user_model.User, error) {
-	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.UserGroupID.In(userGroupIDS...)).Find()
+	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
 	if err != nil {
 		return nil, err
 	}
@@ -846,13 +826,13 @@ func (u *UserRepo) FindMultiByUIDS(ctx context.Context, UIDS []string) ([]*fkrat
 	return result, nil
 }
 
-// FindOneCacheByID 根据ID查询一条数据并设置缓存
-func (u *UserRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_user_model.User, error) {
+// FindOneCacheByUsername 根据username查询一条数据并设置缓存
+func (u *UserRepo) FindOneCacheByUsername(ctx context.Context, username string) (*fkratos_user_model.User, error) {
 	resp := new(fkratos_user_model.User)
-	cacheKey := u.cache.Key(cacheUserByIDPrefix, ID)
+	cacheKey := u.cache.Key(cacheUserByUsernamePrefix, username)
 	cacheValue, err := u.cache.Fetch(ctx, cacheKey, func() (string, error) {
 		dao := fkratos_user_dao.Use(u.db).User
-		result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
+		result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return "", err
 		}
@@ -872,23 +852,23 @@ func (u *UserRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_us
 	return resp, nil
 }
 
-// FindOneByID 根据ID查询一条数据
-func (u *UserRepo) FindOneByID(ctx context.Context, ID string) (*fkratos_user_model.User, error) {
+// FindOneByUsername 根据username查询一条数据
+func (u *UserRepo) FindOneByUsername(ctx context.Context, username string) (*fkratos_user_model.User, error) {
 	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.ID.Eq(ID)).First()
+	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
 	return result, nil
 }
 
-// FindMultiCacheByIDS 根据IDS查询多条数据并设置缓存
-func (u *UserRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_user_model.User, error) {
+// FindMultiCacheByUsernames 根据usernames查询多条数据并设置缓存
+func (u *UserRepo) FindMultiCacheByUsernames(ctx context.Context, usernames []string) ([]*fkratos_user_model.User, error) {
 	resp := make([]*fkratos_user_model.User, 0)
 	cacheKeys := make([]string, 0)
 	keyToParam := make(map[string]string)
-	for _, v := range IDS {
-		cacheKey := u.cache.Key(cacheUserByIDPrefix, v)
+	for _, v := range usernames {
+		cacheKey := u.cache.Key(cacheUserByUsernamePrefix, v)
 		cacheKeys = append(cacheKeys, cacheKey)
 		keyToParam[cacheKey] = v
 	}
@@ -898,7 +878,7 @@ func (u *UserRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fk
 			parameters = append(parameters, keyToParam[v])
 		}
 		dao := fkratos_user_dao.Use(u.db).User
-		result, err := dao.WithContext(ctx).Where(dao.ID.In(parameters...)).Find()
+		result, err := dao.WithContext(ctx).Where(dao.Username.In(parameters...)).Find()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			return nil, err
 		}
@@ -911,7 +891,7 @@ func (u *UserRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fk
 			if err != nil {
 				return nil, err
 			}
-			value[u.cache.Key(cacheUserByIDPrefix, v.ID)] = string(marshal)
+			value[u.cache.Key(cacheUserByUsernamePrefix, v.Username)] = string(marshal)
 		}
 		return value, nil
 	})
@@ -929,30 +909,10 @@ func (u *UserRepo) FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fk
 	return resp, nil
 }
 
-// FindMultiByIDS 根据IDS查询多条数据
-func (u *UserRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_user_model.User, error) {
+// FindMultiByUsernames 根据usernames查询多条数据
+func (u *UserRepo) FindMultiByUsernames(ctx context.Context, usernames []string) ([]*fkratos_user_model.User, error) {
 	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.ID.In(IDS...)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
-// FindMultiByPhone 根据phone查询多条数据
-func (u *UserRepo) FindMultiByPhone(ctx context.Context, phone string) ([]*fkratos_user_model.User, error) {
-	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.Phone.Eq(phone)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
-// FindMultiByPhones 根据phones查询多条数据
-func (u *UserRepo) FindMultiByPhones(ctx context.Context, phones []string) ([]*fkratos_user_model.User, error) {
-	dao := fkratos_user_dao.Use(u.db).User
-	result, err := dao.WithContext(ctx).Where(dao.Phone.In(phones...)).Find()
+	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
 	if err != nil {
 		return nil, err
 	}
@@ -979,13 +939,53 @@ func (u *UserRepo) FindMultiByEmails(ctx context.Context, emails []string) ([]*f
 	return result, nil
 }
 
+// FindMultiByPhone 根据phone查询多条数据
+func (u *UserRepo) FindMultiByPhone(ctx context.Context, phone string) ([]*fkratos_user_model.User, error) {
+	dao := fkratos_user_dao.Use(u.db).User
+	result, err := dao.WithContext(ctx).Where(dao.Phone.Eq(phone)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+// FindMultiByPhones 根据phones查询多条数据
+func (u *UserRepo) FindMultiByPhones(ctx context.Context, phones []string) ([]*fkratos_user_model.User, error) {
+	dao := fkratos_user_dao.Use(u.db).User
+	result, err := dao.WithContext(ctx).Where(dao.Phone.In(phones...)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+// FindMultiByUserGroupID 根据userGroupID查询多条数据
+func (u *UserRepo) FindMultiByUserGroupID(ctx context.Context, userGroupID string) ([]*fkratos_user_model.User, error) {
+	dao := fkratos_user_dao.Use(u.db).User
+	result, err := dao.WithContext(ctx).Where(dao.UserGroupID.Eq(userGroupID)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+// FindMultiByUserGroupIDS 根据userGroupIDS查询多条数据
+func (u *UserRepo) FindMultiByUserGroupIDS(ctx context.Context, userGroupIDS []string) ([]*fkratos_user_model.User, error) {
+	dao := fkratos_user_dao.Use(u.db).User
+	result, err := dao.WithContext(ctx).Where(dao.UserGroupID.In(userGroupIDS...)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
 // FindMultiByPaginator 查询分页数据(通用)
 func (u *UserRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_user_model.User, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_user_model.User, 0)
 	var total int64
 	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_user_model.User{})
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	err = u.db.WithContext(ctx).Model(&fkratos_user_model.User{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {

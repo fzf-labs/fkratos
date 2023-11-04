@@ -427,7 +427,7 @@ func (s *SysLogRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm
 	var total int64
 	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_sys_model.SysLog{})
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	err = s.db.WithContext(ctx).Model(&fkratos_sys_model.SysLog{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {

@@ -64,12 +64,12 @@ func NewTracerExporter(exporterName, endpoint string, insecure bool) (traceSdk.S
 	case "jaeger":
 		return nil, errors.New("jaeger exporter is no longer supported, please use otlp-http or otlp-grpc replace it")
 	case "otlp-http":
-		return NewOtlpHttpExporter(ctx, endpoint, insecure)
+		return NewOtlpHTTPExporter(ctx, endpoint, insecure)
 	case "otlp-grpc":
 		return NewOtlpGrpcExporter(ctx, endpoint, insecure)
-	default:
-		fallthrough
 	case "stdout":
+		return NewStdoutExporter()
+	default:
 		return NewStdoutExporter()
 	}
 }
@@ -79,8 +79,8 @@ func NewStdoutExporter() (traceSdk.SpanExporter, error) {
 	return stdouttrace.New()
 }
 
-// NewOtlpHttpExporter 创建OTLP/HTTP导出器，默认端口：4318
-func NewOtlpHttpExporter(ctx context.Context, endpoint string, insecure bool, options ...otlptracehttp.Option) (traceSdk.SpanExporter, error) {
+// NewOtlpHTTPExporter 创建OTLP/HTTP导出器，默认端口：4318
+func NewOtlpHTTPExporter(ctx context.Context, endpoint string, insecure bool, options ...otlptracehttp.Option) (traceSdk.SpanExporter, error) {
 	var opts []otlptracehttp.Option
 	opts = append(opts, otlptracehttp.WithEndpoint(endpoint))
 

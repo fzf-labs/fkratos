@@ -448,6 +448,10 @@ func (m *Data_Redis) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for Tracing
+
+	// no validation rules for Metrics
+
 	if len(errors) > 0 {
 		return Data_RedisMultiError(errors)
 	}

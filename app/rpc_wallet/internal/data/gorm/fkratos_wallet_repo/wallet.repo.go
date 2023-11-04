@@ -19,8 +19,8 @@ import (
 var _ IWalletRepo = (*WalletRepo)(nil)
 
 var (
-	cacheWalletByUIDPrefix = "DBCache:fkratos_wallet:WalletByUID"
 	cacheWalletByIDPrefix  = "DBCache:fkratos_wallet:WalletByID"
+	cacheWalletByUIDPrefix = "DBCache:fkratos_wallet:WalletByUID"
 )
 
 type (
@@ -43,14 +43,6 @@ type (
 		UpdateOneWithZero(ctx context.Context, data *fkratos_wallet_model.Wallet) error
 		// UpdateOneWithZero 更新一条数据,包含零值(事务)
 		UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_wallet_dao.Query, data *fkratos_wallet_model.Wallet) error
-		// FindOneCacheByUID 根据UID查询一条数据并设置缓存
-		FindOneCacheByUID(ctx context.Context, UID string) (*fkratos_wallet_model.Wallet, error)
-		// FindOneByUID 根据UID查询一条数据
-		FindOneByUID(ctx context.Context, UID string) (*fkratos_wallet_model.Wallet, error)
-		// FindMultiCacheByUIDS 根据UIDS查询多条数据并设置缓存
-		FindMultiCacheByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Wallet, error)
-		// FindMultiByUIDS 根据UIDS查询多条数据
-		FindMultiByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Wallet, error)
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_wallet_model.Wallet, error)
 		// FindOneByID 根据ID查询一条数据
@@ -59,24 +51,16 @@ type (
 		FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_wallet_model.Wallet, error)
 		// FindMultiByIDS 根据IDS查询多条数据
 		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_wallet_model.Wallet, error)
+		// FindOneCacheByUID 根据UID查询一条数据并设置缓存
+		FindOneCacheByUID(ctx context.Context, UID string) (*fkratos_wallet_model.Wallet, error)
+		// FindOneByUID 根据UID查询一条数据
+		FindOneByUID(ctx context.Context, UID string) (*fkratos_wallet_model.Wallet, error)
+		// FindMultiCacheByUIDS 根据UIDS查询多条数据并设置缓存
+		FindMultiCacheByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Wallet, error)
+		// FindMultiByUIDS 根据UIDS查询多条数据
+		FindMultiByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Wallet, error)
 		// FindMultiByPaginator 查询分页数据(通用)
 		FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_wallet_model.Wallet, *orm.PaginatorReply, error)
-		// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
-		DeleteOneCacheByUID(ctx context.Context, UID string) error
-		// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
-		DeleteOneCacheByUIDTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UID string) error
-		// DeleteOneByUID 根据UID删除一条数据
-		DeleteOneByUID(ctx context.Context, UID string) error
-		// DeleteOneByUID 根据UID删除一条数据
-		DeleteOneByUIDTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UID string) error
-		// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
-		DeleteMultiCacheByUIDS(ctx context.Context, UIDS []string) error
-		// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
-		DeleteMultiCacheByUIDSTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UIDS []string) error
-		// DeleteMultiByUIDS 根据UIDS删除多条数据
-		DeleteMultiByUIDS(ctx context.Context, UIDS []string) error
-		// DeleteMultiByUIDS 根据UIDS删除多条数据
-		DeleteMultiByUIDSTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UIDS []string) error
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
 		DeleteOneCacheByID(ctx context.Context, ID string) error
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
@@ -93,6 +77,22 @@ type (
 		DeleteMultiByIDS(ctx context.Context, IDS []string) error
 		// DeleteMultiByIDS 根据IDS删除多条数据
 		DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_wallet_dao.Query, IDS []string) error
+		// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
+		DeleteOneCacheByUID(ctx context.Context, UID string) error
+		// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
+		DeleteOneCacheByUIDTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UID string) error
+		// DeleteOneByUID 根据UID删除一条数据
+		DeleteOneByUID(ctx context.Context, UID string) error
+		// DeleteOneByUID 根据UID删除一条数据
+		DeleteOneByUIDTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UID string) error
+		// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
+		DeleteMultiCacheByUIDS(ctx context.Context, UIDS []string) error
+		// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
+		DeleteMultiCacheByUIDSTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UIDS []string) error
+		// DeleteMultiByUIDS 根据UIDS删除多条数据
+		DeleteMultiByUIDS(ctx context.Context, UIDS []string) error
+		// DeleteMultiByUIDS 根据UIDS删除多条数据
+		DeleteMultiByUIDSTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UIDS []string) error
 		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
 		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_wallet_model.Wallet) error
 	}
@@ -213,130 +213,6 @@ func (w *WalletRepo) UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_wall
 		return err
 	}
 	return err
-}
-
-// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
-func (w *WalletRepo) DeleteOneCacheByUID(ctx context.Context, UID string) error {
-	dao := fkratos_wallet_dao.Use(w.db).Wallet
-	result, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).First()
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return err
-	}
-	if result == nil {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.UID.Eq(UID)).Delete()
-	if err != nil {
-		return err
-	}
-	err = w.DeleteUniqueIndexCache(ctx, []*fkratos_wallet_model.Wallet{result})
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
-func (w *WalletRepo) DeleteOneCacheByUIDTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UID string) error {
-	dao := tx.Wallet
-	result, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).First()
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return err
-	}
-	if result == nil {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.UID.Eq(UID)).Delete()
-	if err != nil {
-		return err
-	}
-	err = w.DeleteUniqueIndexCache(ctx, []*fkratos_wallet_model.Wallet{result})
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteOneByUID 根据UID删除一条数据
-func (w *WalletRepo) DeleteOneByUID(ctx context.Context, UID string) error {
-	dao := fkratos_wallet_dao.Use(w.db).Wallet
-	_, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteOneByUID 根据UID删除一条数据
-func (w *WalletRepo) DeleteOneByUIDTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UID string) error {
-	dao := tx.Wallet
-	_, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
-func (w *WalletRepo) DeleteMultiCacheByUIDS(ctx context.Context, UIDS []string) error {
-	dao := fkratos_wallet_dao.Use(w.db).Wallet
-	result, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Find()
-	if err != nil {
-		return err
-	}
-	if len(result) == 0 {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Delete()
-	if err != nil {
-		return err
-	}
-	err = w.DeleteUniqueIndexCache(ctx, result)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
-func (w *WalletRepo) DeleteMultiCacheByUIDSTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UIDS []string) error {
-	dao := tx.Wallet
-	result, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Find()
-	if err != nil {
-		return err
-	}
-	if len(result) == 0 {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Delete()
-	if err != nil {
-		return err
-	}
-	err = w.DeleteUniqueIndexCache(ctx, result)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiByUIDS 根据UIDS删除多条数据
-func (w *WalletRepo) DeleteMultiByUIDS(ctx context.Context, UIDS []string) error {
-	dao := fkratos_wallet_dao.Use(w.db).Wallet
-	_, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiByUIDS 根据UIDS删除多条数据
-func (w *WalletRepo) DeleteMultiByUIDSTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UIDS []string) error {
-	dao := tx.Wallet
-	_, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 // DeleteOneCacheByID 根据ID删除一条数据并清理缓存
@@ -463,12 +339,136 @@ func (w *WalletRepo) DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_wallet_
 	return nil
 }
 
+// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
+func (w *WalletRepo) DeleteOneCacheByUID(ctx context.Context, UID string) error {
+	dao := fkratos_wallet_dao.Use(w.db).Wallet
+	result, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return err
+	}
+	if result == nil {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.UID.Eq(UID)).Delete()
+	if err != nil {
+		return err
+	}
+	err = w.DeleteUniqueIndexCache(ctx, []*fkratos_wallet_model.Wallet{result})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOneCacheByUID 根据UID删除一条数据并清理缓存
+func (w *WalletRepo) DeleteOneCacheByUIDTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UID string) error {
+	dao := tx.Wallet
+	result, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return err
+	}
+	if result == nil {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.UID.Eq(UID)).Delete()
+	if err != nil {
+		return err
+	}
+	err = w.DeleteUniqueIndexCache(ctx, []*fkratos_wallet_model.Wallet{result})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOneByUID 根据UID删除一条数据
+func (w *WalletRepo) DeleteOneByUID(ctx context.Context, UID string) error {
+	dao := fkratos_wallet_dao.Use(w.db).Wallet
+	_, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOneByUID 根据UID删除一条数据
+func (w *WalletRepo) DeleteOneByUIDTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UID string) error {
+	dao := tx.Wallet
+	_, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
+func (w *WalletRepo) DeleteMultiCacheByUIDS(ctx context.Context, UIDS []string) error {
+	dao := fkratos_wallet_dao.Use(w.db).Wallet
+	result, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Find()
+	if err != nil {
+		return err
+	}
+	if len(result) == 0 {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Delete()
+	if err != nil {
+		return err
+	}
+	err = w.DeleteUniqueIndexCache(ctx, result)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiCacheByUIDS 根据UIDS删除多条数据并清理缓存
+func (w *WalletRepo) DeleteMultiCacheByUIDSTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UIDS []string) error {
+	dao := tx.Wallet
+	result, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Find()
+	if err != nil {
+		return err
+	}
+	if len(result) == 0 {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Delete()
+	if err != nil {
+		return err
+	}
+	err = w.DeleteUniqueIndexCache(ctx, result)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiByUIDS 根据UIDS删除多条数据
+func (w *WalletRepo) DeleteMultiByUIDS(ctx context.Context, UIDS []string) error {
+	dao := fkratos_wallet_dao.Use(w.db).Wallet
+	_, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiByUIDS 根据UIDS删除多条数据
+func (w *WalletRepo) DeleteMultiByUIDSTx(ctx context.Context, tx *fkratos_wallet_dao.Query, UIDS []string) error {
+	dao := tx.Wallet
+	_, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // DeleteUniqueIndexCache 删除唯一索引存在的缓存
 func (w *WalletRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_wallet_model.Wallet) error {
 	keys := make([]string, 0)
 	for _, v := range data {
-		keys = append(keys, w.cache.Key(cacheWalletByUIDPrefix, v.UID))
 		keys = append(keys, w.cache.Key(cacheWalletByIDPrefix, v.ID))
+		keys = append(keys, w.cache.Key(cacheWalletByUIDPrefix, v.UID))
 
 	}
 	err := w.cache.DelBatch(ctx, keys)
@@ -476,99 +476,6 @@ func (w *WalletRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos
 		return err
 	}
 	return nil
-}
-
-// FindOneCacheByUID 根据UID查询一条数据并设置缓存
-func (w *WalletRepo) FindOneCacheByUID(ctx context.Context, UID string) (*fkratos_wallet_model.Wallet, error) {
-	resp := new(fkratos_wallet_model.Wallet)
-	cacheKey := w.cache.Key(cacheWalletByUIDPrefix, UID)
-	cacheValue, err := w.cache.Fetch(ctx, cacheKey, func() (string, error) {
-		dao := fkratos_wallet_dao.Use(w.db).Wallet
-		result, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).First()
-		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-			return "", err
-		}
-		marshal, err := json.Marshal(result)
-		if err != nil {
-			return "", err
-		}
-		return string(marshal), nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal([]byte(cacheValue), resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-// FindOneByUID 根据UID查询一条数据
-func (w *WalletRepo) FindOneByUID(ctx context.Context, UID string) (*fkratos_wallet_model.Wallet, error) {
-	dao := fkratos_wallet_dao.Use(w.db).Wallet
-	result, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).First()
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, err
-	}
-	return result, nil
-}
-
-// FindMultiCacheByUIDS 根据UIDS查询多条数据并设置缓存
-func (w *WalletRepo) FindMultiCacheByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Wallet, error) {
-	resp := make([]*fkratos_wallet_model.Wallet, 0)
-	cacheKeys := make([]string, 0)
-	keyToParam := make(map[string]string)
-	for _, v := range UIDS {
-		cacheKey := w.cache.Key(cacheWalletByUIDPrefix, v)
-		cacheKeys = append(cacheKeys, cacheKey)
-		keyToParam[cacheKey] = v
-	}
-	cacheValue, err := w.cache.FetchBatch(ctx, cacheKeys, func(miss []string) (map[string]string, error) {
-		parameters := make([]string, 0)
-		for _, v := range miss {
-			parameters = append(parameters, keyToParam[v])
-		}
-		dao := fkratos_wallet_dao.Use(w.db).Wallet
-		result, err := dao.WithContext(ctx).Where(dao.UID.In(parameters...)).Find()
-		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, err
-		}
-		value := make(map[string]string)
-		for _, v := range miss {
-			value[v] = ""
-		}
-		for _, v := range result {
-			marshal, err := json.Marshal(v)
-			if err != nil {
-				return nil, err
-			}
-			value[w.cache.Key(cacheWalletByUIDPrefix, v.UID)] = string(marshal)
-		}
-		return value, nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	for _, v := range cacheValue {
-		tmp := new(fkratos_wallet_model.Wallet)
-		err := json.Unmarshal([]byte(v), tmp)
-		if err != nil {
-			return nil, err
-		}
-		resp = append(resp, tmp)
-	}
-	return resp, nil
-}
-
-// FindMultiByUIDS 根据UIDS查询多条数据
-func (w *WalletRepo) FindMultiByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Wallet, error) {
-	dao := fkratos_wallet_dao.Use(w.db).Wallet
-	result, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
 }
 
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
@@ -664,13 +571,106 @@ func (w *WalletRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkrat
 	return result, nil
 }
 
+// FindOneCacheByUID 根据UID查询一条数据并设置缓存
+func (w *WalletRepo) FindOneCacheByUID(ctx context.Context, UID string) (*fkratos_wallet_model.Wallet, error) {
+	resp := new(fkratos_wallet_model.Wallet)
+	cacheKey := w.cache.Key(cacheWalletByUIDPrefix, UID)
+	cacheValue, err := w.cache.Fetch(ctx, cacheKey, func() (string, error) {
+		dao := fkratos_wallet_dao.Use(w.db).Wallet
+		result, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).First()
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+			return "", err
+		}
+		marshal, err := json.Marshal(result)
+		if err != nil {
+			return "", err
+		}
+		return string(marshal), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal([]byte(cacheValue), resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+// FindOneByUID 根据UID查询一条数据
+func (w *WalletRepo) FindOneByUID(ctx context.Context, UID string) (*fkratos_wallet_model.Wallet, error) {
+	dao := fkratos_wallet_dao.Use(w.db).Wallet
+	result, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
+	}
+	return result, nil
+}
+
+// FindMultiCacheByUIDS 根据UIDS查询多条数据并设置缓存
+func (w *WalletRepo) FindMultiCacheByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Wallet, error) {
+	resp := make([]*fkratos_wallet_model.Wallet, 0)
+	cacheKeys := make([]string, 0)
+	keyToParam := make(map[string]string)
+	for _, v := range UIDS {
+		cacheKey := w.cache.Key(cacheWalletByUIDPrefix, v)
+		cacheKeys = append(cacheKeys, cacheKey)
+		keyToParam[cacheKey] = v
+	}
+	cacheValue, err := w.cache.FetchBatch(ctx, cacheKeys, func(miss []string) (map[string]string, error) {
+		parameters := make([]string, 0)
+		for _, v := range miss {
+			parameters = append(parameters, keyToParam[v])
+		}
+		dao := fkratos_wallet_dao.Use(w.db).Wallet
+		result, err := dao.WithContext(ctx).Where(dao.UID.In(parameters...)).Find()
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, err
+		}
+		value := make(map[string]string)
+		for _, v := range miss {
+			value[v] = ""
+		}
+		for _, v := range result {
+			marshal, err := json.Marshal(v)
+			if err != nil {
+				return nil, err
+			}
+			value[w.cache.Key(cacheWalletByUIDPrefix, v.UID)] = string(marshal)
+		}
+		return value, nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	for _, v := range cacheValue {
+		tmp := new(fkratos_wallet_model.Wallet)
+		err := json.Unmarshal([]byte(v), tmp)
+		if err != nil {
+			return nil, err
+		}
+		resp = append(resp, tmp)
+	}
+	return resp, nil
+}
+
+// FindMultiByUIDS 根据UIDS查询多条数据
+func (w *WalletRepo) FindMultiByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Wallet, error) {
+	dao := fkratos_wallet_dao.Use(w.db).Wallet
+	result, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
 // FindMultiByPaginator 查询分页数据(通用)
 func (w *WalletRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_wallet_model.Wallet, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_wallet_model.Wallet, 0)
 	var total int64
 	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_wallet_model.Wallet{})
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	err = w.db.WithContext(ctx).Model(&fkratos_wallet_model.Wallet{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {

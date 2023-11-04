@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/emicklei/proto v1.12.1
 	github.com/envoyproxy/protoc-gen-validate v1.0.2
-	github.com/fzf-labs/fpkg v1.7.9
+	github.com/fzf-labs/fpkg v1.8.5
 	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20230830131453-6c026bce56a9
 	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/config/etcd/v2 v2.0.0-20230808051727-7888107c4b4f
@@ -32,7 +32,7 @@ require (
 	github.com/nacos-group/nacos-sdk-go v1.1.4
 	github.com/prometheus/client_golang v1.16.0
 	github.com/redis/go-redis/v9 v9.1.0
-	github.com/redis/rueidis v1.0.16
+	github.com/redis/rueidis v1.0.21
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/viper v1.16.0
 	go.etcd.io/etcd/client/v3 v3.5.9
@@ -46,7 +46,7 @@ require (
 	go.uber.org/automaxprocs v1.5.3
 	go.uber.org/zap v1.25.0
 	golang.org/x/exp v0.0.0-20230811145659-89c5cff77bcb
-	golang.org/x/text v0.12.0
+	golang.org/x/text v0.13.0
 	golang.org/x/tools v0.12.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20230711160842-782d3b101e98
 	google.golang.org/grpc v1.58.2
@@ -145,7 +145,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/oklog/ulid/v2 v2.1.0 // indirect
-	github.com/onsi/ginkgo/v2 v2.11.0 // indirect
+	github.com/onsi/ginkgo/v2 v2.12.1 // indirect
 	github.com/opentracing/opentracing-go v1.2.1-0.20220228012449-10b1cf09e00b // indirect
 	github.com/openzipkin/zipkin-go v0.4.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.9 // indirect
@@ -179,14 +179,14 @@ require (
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
-	golang.org/x/crypto v0.12.0 // indirect
+	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/image v0.0.0-20190802002840-cff245a6509b // indirect
 	golang.org/x/mod v0.12.0 // indirect
-	golang.org/x/net v0.14.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/oauth2 v0.10.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/sys v0.12.0 // indirect
-	golang.org/x/term v0.11.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
+	golang.org/x/term v0.13.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20230711160842-782d3b101e98 // indirect

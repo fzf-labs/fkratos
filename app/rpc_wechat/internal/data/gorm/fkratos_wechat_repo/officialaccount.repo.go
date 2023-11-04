@@ -670,7 +670,7 @@ func (o *OfficialaccountRepo) FindMultiByPaginator(ctx context.Context, paginato
 	var total int64
 	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_wechat_model.Officialaccount{})
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	err = o.db.WithContext(ctx).Model(&fkratos_wechat_model.Officialaccount{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {

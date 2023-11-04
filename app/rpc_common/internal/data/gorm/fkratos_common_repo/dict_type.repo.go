@@ -427,7 +427,7 @@ func (d *DictTypeRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *o
 	var total int64
 	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_common_model.DictType{})
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	err = d.db.WithContext(ctx).Model(&fkratos_common_model.DictType{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {

@@ -42,10 +42,6 @@ type (
 		UpdateOneWithZero(ctx context.Context, data *fkratos_wallet_model.Pay) error
 		// UpdateOneWithZero 更新一条数据,包含零值(事务)
 		UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_wallet_dao.Query, data *fkratos_wallet_model.Pay) error
-		// FindMultiByUID 根据UID查询多条数据
-		FindMultiByUID(ctx context.Context, UID string) ([]*fkratos_wallet_model.Pay, error)
-		// FindMultiByUIDS 根据UIDS查询多条数据
-		FindMultiByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Pay, error)
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_wallet_model.Pay, error)
 		// FindOneByID 根据ID查询一条数据
@@ -54,6 +50,10 @@ type (
 		FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_wallet_model.Pay, error)
 		// FindMultiByIDS 根据IDS查询多条数据
 		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_wallet_model.Pay, error)
+		// FindMultiByUID 根据UID查询多条数据
+		FindMultiByUID(ctx context.Context, UID string) ([]*fkratos_wallet_model.Pay, error)
+		// FindMultiByUIDS 根据UIDS查询多条数据
+		FindMultiByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Pay, error)
 		// FindMultiByPaginator 查询分页数据(通用)
 		FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_wallet_model.Pay, *orm.PaginatorReply, error)
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
@@ -332,26 +332,6 @@ func (p *PayRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_wa
 	return nil
 }
 
-// FindMultiByUID 根据UID查询多条数据
-func (p *PayRepo) FindMultiByUID(ctx context.Context, UID string) ([]*fkratos_wallet_model.Pay, error) {
-	dao := fkratos_wallet_dao.Use(p.db).Pay
-	result, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
-// FindMultiByUIDS 根据UIDS查询多条数据
-func (p *PayRepo) FindMultiByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Pay, error) {
-	dao := fkratos_wallet_dao.Use(p.db).Pay
-	result, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (p *PayRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_wallet_model.Pay, error) {
 	resp := new(fkratos_wallet_model.Pay)
@@ -445,13 +425,33 @@ func (p *PayRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_
 	return result, nil
 }
 
+// FindMultiByUID 根据UID查询多条数据
+func (p *PayRepo) FindMultiByUID(ctx context.Context, UID string) ([]*fkratos_wallet_model.Pay, error) {
+	dao := fkratos_wallet_dao.Use(p.db).Pay
+	result, err := dao.WithContext(ctx).Where(dao.UID.Eq(UID)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+// FindMultiByUIDS 根据UIDS查询多条数据
+func (p *PayRepo) FindMultiByUIDS(ctx context.Context, UIDS []string) ([]*fkratos_wallet_model.Pay, error) {
+	dao := fkratos_wallet_dao.Use(p.db).Pay
+	result, err := dao.WithContext(ctx).Where(dao.UID.In(UIDS...)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
 // FindMultiByPaginator 查询分页数据(通用)
 func (p *PayRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_wallet_model.Pay, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_wallet_model.Pay, 0)
 	var total int64
 	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_wallet_model.Pay{})
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	err = p.db.WithContext(ctx).Model(&fkratos_wallet_model.Pay{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {

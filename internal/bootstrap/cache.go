@@ -21,6 +21,8 @@ func NewRedis(cfg *conf.Bootstrap, logger log.Logger) *redis.Client {
 		DialTimeout:  cfg.Data.Redis.DialTimeout.AsDuration(),
 		WriteTimeout: cfg.Data.Redis.WriteTimeout.AsDuration(),
 		ReadTimeout:  cfg.Data.Redis.ReadTimeout.AsDuration(),
+		Tracing:      cfg.Data.Redis.Tracing,
+		Metrics:      cfg.Data.Redis.Metrics,
 	})
 	if err != nil {
 		l.Fatalf("failed opening connection to redis")

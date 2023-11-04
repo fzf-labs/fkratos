@@ -42,10 +42,6 @@ type (
 		UpdateOneWithZero(ctx context.Context, data *fkratos_device_model.Device) error
 		// UpdateOneWithZero 更新一条数据,包含零值(事务)
 		UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_device_dao.Query, data *fkratos_device_model.Device) error
-		// FindMultiBySn 根据sn查询多条数据
-		FindMultiBySn(ctx context.Context, sn string) ([]*fkratos_device_model.Device, error)
-		// FindMultiBySns 根据sns查询多条数据
-		FindMultiBySns(ctx context.Context, sns []string) ([]*fkratos_device_model.Device, error)
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_device_model.Device, error)
 		// FindOneByID 根据ID查询一条数据
@@ -54,6 +50,10 @@ type (
 		FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_device_model.Device, error)
 		// FindMultiByIDS 根据IDS查询多条数据
 		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_device_model.Device, error)
+		// FindMultiBySn 根据sn查询多条数据
+		FindMultiBySn(ctx context.Context, sn string) ([]*fkratos_device_model.Device, error)
+		// FindMultiBySns 根据sns查询多条数据
+		FindMultiBySns(ctx context.Context, sns []string) ([]*fkratos_device_model.Device, error)
 		// FindMultiByPaginator 查询分页数据(通用)
 		FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_device_model.Device, *orm.PaginatorReply, error)
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
@@ -332,26 +332,6 @@ func (d *DeviceRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos
 	return nil
 }
 
-// FindMultiBySn 根据sn查询多条数据
-func (d *DeviceRepo) FindMultiBySn(ctx context.Context, sn string) ([]*fkratos_device_model.Device, error) {
-	dao := fkratos_device_dao.Use(d.db).Device
-	result, err := dao.WithContext(ctx).Where(dao.Sn.Eq(sn)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
-// FindMultiBySns 根据sns查询多条数据
-func (d *DeviceRepo) FindMultiBySns(ctx context.Context, sns []string) ([]*fkratos_device_model.Device, error) {
-	dao := fkratos_device_dao.Use(d.db).Device
-	result, err := dao.WithContext(ctx).Where(dao.Sn.In(sns...)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
-}
-
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
 func (d *DeviceRepo) FindOneCacheByID(ctx context.Context, ID string) (*fkratos_device_model.Device, error) {
 	resp := new(fkratos_device_model.Device)
@@ -445,13 +425,33 @@ func (d *DeviceRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkrat
 	return result, nil
 }
 
+// FindMultiBySn 根据sn查询多条数据
+func (d *DeviceRepo) FindMultiBySn(ctx context.Context, sn string) ([]*fkratos_device_model.Device, error) {
+	dao := fkratos_device_dao.Use(d.db).Device
+	result, err := dao.WithContext(ctx).Where(dao.Sn.Eq(sn)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
+// FindMultiBySns 根据sns查询多条数据
+func (d *DeviceRepo) FindMultiBySns(ctx context.Context, sns []string) ([]*fkratos_device_model.Device, error) {
+	dao := fkratos_device_dao.Use(d.db).Device
+	result, err := dao.WithContext(ctx).Where(dao.Sn.In(sns...)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
 // FindMultiByPaginator 查询分页数据(通用)
 func (d *DeviceRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_device_model.Device, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_device_model.Device, 0)
 	var total int64
 	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_device_model.Device{})
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	err = d.db.WithContext(ctx).Model(&fkratos_device_model.Device{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {

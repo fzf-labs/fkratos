@@ -27,6 +27,8 @@ message Data {
     google.protobuf.Duration dialTimeout = 6;  // 连接超时时间
     google.protobuf.Duration readTimeout = 7;  // 读取超时时间
     google.protobuf.Duration writeTimeout = 8; // 写入超时时间
+    bool tracing = 9; // 链路追踪开关
+    bool metrics = 10; // 指标开关
   }
 
   Gorm gorm = 1;  // 数据库 gorm

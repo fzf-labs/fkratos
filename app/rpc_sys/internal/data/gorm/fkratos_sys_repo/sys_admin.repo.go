@@ -19,8 +19,8 @@ import (
 var _ ISysAdminRepo = (*SysAdminRepo)(nil)
 
 var (
-	cacheSysAdminByUsernamePrefix = "DBCache:fkratos_sys:SysAdminByUsername"
 	cacheSysAdminByIDPrefix       = "DBCache:fkratos_sys:SysAdminByID"
+	cacheSysAdminByUsernamePrefix = "DBCache:fkratos_sys:SysAdminByUsername"
 )
 
 type (
@@ -43,14 +43,6 @@ type (
 		UpdateOneWithZero(ctx context.Context, data *fkratos_sys_model.SysAdmin) error
 		// UpdateOneWithZero 更新一条数据,包含零值(事务)
 		UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_sys_dao.Query, data *fkratos_sys_model.SysAdmin) error
-		// FindOneCacheByUsername 根据username查询一条数据并设置缓存
-		FindOneCacheByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error)
-		// FindOneByUsername 根据username查询一条数据
-		FindOneByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error)
-		// FindMultiCacheByUsernames 根据usernames查询多条数据并设置缓存
-		FindMultiCacheByUsernames(ctx context.Context, usernames []string) ([]*fkratos_sys_model.SysAdmin, error)
-		// FindMultiByUsernames 根据usernames查询多条数据
-		FindMultiByUsernames(ctx context.Context, usernames []string) ([]*fkratos_sys_model.SysAdmin, error)
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_sys_model.SysAdmin, error)
 		// FindOneByID 根据ID查询一条数据
@@ -59,24 +51,16 @@ type (
 		FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysAdmin, error)
 		// FindMultiByIDS 根据IDS查询多条数据
 		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_sys_model.SysAdmin, error)
+		// FindOneCacheByUsername 根据username查询一条数据并设置缓存
+		FindOneCacheByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error)
+		// FindOneByUsername 根据username查询一条数据
+		FindOneByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error)
+		// FindMultiCacheByUsernames 根据usernames查询多条数据并设置缓存
+		FindMultiCacheByUsernames(ctx context.Context, usernames []string) ([]*fkratos_sys_model.SysAdmin, error)
+		// FindMultiByUsernames 根据usernames查询多条数据
+		FindMultiByUsernames(ctx context.Context, usernames []string) ([]*fkratos_sys_model.SysAdmin, error)
 		// FindMultiByPaginator 查询分页数据(通用)
 		FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_sys_model.SysAdmin, *orm.PaginatorReply, error)
-		// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
-		DeleteOneCacheByUsername(ctx context.Context, username string) error
-		// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
-		DeleteOneCacheByUsernameTx(ctx context.Context, tx *fkratos_sys_dao.Query, username string) error
-		// DeleteOneByUsername 根据username删除一条数据
-		DeleteOneByUsername(ctx context.Context, username string) error
-		// DeleteOneByUsername 根据username删除一条数据
-		DeleteOneByUsernameTx(ctx context.Context, tx *fkratos_sys_dao.Query, username string) error
-		// DeleteMultiCacheByUsernames 根据Usernames删除多条数据并清理缓存
-		DeleteMultiCacheByUsernames(ctx context.Context, usernames []string) error
-		// DeleteMultiCacheByUsernames 根据Usernames删除多条数据并清理缓存
-		DeleteMultiCacheByUsernamesTx(ctx context.Context, tx *fkratos_sys_dao.Query, usernames []string) error
-		// DeleteMultiByUsernames 根据Usernames删除多条数据
-		DeleteMultiByUsernames(ctx context.Context, usernames []string) error
-		// DeleteMultiByUsernames 根据Usernames删除多条数据
-		DeleteMultiByUsernamesTx(ctx context.Context, tx *fkratos_sys_dao.Query, usernames []string) error
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
 		DeleteOneCacheByID(ctx context.Context, ID string) error
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
@@ -93,6 +77,22 @@ type (
 		DeleteMultiByIDS(ctx context.Context, IDS []string) error
 		// DeleteMultiByIDS 根据IDS删除多条数据
 		DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_sys_dao.Query, IDS []string) error
+		// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
+		DeleteOneCacheByUsername(ctx context.Context, username string) error
+		// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
+		DeleteOneCacheByUsernameTx(ctx context.Context, tx *fkratos_sys_dao.Query, username string) error
+		// DeleteOneByUsername 根据username删除一条数据
+		DeleteOneByUsername(ctx context.Context, username string) error
+		// DeleteOneByUsername 根据username删除一条数据
+		DeleteOneByUsernameTx(ctx context.Context, tx *fkratos_sys_dao.Query, username string) error
+		// DeleteMultiCacheByUsernames 根据Usernames删除多条数据并清理缓存
+		DeleteMultiCacheByUsernames(ctx context.Context, usernames []string) error
+		// DeleteMultiCacheByUsernames 根据Usernames删除多条数据并清理缓存
+		DeleteMultiCacheByUsernamesTx(ctx context.Context, tx *fkratos_sys_dao.Query, usernames []string) error
+		// DeleteMultiByUsernames 根据Usernames删除多条数据
+		DeleteMultiByUsernames(ctx context.Context, usernames []string) error
+		// DeleteMultiByUsernames 根据Usernames删除多条数据
+		DeleteMultiByUsernamesTx(ctx context.Context, tx *fkratos_sys_dao.Query, usernames []string) error
 		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
 		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysAdmin) error
 	}
@@ -213,130 +213,6 @@ func (s *SysAdminRepo) UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_sy
 		return err
 	}
 	return err
-}
-
-// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
-func (s *SysAdminRepo) DeleteOneCacheByUsername(ctx context.Context, username string) error {
-	dao := fkratos_sys_dao.Use(s.db).SysAdmin
-	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return err
-	}
-	if result == nil {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
-	if err != nil {
-		return err
-	}
-	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysAdmin{result})
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
-func (s *SysAdminRepo) DeleteOneCacheByUsernameTx(ctx context.Context, tx *fkratos_sys_dao.Query, username string) error {
-	dao := tx.SysAdmin
-	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return err
-	}
-	if result == nil {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
-	if err != nil {
-		return err
-	}
-	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysAdmin{result})
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteOneByUsername 根据username删除一条数据
-func (s *SysAdminRepo) DeleteOneByUsername(ctx context.Context, username string) error {
-	dao := fkratos_sys_dao.Use(s.db).SysAdmin
-	_, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteOneByUsername 根据username删除一条数据
-func (s *SysAdminRepo) DeleteOneByUsernameTx(ctx context.Context, tx *fkratos_sys_dao.Query, username string) error {
-	dao := tx.SysAdmin
-	_, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiCacheByUsernames 根据usernames删除多条数据并清理缓存
-func (s *SysAdminRepo) DeleteMultiCacheByUsernames(ctx context.Context, usernames []string) error {
-	dao := fkratos_sys_dao.Use(s.db).SysAdmin
-	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
-	if err != nil {
-		return err
-	}
-	if len(result) == 0 {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
-	if err != nil {
-		return err
-	}
-	err = s.DeleteUniqueIndexCache(ctx, result)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiCacheByUsernames 根据usernames删除多条数据并清理缓存
-func (s *SysAdminRepo) DeleteMultiCacheByUsernamesTx(ctx context.Context, tx *fkratos_sys_dao.Query, usernames []string) error {
-	dao := tx.SysAdmin
-	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
-	if err != nil {
-		return err
-	}
-	if len(result) == 0 {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
-	if err != nil {
-		return err
-	}
-	err = s.DeleteUniqueIndexCache(ctx, result)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiByUsernames 根据usernames删除多条数据
-func (s *SysAdminRepo) DeleteMultiByUsernames(ctx context.Context, usernames []string) error {
-	dao := fkratos_sys_dao.Use(s.db).SysAdmin
-	_, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiByUsernames 根据usernames删除多条数据
-func (s *SysAdminRepo) DeleteMultiByUsernamesTx(ctx context.Context, tx *fkratos_sys_dao.Query, usernames []string) error {
-	dao := tx.SysAdmin
-	_, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 // DeleteOneCacheByID 根据ID删除一条数据并清理缓存
@@ -463,12 +339,136 @@ func (s *SysAdminRepo) DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_sys_d
 	return nil
 }
 
+// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
+func (s *SysAdminRepo) DeleteOneCacheByUsername(ctx context.Context, username string) error {
+	dao := fkratos_sys_dao.Use(s.db).SysAdmin
+	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return err
+	}
+	if result == nil {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysAdmin{result})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOneCacheByUsername 根据username删除一条数据并清理缓存
+func (s *SysAdminRepo) DeleteOneCacheByUsernameTx(ctx context.Context, tx *fkratos_sys_dao.Query, username string) error {
+	dao := tx.SysAdmin
+	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return err
+	}
+	if result == nil {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_sys_model.SysAdmin{result})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOneByUsername 根据username删除一条数据
+func (s *SysAdminRepo) DeleteOneByUsername(ctx context.Context, username string) error {
+	dao := fkratos_sys_dao.Use(s.db).SysAdmin
+	_, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOneByUsername 根据username删除一条数据
+func (s *SysAdminRepo) DeleteOneByUsernameTx(ctx context.Context, tx *fkratos_sys_dao.Query, username string) error {
+	dao := tx.SysAdmin
+	_, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiCacheByUsernames 根据usernames删除多条数据并清理缓存
+func (s *SysAdminRepo) DeleteMultiCacheByUsernames(ctx context.Context, usernames []string) error {
+	dao := fkratos_sys_dao.Use(s.db).SysAdmin
+	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
+	if err != nil {
+		return err
+	}
+	if len(result) == 0 {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, result)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiCacheByUsernames 根据usernames删除多条数据并清理缓存
+func (s *SysAdminRepo) DeleteMultiCacheByUsernamesTx(ctx context.Context, tx *fkratos_sys_dao.Query, usernames []string) error {
+	dao := tx.SysAdmin
+	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
+	if err != nil {
+		return err
+	}
+	if len(result) == 0 {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, result)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiByUsernames 根据usernames删除多条数据
+func (s *SysAdminRepo) DeleteMultiByUsernames(ctx context.Context, usernames []string) error {
+	dao := fkratos_sys_dao.Use(s.db).SysAdmin
+	_, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiByUsernames 根据usernames删除多条数据
+func (s *SysAdminRepo) DeleteMultiByUsernamesTx(ctx context.Context, tx *fkratos_sys_dao.Query, usernames []string) error {
+	dao := tx.SysAdmin
+	_, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // DeleteUniqueIndexCache 删除唯一索引存在的缓存
 func (s *SysAdminRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_sys_model.SysAdmin) error {
 	keys := make([]string, 0)
 	for _, v := range data {
-		keys = append(keys, s.cache.Key(cacheSysAdminByUsernamePrefix, v.Username))
 		keys = append(keys, s.cache.Key(cacheSysAdminByIDPrefix, v.ID))
+		keys = append(keys, s.cache.Key(cacheSysAdminByUsernamePrefix, v.Username))
 
 	}
 	err := s.cache.DelBatch(ctx, keys)
@@ -476,99 +476,6 @@ func (s *SysAdminRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkrat
 		return err
 	}
 	return nil
-}
-
-// FindOneCacheByUsername 根据username查询一条数据并设置缓存
-func (s *SysAdminRepo) FindOneCacheByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error) {
-	resp := new(fkratos_sys_model.SysAdmin)
-	cacheKey := s.cache.Key(cacheSysAdminByUsernamePrefix, username)
-	cacheValue, err := s.cache.Fetch(ctx, cacheKey, func() (string, error) {
-		dao := fkratos_sys_dao.Use(s.db).SysAdmin
-		result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
-		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-			return "", err
-		}
-		marshal, err := json.Marshal(result)
-		if err != nil {
-			return "", err
-		}
-		return string(marshal), nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal([]byte(cacheValue), resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-// FindOneByUsername 根据username查询一条数据
-func (s *SysAdminRepo) FindOneByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error) {
-	dao := fkratos_sys_dao.Use(s.db).SysAdmin
-	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, err
-	}
-	return result, nil
-}
-
-// FindMultiCacheByUsernames 根据usernames查询多条数据并设置缓存
-func (s *SysAdminRepo) FindMultiCacheByUsernames(ctx context.Context, usernames []string) ([]*fkratos_sys_model.SysAdmin, error) {
-	resp := make([]*fkratos_sys_model.SysAdmin, 0)
-	cacheKeys := make([]string, 0)
-	keyToParam := make(map[string]string)
-	for _, v := range usernames {
-		cacheKey := s.cache.Key(cacheSysAdminByUsernamePrefix, v)
-		cacheKeys = append(cacheKeys, cacheKey)
-		keyToParam[cacheKey] = v
-	}
-	cacheValue, err := s.cache.FetchBatch(ctx, cacheKeys, func(miss []string) (map[string]string, error) {
-		parameters := make([]string, 0)
-		for _, v := range miss {
-			parameters = append(parameters, keyToParam[v])
-		}
-		dao := fkratos_sys_dao.Use(s.db).SysAdmin
-		result, err := dao.WithContext(ctx).Where(dao.Username.In(parameters...)).Find()
-		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, err
-		}
-		value := make(map[string]string)
-		for _, v := range miss {
-			value[v] = ""
-		}
-		for _, v := range result {
-			marshal, err := json.Marshal(v)
-			if err != nil {
-				return nil, err
-			}
-			value[s.cache.Key(cacheSysAdminByUsernamePrefix, v.Username)] = string(marshal)
-		}
-		return value, nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	for _, v := range cacheValue {
-		tmp := new(fkratos_sys_model.SysAdmin)
-		err := json.Unmarshal([]byte(v), tmp)
-		if err != nil {
-			return nil, err
-		}
-		resp = append(resp, tmp)
-	}
-	return resp, nil
-}
-
-// FindMultiByUsernames 根据usernames查询多条数据
-func (s *SysAdminRepo) FindMultiByUsernames(ctx context.Context, usernames []string) ([]*fkratos_sys_model.SysAdmin, error) {
-	dao := fkratos_sys_dao.Use(s.db).SysAdmin
-	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
 }
 
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
@@ -664,13 +571,106 @@ func (s *SysAdminRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkr
 	return result, nil
 }
 
+// FindOneCacheByUsername 根据username查询一条数据并设置缓存
+func (s *SysAdminRepo) FindOneCacheByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error) {
+	resp := new(fkratos_sys_model.SysAdmin)
+	cacheKey := s.cache.Key(cacheSysAdminByUsernamePrefix, username)
+	cacheValue, err := s.cache.Fetch(ctx, cacheKey, func() (string, error) {
+		dao := fkratos_sys_dao.Use(s.db).SysAdmin
+		result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+			return "", err
+		}
+		marshal, err := json.Marshal(result)
+		if err != nil {
+			return "", err
+		}
+		return string(marshal), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal([]byte(cacheValue), resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+// FindOneByUsername 根据username查询一条数据
+func (s *SysAdminRepo) FindOneByUsername(ctx context.Context, username string) (*fkratos_sys_model.SysAdmin, error) {
+	dao := fkratos_sys_dao.Use(s.db).SysAdmin
+	result, err := dao.WithContext(ctx).Where(dao.Username.Eq(username)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
+	}
+	return result, nil
+}
+
+// FindMultiCacheByUsernames 根据usernames查询多条数据并设置缓存
+func (s *SysAdminRepo) FindMultiCacheByUsernames(ctx context.Context, usernames []string) ([]*fkratos_sys_model.SysAdmin, error) {
+	resp := make([]*fkratos_sys_model.SysAdmin, 0)
+	cacheKeys := make([]string, 0)
+	keyToParam := make(map[string]string)
+	for _, v := range usernames {
+		cacheKey := s.cache.Key(cacheSysAdminByUsernamePrefix, v)
+		cacheKeys = append(cacheKeys, cacheKey)
+		keyToParam[cacheKey] = v
+	}
+	cacheValue, err := s.cache.FetchBatch(ctx, cacheKeys, func(miss []string) (map[string]string, error) {
+		parameters := make([]string, 0)
+		for _, v := range miss {
+			parameters = append(parameters, keyToParam[v])
+		}
+		dao := fkratos_sys_dao.Use(s.db).SysAdmin
+		result, err := dao.WithContext(ctx).Where(dao.Username.In(parameters...)).Find()
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, err
+		}
+		value := make(map[string]string)
+		for _, v := range miss {
+			value[v] = ""
+		}
+		for _, v := range result {
+			marshal, err := json.Marshal(v)
+			if err != nil {
+				return nil, err
+			}
+			value[s.cache.Key(cacheSysAdminByUsernamePrefix, v.Username)] = string(marshal)
+		}
+		return value, nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	for _, v := range cacheValue {
+		tmp := new(fkratos_sys_model.SysAdmin)
+		err := json.Unmarshal([]byte(v), tmp)
+		if err != nil {
+			return nil, err
+		}
+		resp = append(resp, tmp)
+	}
+	return resp, nil
+}
+
+// FindMultiByUsernames 根据usernames查询多条数据
+func (s *SysAdminRepo) FindMultiByUsernames(ctx context.Context, usernames []string) ([]*fkratos_sys_model.SysAdmin, error) {
+	dao := fkratos_sys_dao.Use(s.db).SysAdmin
+	result, err := dao.WithContext(ctx).Where(dao.Username.In(usernames...)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
 // FindMultiByPaginator 查询分页数据(通用)
 func (s *SysAdminRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_sys_model.SysAdmin, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_sys_model.SysAdmin, 0)
 	var total int64
 	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_sys_model.SysAdmin{})
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	err = s.db.WithContext(ctx).Model(&fkratos_sys_model.SysAdmin{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {

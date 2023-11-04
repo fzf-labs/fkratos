@@ -19,8 +19,8 @@ import (
 var _ ISensitiveWordRepo = (*SensitiveWordRepo)(nil)
 
 var (
-	cacheSensitiveWordByWordPrefix = "DBCache:fkratos_common:SensitiveWordByWord"
 	cacheSensitiveWordByIDPrefix   = "DBCache:fkratos_common:SensitiveWordByID"
+	cacheSensitiveWordByWordPrefix = "DBCache:fkratos_common:SensitiveWordByWord"
 )
 
 type (
@@ -43,14 +43,6 @@ type (
 		UpdateOneWithZero(ctx context.Context, data *fkratos_common_model.SensitiveWord) error
 		// UpdateOneWithZero 更新一条数据,包含零值(事务)
 		UpdateOneWithZeroByTx(ctx context.Context, tx *fkratos_common_dao.Query, data *fkratos_common_model.SensitiveWord) error
-		// FindOneCacheByWord 根据word查询一条数据并设置缓存
-		FindOneCacheByWord(ctx context.Context, word string) (*fkratos_common_model.SensitiveWord, error)
-		// FindOneByWord 根据word查询一条数据
-		FindOneByWord(ctx context.Context, word string) (*fkratos_common_model.SensitiveWord, error)
-		// FindMultiCacheByWords 根据words查询多条数据并设置缓存
-		FindMultiCacheByWords(ctx context.Context, words []string) ([]*fkratos_common_model.SensitiveWord, error)
-		// FindMultiByWords 根据words查询多条数据
-		FindMultiByWords(ctx context.Context, words []string) ([]*fkratos_common_model.SensitiveWord, error)
 		// FindOneCacheByID 根据ID查询一条数据并设置缓存
 		FindOneCacheByID(ctx context.Context, ID string) (*fkratos_common_model.SensitiveWord, error)
 		// FindOneByID 根据ID查询一条数据
@@ -59,24 +51,16 @@ type (
 		FindMultiCacheByIDS(ctx context.Context, IDS []string) ([]*fkratos_common_model.SensitiveWord, error)
 		// FindMultiByIDS 根据IDS查询多条数据
 		FindMultiByIDS(ctx context.Context, IDS []string) ([]*fkratos_common_model.SensitiveWord, error)
+		// FindOneCacheByWord 根据word查询一条数据并设置缓存
+		FindOneCacheByWord(ctx context.Context, word string) (*fkratos_common_model.SensitiveWord, error)
+		// FindOneByWord 根据word查询一条数据
+		FindOneByWord(ctx context.Context, word string) (*fkratos_common_model.SensitiveWord, error)
+		// FindMultiCacheByWords 根据words查询多条数据并设置缓存
+		FindMultiCacheByWords(ctx context.Context, words []string) ([]*fkratos_common_model.SensitiveWord, error)
+		// FindMultiByWords 根据words查询多条数据
+		FindMultiByWords(ctx context.Context, words []string) ([]*fkratos_common_model.SensitiveWord, error)
 		// FindMultiByPaginator 查询分页数据(通用)
 		FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_common_model.SensitiveWord, *orm.PaginatorReply, error)
-		// DeleteOneCacheByWord 根据word删除一条数据并清理缓存
-		DeleteOneCacheByWord(ctx context.Context, word string) error
-		// DeleteOneCacheByWord 根据word删除一条数据并清理缓存
-		DeleteOneCacheByWordTx(ctx context.Context, tx *fkratos_common_dao.Query, word string) error
-		// DeleteOneByWord 根据word删除一条数据
-		DeleteOneByWord(ctx context.Context, word string) error
-		// DeleteOneByWord 根据word删除一条数据
-		DeleteOneByWordTx(ctx context.Context, tx *fkratos_common_dao.Query, word string) error
-		// DeleteMultiCacheByWords 根据Words删除多条数据并清理缓存
-		DeleteMultiCacheByWords(ctx context.Context, words []string) error
-		// DeleteMultiCacheByWords 根据Words删除多条数据并清理缓存
-		DeleteMultiCacheByWordsTx(ctx context.Context, tx *fkratos_common_dao.Query, words []string) error
-		// DeleteMultiByWords 根据Words删除多条数据
-		DeleteMultiByWords(ctx context.Context, words []string) error
-		// DeleteMultiByWords 根据Words删除多条数据
-		DeleteMultiByWordsTx(ctx context.Context, tx *fkratos_common_dao.Query, words []string) error
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
 		DeleteOneCacheByID(ctx context.Context, ID string) error
 		// DeleteOneCacheByID 根据ID删除一条数据并清理缓存
@@ -93,6 +77,22 @@ type (
 		DeleteMultiByIDS(ctx context.Context, IDS []string) error
 		// DeleteMultiByIDS 根据IDS删除多条数据
 		DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_common_dao.Query, IDS []string) error
+		// DeleteOneCacheByWord 根据word删除一条数据并清理缓存
+		DeleteOneCacheByWord(ctx context.Context, word string) error
+		// DeleteOneCacheByWord 根据word删除一条数据并清理缓存
+		DeleteOneCacheByWordTx(ctx context.Context, tx *fkratos_common_dao.Query, word string) error
+		// DeleteOneByWord 根据word删除一条数据
+		DeleteOneByWord(ctx context.Context, word string) error
+		// DeleteOneByWord 根据word删除一条数据
+		DeleteOneByWordTx(ctx context.Context, tx *fkratos_common_dao.Query, word string) error
+		// DeleteMultiCacheByWords 根据Words删除多条数据并清理缓存
+		DeleteMultiCacheByWords(ctx context.Context, words []string) error
+		// DeleteMultiCacheByWords 根据Words删除多条数据并清理缓存
+		DeleteMultiCacheByWordsTx(ctx context.Context, tx *fkratos_common_dao.Query, words []string) error
+		// DeleteMultiByWords 根据Words删除多条数据
+		DeleteMultiByWords(ctx context.Context, words []string) error
+		// DeleteMultiByWords 根据Words删除多条数据
+		DeleteMultiByWordsTx(ctx context.Context, tx *fkratos_common_dao.Query, words []string) error
 		// DeleteUniqueIndexCache 删除唯一索引存在的缓存
 		DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_common_model.SensitiveWord) error
 	}
@@ -213,130 +213,6 @@ func (s *SensitiveWordRepo) UpdateOneWithZeroByTx(ctx context.Context, tx *fkrat
 		return err
 	}
 	return err
-}
-
-// DeleteOneCacheByWord 根据word删除一条数据并清理缓存
-func (s *SensitiveWordRepo) DeleteOneCacheByWord(ctx context.Context, word string) error {
-	dao := fkratos_common_dao.Use(s.db).SensitiveWord
-	result, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).First()
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return err
-	}
-	if result == nil {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.Word.Eq(word)).Delete()
-	if err != nil {
-		return err
-	}
-	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.SensitiveWord{result})
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteOneCacheByWord 根据word删除一条数据并清理缓存
-func (s *SensitiveWordRepo) DeleteOneCacheByWordTx(ctx context.Context, tx *fkratos_common_dao.Query, word string) error {
-	dao := tx.SensitiveWord
-	result, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).First()
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return err
-	}
-	if result == nil {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.Word.Eq(word)).Delete()
-	if err != nil {
-		return err
-	}
-	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.SensitiveWord{result})
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteOneByWord 根据word删除一条数据
-func (s *SensitiveWordRepo) DeleteOneByWord(ctx context.Context, word string) error {
-	dao := fkratos_common_dao.Use(s.db).SensitiveWord
-	_, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteOneByWord 根据word删除一条数据
-func (s *SensitiveWordRepo) DeleteOneByWordTx(ctx context.Context, tx *fkratos_common_dao.Query, word string) error {
-	dao := tx.SensitiveWord
-	_, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiCacheByWords 根据words删除多条数据并清理缓存
-func (s *SensitiveWordRepo) DeleteMultiCacheByWords(ctx context.Context, words []string) error {
-	dao := fkratos_common_dao.Use(s.db).SensitiveWord
-	result, err := dao.WithContext(ctx).Where(dao.Word.In(words...)).Find()
-	if err != nil {
-		return err
-	}
-	if len(result) == 0 {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.Word.In(words...)).Delete()
-	if err != nil {
-		return err
-	}
-	err = s.DeleteUniqueIndexCache(ctx, result)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiCacheByWords 根据words删除多条数据并清理缓存
-func (s *SensitiveWordRepo) DeleteMultiCacheByWordsTx(ctx context.Context, tx *fkratos_common_dao.Query, words []string) error {
-	dao := tx.SensitiveWord
-	result, err := dao.WithContext(ctx).Where(dao.Word.In(words...)).Find()
-	if err != nil {
-		return err
-	}
-	if len(result) == 0 {
-		return nil
-	}
-	_, err = dao.WithContext(ctx).Where(dao.Word.In(words...)).Delete()
-	if err != nil {
-		return err
-	}
-	err = s.DeleteUniqueIndexCache(ctx, result)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiByWords 根据words删除多条数据
-func (s *SensitiveWordRepo) DeleteMultiByWords(ctx context.Context, words []string) error {
-	dao := fkratos_common_dao.Use(s.db).SensitiveWord
-	_, err := dao.WithContext(ctx).Where(dao.Word.In(words...)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// DeleteMultiByWords 根据words删除多条数据
-func (s *SensitiveWordRepo) DeleteMultiByWordsTx(ctx context.Context, tx *fkratos_common_dao.Query, words []string) error {
-	dao := tx.SensitiveWord
-	_, err := dao.WithContext(ctx).Where(dao.Word.In(words...)).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 // DeleteOneCacheByID 根据ID删除一条数据并清理缓存
@@ -463,12 +339,136 @@ func (s *SensitiveWordRepo) DeleteMultiByIDSTx(ctx context.Context, tx *fkratos_
 	return nil
 }
 
+// DeleteOneCacheByWord 根据word删除一条数据并清理缓存
+func (s *SensitiveWordRepo) DeleteOneCacheByWord(ctx context.Context, word string) error {
+	dao := fkratos_common_dao.Use(s.db).SensitiveWord
+	result, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return err
+	}
+	if result == nil {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.Word.Eq(word)).Delete()
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.SensitiveWord{result})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOneCacheByWord 根据word删除一条数据并清理缓存
+func (s *SensitiveWordRepo) DeleteOneCacheByWordTx(ctx context.Context, tx *fkratos_common_dao.Query, word string) error {
+	dao := tx.SensitiveWord
+	result, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return err
+	}
+	if result == nil {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.Word.Eq(word)).Delete()
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, []*fkratos_common_model.SensitiveWord{result})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOneByWord 根据word删除一条数据
+func (s *SensitiveWordRepo) DeleteOneByWord(ctx context.Context, word string) error {
+	dao := fkratos_common_dao.Use(s.db).SensitiveWord
+	_, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteOneByWord 根据word删除一条数据
+func (s *SensitiveWordRepo) DeleteOneByWordTx(ctx context.Context, tx *fkratos_common_dao.Query, word string) error {
+	dao := tx.SensitiveWord
+	_, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiCacheByWords 根据words删除多条数据并清理缓存
+func (s *SensitiveWordRepo) DeleteMultiCacheByWords(ctx context.Context, words []string) error {
+	dao := fkratos_common_dao.Use(s.db).SensitiveWord
+	result, err := dao.WithContext(ctx).Where(dao.Word.In(words...)).Find()
+	if err != nil {
+		return err
+	}
+	if len(result) == 0 {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.Word.In(words...)).Delete()
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, result)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiCacheByWords 根据words删除多条数据并清理缓存
+func (s *SensitiveWordRepo) DeleteMultiCacheByWordsTx(ctx context.Context, tx *fkratos_common_dao.Query, words []string) error {
+	dao := tx.SensitiveWord
+	result, err := dao.WithContext(ctx).Where(dao.Word.In(words...)).Find()
+	if err != nil {
+		return err
+	}
+	if len(result) == 0 {
+		return nil
+	}
+	_, err = dao.WithContext(ctx).Where(dao.Word.In(words...)).Delete()
+	if err != nil {
+		return err
+	}
+	err = s.DeleteUniqueIndexCache(ctx, result)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiByWords 根据words删除多条数据
+func (s *SensitiveWordRepo) DeleteMultiByWords(ctx context.Context, words []string) error {
+	dao := fkratos_common_dao.Use(s.db).SensitiveWord
+	_, err := dao.WithContext(ctx).Where(dao.Word.In(words...)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// DeleteMultiByWords 根据words删除多条数据
+func (s *SensitiveWordRepo) DeleteMultiByWordsTx(ctx context.Context, tx *fkratos_common_dao.Query, words []string) error {
+	dao := tx.SensitiveWord
+	_, err := dao.WithContext(ctx).Where(dao.Word.In(words...)).Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // DeleteUniqueIndexCache 删除唯一索引存在的缓存
 func (s *SensitiveWordRepo) DeleteUniqueIndexCache(ctx context.Context, data []*fkratos_common_model.SensitiveWord) error {
 	keys := make([]string, 0)
 	for _, v := range data {
-		keys = append(keys, s.cache.Key(cacheSensitiveWordByWordPrefix, v.Word))
 		keys = append(keys, s.cache.Key(cacheSensitiveWordByIDPrefix, v.ID))
+		keys = append(keys, s.cache.Key(cacheSensitiveWordByWordPrefix, v.Word))
 
 	}
 	err := s.cache.DelBatch(ctx, keys)
@@ -476,99 +476,6 @@ func (s *SensitiveWordRepo) DeleteUniqueIndexCache(ctx context.Context, data []*
 		return err
 	}
 	return nil
-}
-
-// FindOneCacheByWord 根据word查询一条数据并设置缓存
-func (s *SensitiveWordRepo) FindOneCacheByWord(ctx context.Context, word string) (*fkratos_common_model.SensitiveWord, error) {
-	resp := new(fkratos_common_model.SensitiveWord)
-	cacheKey := s.cache.Key(cacheSensitiveWordByWordPrefix, word)
-	cacheValue, err := s.cache.Fetch(ctx, cacheKey, func() (string, error) {
-		dao := fkratos_common_dao.Use(s.db).SensitiveWord
-		result, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).First()
-		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-			return "", err
-		}
-		marshal, err := json.Marshal(result)
-		if err != nil {
-			return "", err
-		}
-		return string(marshal), nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal([]byte(cacheValue), resp)
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-
-// FindOneByWord 根据word查询一条数据
-func (s *SensitiveWordRepo) FindOneByWord(ctx context.Context, word string) (*fkratos_common_model.SensitiveWord, error) {
-	dao := fkratos_common_dao.Use(s.db).SensitiveWord
-	result, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).First()
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, err
-	}
-	return result, nil
-}
-
-// FindMultiCacheByWords 根据words查询多条数据并设置缓存
-func (s *SensitiveWordRepo) FindMultiCacheByWords(ctx context.Context, words []string) ([]*fkratos_common_model.SensitiveWord, error) {
-	resp := make([]*fkratos_common_model.SensitiveWord, 0)
-	cacheKeys := make([]string, 0)
-	keyToParam := make(map[string]string)
-	for _, v := range words {
-		cacheKey := s.cache.Key(cacheSensitiveWordByWordPrefix, v)
-		cacheKeys = append(cacheKeys, cacheKey)
-		keyToParam[cacheKey] = v
-	}
-	cacheValue, err := s.cache.FetchBatch(ctx, cacheKeys, func(miss []string) (map[string]string, error) {
-		parameters := make([]string, 0)
-		for _, v := range miss {
-			parameters = append(parameters, keyToParam[v])
-		}
-		dao := fkratos_common_dao.Use(s.db).SensitiveWord
-		result, err := dao.WithContext(ctx).Where(dao.Word.In(parameters...)).Find()
-		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, err
-		}
-		value := make(map[string]string)
-		for _, v := range miss {
-			value[v] = ""
-		}
-		for _, v := range result {
-			marshal, err := json.Marshal(v)
-			if err != nil {
-				return nil, err
-			}
-			value[s.cache.Key(cacheSensitiveWordByWordPrefix, v.Word)] = string(marshal)
-		}
-		return value, nil
-	})
-	if err != nil {
-		return nil, err
-	}
-	for _, v := range cacheValue {
-		tmp := new(fkratos_common_model.SensitiveWord)
-		err := json.Unmarshal([]byte(v), tmp)
-		if err != nil {
-			return nil, err
-		}
-		resp = append(resp, tmp)
-	}
-	return resp, nil
-}
-
-// FindMultiByWords 根据words查询多条数据
-func (s *SensitiveWordRepo) FindMultiByWords(ctx context.Context, words []string) ([]*fkratos_common_model.SensitiveWord, error) {
-	dao := fkratos_common_dao.Use(s.db).SensitiveWord
-	result, err := dao.WithContext(ctx).Where(dao.Word.In(words...)).Find()
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
 }
 
 // FindOneCacheByID 根据ID查询一条数据并设置缓存
@@ -664,13 +571,106 @@ func (s *SensitiveWordRepo) FindMultiByIDS(ctx context.Context, IDS []string) ([
 	return result, nil
 }
 
+// FindOneCacheByWord 根据word查询一条数据并设置缓存
+func (s *SensitiveWordRepo) FindOneCacheByWord(ctx context.Context, word string) (*fkratos_common_model.SensitiveWord, error) {
+	resp := new(fkratos_common_model.SensitiveWord)
+	cacheKey := s.cache.Key(cacheSensitiveWordByWordPrefix, word)
+	cacheValue, err := s.cache.Fetch(ctx, cacheKey, func() (string, error) {
+		dao := fkratos_common_dao.Use(s.db).SensitiveWord
+		result, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).First()
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+			return "", err
+		}
+		marshal, err := json.Marshal(result)
+		if err != nil {
+			return "", err
+		}
+		return string(marshal), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal([]byte(cacheValue), resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
+
+// FindOneByWord 根据word查询一条数据
+func (s *SensitiveWordRepo) FindOneByWord(ctx context.Context, word string) (*fkratos_common_model.SensitiveWord, error) {
+	dao := fkratos_common_dao.Use(s.db).SensitiveWord
+	result, err := dao.WithContext(ctx).Where(dao.Word.Eq(word)).First()
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
+	}
+	return result, nil
+}
+
+// FindMultiCacheByWords 根据words查询多条数据并设置缓存
+func (s *SensitiveWordRepo) FindMultiCacheByWords(ctx context.Context, words []string) ([]*fkratos_common_model.SensitiveWord, error) {
+	resp := make([]*fkratos_common_model.SensitiveWord, 0)
+	cacheKeys := make([]string, 0)
+	keyToParam := make(map[string]string)
+	for _, v := range words {
+		cacheKey := s.cache.Key(cacheSensitiveWordByWordPrefix, v)
+		cacheKeys = append(cacheKeys, cacheKey)
+		keyToParam[cacheKey] = v
+	}
+	cacheValue, err := s.cache.FetchBatch(ctx, cacheKeys, func(miss []string) (map[string]string, error) {
+		parameters := make([]string, 0)
+		for _, v := range miss {
+			parameters = append(parameters, keyToParam[v])
+		}
+		dao := fkratos_common_dao.Use(s.db).SensitiveWord
+		result, err := dao.WithContext(ctx).Where(dao.Word.In(parameters...)).Find()
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, err
+		}
+		value := make(map[string]string)
+		for _, v := range miss {
+			value[v] = ""
+		}
+		for _, v := range result {
+			marshal, err := json.Marshal(v)
+			if err != nil {
+				return nil, err
+			}
+			value[s.cache.Key(cacheSensitiveWordByWordPrefix, v.Word)] = string(marshal)
+		}
+		return value, nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	for _, v := range cacheValue {
+		tmp := new(fkratos_common_model.SensitiveWord)
+		err := json.Unmarshal([]byte(v), tmp)
+		if err != nil {
+			return nil, err
+		}
+		resp = append(resp, tmp)
+	}
+	return resp, nil
+}
+
+// FindMultiByWords 根据words查询多条数据
+func (s *SensitiveWordRepo) FindMultiByWords(ctx context.Context, words []string) ([]*fkratos_common_model.SensitiveWord, error) {
+	dao := fkratos_common_dao.Use(s.db).SensitiveWord
+	result, err := dao.WithContext(ctx).Where(dao.Word.In(words...)).Find()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
 // FindMultiByPaginator 查询分页数据(通用)
 func (s *SensitiveWordRepo) FindMultiByPaginator(ctx context.Context, paginatorReq *orm.PaginatorReq) ([]*fkratos_common_model.SensitiveWord, *orm.PaginatorReply, error) {
 	result := make([]*fkratos_common_model.SensitiveWord, 0)
 	var total int64
 	whereExpressions, orderExpressions, err := paginatorReq.ConvertToGormExpression(fkratos_common_model.SensitiveWord{})
 	if err != nil {
-		return nil, nil, err
+		return result, nil, err
 	}
 	err = s.db.WithContext(ctx).Model(&fkratos_common_model.SensitiveWord{}).Select([]string{"*"}).Clauses(whereExpressions...).Count(&total).Error
 	if err != nil {
