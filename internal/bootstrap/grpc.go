@@ -3,12 +3,12 @@ package bootstrap
 import (
 	"context"
 	"fkratos/internal/bootstrap/conf"
+	"fkratos/internal/middleware/logging"
 	"fkratos/internal/middleware/validate"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware"
 	"github.com/go-kratos/kratos/v2/middleware/circuitbreaker"
-	"github.com/go-kratos/kratos/v2/middleware/logging"
 	"github.com/go-kratos/kratos/v2/middleware/metadata"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/middleware/tracing"

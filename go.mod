@@ -1,11 +1,14 @@
 module fkratos
 
-go 1.20
+go 1.21
+
+toolchain go1.21.4
 
 require (
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.31.0-20231030212536-12f9cba37c9d.2
 	github.com/emicklei/proto v1.12.1
 	github.com/envoyproxy/protoc-gen-validate v1.0.2
-	github.com/fzf-labs/fpkg v1.8.5
+	github.com/fzf-labs/fpkg v1.8.7
 	github.com/go-kratos/kratos/contrib/config/apollo/v2 v2.0.0-20230830131453-6c026bce56a9
 	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/config/etcd/v2 v2.0.0-20230808051727-7888107c4b4f
@@ -14,12 +17,13 @@ require (
 	github.com/go-kratos/kratos/contrib/log/aliyun/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/log/tencent/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/log/zap/v2 v2.0.0-20230808051727-7888107c4b4f
+	github.com/go-kratos/kratos/contrib/log/zerolog/v2 v2.0.0-20231116090954-1e4e37ad8735
 	github.com/go-kratos/kratos/contrib/metrics/prometheus/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/registry/consul/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/registry/etcd/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/registry/kubernetes/v2 v2.0.0-20230808051727-7888107c4b4f
 	github.com/go-kratos/kratos/contrib/registry/nacos/v2 v2.0.0-20230808051727-7888107c4b4f
-	github.com/go-kratos/kratos/v2 v2.7.0
+	github.com/go-kratos/kratos/v2 v2.7.1
 	github.com/google/wire v0.5.0
 	github.com/gorilla/handlers v1.5.1
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.0
@@ -33,6 +37,7 @@ require (
 	github.com/prometheus/client_golang v1.16.0
 	github.com/redis/go-redis/v9 v9.1.0
 	github.com/redis/rueidis v1.0.21
+	github.com/rs/zerolog v1.31.0
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/viper v1.16.0
 	go.etcd.io/etcd/client/v3 v3.5.9
@@ -45,9 +50,9 @@ require (
 	go.opentelemetry.io/otel/sdk v1.19.0
 	go.uber.org/automaxprocs v1.5.3
 	go.uber.org/zap v1.25.0
-	golang.org/x/exp v0.0.0-20230811145659-89c5cff77bcb
+	golang.org/x/exp v0.0.0-20230817173708-d852ddb80c63
 	golang.org/x/text v0.13.0
-	golang.org/x/tools v0.12.0
+	golang.org/x/tools v0.12.1-0.20230815132531-74c255bcf846
 	google.golang.org/genproto/googleapis/api v0.0.0-20230711160842-782d3b101e98
 	google.golang.org/grpc v1.58.2
 	google.golang.org/protobuf v1.31.0
@@ -77,7 +82,7 @@ require (
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
 	github.com/chenzhuoyu/iasm v0.9.0 // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
-	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
+	github.com/coreos/go-systemd/v22 v22.5.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/emicklei/go-restful/v3 v3.9.0 // indirect
@@ -136,8 +141,8 @@ require (
 	github.com/longbridgeapp/sqlparser v0.3.1 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/mattn/go-colorable v0.1.12 // indirect
-	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
@@ -185,7 +190,7 @@ require (
 	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/oauth2 v0.10.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/sys v0.13.0 // indirect
+	golang.org/x/sys v0.14.0 // indirect
 	golang.org/x/term v0.13.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
@@ -197,7 +202,7 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/hints v1.1.2 // indirect
 	gorm.io/plugin/opentelemetry v0.1.3 // indirect
-	gorm.io/sharding v0.5.3 // indirect
+	gorm.io/sharding v0.6.0 // indirect
 	k8s.io/api v0.27.0 // indirect
 	k8s.io/apimachinery v0.27.0 // indirect
 	k8s.io/klog/v2 v2.90.1 // indirect

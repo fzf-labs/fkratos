@@ -16,71 +16,15 @@
     "application/json"
   ],
   "paths": {
-    "/api/v1/createUser": {
-      "post": {
-        "summary": "创建用户",
-        "operationId": "User_CreateUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateUserReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateUserReq"
-            }
-          }
-        ],
-        "tags": [
-          "User"
-        ]
-      }
-    },
-    "/api/v1/deleteUser": {
-      "delete": {
-        "summary": "删除用户",
-        "operationId": "User_DeleteUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1DeleteUserReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "User"
-        ]
-      }
-    },
-    "/api/v1/getUser": {
+    "/api/user/v1/getUserInfo": {
       "get": {
         "summary": "获取单个用户",
-        "operationId": "User_GetUser",
+        "operationId": "User_GetUserInfo",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetUserReply"
+              "$ref": "#/definitions/v1GetUserInfoReply"
             }
           },
           "default": {
@@ -90,62 +34,6 @@
             }
           }
         },
-        "tags": [
-          "User"
-        ]
-      }
-    },
-    "/api/v1/listUser": {
-      "get": {
-        "summary": "获取用户列表",
-        "operationId": "User_ListUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ListUserReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "tags": [
-          "User"
-        ]
-      }
-    },
-    "/api/v1/updateUser": {
-      "put": {
-        "summary": "更新用户",
-        "operationId": "User_UpdateUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UpdateUserReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "apiInfo",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1UserInfo"
-            }
-          }
-        ],
         "tags": [
           "User"
         ]
@@ -181,32 +69,9 @@
         }
       }
     },
-    "v1CreateUserReply": {
-      "type": "object",
-      "title": "响应-创建用户"
-    },
-    "v1CreateUserReq": {
-      "type": "object",
-      "title": "请求-创建用户"
-    },
-    "v1DeleteUserReply": {
-      "type": "object",
-      "title": "响应-删除用户"
-    },
-    "v1GetUserReply": {
+    "v1GetUserInfoReply": {
       "type": "object",
       "title": "响应-获取单个用户"
-    },
-    "v1ListUserReply": {
-      "type": "object",
-      "title": "响应-获取用户列表"
-    },
-    "v1UpdateUserReply": {
-      "type": "object",
-      "title": "响应-更新用户"
-    },
-    "v1UserInfo": {
-      "type": "object"
     }
   }
 }

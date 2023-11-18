@@ -17,22 +17,32 @@ func (s *SysAdminUseCase) SysManageInfo(ctx context.Context, req *pb.SysManageIn
 		return nil, err
 	}
 	if sysAdmin != nil {
+		roleIDToNameByIds := make(map[string]string)
+		jobIDToNameByIds := make(map[string]string)
+		deptIDToNameByIds := make(map[string]string)
 		tmpRoleIds := make([]string, 0)
 		err2 := jsonutil.Unmarshal(sysAdmin.RoleIds, &tmpRoleIds)
 		if err2 != nil {
 			return nil, err2
 		}
-		roleIDToNameByIds, err2 := s.sysRoleRepo.GetRoleIDToNameByIds(ctx, tmpRoleIds)
-		if err2 != nil {
-			return nil, err2
+		if len(tmpRoleIds) > 0 {
+			roleIDToNameByIds, err2 = s.sysRoleRepo.GetRoleIDToNameByIds(ctx, tmpRoleIds)
+			if err2 != nil {
+				return nil, err2
+			}
 		}
-		jobIDToNameByIds, err2 := s.sysJobRepo.GetJobIDToNameByIds(ctx, []string{sysAdmin.JobID})
-		if err2 != nil {
-			return nil, err2
+		if sysAdmin.JobID != "" {
+			jobIDToNameByIds, err2 = s.sysJobRepo.GetJobIDToNameByIds(ctx, []string{sysAdmin.JobID})
+			if err2 != nil {
+				return nil, err2
+			}
+
 		}
-		deptIDToNameByIds, err2 := s.sysDeptRepo.GetDeptIDToNameByIds(ctx, []string{sysAdmin.DeptID})
-		if err2 != nil {
-			return nil, err2
+		if sysAdmin.DeptID != "" {
+			deptIDToNameByIds, err2 = s.sysDeptRepo.GetDeptIDToNameByIds(ctx, []string{sysAdmin.DeptID})
+			if err2 != nil {
+				return nil, err2
+			}
 		}
 		roleNames := make([]string, 0)
 		for _, v := range tmpRoleIds {

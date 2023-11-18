@@ -7,6 +7,8 @@ import (
 	aliyunLogger "github.com/go-kratos/kratos/contrib/log/aliyun/v2"
 	tencentLogger "github.com/go-kratos/kratos/contrib/log/tencent/v2"
 	zapLogger "github.com/go-kratos/kratos/contrib/log/zap/v2"
+	zeroLogger "github.com/go-kratos/kratos/contrib/log/zerolog/v2"
+	"github.com/rs/zerolog"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -20,6 +22,7 @@ type LoggerType string
 const (
 	LoggerTypeStd     LoggerType = "std"
 	LoggerTypeZap     LoggerType = "zap"
+	LoggerTypeZerolog LoggerType = "zerolog"
 	LoggerTypeAliyun  LoggerType = "aliyun"
 	LoggerTypeTencent LoggerType = "tencent"
 )
@@ -52,6 +55,8 @@ func NewLogger(cfg *conf.Logger) log.Logger {
 		return NewStdLogger()
 	case LoggerTypeZap:
 		return NewZapLogger(cfg)
+	case LoggerTypeZerolog:
+		return NewZeroLogger(cfg)
 	case LoggerTypeAliyun:
 		return NewAliyunLogger(cfg)
 	case LoggerTypeTencent:
@@ -94,6 +99,12 @@ func NewZapLogger(cfg *conf.Logger) log.Logger {
 	wrapped := zapLogger.NewLogger(logger)
 
 	return wrapped
+}
+
+func NewZeroLogger(cfg *conf.Logger) log.Logger {
+	zerolog.TimeFieldFormat = zerolog.TimeFormatUnixMs // 时间格式
+	logger := zerolog.New(os.Stdout)
+	return zeroLogger.NewLogger(&logger)
 }
 
 // NewAliyunLogger 创建一个新的日志记录器 - Aliyun

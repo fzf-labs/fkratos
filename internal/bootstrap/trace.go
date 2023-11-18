@@ -63,9 +63,9 @@ func NewTracerExporter(exporterName, endpoint string, insecure bool) (traceSdk.S
 		return NewZipkinExporter(endpoint)
 	case "jaeger":
 		return nil, errors.New("jaeger exporter is no longer supported, please use otlp-http or otlp-grpc replace it")
-	case "otlp-http":
+	case "otlphttp":
 		return NewOtlpHTTPExporter(ctx, endpoint, insecure)
-	case "otlp-grpc":
+	case "otlpgrpc":
 		return NewOtlpGrpcExporter(ctx, endpoint, insecure)
 	case "stdout":
 		return NewStdoutExporter()

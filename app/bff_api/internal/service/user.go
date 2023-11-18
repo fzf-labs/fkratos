@@ -1,23 +1,25 @@
 package service
 
 import (
-	userV1 "fkratos/api/rpc_user/v1"
-
 	pb "fkratos/api/bff_api/v1"
+	"fkratos/app/bff_api/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
 )
 
-type UserService struct {
-	pb.UnimplementedUserServer
-	log        *log.Helper
-	userClient userV1.UserClient
+func NewUserService(
+	logger log.Logger,
+	userUseCase *biz.UserUseCase,
+) *UserService {
+	l := log.NewHelper(log.With(logger, "module", "service/user"))
+	return &UserService{
+		log:         l,
+		userUseCase: userUseCase,
+	}
 }
 
-func NewUserService(logger log.Logger, userClient userV1.UserClient) *UserService {
-	l := log.NewHelper(log.With(logger, "module", "bff_admin/service/sys"))
-	return &UserService{
-		log:        l,
-		userClient: userClient,
-	}
+type UserService struct {
+	pb.UnimplementedUserServer
+	log         *log.Helper
+	userUseCase *biz.UserUseCase
 }

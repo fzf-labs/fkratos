@@ -2,72 +2,23 @@ syntax = "proto3";
 
 package api.bff_api.v1;
 
-option go_package = "fkratos/api/api/v1;v1";
-
 import "google/api/annotations.proto";
+
+option go_package = "fkratos/api/bff_api/v1;v1";
 // 变量的命名一律使用小驼峰命名法，例如：firstName、lastName等。
 // 后缀定义:请求req,响应reply
 
-
 // 用户服务
 service User {
-  //创建用户
-  rpc CreateUser (CreateUserReq) returns (CreateUserReply){
-    option (google.api.http) = {
-      post: "/api/v1/createUser"
-      body: "*"
-    };
-  };
-  //更新用户
-  rpc UpdateUser (UpdateUserReq) returns (UpdateUserReply){
-    option (google.api.http) = {
-      put: "/api/v1/updateUser"
-      body: "apiInfo"
-    };
-  };
-  //删除用户
-  rpc DeleteUser (DeleteUserReq) returns (DeleteUserReply){
-    option (google.api.http) = {
-      delete: "/api/v1/deleteUser"
-    };
-  };
   //获取单个用户
-  rpc GetUser (GetUserReq) returns (GetUserReply){
-    option (google.api.http) = {
-      get: "/api/v1/getUser"
-    };
-  };
-  //获取用户列表
-  rpc ListUser (ListUserReq) returns (ListUserReply){
-    option (google.api.http) = {
-      get: "/api/v1/listUser"
-    };
-  };
+  rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoReply) {
+    option (google.api.http) = {get: "/api/user/v1/getUserInfo"};
+  }
 }
-message UserInfo{
+message UserInfo {}
 
-}
-//请求-创建用户
-message CreateUserReq {}
-//响应-创建用户
-message CreateUserReply {}
-//请求-更新用户
-message UpdateUserReq {
-  UserInfo apiInfo = 1;
-}
-//响应-更新用户
-message UpdateUserReply {
-
-}
-//请求-删除用户
-message DeleteUserReq {}
-//响应-删除用户
-message DeleteUserReply {}
 //请求-获取单个用户
-message GetUserReq {}
+message GetUserInfoReq {}
+
 //响应-获取单个用户
-message GetUserReply {}
-//请求-获取用户列表
-message ListUserReq {}
-//响应-获取用户列表
-message ListUserReply {}
+message GetUserInfoReply {}
