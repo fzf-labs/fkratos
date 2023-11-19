@@ -29,12 +29,12 @@ func (d *DeviceUseCase) DeviceStore(ctx context.Context, req *pb.DeviceStoreReq)
 	if device.ID != "" {
 		err := d.deviceRepo.UpdateOneWithZero(ctx, device)
 		if err != nil {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 	} else {
 		err := d.deviceRepo.CreateOne(ctx, device)
 		if err != nil {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 	}
 	resp.ID = device.ID

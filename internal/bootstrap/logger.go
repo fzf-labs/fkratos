@@ -56,7 +56,7 @@ func NewLogger(cfg *conf.Logger) log.Logger {
 	case LoggerTypeZap:
 		return NewZapLogger(cfg)
 	case LoggerTypeZerolog:
-		return NewZeroLogger(cfg)
+		return NewZeroLogger()
 	case LoggerTypeAliyun:
 		return NewAliyunLogger(cfg)
 	case LoggerTypeTencent:
@@ -101,7 +101,7 @@ func NewZapLogger(cfg *conf.Logger) log.Logger {
 	return wrapped
 }
 
-func NewZeroLogger(cfg *conf.Logger) log.Logger {
+func NewZeroLogger() log.Logger {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnixMs // 时间格式
 	logger := zerolog.New(os.Stdout)
 	return zeroLogger.NewLogger(&logger)

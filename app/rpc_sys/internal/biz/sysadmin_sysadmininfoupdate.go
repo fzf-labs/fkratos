@@ -14,16 +14,16 @@ func (s *SysAdminUseCase) SysAdminInfoUpdate(ctx context.Context, req *pb.SysAdm
 	resp := new(pb.SysAdminInfoUpdateReply)
 	sysAdminInfo, err := s.sysAdminRepo.FindOneCacheByID(ctx, req.GetAdminId())
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	if sysAdminInfo == nil {
-		return nil, errorx.AccountNotExist
+		return nil, errorx.AccountNotExist.Err()
 	}
 	var pwd string
 	if req.Password != "" {
 		pwd, err = crypt.Encrypt(req.Password + sysAdminInfo.Salt)
 		if err != nil {
-			return resp, errorx.DataProcessingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return resp, errorx.DataProcessingError.WithError(err).Err()
 		}
 	}
 	sysAdminInfo.Password = pwd
@@ -33,7 +33,7 @@ func (s *SysAdminUseCase) SysAdminInfoUpdate(ctx context.Context, req *pb.SysAdm
 	sysAdminInfo.Motto = req.Motto
 	err = s.sysAdminRepo.UpdateOne(ctx, sysAdminInfo)
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	return resp, nil
 }

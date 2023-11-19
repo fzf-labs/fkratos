@@ -40,7 +40,7 @@ func (s *SysRoleRepo) SysRoleInfoByIds(ctx context.Context, ids []string) ([]*fk
 	sysRoleDao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	sysRoles, err := sysRoleDao.WithContext(ctx).Where(sysRoleDao.ID.In(ids...)).Find()
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	return sysRoles, nil
 }
@@ -49,7 +49,7 @@ func (s *SysRoleRepo) SysRoleList(ctx context.Context) ([]*fkratos_sys_model.Sys
 	sysRoleDao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	sysRoles, err := sysRoleDao.WithContext(ctx).Find()
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	return sysRoles, nil
 }
@@ -67,12 +67,12 @@ func (s *SysRoleRepo) SysRoleStore(ctx context.Context, req *v1.SysRoleStoreReq)
 	if req.Id != "" {
 		_, err := sysRoleDao.WithContext(ctx).Where(sysRoleDao.ID.Eq(req.Id)).Select(sysRoleDao.Pid, sysRoleDao.Name, sysRoleDao.PermissionIds, sysRoleDao.Remark, sysRoleDao.Status).Updates(model)
 		if err != nil {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 	} else {
 		err := sysRoleDao.WithContext(ctx).Create(model)
 		if err != nil {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 	}
 
@@ -84,7 +84,7 @@ func (s *SysRoleRepo) GetRoleIDToNameByIds(ctx context.Context, ids []string) (m
 	dao := fkratos_sys_dao.Use(s.data.gorm).SysRole
 	results, err := dao.WithContext(ctx).Where(dao.ID.In(ids...)).Find()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	for _, v := range results {
 		resp[v.ID] = v.Name

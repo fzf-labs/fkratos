@@ -47,7 +47,7 @@ func NewHTTPServer(cfg *conf.Bootstrap, logger log.Logger, m ...middleware.Middl
 	if cfg.Server.Http.Timeout != nil {
 		opts = append(opts, http.Timeout(cfg.Server.Http.Timeout.AsDuration()))
 	}
-	opts = append(opts, http.ErrorEncoder(errorx.ErrorEncoder))
+	opts = append(opts, http.ErrorEncoder(errorx.HTTPErrorEncoder(errorx.Manager)))
 	srv := http.NewServer(opts...)
 	srv.Handle("/metrics", promhttp.Handler())
 	return srv

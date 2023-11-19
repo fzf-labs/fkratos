@@ -12,7 +12,7 @@ func (s *UserRuleUseCase) UserRuleDel(ctx context.Context, req *pb.UserRuleDelRe
 	var resp = &pb.UserRuleDelReply{}
 	err := s.userRuleRepo.DeleteMultiCacheByIDS(ctx, req.GetIds())
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	return resp, nil
 }

@@ -52,7 +52,7 @@ func (s *SysAdminRepo) GetAdminIDToNameByIds(ctx context.Context, ids []string) 
 	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	sysAdmins, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.In(ids...)).Find()
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	for _, v := range sysAdmins {
 		res[v.ID] = v.Username
@@ -64,7 +64,7 @@ func (s *SysAdminRepo) SysAdminDel(ctx context.Context, ids []string) error {
 	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	_, err := sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.In(ids...)).Delete()
 	if err != nil {
-		return errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return errorx.DataSQLErr.WithError(err).Err()
 	}
 	return nil
 }
@@ -73,7 +73,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *pb.SysManageStor
 	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
 	roleIds, err := jsonutil.Marshal(req.RoleIds)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	var sysAdmin *fkratos_sys_model.SysAdmin
 	if req.Id == "" {
@@ -83,7 +83,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *pb.SysManageStor
 		salt := strutil.Random(16)
 		pwd, err2 := crypt.Encrypt(req.Password + salt)
 		if err2 != nil {
-			return nil, errorx.DataProcessingError.WithCause(err2).WithMetadata(errorx.SetErrMetadata(err2))
+			return nil, errorx.DataProcessingError.WithError(err2).Err()
 		}
 		sysAdmin = &fkratos_sys_model.SysAdmin{
 			Username: req.Username,
@@ -102,20 +102,20 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *pb.SysManageStor
 		}
 		err2 = sysAdminDao.WithContext(ctx).Create(sysAdmin)
 		if err2 != nil {
-			return nil, errorx.DataSQLErr.WithCause(err2).WithMetadata(errorx.SetErrMetadata(err2))
+			return nil, errorx.DataSQLErr.WithError(err2).Err()
 		}
 	} else {
 		sysAdmin, err = sysAdminDao.WithContext(ctx).Where(sysAdminDao.ID.Eq(req.Id)).First()
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 		if sysAdmin == nil {
-			return nil, errorx.AccountNotExist
+			return nil, errorx.AccountNotExist.Err()
 		}
 		if req.Password != "" {
 			pwd, err2 := crypt.Encrypt(req.Password + sysAdmin.Salt)
 			if err2 != nil {
-				return nil, errorx.DataProcessingError.WithCause(err2).WithMetadata(errorx.SetErrMetadata(err2))
+				return nil, errorx.DataProcessingError.WithError(err2).Err()
 			}
 			sysAdmin.Password = pwd
 		}
@@ -133,7 +133,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *pb.SysManageStor
 			sysAdminDao.Motto,
 		).Where(sysAdminDao.ID.Eq(req.Id)).Updates(sysAdmin)
 		if err != nil {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 	}
 	return sysAdmin, nil
@@ -164,11 +164,11 @@ func (s *SysAdminRepo) GenerateJwTToken(_ context.Context, kv map[string]interfa
 	}, s.jwtCache)
 	token, claims, err := jwtClient.GenerateToken(kv)
 	if err != nil {
-		return nil, errorx.TokenGenerationFailed.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.TokenGenerationFailed.WithError(err).Err()
 	}
 	err = jwtClient.JwtTokenStore(claims)
 	if err != nil {
-		return nil, errorx.TokenStorageFailed
+		return nil, errorx.TokenStorageFailed.Err()
 	}
 	return token, nil
 }
@@ -184,9 +184,9 @@ func (s *SysAdminRepo) SysAuthJwtTokenCheck(_ context.Context, token string) (st
 	claims, err := jwtClient.ParseToken(token)
 	if err != nil {
 		if errors.Is(err, jwt.TokenExpired) {
-			return "", errorx.TokenExpired
+			return "", errorx.TokenExpired.Err()
 		}
-		return "", errorx.TokenInvalidErr
+		return "", errorx.TokenInvalidErr.Err()
 	}
 	return conv.String(claims["uid"]), nil
 }

@@ -12,7 +12,7 @@ func (d *DeviceUseCase) DeviceDel(ctx context.Context, req *pb.DeviceDelReq) (*p
 	resp := &pb.DeviceDelReply{}
 	err := d.deviceRepo.DeleteMultiCacheByIDS(ctx, req.GetIDS())
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	return resp, nil
 }

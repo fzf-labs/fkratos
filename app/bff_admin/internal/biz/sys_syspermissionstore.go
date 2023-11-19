@@ -35,7 +35,7 @@ func (s *SysUseCase) SysPermissionStore(ctx context.Context, req *pb.SysPermissi
 	}
 	err = copier.Copy(resp, result)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	return resp, nil
 }

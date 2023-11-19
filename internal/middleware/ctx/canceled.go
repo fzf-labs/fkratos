@@ -27,7 +27,7 @@ func Canceled() middleware.Middleware {
 				panic(p)
 			case <-ctx.Done():
 				if errors.Is(ctx.Err(), context.Canceled) {
-					return nil, errorx.RequestCanceledErr.WithMetadata(errorx.SetErrMetadata(ctx.Err())).WithCause(ctx.Err())
+					return nil, errorx.RequestCanceledErr.WithError(err).Err()
 				}
 				return nil, ctx.Err()
 			case <-done:

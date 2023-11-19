@@ -51,12 +51,12 @@ func (s *SysDeptRepo) SysDeptStore(ctx context.Context, req *pb.SysDeptStoreReq)
 	if req.Id != "" {
 		_, err := sysDeptDao.WithContext(ctx).Select(sysDeptDao.Pid, sysDeptDao.Name, sysDeptDao.FullName, sysDeptDao.Responsible, sysDeptDao.Phone, sysDeptDao.Email, sysDeptDao.Type, sysDeptDao.Status, sysDeptDao.Sort).Where(sysDeptDao.ID.Eq(req.Id)).Updates(sysDept)
 		if err != nil {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 	} else {
 		err := sysDeptDao.WithContext(ctx).Create(sysDept)
 		if err != nil {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 	}
 	return sysDept, nil
@@ -67,7 +67,7 @@ func (s *SysDeptRepo) SysDeptList(ctx context.Context) ([]*pb.SysDeptInfo, error
 	sysDeptDao := fkratos_sys_dao.Use(s.data.gorm).SysDept
 	results, err := sysDeptDao.WithContext(ctx).Find()
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	for _, role := range results {
 		resp = append(resp, &pb.SysDeptInfo{
@@ -157,7 +157,7 @@ func (s *SysDeptRepo) GetDeptIDToNameByIds(ctx context.Context, ids []string) (m
 	dao := fkratos_sys_dao.Use(s.data.gorm).SysDept
 	results, err := dao.WithContext(ctx).Where(dao.ID.In(ids...)).Find()
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	for _, v := range results {
 		resp[v.ID] = v.Name

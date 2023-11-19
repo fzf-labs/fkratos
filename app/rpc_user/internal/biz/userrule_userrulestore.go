@@ -30,7 +30,7 @@ func (s *UserRuleUseCase) UserRuleStore(ctx context.Context, req *pb.UserRuleSto
 	}
 	err := s.userRuleRepo.UpsertOne(ctx, userRule)
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	resp.Id = userRule.ID
 	return resp, nil

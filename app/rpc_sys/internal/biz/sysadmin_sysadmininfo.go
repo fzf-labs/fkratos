@@ -23,7 +23,7 @@ func (s *SysAdminUseCase) SysAdminInfo(ctx context.Context, req *pb.SysAdminInfo
 	if sysAdmin.RoleIds.String() != "" {
 		err = jsonutil.Unmarshal(sysAdmin.RoleIds, &roleIds)
 		if err != nil {
-			return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataFormattingError.WithError(err).Err()
 		}
 	}
 	resp.Info = &pb.SysAdminInfo{

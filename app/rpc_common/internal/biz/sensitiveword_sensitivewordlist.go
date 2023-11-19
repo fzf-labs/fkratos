@@ -19,16 +19,16 @@ func (s *SensitiveWordUseCase) SensitiveWordList(ctx context.Context, req *pb.Se
 	paginatorReq := &orm.PaginatorReq{}
 	err := dto.Copy(paginatorReq, req)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	result, paginatorReply, err := s.sensitiveWordRepo.FindMultiByPaginator(ctx, paginatorReq)
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	for _, v := range result {
 		labs := make([]string, 0)
 		if err = jsonutil.Unmarshal(v.Labs, &labs); err != nil {
-			return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataFormattingError.WithError(err).Err()
 		}
 		resp.List = append(resp.List, &pb.SensitiveWordInfo{
 			Id:        v.ID,

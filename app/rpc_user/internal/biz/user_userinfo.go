@@ -19,7 +19,7 @@ func (u *UserUseCase) UserInfo(ctx context.Context, req *pb.UserInfoReq) (*pb.Us
 	}
 	err = dto.Copy(&resp.Info, result)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	return resp, nil
 }

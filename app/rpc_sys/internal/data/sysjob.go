@@ -40,7 +40,7 @@ func (s *SysJobRepo) SysJobInfoByID(ctx context.Context, id string) (*v1.SysJobI
 	sysJobDao := fkratos_sys_dao.Use(s.data.gorm).SysJob
 	sysJob, err := sysJobDao.WithContext(ctx).Where(sysJobDao.ID.Eq(id)).First()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	return &v1.SysJobInfo{
 		Id:        sysJob.ID,
@@ -57,8 +57,8 @@ func (s *SysJobRepo) SysJobInfoByID(ctx context.Context, id string) (*v1.SysJobI
 func (s *SysJobRepo) SysJobDelByIds(ctx context.Context, ids []string) error {
 	sysJobDao := fkratos_sys_dao.Use(s.data.gorm).SysJob
 	_, err := sysJobDao.WithContext(ctx).Where(sysJobDao.ID.In(ids...)).Delete()
-	if err != nil && err != gorm.ErrRecordNotFound {
-		return errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return errorx.DataSQLErr.WithError(err).Err()
 	}
 	return nil
 }
@@ -75,12 +75,12 @@ func (s *SysJobRepo) SysJobStore(ctx context.Context, req *v1.SysJobStoreReq) (*
 	if req.Id != "" {
 		_, err := sysJobDao.WithContext(ctx).Select(sysJobDao.Name, sysJobDao.Code, sysJobDao.Remark, sysJobDao.Sort, sysJobDao.Status).Where(sysJobDao.ID.Eq(req.Id)).Updates(sysJob)
 		if err != nil {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 	} else {
 		err := sysJobDao.WithContext(ctx).Create(sysJob)
 		if err != nil {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 	}
 	return sysJob, nil
@@ -91,7 +91,7 @@ func (s *SysJobRepo) GetJobIDToNameByIds(ctx context.Context, ids []string) (map
 	dao := fkratos_sys_dao.Use(s.data.gorm).SysJob
 	results, err := dao.WithContext(ctx).Where(dao.ID.In(ids...)).Find()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	for _, v := range results {
 		resp[v.ID] = v.Name

@@ -20,7 +20,7 @@ func (s *SysAdminUseCase) SysAdminPermission(ctx context.Context, req *pb.SysAdm
 		return nil, err
 	}
 	if sysAdmin.RoleIds == nil {
-		return nil, errorx.AccountNotBoundRole
+		return nil, errorx.AccountNotBoundRole.Err()
 	}
 	roleIds := make([]string, 0)
 	err = jsonutil.Unmarshal(sysAdmin.RoleIds, &roleIds)
@@ -32,7 +32,7 @@ func (s *SysAdminUseCase) SysAdminPermission(ctx context.Context, req *pb.SysAdm
 		return nil, err
 	}
 	if len(sysRoles) == 0 {
-		return nil, errorx.AccountNotBoundRole
+		return nil, errorx.AccountNotBoundRole.Err()
 	}
 	var super bool
 	permissionIds := make([]string, 0)
@@ -60,7 +60,7 @@ func (s *SysAdminUseCase) SysAdminPermission(ctx context.Context, req *pb.SysAdm
 		}
 	}
 	if len(permissions) == 0 {
-		return nil, errorx.AccountNotBoundRole
+		return nil, errorx.AccountNotBoundRole.Err()
 	}
 	menus := make([]*pb.SysPermissionInfo, 0)
 	for _, v := range permissions {

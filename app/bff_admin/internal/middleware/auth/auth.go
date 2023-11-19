@@ -41,13 +41,13 @@ func Auth(authClient sysV1.SysAuthClient) middleware.Middleware {
 				authorization := tr.Header.Get("Authorization")
 				// 不存在则报错
 				if authorization == "" {
-					return nil, errorx.TokenNotRequest
+					return nil, errorx.TokenNotRequest.Err()
 				}
 				// token截取
 				var token string
 				_, err := fmt.Sscanf(authorization, "Bearer %s", &token)
 				if err != nil {
-					return nil, errorx.TokenFormatErr
+					return nil, errorx.TokenFormatErr.Err()
 				}
 				tokenClaims, err := authClient.SysAuthJwtTokenCheck(ctx, &sysV1.SysAuthJwtTokenCheckReq{Token: token})
 				if err != nil {

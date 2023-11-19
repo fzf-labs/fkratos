@@ -20,20 +20,20 @@ func (u *UserUseCase) UserList(ctx context.Context, req *pb.UserListReq) (*pb.Us
 	paginatorReq := &orm.PaginatorReq{}
 	err := dto.Copy(paginatorReq, req.GetPaginator())
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	result, p, err := u.userRepo.FindMultiByPaginator(ctx, paginatorReq)
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	if len(result) > 0 {
 		err = dto.Copy(&resp.List, &result)
 		if err != nil {
-			return nil, errorx.DataFormattingError.WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataFormattingError.WithError(err).Err()
 		}
 		err = dto.Copy(&resp.Paginator, p)
 		if err != nil {
-			return nil, errorx.DataFormattingError.WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataFormattingError.WithError(err).Err()
 		}
 	}
 	return resp, nil

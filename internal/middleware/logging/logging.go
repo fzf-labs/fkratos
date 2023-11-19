@@ -110,7 +110,7 @@ func extractReply(reply interface{}) string {
 }
 
 // extractError returns the string of the error
-func extractError(err error) (log.Level, string) {
+func extractError(err error) (level log.Level, str string) {
 	if err != nil {
 		return log.LevelError, fmt.Sprintf("%+v", err)
 	}

@@ -24,15 +24,15 @@ func (d *DeviceUseCase) DeviceList(ctx context.Context, req *pb.DeviceListReq) (
 	}
 	result, p, err := d.deviceRepo.FindMultiByPaginator(ctx, paginatorReq)
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	err = dto.Copy(&resp.List, result)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	err = dto.Copy(&resp.Paginator, p)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	return resp, nil
 }

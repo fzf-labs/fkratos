@@ -72,7 +72,7 @@ func (s *SysLogRepo) SysLogStore(ctx context.Context, req *pb.SysLogStoreReq) (*
 	}
 	err = sysLogDao.WithContext(ctx).Create(model)
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	return model, nil
 }
@@ -81,12 +81,12 @@ func (s *SysLogRepo) SysLogListBySearch(ctx context.Context, req *paginator.Pagi
 	sysLogDao := fkratos_sys_dao.Use(s.data.gorm).SysLog
 	count, err := sysLogDao.WithContext(ctx).Count()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	p := page.Paginator(int(req.Page), int(req.PageSize), int(count))
 	sysLogs, err := sysLogDao.WithContext(ctx).Offset(p.Offset).Limit(p.Limit).Find()
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	return sysLogs, p, nil
 }

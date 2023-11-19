@@ -21,7 +21,7 @@ func (s *SysUseCase) SysManageList(ctx context.Context, req *pb.SysManageListReq
 	}
 	err = copier.Copy(resp, result)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	return resp, nil
 }

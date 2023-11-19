@@ -36,7 +36,7 @@ func (s *SysAPIRepo) SysAPIStore(ctx context.Context, model *fkratos_sys_model.S
 	sysAPIDao := fkratos_sys_dao.Use(s.data.gorm).SysAPI
 	err := sysAPIDao.WithContext(ctx).Create(model)
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	return nil, err
 }
@@ -46,7 +46,7 @@ func (s *SysAPIRepo) GetAPIIdToNameByIds(ctx context.Context, ids []string) (map
 	sysAPIDao := fkratos_sys_dao.Use(s.data.gorm).SysAPI
 	sysAPIS, err := sysAPIDao.WithContext(ctx).Where(sysAPIDao.ID.In(ids...)).Find()
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	for _, v := range sysAPIS {
 		resp[v.ID] = v.Desc

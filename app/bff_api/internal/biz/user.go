@@ -1,22 +1,23 @@
 package biz
 
-import "github.com/go-kratos/kratos/v2/log"
+import (
+	userV1 "fkratos/api/rpc_user/v1"
 
-type UserRepo interface {
-}
+	"github.com/go-kratos/kratos/v2/log"
+)
 
 func NewUserUseCase(
 	logger log.Logger,
-	userRepo UserRepo,
+	userClient userV1.UserClient,
 ) *UserUseCase {
 	l := log.NewHelper(log.With(logger, "module", "biz/user"))
 	return &UserUseCase{
-		log:      l,
-		userRepo: userRepo,
+		log:        l,
+		userClient: userClient,
 	}
 }
 
 type UserUseCase struct {
-	log      *log.Helper
-	userRepo UserRepo
+	log        *log.Helper
+	userClient userV1.UserClient
 }

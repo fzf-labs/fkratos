@@ -17,7 +17,7 @@ func Validator() middleware.Middleware {
 		return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
 			if v, ok := req.(validator); ok {
 				if err := v.Validate(); err != nil {
-					return nil, errorx.ParamErr.WithMetadata(errorx.SetErrMetadata(err)).WithCause(err)
+					return nil, errorx.ParamErr.WithError(err).Err()
 				}
 			}
 			return handler(ctx, req)

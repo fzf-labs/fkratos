@@ -15,11 +15,11 @@ func (s *UserRuleUseCase) UserRuleInfo(ctx context.Context, req *pb.UserRuleInfo
 	}
 	result, err := s.userRuleRepo.FindOneCacheByID(ctx, req.GetId())
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	err = dto.Copy(&resp.Info, result)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	return resp, nil
 }

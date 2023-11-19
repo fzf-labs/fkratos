@@ -17,7 +17,7 @@ func (s *SysAuthUseCase) SysAuthLogin(ctx context.Context, req *pb.SysAuthLoginR
 	// 验证码
 	verify := base64Captcha.DefaultMemStore.Verify(req.CaptchaId, req.VerifyCode, true)
 	if !verify {
-		return nil, errorx.AccountVerificationCodeErr
+		return nil, errorx.AccountVerificationCodeErr.Err()
 	}
 	// 用户校验
 	sysAdmin, err := s.sysAdminRepo.FindOneCacheByUsername(ctx, req.GetUsername())
@@ -25,13 +25,13 @@ func (s *SysAuthUseCase) SysAuthLogin(ctx context.Context, req *pb.SysAuthLoginR
 		return nil, err
 	}
 	if sysAdmin == nil {
-		return nil, errorx.AccountNotExist
+		return nil, errorx.AccountNotExist.Err()
 	}
 	if crypt.Compare(sysAdmin.Password, req.Password+sysAdmin.Salt) != nil {
-		return nil, errorx.AccountWrongPassword
+		return nil, errorx.AccountWrongPassword.Err()
 	}
 	if sysAdmin.Status != constant.StatusEnable {
-		return nil, errorx.AccountAbnormalStatus
+		return nil, errorx.AccountAbnormalStatus.Err()
 	}
 	// 颁发token
 	kv := make(map[string]interface{})

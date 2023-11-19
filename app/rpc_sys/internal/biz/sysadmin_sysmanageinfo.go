@@ -36,7 +36,6 @@ func (s *SysAdminUseCase) SysManageInfo(ctx context.Context, req *pb.SysManageIn
 			if err2 != nil {
 				return nil, err2
 			}
-
 		}
 		if sysAdmin.DeptID != "" {
 			deptIDToNameByIds, err2 = s.sysDeptRepo.GetDeptIDToNameByIds(ctx, []string{sysAdmin.DeptID})

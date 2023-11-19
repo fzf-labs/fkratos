@@ -22,7 +22,7 @@ func (s *SysUseCase) SysPermissionStatus(ctx context.Context, req *pb.SysPermiss
 	}
 	err = copier.Copy(resp, result)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	return resp, nil
 }

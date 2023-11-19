@@ -15,7 +15,7 @@ func (s *SensitiveWordUseCase) SensitiveWordStore(ctx context.Context, req *pb.S
 	resp := &pb.SensitiveWordStoreReply{}
 	labs, err := jsonutil.Marshal(req.GetLabs())
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	_, err = s.sensitiveWordRepo.SensitiveWordStore(ctx, &fkratos_common_model.SensitiveWord{
 		ID:   req.GetId(),

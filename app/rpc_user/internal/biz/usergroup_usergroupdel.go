@@ -12,7 +12,7 @@ func (u *UserGroupUseCase) UserGroupDel(ctx context.Context, req *pb.UserGroupDe
 	var resp = &pb.UserGroupDelReply{}
 	err := u.userGroupRepo.DeleteMultiByIDS(ctx, req.GetIds())
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	return resp, nil
 }

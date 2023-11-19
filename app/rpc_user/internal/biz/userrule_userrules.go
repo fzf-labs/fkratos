@@ -17,10 +17,10 @@ func (s *UserRuleUseCase) UserRules(ctx context.Context, req *pb.UserRulesReq) (
 	}
 	user, err := s.userRepo.FindOneCacheByUID(ctx, req.GetUid())
 	if err != nil {
-		return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataSQLErr.WithError(err).Err()
 	}
 	if user == nil {
-		return nil, errorx.AccountError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.AccountError.WithError(err).Err()
 	}
 	if user.UserGroupID == "" {
 		return resp, nil

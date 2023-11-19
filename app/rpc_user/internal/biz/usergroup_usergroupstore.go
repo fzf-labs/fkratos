@@ -25,7 +25,7 @@ func (u *UserGroupUseCase) UserGroupStore(ctx context.Context, req *pb.UserGroup
 	}
 	err = u.userGroupRepo.UpsertOne(ctx, userGroup)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	resp.Id = userGroup.ID
 	return resp, nil

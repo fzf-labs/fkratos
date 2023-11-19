@@ -42,7 +42,7 @@ func (u *UserUseCase) UserStore(ctx context.Context, req *pb.UserStoreReq) (*pb.
 		}
 		err := u.userRepo.UpdateOne(ctx, user)
 		if err != nil {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 		return &pb.UserStoreReply{
 			Id: user.ID,
@@ -53,7 +53,7 @@ func (u *UserUseCase) UserStore(ctx context.Context, req *pb.UserStoreReq) (*pb.
 			return nil, err
 		}
 		if findOneCacheByUsername != nil {
-			return nil, errorx.AccountDuplicateUsername
+			return nil, errorx.AccountDuplicateUsername.Err()
 		}
 		salt := uuidutil.KSUID()
 		user := &fkratos_user_model.User{
@@ -79,7 +79,7 @@ func (u *UserUseCase) UserStore(ctx context.Context, req *pb.UserStoreReq) (*pb.
 		user.Password = encrypt
 		err = u.userRepo.CreateOne(ctx, user)
 		if err != nil {
-			return nil, errorx.DataSQLErr.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+			return nil, errorx.DataSQLErr.WithError(err).Err()
 		}
 		return &pb.UserStoreReply{
 			Id: user.ID,

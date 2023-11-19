@@ -33,7 +33,7 @@ func (s *SysUseCase) SysManageStore(ctx context.Context, req *pb.SysManageStoreR
 	}
 	err = copier.Copy(resp, result)
 	if err != nil {
-		return nil, errorx.DataFormattingError.WithCause(err).WithMetadata(errorx.SetErrMetadata(err))
+		return nil, errorx.DataFormattingError.WithError(err).Err()
 	}
 	return resp, nil
 }
