@@ -70,7 +70,11 @@ func (e *ErrorManager) New(code int, reason, message string) *Error {
 func (e *Error) WithFmtMsg(msg ...string) *Error {
 	err := (*errors.Error)(e)
 	metadata := err.Metadata
+	if metadata == nil {
+		metadata = make(map[string]string)
+	}
 	metadata["fmt"] = strings.Join(msg, ",")
+	err = errors.Clone(err).WithMetadata(metadata)
 	return (*Error)(err)
 }
 
