@@ -6,6 +6,7 @@ import (
 	"fkratos/internal/middleware/ctx"
 	"fkratos/internal/middleware/logging"
 	"fkratos/internal/middleware/validate"
+	"fkratos/internal/pkg/errx"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware"
@@ -47,7 +48,7 @@ func NewHTTPServer(cfg *conf.Bootstrap, logger log.Logger, m ...middleware.Middl
 	if cfg.Server.Http.Timeout != nil {
 		opts = append(opts, http.Timeout(cfg.Server.Http.Timeout.AsDuration()))
 	}
-	opts = append(opts, http.ErrorEncoder(errorx.HTTPErrorEncoder(errorx.Manager)))
+	opts = append(opts, http.ErrorEncoder(errx.HTTPErrorEncoder(errorx.Manager)))
 	srv := http.NewServer(opts...)
 	srv.Handle("/metrics", promhttp.Handler())
 	return srv

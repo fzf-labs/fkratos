@@ -1,10 +1,11 @@
 package errorx
 
 import (
+	"fkratos/internal/pkg/errx"
 	"net/http"
 )
 
-var Manager = NewErrorManager(WithI18n(EnUS, EnUSMap))
+var Manager = errx.NewErrorManager(errx.WithI18n(errx.EnUS, EnUSMap))
 
 var (
 	InternalServerError = Manager.New(http.StatusInternalServerError, "InternalServerError", "服务崩溃了,请稍后再试")

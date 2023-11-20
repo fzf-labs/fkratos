@@ -1,4 +1,4 @@
-package errorx
+package errx
 
 import (
 	"fmt"
@@ -12,7 +12,6 @@ import (
 
 	"github.com/fzf-labs/fpkg/util/fileutil"
 	"github.com/go-kratos/kratos/v2/errors"
-
 	http2 "github.com/go-kratos/kratos/v2/transport/http"
 )
 
@@ -131,7 +130,7 @@ func HTTPErrorEncoder(m *ErrorManager) func(http.ResponseWriter, *http.Request, 
 		se := errors.FromError(err)
 		if se != nil {
 			if se.Code == http.StatusInternalServerError && se.Reason == "" {
-				se = (*errors.Error)(InternalServerError).WithCause(err).WithMetadata(setErrMetadata(err))
+				se = errors.New(http.StatusInternalServerError, "InternalServerError", "internal server error").WithCause(err).WithMetadata(setErrMetadata(err))
 			}
 			message := GetMessage(m, se, r.Header.Get(HeaderLang))
 			if message != "" {
