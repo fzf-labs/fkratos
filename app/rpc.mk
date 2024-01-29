@@ -45,7 +45,7 @@ errcode:
 .PHONY: wire
 # 生成 wire 依赖注入代码
 wire:
-	@go run -mod=mod github.com/google/wire/cmd/wire ./cmd/${APP_NAME}
+	@go run -mod=mod github.com/google/wire/cmd/wire ./cmd/server
 
 .PHONY: proto
 # 新增 protobuf 文件 make proto PROTO_NAME=demo

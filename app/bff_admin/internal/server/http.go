@@ -5,8 +5,10 @@ import (
 	sysV1 "fkratos/api/rpc_sys/v1"
 	"fkratos/app/bff_admin/internal/middleware/auth"
 	"fkratos/app/bff_admin/internal/service"
-	"fkratos/internal/bootstrap"
-	"fkratos/internal/bootstrap/conf"
+
+	conf "github.com/fzf-labs/fkratos-contrib/api/conf/v1"
+
+	"github.com/fzf-labs/fkratos-contrib/bootstrap"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/transport/http"

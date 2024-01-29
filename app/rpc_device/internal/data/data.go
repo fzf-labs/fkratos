@@ -2,9 +2,11 @@ package data
 
 import (
 	"fkratos/app/rpc_device/internal/data/gorm/fkratos_device_repo"
-	"fkratos/internal/bootstrap"
-	"fkratos/internal/bootstrap/conf"
 	"fmt"
+
+	conf "github.com/fzf-labs/fkratos-contrib/api/conf/v1"
+	fcache "github.com/fzf-labs/fkratos-contrib/cache"
+	"github.com/fzf-labs/fkratos-contrib/db"
 
 	"github.com/fzf-labs/fpkg/orm/gen/cache"
 	"github.com/fzf-labs/fpkg/orm/gen/cache/rueidisdbcache"
@@ -16,8 +18,8 @@ import (
 
 // ProviderSet is data providers.
 var ProviderSet = wire.NewSet(
-	bootstrap.NewGorm,
-	bootstrap.NewRueidis,
+	db.NewGorm,
+	fcache.NewRueidis,
 	NewData,
 	NewDBCache,
 	NewDeviceRepo,

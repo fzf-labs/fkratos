@@ -33,7 +33,7 @@ conf:
 .PHONY: wire
 # 生成 wire 依赖注入代码
 wire:
-	@go run -mod=mod github.com/google/wire/cmd/wire ./cmd/${APP_NAME}
+	@go run -mod=mod github.com/google/wire/cmd/wire ./cmd/server
 
 .PHONY: api
 # protobuf 生成 Go 代码

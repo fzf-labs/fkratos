@@ -3,8 +3,10 @@ package server
 import (
 	bffAPIV1 "fkratos/api/bff_api/v1"
 	"fkratos/app/bff_api/internal/service"
-	"fkratos/internal/bootstrap"
-	"fkratos/internal/bootstrap/conf"
+
+	conf "github.com/fzf-labs/fkratos-contrib/api/conf/v1"
+
+	"github.com/fzf-labs/fkratos-contrib/bootstrap"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/transport/http"

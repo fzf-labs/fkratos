@@ -1,8 +1,9 @@
 package errorx
 
 import (
-	"fkratos/internal/pkg/errx"
 	"net/http"
+
+	"github.com/fzf-labs/fkratos-contrib/errx"
 )
 
 var Manager = errx.NewErrorManager(errx.WithI18n(errx.EnUS, EnUSMap))

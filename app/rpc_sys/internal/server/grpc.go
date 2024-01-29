@@ -3,8 +3,10 @@ package server
 import (
 	pb "fkratos/api/rpc_sys/v1"
 	"fkratos/app/rpc_sys/internal/service"
-	"fkratos/internal/bootstrap"
-	"fkratos/internal/bootstrap/conf"
+
+	conf "github.com/fzf-labs/fkratos-contrib/api/conf/v1"
+
+	"github.com/fzf-labs/fkratos-contrib/bootstrap"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/transport/grpc"

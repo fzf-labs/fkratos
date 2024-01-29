@@ -1,9 +1,10 @@
 package data
 
 import (
-	"fkratos/app/bff_api/internal/data/rpc"
-	"fkratos/internal/bootstrap/conf"
+	"fkratos/internal/rpc"
 	"fmt"
+
+	conf "github.com/fzf-labs/fkratos-contrib/api/conf/v1"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"

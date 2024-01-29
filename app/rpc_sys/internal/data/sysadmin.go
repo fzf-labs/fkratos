@@ -8,8 +8,9 @@ import (
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_dao"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_model"
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
-	"fkratos/internal/bootstrap/conf"
 	"fkratos/internal/errorx"
+
+	conf "github.com/fzf-labs/fkratos-contrib/api/conf/v1"
 
 	"github.com/fzf-labs/fpkg/conv"
 	"github.com/fzf-labs/fpkg/crypt"
