@@ -13,8 +13,7 @@ import (
 	"fkratos/app/rpc_user/internal/server"
 	"fkratos/app/rpc_user/internal/service"
 	"github.com/fzf-labs/fkratos-contrib/api/conf/v1"
-	"github.com/fzf-labs/fkratos-contrib/cache"
-	"github.com/fzf-labs/fkratos-contrib/db"
+	"github.com/fzf-labs/fkratos-contrib/bootstrap"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
@@ -27,27 +26,27 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(bootstrap *v1.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
-	gormDB := db.NewGorm(bootstrap, logger)
-	client := cache.NewRueidis(bootstrap, logger)
+func wireApp(v1Bootstrap *v1.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
+	db := bootstrap.NewGorm(v1Bootstrap, logger)
+	client := bootstrap.NewRueidis(v1Bootstrap, logger)
 	idbCache := data.NewDBCache(client)
-	dataData, cleanup, err := data.NewData(bootstrap, logger, gormDB, client, idbCache)
+	dataData, cleanup, err := data.NewData(v1Bootstrap, logger, db, client, idbCache)
 	if err != nil {
 		return nil, nil, err
 	}
-	userRepo := fkratos_user_repo.NewUserRepo(gormDB, idbCache)
+	userRepo := fkratos_user_repo.NewUserRepo(db, idbCache)
 	bizUserRepo := data.NewUserRepo(logger, dataData, userRepo)
 	userUseCase := biz.NewUserUseCase(logger, bizUserRepo)
 	userService := service.NewUserService(logger, userUseCase)
-	userRuleRepo := fkratos_user_repo.NewUserRuleRepo(gormDB, idbCache)
+	userRuleRepo := fkratos_user_repo.NewUserRuleRepo(db, idbCache)
 	bizUserRuleRepo := data.NewUserRuleRepo(logger, dataData, userRuleRepo)
-	userGroupRepo := fkratos_user_repo.NewUserGroupRepo(gormDB, idbCache)
+	userGroupRepo := fkratos_user_repo.NewUserGroupRepo(db, idbCache)
 	bizUserGroupRepo := data.NewUserGroupRepo(logger, dataData, userGroupRepo)
 	userRuleUseCase := biz.NewUserRuleUseCase(logger, bizUserRuleRepo, bizUserRepo, bizUserGroupRepo)
 	userRuleService := service.NewUserRuleService(logger, userRuleUseCase)
 	userGroupUseCase := biz.NewUserGroupUseCase(logger, bizUserGroupRepo)
 	userGroupService := service.NewUserGroupService(logger, userGroupUseCase)
-	grpcServer := server.NewGRPCServer(bootstrap, logger, userService, userRuleService, userGroupService)
+	grpcServer := server.NewGRPCServer(v1Bootstrap, logger, userService, userRuleService, userGroupService)
 	app := newApp(logger, registrar, grpcServer)
 	return app, func() {
 		cleanup()

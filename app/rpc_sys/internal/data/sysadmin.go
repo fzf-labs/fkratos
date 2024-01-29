@@ -48,6 +48,15 @@ type SysAdminRepo struct {
 	*fkratos_sys_repo.SysAdminRepo
 }
 
+func (s *SysAdminRepo) GetJwtConfig() *jwt.Config {
+	return &jwt.Config{
+		AccessSecret: s.config.Business.Jwt.AccessSecret,
+		AccessExpire: int64(s.config.Business.Jwt.AccessExpire),
+		RefreshAfter: int64(s.config.Business.Jwt.RefreshAfter),
+		Issuer:       s.config.Business.Jwt.Issuer,
+	}
+}
+
 func (s *SysAdminRepo) GetAdminIDToNameByIds(ctx context.Context, ids []string) (map[string]string, error) {
 	res := make(map[string]string)
 	sysAdminDao := fkratos_sys_dao.Use(s.data.gorm).SysAdmin
@@ -142,12 +151,7 @@ func (s *SysAdminRepo) SysManageStore(ctx context.Context, req *pb.SysManageStor
 
 // ClearJwTToken 清除jwtToken
 func (s *SysAdminRepo) ClearJwTToken(_ context.Context, jwtUID string) error {
-	jwtClient := jwt.NewJwt(&jwt.Config{
-		AccessSecret: s.config.Business.Jwt.AccessSecret,
-		AccessExpire: s.config.Business.Jwt.AccessExpire,
-		RefreshAfter: s.config.Business.Jwt.RefreshAfter,
-		Issuer:       s.config.Business.Jwt.Issuer,
-	}, s.jwtCache)
+	jwtClient := jwt.NewJwt(s.GetJwtConfig(), s.jwtCache)
 	err := jwtClient.JwtTokenClear(jwtUID)
 	if err != nil {
 		return err
@@ -157,12 +161,7 @@ func (s *SysAdminRepo) ClearJwTToken(_ context.Context, jwtUID string) error {
 
 // GenerateJwTToken 生成jwtToken
 func (s *SysAdminRepo) GenerateJwTToken(_ context.Context, kv map[string]interface{}) (*jwt.Token, error) {
-	jwtClient := jwt.NewJwt(&jwt.Config{
-		AccessSecret: s.config.Business.Jwt.AccessSecret,
-		AccessExpire: s.config.Business.Jwt.AccessExpire,
-		RefreshAfter: s.config.Business.Jwt.RefreshAfter,
-		Issuer:       s.config.Business.Jwt.Issuer,
-	}, s.jwtCache)
+	jwtClient := jwt.NewJwt(s.GetJwtConfig(), s.jwtCache)
 	token, claims, err := jwtClient.GenerateToken(kv)
 	if err != nil {
 		return nil, errorx.TokenGenerationFailed.WithError(err).Err()
@@ -176,12 +175,7 @@ func (s *SysAdminRepo) GenerateJwTToken(_ context.Context, kv map[string]interfa
 
 func (s *SysAdminRepo) SysAuthJwtTokenCheck(_ context.Context, token string) (string, error) {
 	///token 解析
-	jwtClient := jwt.NewJwt(&jwt.Config{
-		AccessSecret: s.config.Business.Jwt.AccessSecret,
-		AccessExpire: s.config.Business.Jwt.AccessExpire,
-		RefreshAfter: s.config.Business.Jwt.RefreshAfter,
-		Issuer:       s.config.Business.Jwt.Issuer,
-	}, s.jwtCache)
+	jwtClient := jwt.NewJwt(s.GetJwtConfig(), s.jwtCache)
 	claims, err := jwtClient.ParseToken(token)
 	if err != nil {
 		if errors.Is(err, jwt.TokenExpired) {

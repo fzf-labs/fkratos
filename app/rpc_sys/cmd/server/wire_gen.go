@@ -12,7 +12,7 @@ import (
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
 	"fkratos/app/rpc_sys/internal/server"
 	"fkratos/app/rpc_sys/internal/service"
-	conf "github.com/fzf-labs/fkratos-contrib/api/conf/v1"
+	"github.com/fzf-labs/fkratos-contrib/api/conf/v1"
 	"github.com/fzf-labs/fkratos-contrib/bootstrap"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
@@ -26,17 +26,17 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
-	db := bootstrap.NewGorm(confBootstrap, logger)
-	client := bootstrap.NewRueidis(confBootstrap, logger)
+func wireApp(v1Bootstrap *v1.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
+	db := bootstrap.NewGorm(v1Bootstrap, logger)
+	client := bootstrap.NewRueidis(v1Bootstrap, logger)
 	idbCache := data.NewDBCache(client)
-	asynqClient := bootstrap.NewAysnqClient(confBootstrap)
-	dataData, cleanup, err := data.NewData(confBootstrap, logger, db, idbCache, client, asynqClient)
+	asynqClient := bootstrap.NewAysnqClient(v1Bootstrap)
+	dataData, cleanup, err := data.NewData(v1Bootstrap, logger, db, idbCache, client, asynqClient)
 	if err != nil {
 		return nil, nil, err
 	}
 	sysAdminRepo := fkratos_sys_repo.NewSysAdminRepo(db, idbCache)
-	bizSysAdminRepo := data.NewSysAdminRepo(logger, dataData, confBootstrap, sysAdminRepo)
+	bizSysAdminRepo := data.NewSysAdminRepo(logger, dataData, v1Bootstrap, sysAdminRepo)
 	sysAuthUseCase := biz.NewSysAuthUseCase(logger, bizSysAdminRepo)
 	sysAuthService := service.NewSysAuthService(logger, sysAuthUseCase)
 	sysRoleRepo := fkratos_sys_repo.NewSysRoleRepo(db, idbCache)
@@ -67,7 +67,7 @@ func wireApp(confBootstrap *conf.Bootstrap, logger log.Logger, registrar registr
 	sysLogService := service.NewSysLogService(logger, sysLogUseCase)
 	dashboardUseCase := biz.NewDashboardUseCase(logger)
 	dashboardService := service.NewDashboardService(logger, dashboardUseCase)
-	grpcServer := server.NewGRPCServer(confBootstrap, logger, sysAuthService, sysAdminService, sysRoleService, sysPermissionService, sysJobService, sysDeptService, sysAPIService, sysLogService, dashboardService)
+	grpcServer := server.NewGRPCServer(v1Bootstrap, logger, sysAuthService, sysAdminService, sysRoleService, sysPermissionService, sysJobService, sysDeptService, sysAPIService, sysLogService, dashboardService)
 	app := newApp(logger, registrar, grpcServer)
 	return app, func() {
 		cleanup()

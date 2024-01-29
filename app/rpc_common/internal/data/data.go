@@ -5,8 +5,7 @@ import (
 	"fmt"
 
 	conf "github.com/fzf-labs/fkratos-contrib/api/conf/v1"
-	fcache "github.com/fzf-labs/fkratos-contrib/cache"
-	"github.com/fzf-labs/fkratos-contrib/db"
+	"github.com/fzf-labs/fkratos-contrib/bootstrap"
 
 	"github.com/fzf-labs/fpkg/orm/gen/cache"
 	"github.com/fzf-labs/fpkg/orm/gen/cache/rueidisdbcache"
@@ -18,8 +17,8 @@ import (
 
 // ProviderSet is data providers.
 var ProviderSet = wire.NewSet(
-	db.NewGorm,
-	fcache.NewRueidis,
+	bootstrap.NewGorm,
+	bootstrap.NewRueidis,
 	NewData,
 	NewDBCache,
 	NewSensitiveWordRepo,

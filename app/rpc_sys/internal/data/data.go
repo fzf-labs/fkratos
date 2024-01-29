@@ -2,13 +2,11 @@ package data
 
 import (
 	"fkratos/app/rpc_sys/internal/data/gorm/fkratos_sys_repo"
-	"fkratos/pkg/asynq"
 	"fmt"
 
 	conf "github.com/fzf-labs/fkratos-contrib/api/conf/v1"
-	fcache "github.com/fzf-labs/fkratos-contrib/cache"
-	"github.com/fzf-labs/fkratos-contrib/db"
-
+	"github.com/fzf-labs/fkratos-contrib/bootstrap"
+	"github.com/fzf-labs/fkratos-contrib/mq/asynq"
 	"github.com/fzf-labs/fpkg/orm/gen/cache"
 	"github.com/fzf-labs/fpkg/orm/gen/cache/rueidisdbcache"
 	"github.com/go-kratos/kratos/v2/log"
@@ -19,8 +17,9 @@ import (
 
 // ProviderSet is data providers.
 var ProviderSet = wire.NewSet(
-	db.NewGorm,
-	fcache.NewRueidis,
+	bootstrap.NewGorm,
+	bootstrap.NewRueidis,
+	bootstrap.NewAysnqClient,
 	NewData,
 	NewDBCache,
 	fkratos_sys_repo.NewSysAdminRepo,

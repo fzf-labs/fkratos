@@ -8,10 +8,10 @@ package main
 
 import (
 	"fkratos/app/bff_api/internal/biz"
-	"fkratos/app/bff_api/internal/data/rpc"
 	"fkratos/app/bff_api/internal/server"
 	"fkratos/app/bff_api/internal/service"
-	conf "github.com/fzf-labs/fkratos-contrib/api/conf/v1"
+	"fkratos/internal/rpc"
+	"github.com/fzf-labs/fkratos-contrib/api/conf/v1"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
@@ -24,8 +24,8 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(bootstrap *conf.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
-	userGrpc := rpc.NewRPCUserGrpc(bootstrap, discovery)
+func wireApp(bootstrap *v1.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
+	userGrpc := rpc.NewRPCUserGrpc(bootstrap, logger, discovery)
 	userClient := rpc.NewUserServiceClient(userGrpc)
 	userUseCase := biz.NewUserUseCase(logger, userClient)
 	userService := service.NewUserService(logger, userUseCase)

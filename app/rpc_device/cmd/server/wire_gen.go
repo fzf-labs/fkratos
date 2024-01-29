@@ -13,8 +13,7 @@ import (
 	"fkratos/app/rpc_device/internal/server"
 	"fkratos/app/rpc_device/internal/service"
 	"github.com/fzf-labs/fkratos-contrib/api/conf/v1"
-	"github.com/fzf-labs/fkratos-contrib/cache"
-	"github.com/fzf-labs/fkratos-contrib/db"
+	"github.com/fzf-labs/fkratos-contrib/bootstrap"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
@@ -27,19 +26,19 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(bootstrap *v1.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
-	gormDB := db.NewGorm(bootstrap, logger)
-	client := cache.NewRueidis(bootstrap, logger)
-	dataData, cleanup, err := data.NewData(bootstrap, logger, gormDB, client)
+func wireApp(v1Bootstrap *v1.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
+	db := bootstrap.NewGorm(v1Bootstrap, logger)
+	client := bootstrap.NewRueidis(v1Bootstrap, logger)
+	dataData, cleanup, err := data.NewData(v1Bootstrap, logger, db, client)
 	if err != nil {
 		return nil, nil, err
 	}
 	idbCache := data.NewDBCache(client)
-	deviceRepo := fkratos_device_repo.NewDeviceRepo(gormDB, idbCache)
+	deviceRepo := fkratos_device_repo.NewDeviceRepo(db, idbCache)
 	bizDeviceRepo := data.NewDeviceRepo(logger, dataData, deviceRepo)
 	deviceUseCase := biz.NewDeviceUseCase(logger, bizDeviceRepo)
 	deviceService := service.NewDeviceService(logger, deviceUseCase)
-	grpcServer := server.NewGRPCServer(bootstrap, logger, deviceService)
+	grpcServer := server.NewGRPCServer(v1Bootstrap, logger, deviceService)
 	app := newApp(logger, registrar, grpcServer)
 	return app, func() {
 		cleanup()

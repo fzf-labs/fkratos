@@ -6,7 +6,7 @@ require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.31.0-20231115204500-e097f827e652.2
 	github.com/emicklei/proto v1.12.1
 	github.com/envoyproxy/protoc-gen-validate v1.0.2
-	github.com/fzf-labs/fkratos-contrib v1.0.3
+	github.com/fzf-labs/fkratos-contrib v1.0.4
 	github.com/fzf-labs/fpkg v1.8.7
 	github.com/go-kratos/kratos/v2 v2.7.2
 	github.com/google/wire v0.5.0

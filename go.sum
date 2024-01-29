@@ -223,6 +223,8 @@ github.com/fzf-labs/fkratos-contrib v1.0.2 h1:qe7/QYSqg55EKbRRi2PzFEFN7nvm33ute9
 github.com/fzf-labs/fkratos-contrib v1.0.2/go.mod h1:51+q6Pd+2JGtHMnytjT1pSDFgaYWwaUtSTabb6s/X4M=
 github.com/fzf-labs/fkratos-contrib v1.0.3 h1:DPPq4P372c6cK7X/LgnTOTkkiz6sk6zFsq667jaT++Y=
 github.com/fzf-labs/fkratos-contrib v1.0.3/go.mod h1:GhOELv/YPK9LxcG5H8PoXSkXYHy5OBYpC2VdqoilI4g=
+github.com/fzf-labs/fkratos-contrib v1.0.4 h1:mriXyFFJqIOMTVEncLKocj936z0BbVp0d6aYPvZHG9s=
+github.com/fzf-labs/fkratos-contrib v1.0.4/go.mod h1:GhOELv/YPK9LxcG5H8PoXSkXYHy5OBYpC2VdqoilI4g=
 github.com/fzf-labs/fpkg v1.8.7 h1:9kaDyo5Jki6rjhvCsRJsiGNrYyNvX8orxFmRmrVtMus=
 github.com/fzf-labs/fpkg v1.8.7/go.mod h1:4fvc9kD2i/JecXWfGMstie7RdgUy2RCARmSYhYsntok=
 github.com/gabriel-vasile/mimetype v1.4.2 h1:w5qFW6JKBz9Y393Y4q372O9A7cUSequkh1Q7OhCmWKU=

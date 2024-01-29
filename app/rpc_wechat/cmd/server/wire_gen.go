@@ -12,8 +12,7 @@ import (
 	"fkratos/app/rpc_wechat/internal/server"
 	"fkratos/app/rpc_wechat/internal/service"
 	"github.com/fzf-labs/fkratos-contrib/api/conf/v1"
-	"github.com/fzf-labs/fkratos-contrib/cache"
-	"github.com/fzf-labs/fkratos-contrib/db"
+	"github.com/fzf-labs/fkratos-contrib/bootstrap"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
@@ -26,11 +25,11 @@ import (
 // Injectors from wire.go:
 
 // wireApp init kratos application.
-func wireApp(bootstrap *v1.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
-	gormDB := db.NewGorm(bootstrap, logger)
-	client := cache.NewRueidis(bootstrap, logger)
+func wireApp(v1Bootstrap *v1.Bootstrap, logger log.Logger, registrar registry.Registrar, discovery registry.Discovery) (*kratos.App, func(), error) {
+	db := bootstrap.NewGorm(v1Bootstrap, logger)
+	client := bootstrap.NewRueidis(v1Bootstrap, logger)
 	idbCache := data.NewDBCache(client)
-	dataData, cleanup, err := data.NewData(bootstrap, logger, gormDB, client, idbCache)
+	dataData, cleanup, err := data.NewData(v1Bootstrap, logger, db, client, idbCache)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -40,7 +39,7 @@ func wireApp(bootstrap *v1.Bootstrap, logger log.Logger, registrar registry.Regi
 	miniProgramRepo := data.NewMiniProgramRepo(logger, dataData)
 	miniProgramUseCase := biz.NewMiniProgramUseCase(logger, miniProgramRepo)
 	miniProgramService := service.NewMiniProgramService(logger, miniProgramUseCase)
-	grpcServer := server.NewGRPCServer(bootstrap, logger, officialAccountService, miniProgramService)
+	grpcServer := server.NewGRPCServer(v1Bootstrap, logger, officialAccountService, miniProgramService)
 	app := newApp(logger, registrar, grpcServer)
 	return app, func() {
 		cleanup()
